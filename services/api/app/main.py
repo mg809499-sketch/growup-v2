@@ -14,6 +14,7 @@ from app.core.errors import AppError, app_error_handler
 from app.domains.catalog.router import admin_router as catalog_admin_router
 from app.domains.catalog.router import storefront_router as catalog_storefront_router
 from app.domains.identity.router import router as identity_router
+from app.domains.tenants.platform_router import platform_router
 from app.domains.tenants.router import router as storefront_router
 from app.runtime import database
 from app.schemas.ops import HealthResponse, ReadyResponse
@@ -59,6 +60,7 @@ app.include_router(storefront_router)
 app.include_router(identity_router)
 app.include_router(catalog_admin_router)
 app.include_router(catalog_storefront_router)
+app.include_router(platform_router)
 
 
 @app.middleware("http")

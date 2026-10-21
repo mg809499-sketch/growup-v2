@@ -43,12 +43,14 @@ growup/
 - [x] ADRs técnicos 0001-0008
 - [x] Specs en `.kiro/specs/storefront-platform-v2/`
 - [x] Núcleo de seguridad: errores, host, JWT/JWKS, algoritmo asimétrico
-- [x] Migración base de tenancy, RLS forzado y 16 tests pgTAP
+- [x] Migración base de tenancy, RLS forzado y 17 tests pgTAP
 - [x] Pool asyncpg con `SET LOCAL ROLE app_rw` + `SET LOCAL app.tenant_id` y `/readyz`
 - [x] Pipeline OpenAPI → TypeScript (`packages/contracts`)
 - [x] `/v1/storefront/bootstrap` con resolución host→tenant, settings y caché local
 - [x] Auth de staff: JWKS, memberships, roles/permisos y `/v1/admin/me`
 - [x] Catálogo: migración, API admin/storefront, FTS, inventario inicial y 14 tests pgTAP
+- [x] Gobernanza: `decide()` con políticas versionadas, `decision_logs` append-only con cadena por tenant/plataforma y verificación de integridad
+- [x] Onboarding: `POST /v1/platform/tenants` atómico con `create_tenant_with_owner` + auditoría
 - [ ] Wave 0 / Wave 1: frontend, media upload y contenido
 
 ## Inicio rápido — API

@@ -5,8 +5,11 @@ from app.core.db import Database
 from app.core.security.jwt import JWTVerifier
 from app.domains.catalog.repository import PostgresCatalogRepository
 from app.domains.catalog.service import CatalogService
+from app.domains.governance.repository import PostgresDecisionLogRepository
+from app.domains.governance.service import GovernanceService
 from app.domains.identity.repository import PostgresMembershipRepository
 from app.domains.identity.service import AuthService
+from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.repository import PostgresTenantRepository
 from app.domains.tenants.service import InMemoryTenantCache, TenantResolver
 
@@ -20,10 +23,14 @@ database: Database | None = (
     else None
 )
 
+tenant_repository: PostgresTenantRepository | None = (
+    PostgresTenantRepository(database) if database is not None else None
+)
+
 tenant_resolver: TenantResolver | None
-if database is not None:
+if tenant_repository is not None:
     tenant_resolver = TenantResolver(
-        PostgresTenantRepository(database),
+        tenant_repository,
         InMemoryTenantCache(),
         ttl_seconds=settings.tenant_cache_ttl_seconds,
     )
@@ -57,3 +64,19 @@ catalog_repository: PostgresCatalogRepository | None = (
 catalog_service: CatalogService | None = (
     CatalogService(catalog_repository) if catalog_repository is not None else None
 )
+
+governance_repository: PostgresDecisionLogRepository | None = (
+    PostgresDecisionLogRepository(database) if database is not None else None
+)
+
+governance_service: GovernanceService | None = (
+    GovernanceService(governance_repository)
+    if governance_repository is not None
+    else None
+)
+
+platform_tenant_service: PlatformTenantService | None
+if tenant_repository is not None and governance_service is not None:
+    platform_tenant_service = PlatformTenantService(tenant_repository, governance_service)
+else:
+    platform_tenant_service = None

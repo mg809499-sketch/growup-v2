@@ -4,7 +4,10 @@ import json
 from typing import Any, Protocol, cast
 from uuid import UUID
 
+import asyncpg  # type: ignore[import-untyped]
+
 from app.core.db import Database
+from app.core.errors import AppError
 from app.domains.tenants.models import Tenant, TenantSettings, TenantStatus
 
 
@@ -19,6 +22,18 @@ class TenantRepository(Protocol):
         slug: str,
         host: str,
         name: str,
+        legal_name: str | None = None,
+        plan_id: UUID | None = None,
+    ) -> UUID: ...
+
+    async def create_tenant_with_owner(
+        self,
+        *,
+        slug: str,
+        host: str,
+        name: str,
+        owner_user_id: UUID,
+        owner_email: str,
         legal_name: str | None = None,
         plan_id: UUID | None = None,
     ) -> UUID: ...
@@ -81,15 +96,57 @@ class PostgresTenantRepository:
         legal_name: str | None = None,
         plan_id: UUID | None = None,
     ) -> UUID:
-        async with self._database.public_transaction() as connection:
-            tenant_id = await connection.fetchval(
-                "select app.create_tenant($1, $2, $3, $4, $5)",
-                slug,
-                host,
-                name,
-                legal_name,
-                plan_id,
-            )
+        try:
+            async with self._database.public_transaction() as connection:
+                tenant_id = await connection.fetchval(
+                    "select app.create_tenant($1, $2, $3, $4, $5)",
+                    slug,
+                    host,
+                    name,
+                    legal_name,
+                    plan_id,
+                )
+        except asyncpg.UniqueViolationError as exc:
+            raise AppError("SLUG_TAKEN", "El slug o el host ya existen", 409) from exc
+        except asyncpg.ForeignKeyViolationError as exc:
+            raise AppError("PLAN_NOT_FOUND", "El plan no existe", 400) from exc
+
+        return cast(UUID, tenant_id)
+
+    async def create_tenant_with_owner(
+        self,
+        *,
+        slug: str,
+        host: str,
+        name: str,
+        owner_user_id: UUID,
+        owner_email: str,
+        legal_name: str | None = None,
+        plan_id: UUID | None = None,
+    ) -> UUID:
+        try:
+            async with self._database.public_transaction() as connection:
+                tenant_id = await connection.fetchval(
+                    "select app.create_tenant_with_owner($1, $2, $3, $4, $5, $6, $7)",
+                    slug,
+                    host,
+                    name,
+                    legal_name,
+                    plan_id,
+                    owner_user_id,
+                    owner_email,
+                )
+        except asyncpg.UniqueViolationError as exc:
+            constraint = getattr(exc, "constraint_name", "") or ""
+            if "memberships" in constraint:
+                raise AppError(
+                    "OWNER_MEMBERSHIP_CONFLICT",
+                    "El owner ya tiene membresía en el tenant",
+                    409,
+                ) from exc
+            raise AppError("SLUG_TAKEN", "El slug o el host ya existen", 409) from exc
+        except asyncpg.ForeignKeyViolationError as exc:
+            raise AppError("PLAN_NOT_FOUND", "El plan no existe", 400) from exc
 
         return cast(UUID, tenant_id)
 

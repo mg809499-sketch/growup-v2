@@ -1,6 +1,6 @@
 # Tasks — Storefront Platform V2
 
-- **Estado:** Borrador para revisión
+- **Estado:** En ejecución
 - **Fecha:** 2026-10-21
 - **Objetivo:** MVP comercial con ropa + joyería en Q1 2027
 - **Referencias:** [requirements.md](requirements.md) · [design.md](design.md) · [ADR-0008](../../../docs/adr/0008-topologia-despliegue.md)
@@ -36,11 +36,11 @@
 | W1-02 | Hecho | `TenantResolver` + `PostgresTenantRepository` + `/v1/storefront/bootstrap`; tests unitarios, API e integración |
 | W1-03 | Hecho | JWT/JWKS + `AuthService` + memberships + roles/permisos + `/v1/admin/me` |
 | W1-04 | Pendiente | Login admin con Supabase SSR y cookies (frontend) |
-| W1-05 | Parcial | `create_tenant` en repositorio/servicio; falta endpoint con `decide()` |
-| W1-06 | Parcial | 17 pgTAP + tests de integración; faltan los 12 vectores HTTP |
+| W1-05 | Hecho | `POST /v1/platform/tenants` con `decide()` + `create_tenant_with_owner` + auditoría; tests unitarios e integración |
+| W1-06 | Parcial | 52 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza) + integración; faltan los 12 vectores HTTP |
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
 | W1-08 | Pendiente | `auth_events` + alertas de mismatch |
-| W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (31 en total) |
+| W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (52 en total) |
 | W2-02 | Parcial | API create/list/get/update de productos y variantes; faltan update/delete de variantes y opciones normalizadas |
 | W2-03 | Pendiente | Upload de media a R2 y procesamiento de variantes |
 | W2-04 | Parcial | Tablas de inventario y stock inicial; falta flujo de reserva/confirmación |
@@ -49,6 +49,10 @@
 | W2-07 | Parcial | API admin de catálogo; falta UI |
 | W2-08 | Pendiente | Test de concurrencia de inventario |
 | W2-09 | Pendiente | Seed de catálogo piloto |
+| W6-01 | Hecho | `decide()` determinista con políticas versionadas y fail-closed; tests table-driven |
+| W6-02 | Hecho | `decision_logs` + cadena por `chain_key` + `verify_decision_chain`; 21 pgTAP, tamper detectado y guard de contexto de tenant |
+| W6-03 | Parcial | Tabla `approval_tasks` con RLS; falta bandeja/UI y handoff desde `decide()` |
+| W6-04 | Parcial | `POST /v1/platform/tenants`; faltan listar/suspender y UI |
 
 ## Definition of Done (por tarea)
 

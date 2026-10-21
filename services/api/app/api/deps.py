@@ -12,6 +12,7 @@ from app.domains.catalog.service import CatalogService
 from app.domains.identity.models import Actor, RequestContext
 from app.domains.identity.service import AuthService, build_context
 from app.domains.tenants.models import Tenant
+from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.service import TenantResolver
 
 _bearer_scheme = HTTPBearer(auto_error=False)
@@ -45,6 +46,16 @@ def get_catalog_service() -> CatalogService:
             503,
         )
     return runtime.catalog_service
+
+
+def get_platform_tenant_service() -> PlatformTenantService:
+    if runtime.platform_tenant_service is None:
+        raise AppError(
+            "SERVICE_UNAVAILABLE",
+            "El onboarding de tenants no está configurado",
+            503,
+        )
+    return runtime.platform_tenant_service
 
 
 async def get_storefront_tenant(
