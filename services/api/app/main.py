@@ -1,18 +1,47 @@
-from collections.abc import Awaitable, Callable
+from __future__ import annotations
+
+from collections.abc import AsyncIterator, Awaitable, Callable
+from contextlib import asynccontextmanager
 from uuid import uuid4
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from starlette.responses import Response
 
 from app.core.config import settings
+from app.core.db import Database
 from app.core.errors import AppError, app_error_handler
+from app.schemas.ops import HealthResponse, ReadyResponse
+
+database: Database | None = (
+    Database(
+        settings.database_url,
+        min_size=settings.db_pool_min,
+        max_size=settings.db_pool_max,
+    )
+    if settings.database_url
+    else None
+)
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    if database is not None:
+        await database.connect()
+    try:
+        yield
+    finally:
+        if database is not None:
+            await database.close()
+
 
 app = FastAPI(
     title=settings.app_name,
     version="0.1.0",
     docs_url="/docs",
     redoc_url=None,
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -22,6 +51,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 async def _app_error_adapter(request: Request, exc: Exception) -> Response:
     if not isinstance(exc, AppError):
@@ -44,11 +74,40 @@ async def add_request_id(
     return response
 
 
-@app.get("/healthz", tags=["ops"])
-async def healthz() -> dict[str, str]:
+@app.get("/healthz", response_model=HealthResponse, tags=["ops"])
+async def healthz() -> HealthResponse:
     """Liveness probe. No toca base de datos ni servicios externos."""
-    return {
-        "status": "ok",
-        "service": "growup-api",
-        "environment": settings.environment,
-    }
+    return HealthResponse(
+        status="ok",
+        service="growup-api",
+        environment=settings.environment,
+    )
+
+
+@app.get(
+    "/readyz",
+    response_model=ReadyResponse,
+    responses={503: {"model": ReadyResponse}},
+    tags=["ops"],
+)
+async def readyz() -> ReadyResponse | JSONResponse:
+    """Readiness probe: exige base de datos configurada y disponible."""
+    if database is None:
+        return JSONResponse(
+            status_code=503,
+            content=ReadyResponse(
+                status="not_ready",
+                checks={"database": "not_configured"},
+            ).model_dump(),
+        )
+
+    if await database.ping():
+        return ReadyResponse(status="ready", checks={"database": "ok"})
+
+    return JSONResponse(
+        status_code=503,
+        content=ReadyResponse(
+            status="not_ready",
+            checks={"database": "down"},
+        ).model_dump(),
+    )

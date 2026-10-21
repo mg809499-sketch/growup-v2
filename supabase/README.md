@@ -4,10 +4,14 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 
 ## Estado
 
-Las migraciones comienzan después de cerrar:
-
-- **D-04** (cuentas de cliente) — define `customers` y el modelo de identidad.
-- **D-07** (dominios y TLS) — define `domains` y la resolución host→tenant.
+- Migración base aplicada en local: `migrations/20261021000000_core_tenancy.sql`.
+- Tests pgTAP: `tests/tenancy.sql` (16 assertions).
+- `app_rw` existe sin `BYPASSRLS`; la API fija por transacción:
+  - `SET LOCAL ROLE app_rw`
+  - `SELECT set_config('app.tenant_id', $1, true)`
+- `tenants`, `domains`, `tenant_settings`, `tenant_features`, `memberships`, `customers`, `addresses` y `auth_events` tienen RLS `ENABLE` + `FORCE`.
+- `plans` es catálogo de plataforma (sin `tenant_id`); `app_rw` solo tiene `SELECT`.
+- `platform_admins` no es accesible directamente por `app_rw`; se consulta con `app.is_platform_admin(uuid)`.
 
 ## Reglas
 
@@ -18,12 +22,31 @@ Las migraciones comienzan después de cerrar:
 - Prohibido `USING (true)` en tablas de negocio.
 - El rol de la API no debe tener `BYPASSRLS`.
 - `service_role` solo para workers y tareas auditadas.
+- En producción, el rol de login de la API debe ser miembro de `app_rw` y no superusuario.
 
-## Comandos previstos
+## Comandos
 
 ```bash
-supabase init
-supabase start
-supabase db reset
-supabase db diff --check
+pnpm dlx supabase start
+pnpm dlx supabase db reset
+pnpm dlx supabase test db
+pnpm dlx supabase stop
 ```
+
+## Tests
+
+- pgTAP: `supabase test db`.
+- Integración desde la API:
+
+```bash
+cd services/api
+# PowerShell
+$env:GROWUP_TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+uv run pytest
+```
+
+## Pendiente
+
+- Migraciones de catálogo, contenido, comercio, pagos, billing, facturas y gobernanza.
+- Seed de dos tenants demo con usuarios de Auth.
+- Política de `platform_admins` y acceso de soporte auditado.

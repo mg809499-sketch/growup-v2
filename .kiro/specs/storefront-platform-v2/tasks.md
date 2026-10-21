@@ -21,6 +21,22 @@
 
 > Supuesto: 1-2 ingenieros full-time con apoyo de diseño/contenido. Si la capacidad baja, recortar Wave 6 a lo mínimo y mover la fecha; no recortar aislamiento, tests de overselling ni restore.
 
+## Estado actual (2026-10-21)
+
+| Tarea | Estado | Evidencia |
+|---|---|---|
+| W0-02 | Hecho | Migración `20261021000000_core_tenancy.sql`; `supabase db reset` limpio |
+| W0-03 | Hecho | `Database` con `SET LOCAL ROLE app_rw` + `app.tenant_id`; `/readyz`; tests unitarios e integración |
+| W0-04 | Hecho | `packages/contracts` + `pnpm contracts:check` + job CI |
+| W0-05 | Pendiente | Espera export de v0 |
+| W0-06 | Pendiente | Playwright |
+| W0-07 | Pendiente | Sentry/OTel |
+| W0-08 | Pendiente | Spikes Wompi/Stripe |
+| W1-01 | Parcial | Tenancy core con RLS; faltan tablas de olas 2-5 |
+| W1-02 | Pendiente | `app.resolve_tenant` listo; falta servicio/caché |
+| W1-03 | Parcial | JWT/JWKS listo; falta membership/auth service |
+| W1-06 | Parcial | 16 pgTAP + test de integración; faltan los 12 vectores HTTP |
+
 ## Definition of Done (por tarea)
 
 - [ ] Tests unitarios/integración; RLS A/B si toca tabla de tenant.
