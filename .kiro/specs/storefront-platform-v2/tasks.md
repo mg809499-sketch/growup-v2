@@ -34,8 +34,12 @@
 | W0-08 | Pendiente | Spikes Wompi/Stripe |
 | W1-01 | Parcial | Tenancy core con RLS; faltan tablas de olas 2-5 |
 | W1-02 | Hecho | `TenantResolver` + `PostgresTenantRepository` + `/v1/storefront/bootstrap`; tests unitarios, API e integración |
-| W1-03 | Parcial | JWT/JWKS listo; falta membership/auth service |
-| W1-06 | Parcial | 17 pgTAP + test de integración; faltan los 12 vectores HTTP |
+| W1-03 | Hecho | JWT/JWKS + `AuthService` + memberships + roles/permisos + `/v1/admin/me` |
+| W1-04 | Pendiente | Login admin con Supabase SSR y cookies (frontend) |
+| W1-05 | Parcial | `create_tenant` en repositorio/servicio; falta endpoint con `decide()` |
+| W1-06 | Parcial | 17 pgTAP + tests de integración; faltan los 12 vectores HTTP |
+| W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
+| W1-08 | Pendiente | `auth_events` + alertas de mismatch |
 
 ## Definition of Done (por tarea)
 

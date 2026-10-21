@@ -26,6 +26,32 @@
         }
       }
     },
+    "/v1/admin/me": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Me",
+        "operationId": "me_v1_admin_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/healthz": {
       "get": {
         "tags": [
@@ -123,6 +149,83 @@
         ],
         "title": "HealthResponse"
       },
+      "MeResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "tenant_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tenant Id"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "permissions": {
+            "items": {
+              "$ref": "#/components/schemas/Permission"
+            },
+            "type": "array",
+            "title": "Permissions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "tenant_id",
+          "role",
+          "email",
+          "permissions"
+        ],
+        "title": "MeResponse"
+      },
+      "Permission": {
+        "type": "string",
+        "enum": [
+          "catalog:read",
+          "catalog:write",
+          "content:read",
+          "content:write",
+          "content:publish",
+          "orders:read",
+          "orders:fulfill",
+          "payments:read",
+          "payments:refund",
+          "billing:read",
+          "billing:write",
+          "team:read",
+          "team:write",
+          "settings:read",
+          "settings:write",
+          "customers:read",
+          "audit:read",
+          "platform:tenants",
+          "platform:audit",
+          "platform:support"
+        ],
+        "title": "Permission"
+      },
       "ReadyResponse": {
         "properties": {
           "status": {
@@ -147,6 +250,18 @@
           "checks"
         ],
         "title": "ReadyResponse"
+      },
+      "Role": {
+        "type": "string",
+        "enum": [
+          "owner",
+          "manager",
+          "treasurer",
+          "packer",
+          "support",
+          "platform_admin"
+        ],
+        "title": "Role"
       },
       "StorefrontSettings": {
         "properties": {
@@ -228,6 +343,12 @@
           "canceled"
         ],
         "title": "TenantStatus"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }

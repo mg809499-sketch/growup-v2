@@ -47,6 +47,7 @@ growup/
 - [x] Pool asyncpg con `SET LOCAL ROLE app_rw` + `SET LOCAL app.tenant_id` y `/readyz`
 - [x] Pipeline OpenAPI → TypeScript (`packages/contracts`)
 - [x] `/v1/storefront/bootstrap` con resolución host→tenant, settings y caché local
+- [x] Auth de staff: JWKS, memberships, roles/permisos y `/v1/admin/me`
 - [ ] Wave 0 / Wave 1: frontend, catálogo y contenido
 
 ## Inicio rápido — API

@@ -49,4 +49,6 @@ uv run pytest
 
 - Migraciones de catálogo, contenido, comercio, pagos, billing, facturas y gobernanza.
 - Seed de dos tenants demo con usuarios de Auth.
+- Configurar Supabase local con signing keys asimétricas (JWKS) para probar login real; el verificador rechaza HS256 por diseño.
 - Política de `platform_admins` y acceso de soporte auditado.
+- Endpoint de onboarding con `decide()` y auditoría.

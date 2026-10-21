@@ -11,8 +11,9 @@ from starlette.responses import Response
 
 from app.core.config import settings
 from app.core.errors import AppError, app_error_handler
-from app.core.runtime import database
+from app.domains.identity.router import router as identity_router
 from app.domains.tenants.router import router as storefront_router
+from app.runtime import database
 from app.schemas.ops import HealthResponse, ReadyResponse
 
 
@@ -53,6 +54,7 @@ async def _app_error_adapter(request: Request, exc: Exception) -> Response:
 app.add_exception_handler(AppError, _app_error_adapter)
 
 app.include_router(storefront_router)
+app.include_router(identity_router)
 
 
 @app.middleware("http")
