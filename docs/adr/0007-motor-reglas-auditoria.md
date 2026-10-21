@@ -71,8 +71,9 @@ Tabla `decision_logs`:
 | Campo | Tipo | Nota |
 |---|---|---|
 | `id` | uuid | PK |
-| `tenant_id` | uuid | FK, RLS |
-| `actor_type` | text | `staff`, `customer`, `system`, `ai` |
+| `tenant_id` | uuid | FK, RLS; pasa a NULL si se borra el tenant |
+| `chain_key` | text | UUID del tenant o `platform`; inmutable |
+| `actor_type` | text | `staff`, `customer`, `system`, `ai`, `platform_admin` |
 | `actor_id` | text | Nullable para system |
 | `action` | text | Acción evaluada |
 | `resource_type`, `resource_id` | text | Recurso afectado |
@@ -84,13 +85,15 @@ Tabla `decision_logs`:
 | `latency_ms` | int | Medición de `decide` |
 | `trace_id` | text | Correlación |
 | `created_at` | timestamptz | UTC |
-| `prev_hash` | text | Hash de la fila anterior del tenant |
+| `prev_hash` | text | Hash de la fila anterior de la cadena |
 | `hash` | text | SHA-256 de la fila + `prev_hash` |
 
 Reglas:
 
-- `INSERT` permitido para la API y workers; `UPDATE` y `DELETE` bloqueados por trigger y por permisos.
-- Cadena por tenant; génesis = 64 ceros. La escritura se serializa con `pg_advisory_xact_lock(hashtext(tenant_id))` para evitar bifurcaciones.
+- `INSERT` permitido para la API y workers; `UPDATE` y `DELETE` bloqueados por trigger y por permisos. La única excepción es el `ON DELETE SET NULL` de la FK de tenant, que no altera `chain_key` ni el hash.
+- El append exige que `p_tenant_id` coincida con `app.current_tenant()`; una decisión de plataforma (`tenant_id NULL`) no se puede escribir dentro del contexto de un tenant. El repositorio usa `tenant_transaction` para decisiones de tenant y `public_transaction` para las de plataforma.
+- Cadena por tenant y una cadena `platform` para decisiones sin tenant (onboarding, soporte). `chain_key` es inmutable y sobrevive al borrado del tenant; el hash incluye `chain_key`, `input_hash`, `context_summary`, `latency_ms` y `trace_id`.
+- Génesis = 64 ceros. La escritura se serializa con `pg_advisory_xact_lock(hashtext(chain_key))` para evitar bifurcaciones.
 - Un job diario verifica la cadena. Si falla: alerta crítica `GOVERNANCE_INTEGRITY_FAILURE` y bloqueo de mutaciones sensibles hasta que operaciones resuelva.
 - `context_summary` solo guarda campos allowlist; nunca prompts, tokens, datos de tarjeta ni PII.
 - Retención mínima de 5 años o la que exija la ley; exportable a R2 para archivo.

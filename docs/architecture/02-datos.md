@@ -406,7 +406,7 @@ Append-only: `id`, `tenant_id`, `order_id`, `type`, `payload jsonb`, `actor`, `c
 
 ### `decision_logs`
 
-Ver ADR-0007. Campos: `id`, `tenant_id`, `actor_type`, `actor_id`, `action`, `resource_type`, `resource_id`, `policy_id`, `policy_version`, `decision`, `reason_code`, `input_hash`, `context_summary jsonb`, `latency_ms`, `trace_id`, `created_at`, `prev_hash`, `hash`. Append-only, cadena por tenant.
+Ver ADR-0007. Campos: `id`, `tenant_id`, `chain_key`, `actor_type`, `actor_id`, `action`, `resource_type`, `resource_id`, `policy_id`, `policy_version`, `decision`, `reason_code`, `input_hash`, `context_summary jsonb`, `latency_ms`, `trace_id`, `created_at`, `prev_hash`, `hash`. Append-only, cadena por tenant + cadena `platform`.
 
 ### `approval_tasks`
 
@@ -414,7 +414,7 @@ Ver ADR-0007. Campos: `id`, `tenant_id`, `actor_type`, `actor_id`, `action`, `re
 
 ### `audit_chain_state`
 
-`tenant_id` PK, `last_hash`, `last_log_id`, `updated_at`. Serializa appends con advisory lock.
+`chain_key` PK (`uuid` del tenant o `platform`), `last_hash`, `last_log_id`, `updated_at`. Serializa appends con advisory lock por `chain_key`.
 
 ### `job_runs`
 

@@ -4,14 +4,16 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 
 ## Estado
 
-- Migración base aplicada en local: `migrations/20261021000000_core_tenancy.sql`.
-- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14); 31 en total.
+- Migraciones aplicadas en local: `20261021000000_core_tenancy.sql`, `20261021000100_catalog.sql` y `20261021000200_governance.sql`.
+- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14) + `tests/governance.sql` (21); 52 en total.
 - `app_rw` existe sin `BYPASSRLS`; la API fija por transacción:
   - `SET LOCAL ROLE app_rw`
   - `SELECT set_config('app.tenant_id', $1, true)`
 - `tenants`, `domains`, `tenant_settings`, `tenant_features`, `memberships`, `customers`, `addresses` y `auth_events` tienen RLS `ENABLE` + `FORCE`.
 - `plans` es catálogo de plataforma (sin `tenant_id`); `app_rw` solo tiene `SELECT`.
 - `platform_admins` no es accesible directamente por `app_rw`; se consulta con `app.is_platform_admin(uuid)`.
+- `decision_logs` es append-only y usa `chain_key` (UUID del tenant o `platform`) para que la cadena sobreviva al borrado del tenant. `audit_chain_state` no tiene política RLS: solo lo tocan funciones `SECURITY DEFINER`.
+- `create_tenant_with_owner` crea tenant, dominio, settings, features, ubicación default y membership owner en una sola transacción.
 
 ## Reglas
 
@@ -47,9 +49,9 @@ uv run pytest
 
 ## Pendiente
 
-- Migraciones de contenido, comercio, pagos, billing, facturas y gobernanza.
+- Migraciones de contenido, comercio, pagos, billing y facturas.
 - Upload de media a R2, procesamiento de variantes y asociación a productos.
 - Seed de dos tenants demo con usuarios de Auth.
 - Configurar Supabase local con signing keys asimétricas (JWKS) para probar login real; el verificador rechaza HS256 por diseño.
 - Política de `platform_admins` y acceso de soporte auditado.
-- Endpoint de onboarding con `decide()` y auditoría.
+- Listar/suspender tenants, bandeja de `approval_tasks` y job diario de verificación de cadena.
