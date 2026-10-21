@@ -44,6 +44,7 @@ El MVP comercial necesita búsqueda de catálogo, trabajos en segundo plano (ema
 - Nombres de archivo aleatorios (UUID); el nombre original se guarda como metadata, no en la clave.
 - Cloudflare CDN con cache inmutable (`Cache-Control: public, max-age=31536000, immutable`) para variantes con hash.
 - **Cloudinary** no se adopta: R2 ya es el almacenamiento elegido y evita otro vendor.
+- Implementación: `boto3` para S3/R2 y URLs prefirmadas; `Pillow` para AVIF/WebP, orientación y strip de EXIF; `blurhash` para el placeholder; `arq` para el worker de procesamiento.
 
 ### 4. Observabilidad
 

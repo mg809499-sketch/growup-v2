@@ -198,7 +198,7 @@ Append-only: `id`, `tenant_id` nullable, `event_type`, `actor_id`, `ip`, `user_a
 
 ## 4. Catálogo e inventario
 
-> Implementación actual: `20261021000100_catalog.sql` cubre `categories`, `products`, `product_variants`, `media_assets`, `media_variants`, `product_media`, `locations`, `inventory_levels`, `inventory_movements` e `inventory_reservations`; `20261021000300_inventory_reservations.sql` añade `location_id` y las invariantes de reserva. Las colecciones y las opciones normalizadas quedan para una migración posterior; por ahora `option_values` vive en JSONB dentro de la variante.
+> Implementación actual: `20261021000100_catalog.sql` cubre `categories`, `products`, `product_variants`, `media_assets`, `media_variants`, `product_media`, `locations`, `inventory_levels`, `inventory_movements` e `inventory_reservations`; `20261021000300_inventory_reservations.sql` añade `location_id` y las invariantes de reserva; `20261021000500_media_metadata.sql` añade `original_filename`. Las colecciones y las opciones normalizadas quedan para una migración posterior; por ahora `option_values` vive en JSONB dentro de la variante.
 
 ### `categories`
 
@@ -265,9 +265,11 @@ Append-only: `id`, `tenant_id` nullable, `event_type`, `actor_id`, `ip`, `user_a
 
 ### `media_assets` / `media_variants`
 
-`media_assets`: `id`, `tenant_id`, `r2_key`, `mime`, `size_bytes`, `width`, `height`, `alt`, `blurhash`, `status` (`uploading`, `ready`, `failed`), timestamps.
+`media_assets`: `id`, `tenant_id`, `r2_key`, `mime`, `size_bytes`, `original_filename` (metadata), `width`, `height`, `alt`, `blurhash`, `status` (`uploading`, `ready`, `failed`), timestamps.
 
 `media_variants`: `id`, `tenant_id`, `media_asset_id`, `format` (`avif`, `webp`), `width`, `height`, `r2_key`, `size_bytes`. Único `(media_asset_id, format, width)`.
+
+Flujo: URL prefirmada → upload directo a R2 con prefijo `tenant/{tenant_id}/originals/{asset_id}` → worker valida MIME real, tamaño (10 MB), dimensiones (6000×6000, 100 MP), aplica orientación y strip de EXIF, genera AVIF/WebP en 320/640/960/1280/1600 y `blurhash`, y marca `ready`. El nombre original nunca se usa como clave.
 
 ### `locations`
 

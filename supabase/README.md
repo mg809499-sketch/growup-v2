@@ -4,8 +4,8 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 
 ## Estado
 
-- Migraciones aplicadas en local: `20261021000000_core_tenancy.sql`, `20261021000100_catalog.sql`, `20261021000200_governance.sql`, `20261021000300_inventory_reservations.sql` y `20261021000400_harden_security_definer.sql`.
-- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14) + `tests/governance.sql` (21) + `tests/inventory.sql` (9) + `tests/security.sql` (6); 67 en total.
+- Migraciones aplicadas en local: `20261021000000_core_tenancy.sql`, `20261021000100_catalog.sql`, `20261021000200_governance.sql`, `20261021000300_inventory_reservations.sql`, `20261021000400_harden_security_definer.sql` y `20261021000500_media_metadata.sql`.
+- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14) + `tests/governance.sql` (21) + `tests/inventory.sql` (9) + `tests/media.sql` (8) + `tests/security.sql` (6); 75 en total.
 - `app_rw` existe sin `BYPASSRLS`; la API fija por transacción:
   - `SET LOCAL ROLE app_rw`
   - `SELECT set_config('app.tenant_id', $1, true)`
@@ -15,6 +15,7 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 - `decision_logs` es append-only y usa `chain_key` (UUID del tenant o `platform`) para que la cadena sobreviva al borrado del tenant. `audit_chain_state` no tiene política RLS: solo lo tocan funciones `SECURITY DEFINER`.
 - `create_tenant_with_owner` crea tenant, dominio, settings, features, ubicación default y membership owner en una sola transacción.
 - Las reservas de inventario usan `location_id` explícito, `UPDATE ... WHERE available - reserved >= quantity` atómico y check `reserved <= available`; `expire` libera las vencidas.
+- `media_assets`, `media_variants` y `product_media` tienen RLS forzado. El prefijo de R2 es `tenant/{tenant_id}/...`; `original_filename` es metadata y nunca forma parte de la clave.
 - Las funciones `SECURITY DEFINER` usan `search_path = pg_catalog, app` (sin `public`); lo verifica `tests/security.sql`.
 
 ## Reglas
@@ -52,7 +53,8 @@ uv run pytest
 ## Pendiente
 
 - Migraciones de contenido, comercio, pagos, billing y facturas.
-- Upload de media a R2, procesamiento de variantes y asociación a productos.
+- Configurar R2 y ARQ en staging, probar el flujo E2E de upload y asociar media a productos.
+- Job de limpieza para uploads huérfanos (`media_assets.status='uploading'` vencidos).
 - Seed de dos tenants demo con usuarios de Auth.
 - Configurar Supabase local con signing keys asimétricas (JWKS) para probar login real; el verificador rechaza HS256 por diseño.
 - Política de `platform_admins` y acceso de soporte auditado.
