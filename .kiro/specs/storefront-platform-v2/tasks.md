@@ -40,6 +40,15 @@
 | W1-06 | Parcial | 17 pgTAP + tests de integración; faltan los 12 vectores HTTP |
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
 | W1-08 | Pendiente | `auth_events` + alertas de mismatch |
+| W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (31 en total) |
+| W2-02 | Parcial | API create/list/get/update de productos y variantes; faltan update/delete de variantes y opciones normalizadas |
+| W2-03 | Pendiente | Upload de media a R2 y procesamiento de variantes |
+| W2-04 | Parcial | Tablas de inventario y stock inicial; falta flujo de reserva/confirmación |
+| W2-05 | Parcial | FTS español + filtros + cursor; faltan facetas |
+| W2-06 | Parcial | Listado y detalle storefront; faltan colecciones e imágenes |
+| W2-07 | Parcial | API admin de catálogo; falta UI |
+| W2-08 | Pendiente | Test de concurrencia de inventario |
+| W2-09 | Pendiente | Seed de catálogo piloto |
 
 ## Definition of Done (por tarea)
 

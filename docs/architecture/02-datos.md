@@ -198,6 +198,8 @@ Append-only: `id`, `tenant_id` nullable, `event_type`, `actor_id`, `ip`, `user_a
 
 ## 4. Catálogo e inventario
 
+> Implementación actual: `20261021000100_catalog.sql` cubre `categories`, `products`, `product_variants`, `media_assets`, `media_variants`, `product_media`, `locations`, `inventory_levels`, `inventory_movements` e `inventory_reservations`. Las colecciones y las opciones normalizadas quedan para una migración posterior; por ahora `option_values` vive en JSONB dentro de la variante.
+
 ### `categories`
 
 `id`, `tenant_id`, `parent_id` nullable, `slug`, `name`, `description`, `position`, `seo jsonb`, timestamps. Único `(tenant_id, slug)`.

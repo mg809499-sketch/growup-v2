@@ -123,7 +123,8 @@ Fixtures: tenant A (`ropa`) y tenant B (`joyeria`), un owner y un packer por ten
   SELECT set_config('app.tenant_id', $1, true);
   ```
   El rol se resetea al terminar la transacción; el pool nunca opera como superusuario.
-- Tests pgTAP: `supabase/tests/tenancy.sql` (17 assertions, incluye resolución de host, aislamiento A/B y bloqueo de insert cross-tenant).
+- Tests pgTAP: `supabase/tests/tenancy.sql` (17) + `supabase/tests/catalog.sql` (14); 31 en total.
+- Catálogo: `categories`, `products`, `product_variants`, `media_assets`, `media_variants`, `product_media`, `locations`, `inventory_levels`, `inventory_movements` e `inventory_reservations` con RLS forzado.
 - Test de integración: `services/api/tests/integration/test_tenant_transaction.py` y `test_storefront_bootstrap.py` (requieren `GROWUP_TEST_DATABASE_URL`).
 - `AuthService`: verifica JWKS, exige membership `active` y toma el rol de la base de datos (no del JWT). `/v1/admin/me` expone actor y permisos.
 - `plans` es catálogo de plataforma y no usa `tenant_id`; `platform_admins` se consulta con `app.is_platform_admin(uuid)`.

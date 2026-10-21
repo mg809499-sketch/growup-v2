@@ -5,7 +5,7 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 ## Estado
 
 - Migración base aplicada en local: `migrations/20261021000000_core_tenancy.sql`.
-- Tests pgTAP: `tests/tenancy.sql` (17 assertions).
+- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14); 31 en total.
 - `app_rw` existe sin `BYPASSRLS`; la API fija por transacción:
   - `SET LOCAL ROLE app_rw`
   - `SELECT set_config('app.tenant_id', $1, true)`
@@ -47,7 +47,8 @@ uv run pytest
 
 ## Pendiente
 
-- Migraciones de catálogo, contenido, comercio, pagos, billing, facturas y gobernanza.
+- Migraciones de contenido, comercio, pagos, billing, facturas y gobernanza.
+- Upload de media a R2, procesamiento de variantes y asociación a productos.
 - Seed de dos tenants demo con usuarios de Auth.
 - Configurar Supabase local con signing keys asimétricas (JWKS) para probar login real; el verificador rechaza HS256 por diseño.
 - Política de `platform_admins` y acceso de soporte auditado.

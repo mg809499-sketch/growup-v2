@@ -3,6 +3,8 @@ from __future__ import annotations
 from app.core.config import settings
 from app.core.db import Database
 from app.core.security.jwt import JWTVerifier
+from app.domains.catalog.repository import PostgresCatalogRepository
+from app.domains.catalog.service import CatalogService
 from app.domains.identity.repository import PostgresMembershipRepository
 from app.domains.identity.service import AuthService
 from app.domains.tenants.repository import PostgresTenantRepository
@@ -47,3 +49,11 @@ if jwt_verifier is not None and membership_repository is not None:
     auth_service = AuthService(jwt_verifier, membership_repository)
 else:
     auth_service = None
+
+catalog_repository: PostgresCatalogRepository | None = (
+    PostgresCatalogRepository(database) if database is not None else None
+)
+
+catalog_service: CatalogService | None = (
+    CatalogService(catalog_repository) if catalog_repository is not None else None
+)

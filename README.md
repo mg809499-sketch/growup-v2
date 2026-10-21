@@ -48,7 +48,8 @@ growup/
 - [x] Pipeline OpenAPI → TypeScript (`packages/contracts`)
 - [x] `/v1/storefront/bootstrap` con resolución host→tenant, settings y caché local
 - [x] Auth de staff: JWKS, memberships, roles/permisos y `/v1/admin/me`
-- [ ] Wave 0 / Wave 1: frontend, catálogo y contenido
+- [x] Catálogo: migración, API admin/storefront, FTS, inventario inicial y 14 tests pgTAP
+- [ ] Wave 0 / Wave 1: frontend, media upload y contenido
 
 ## Inicio rápido — API
 

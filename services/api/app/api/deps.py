@@ -8,8 +8,10 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app import runtime
 from app.core.errors import AppError
+from app.domains.catalog.service import CatalogService
 from app.domains.identity.models import Actor, RequestContext
 from app.domains.identity.service import AuthService, build_context
+from app.domains.tenants.models import Tenant
 from app.domains.tenants.service import TenantResolver
 
 _bearer_scheme = HTTPBearer(auto_error=False)
@@ -33,6 +35,26 @@ def get_auth_service() -> AuthService:
             503,
         )
     return runtime.auth_service
+
+
+def get_catalog_service() -> CatalogService:
+    if runtime.catalog_service is None:
+        raise AppError(
+            "SERVICE_UNAVAILABLE",
+            "El catálogo no está configurado",
+            503,
+        )
+    return runtime.catalog_service
+
+
+async def get_storefront_tenant(
+    request: Request,
+    resolver: Annotated[TenantResolver, Depends(get_tenant_resolver)],
+) -> Tenant:
+    host = request.headers.get("X-Storefront-Host") or request.headers.get("host")
+    if not host:
+        raise AppError("TENANT_NOT_FOUND", "Host requerido", 404)
+    return await resolver.resolve(host)
 
 
 async def get_bearer_token(
