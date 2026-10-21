@@ -12,6 +12,8 @@ from jwt import PyJWK
 
 from app.core.errors import AppError
 
+_ALLOWED_ALGORITHMS = frozenset({"RS256", "RS384", "RS512", "ES256", "ES384", "ES512"})
+
 
 @dataclass(frozen=True)
 class TokenClaims:
@@ -110,6 +112,8 @@ class JWTVerifier:
                 raise AppError("TOKEN_INVALID", "Token sin kid", 401)
 
             jwk = await self._jwks.get(kid)
+            if jwk.algorithm_name not in _ALLOWED_ALGORITHMS:
+                raise AppError("TOKEN_INVALID", "Algoritmo no permitido", 401)
             payload = jwt.decode(
                 token,
                 jwk.key,

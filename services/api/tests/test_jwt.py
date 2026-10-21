@@ -1,3 +1,4 @@
+import base64
 import time
 from typing import Any
 
@@ -230,5 +231,25 @@ async def test_jwks_unavailable_is_rejected(
 
     with pytest.raises(AppError) as exc_info:
         await _verify(_token(private_key), public_jwk, jwks_status=503)
+
+    assert exc_info.value.code == "TOKEN_INVALID"
+
+
+async def test_symmetric_jwk_is_rejected(
+    rsa_keypair: tuple[RSAPrivateKey, dict[str, Any]],
+) -> None:
+    _, _ = rsa_keypair
+    secret = b"super-secret-key-with-32-bytes!!"
+    encoded = base64.urlsafe_b64encode(secret).rstrip(b"=").decode("ascii")
+    oct_jwk = {"kty": "oct", "kid": "test-key", "alg": "HS256", "k": encoded}
+    token = jwt.encode(
+        _payload(),
+        secret,
+        algorithm="HS256",
+        headers={"kid": "test-key"},
+    )
+
+    with pytest.raises(AppError) as exc_info:
+        await _verify(token, oct_jwk)
 
     assert exc_info.value.code == "TOKEN_INVALID"

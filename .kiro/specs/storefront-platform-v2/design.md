@@ -280,7 +280,7 @@ POST /admin/pages/{id}/publish
 
 ## 6. Modelo de datos
 
-Ver [02-datos.md](../../../docs/architecture/02-datos.md). Añadir a `orders`:
+Ver [02-datos.md](../../../docs/architecture/02-datos.md). El modelo incluye en `orders`:
 
 - `public_token uuid unique not null` para consulta pública.
 - `tracking_number text` y `tracking_url text` para fulfillment.
