@@ -32,5 +32,36 @@ jobs:
       - name: Tests
         run: uv run pytest
 
+  contracts:
+    name: Contracts (OpenAPI)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install JS dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync API dependencies
+        run: cd services/api && uv sync
+
+      - name: Check contracts are up to date
+        run: pnpm contracts:check
+
   # El job de frontend se activa cuando `apps/storefront` tenga package.json
   # (después de integrar el export de v0).
