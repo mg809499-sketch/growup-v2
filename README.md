@@ -52,7 +52,8 @@ growup/
 - [x] Inventario: reservas atómicas por ubicación, confirmación/liberación/expiración y test de 40 reservas concurrentes sin overselling
 - [x] Gobernanza: `decide()` con políticas versionadas, `decision_logs` append-only con cadena por tenant/plataforma y verificación de integridad
 - [x] Onboarding: `POST /v1/platform/tenants` atómico con `create_tenant_with_owner` + auditoría
-- [ ] Wave 0 / Wave 1: frontend, media upload y contenido
+- [x] Media: URL prefirmada a R2, worker ARQ, AVIF/WebP 320-1600, strip de EXIF, blurhash y alt obligatorio
+- [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API
 
@@ -67,6 +68,8 @@ uv sync
 uv run uvicorn app.main:app --reload
 # http://localhost:8000/healthz
 # http://localhost:8000/readyz
+# Worker de media (requiere Redis y R2 configurados)
+uv run arq app.workers.media.WorkerSettings
 ```
 
 Tests:

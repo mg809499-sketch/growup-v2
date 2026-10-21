@@ -11,6 +11,7 @@ from app.core.errors import AppError
 from app.domains.catalog.service import CatalogService
 from app.domains.identity.models import Actor, RequestContext
 from app.domains.identity.service import AuthService, build_context
+from app.domains.media.service import MediaService
 from app.domains.tenants.models import Tenant
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.service import TenantResolver
@@ -56,6 +57,16 @@ def get_platform_tenant_service() -> PlatformTenantService:
             503,
         )
     return runtime.platform_tenant_service
+
+
+def get_media_service() -> MediaService:
+    if runtime.media_service is None:
+        raise AppError(
+            "SERVICE_UNAVAILABLE",
+            "El servicio de media no está configurado",
+            503,
+        )
+    return runtime.media_service
 
 
 async def get_storefront_tenant(

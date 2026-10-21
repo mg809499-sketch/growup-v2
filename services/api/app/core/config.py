@@ -23,6 +23,13 @@ class Settings(BaseSettings):
     root_domain: str = "growup.com"
     inventory_reservation_ttl_seconds: int = 900
     redis_url: str = ""
+    r2_endpoint_url: str = ""
+    r2_access_key_id: str = ""
+    r2_secret_access_key: str = ""
+    r2_catalog_bucket: str = "growup-catalog-local"
+    r2_public_base_url: str = ""
+    media_upload_url_ttl_seconds: int = 900
+    media_max_image_bytes: int = 10 * 1024 * 1024
     supabase_url: str = ""
     supabase_jwt_audience: str = "authenticated"
     cors_origins: str = "http://localhost:3000"

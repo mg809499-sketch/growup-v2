@@ -1,7 +1,13 @@
 from __future__ import annotations
 
+from uuid import UUID
+
+from arq import create_pool
+from arq.connections import ArqRedis, RedisSettings
+
 from app.core.config import settings
 from app.core.db import Database
+from app.core.errors import AppError
 from app.core.security.jwt import JWTVerifier
 from app.domains.catalog.repository import PostgresCatalogRepository
 from app.domains.catalog.service import CatalogService
@@ -9,6 +15,9 @@ from app.domains.governance.repository import PostgresDecisionLogRepository
 from app.domains.governance.service import GovernanceService
 from app.domains.identity.repository import PostgresMembershipRepository
 from app.domains.identity.service import AuthService
+from app.domains.media.repository import PostgresMediaRepository
+from app.domains.media.service import MediaService
+from app.domains.media.storage import R2Storage
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.repository import PostgresTenantRepository
 from app.domains.tenants.service import InMemoryTenantCache, TenantResolver
@@ -80,3 +89,57 @@ if tenant_repository is not None and governance_service is not None:
     platform_tenant_service = PlatformTenantService(tenant_repository, governance_service)
 else:
     platform_tenant_service = None
+
+media_repository: PostgresMediaRepository | None = (
+    PostgresMediaRepository(database) if database is not None else None
+)
+
+media_storage: R2Storage | None = None
+if (
+    settings.r2_endpoint_url
+    and settings.r2_access_key_id
+    and settings.r2_secret_access_key
+):
+    media_storage = R2Storage(
+        endpoint_url=settings.r2_endpoint_url,
+        access_key_id=settings.r2_access_key_id,
+        secret_access_key=settings.r2_secret_access_key,
+        bucket=settings.r2_catalog_bucket,
+        public_base_url=settings.r2_public_base_url
+        or f"{settings.r2_endpoint_url.rstrip('/')}/{settings.r2_catalog_bucket}",
+    )
+
+_arq_pool: ArqRedis | None = None
+
+
+async def enqueue_media(tenant_id: UUID, asset_id: UUID) -> None:
+    global _arq_pool
+    if not settings.redis_url:
+        raise AppError(
+            "MEDIA_QUEUE_UNAVAILABLE",
+            "La cola de procesamiento no está configurada",
+            503,
+        )
+    if _arq_pool is None:
+        _arq_pool = await create_pool(RedisSettings.from_dsn(settings.redis_url))
+    await _arq_pool.enqueue_job("process_media", str(tenant_id), str(asset_id))
+
+
+async def close_media_queue() -> None:
+    global _arq_pool
+    if _arq_pool is not None:
+        await _arq_pool.close()
+        _arq_pool = None
+
+
+media_service: MediaService | None = (
+    MediaService(
+        media_repository,
+        media_storage,
+        enqueue=enqueue_media,
+        upload_ttl_seconds=settings.media_upload_url_ttl_seconds,
+        max_image_bytes=settings.media_max_image_bytes,
+    )
+    if media_repository is not None and media_storage is not None
+    else None
+)
