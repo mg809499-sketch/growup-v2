@@ -20,11 +20,12 @@ Estados posibles:
 | [0001](0001-producto-saas-builder.md) | Producto: SaaS multi-tenant con builder | Aceptada | 2026-10-21 |
 | [0002](0002-repositorio-y-reutilizacion.md) | Repositorio y reutilización de `multitiendas` | Aceptada | 2026-10-21 |
 | [0003](0003-identidad-tenancy-rls.md) | Identidad, tenancy y RLS | Aceptada | 2026-10-21 |
-| 0004 | Modelo de contenido y publishing | Pendiente | — |
-| 0005 | Stack satélite (búsqueda, colas, media, observabilidad) | Pendiente | — |
-| 0006 | Motor de reglas y auditoría | Pendiente | — |
-| 0007 | Topología de despliegue | Pendiente | — |
+| [0004](0004-pagos-checkout-merchant-of-record.md) | Pagos, checkout y merchant of record | Aceptada | 2026-10-21 |
+| 0005 | Modelo de contenido y publishing | Pendiente | — |
+| 0006 | Stack satélite (búsqueda, colas, media, observabilidad) | Pendiente | — |
+| 0007 | Motor de reglas y auditoría | Pendiente | — |
+| 0008 | Topología de despliegue | Pendiente | — |
 
 ## Relación con las decisiones de negocio
 
-Los ADRs técnicos 0004-0007 se escriben cuando las decisiones de negocio que los condicionan estén cerradas. El estado de cada decisión vive en [`docs/decisiones-pendientes.md`](../decisiones-pendientes.md).
+Los ADRs técnicos 0005-0008 se escriben cuando las decisiones de negocio que los condicionan estén cerradas. El estado de cada decisión vive en [`docs/decisiones-pendientes.md`](../decisiones-pendientes.md).

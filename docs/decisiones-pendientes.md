@@ -1,6 +1,6 @@
 # Decisiones de negocio pendientes
 
-> **Estado:** 5 cerradas · 1 en discusión · 2 pendientes · **Última actualización:** 2026-10-21
+> **Estado:** 6 cerradas · 2 pendientes · **Última actualización:** 2026-10-21
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
 
 ## Resumen
@@ -8,7 +8,7 @@
 | ID | Decisión | Prioridad | Bloquea | Estado |
 |---|---|---|---|---|
 | D-01 | Modelo de cobro a comerciantes | **IMPORTANTE** | `design.md`, admin, onboarding | **CERRADA** (2026-10-21) |
-| D-02 | Pasarela de pagos del MVP | **IMPORTANTE** | checkout, webhooks, conciliación | **EN DISCUSIÓN** |
+| D-02 | Pasarela de pagos del MVP | **IMPORTANTE** | checkout, webhooks, conciliación | **CERRADA** (2026-10-21) |
 | D-03 | Facturación electrónica DIAN | **IMPORTANTE** | invoices, flujo post-pago, legal | **CERRADA (modelo)** (2026-10-21) |
 | D-04 | Cuentas de cliente | **IMPORTANTE** | auth, RLS, checkout | **CERRADA** (2026-10-21) |
 | D-05 | Alcance funcional del MVP | **IMPORTANTE** | port desde `multitiendas`, olas | **CERRADA** (2026-10-21) |
@@ -54,7 +54,7 @@
 
 ## D-02 — Pasarela de pagos del MVP
 
-**IMPORTANTE — EN DISCUSIÓN**
+**IMPORTANTE — CERRADA (2026-10-21)**
 
 **Contexto:** hay dos flujos de dinero distintos y el documento V2 los mezcla:
 
@@ -96,24 +96,31 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 - **C. Stripe:** Billing y Connect muy maduros; menor penetración local para el checkout del comprador.
 - **D. Wompi + Stripe:** Wompi para COP/PSE/Nequi; Stripe para suscripciones y ventas internacionales.
 
-**Recomendación provisional:** D, con credenciales por tenant para el checkout y Stripe Billing (o MercadoPago preapproval) para la suscripción de la plataforma. Si se prefiere una sola integración, B.
+### 2.4 Decisión
 
-### 2.4 Preguntas para la discusión
+**Decisión (2026-10-21):**
 
-1. ¿La plataforma debe poder cobrar una comisión por venta en el futuro? Si sí, el modelo de marketplace condiciona la pasarela.
-2. ¿La suscripción se cobra solo con tarjeta o también con PSE/Nequi?
-3. ¿Se aceptan ventas internacionales en el MVP?
-4. ¿Quién asume chargebacks y refunds: plataforma o comerciante?
-5. ¿Se requiere split de pagos o liquidación manual?
-6. ¿Hay contrato o negociación de tarifas con alguna pasarela?
+1. **Merchant of record:** el comerciante. Growup usa credenciales por tenant y no custodia fondos.
+2. **Checkout del comprador:** Wompi como pasarela principal para COP (PSE, Nequi y tarjetas). Cada tenant conecta su propia cuenta de Wompi.
+3. **Suscripción de la plataforma:** Stripe Billing. Si la entidad legal no puede operar con Stripe en Colombia, se usa MercadoPago preapproval como respaldo.
+4. **Comisión por venta:** no se implementa en el MVP. Queda como decisión de fase 2; el diseño deja una abstracción de proveedor y campos de fee/ledger preparados, sin split.
+5. **Refunds y chargebacks:** los asume el comerciante en el checkout. La plataforma gestiona solo disputas de la suscripción.
+6. **Datos de tarjeta:** nunca tocan Growup; se usa hosted checkout/redirect del proveedor.
 
-**Impacto si no se decide:** no se puede implementar `payments`, webhooks ni conciliación.
+**Pendientes derivados (no bloquean el diseño):**
 
-**Bloquea:** Wave 4 (checkout/pagos), DDL de `payments`, `webhook_events` y `subscriptions`.
+- Confirmar que la entidad legal de Growup puede abrir cuenta Stripe; si no, suscripción con MercadoPago preapproval.
+- Definir si la suscripción acepta PSE/Nequi o solo tarjeta.
+- Verificar tarifas y soporte de Wompi para el flujo elegido.
+- Decidir en fase 2 si habrá comisión por venta y, por tanto, marketplace.
 
-**Criterio de cierre:** pasarela de checkout, pasarela de suscripción, modelo de *merchant of record* y política de refunds/chargebacks.
+**Impacto:** habilita Wave 4; obliga al onboarding de cuentas Wompi por tenant y a dos integraciones (Wompi + Stripe).
 
-**Decisión:** _(pendiente)_
+**Bloquea:** Wave 4 (checkout/pagos), DDL de `payments`, `webhook_events`, `tenant_payment_accounts` y `platform_subscriptions`.
+
+**Criterio de cierre:** cumplido el 2026-10-21.
+
+**Decisión:** **CERRADA** (2026-10-21).
 
 ---
 
