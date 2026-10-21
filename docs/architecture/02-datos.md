@@ -198,7 +198,7 @@ Append-only: `id`, `tenant_id` nullable, `event_type`, `actor_id`, `ip`, `user_a
 
 ## 4. Catálogo e inventario
 
-> Implementación actual: `20261021000100_catalog.sql` cubre `categories`, `products`, `product_variants`, `media_assets`, `media_variants`, `product_media`, `locations`, `inventory_levels`, `inventory_movements` e `inventory_reservations`. Las colecciones y las opciones normalizadas quedan para una migración posterior; por ahora `option_values` vive en JSONB dentro de la variante.
+> Implementación actual: `20261021000100_catalog.sql` cubre `categories`, `products`, `product_variants`, `media_assets`, `media_variants`, `product_media`, `locations`, `inventory_levels`, `inventory_movements` e `inventory_reservations`; `20261021000300_inventory_reservations.sql` añade `location_id` y las invariantes de reserva. Las colecciones y las opciones normalizadas quedan para una migración posterior; por ahora `option_values` vive en JSONB dentro de la variante.
 
 ### `categories`
 
@@ -286,17 +286,17 @@ Append-only: `id`, `tenant_id` nullable, `event_type`, `actor_id`, `ip`, `user_a
 | `safety_stock` | int | `>= 0` |
 | `updated_at` | timestamptz | |
 
-Único `(tenant_id, variant_id, location_id)`; check `available >= 0 and reserved >= 0`.
+Único `(tenant_id, variant_id, location_id)`; check `available >= 0`, `reserved >= 0` y `reserved <= available`.
 
 ### `inventory_reservations`
 
-`id`, `tenant_id`, `variant_id`, `cart_id` nullable, `order_id` nullable, `quantity`, `status` (`active`, `confirmed`, `released`, `expired`), `expires_at`, `created_at`. Índice `(tenant_id, variant_id, status, expires_at)`.
+`id`, `tenant_id`, `variant_id`, `location_id`, `cart_id` nullable, `order_id` nullable, `quantity`, `status` (`active`, `confirmed`, `released`, `expired`), `expires_at`, `created_at`. Índices `(tenant_id, variant_id, status, expires_at)` y `(tenant_id, status, expires_at)`.
 
-Regla: la suma de reservas activas + `reserved` no supera `available`. Se confirma en el webhook `paid`; se libera por TTL.
+Regla: `reserved` nunca supera `available`. La reserva se crea con un `UPDATE ... WHERE available - reserved >= quantity` atómico; se confirma en el webhook `paid` (descuenta `available` y `reserved` e inserta un movimiento `sale`) y se libera por TTL (`expire`).
 
 ### `inventory_movements`
 
-Append-only: `id`, `tenant_id`, `variant_id`, `delta`, `reason` (`sale`, `return`, `adjustment`, `restock`), `reference_type`, `reference_id`, `created_at`.
+Append-only: `id`, `tenant_id`, `variant_id`, `delta`, `reason` (`sale`, `return`, `adjustment`, `restock`, `reservation`, `release`), `reference_type`, `reference_id`, `created_at`.
 
 ## 5. Contenido
 
