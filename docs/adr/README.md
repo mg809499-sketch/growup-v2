@@ -19,7 +19,7 @@ Estados posibles:
 |---|---|---|---|
 | [0001](0001-producto-saas-builder.md) | Producto: SaaS multi-tenant con builder | Aceptada | 2026-10-21 |
 | [0002](0002-repositorio-y-reutilizacion.md) | Repositorio y reutilización de `multitiendas` | Aceptada | 2026-10-21 |
-| 0003 | Identidad y tenancy | Pendiente (D-04, D-07) | — |
+| [0003](0003-identidad-tenancy-rls.md) | Identidad, tenancy y RLS | Aceptada | 2026-10-21 |
 | 0004 | Modelo de contenido y publishing | Pendiente | — |
 | 0005 | Stack satélite (búsqueda, colas, media, observabilidad) | Pendiente | — |
 | 0006 | Motor de reglas y auditoría | Pendiente | — |
@@ -27,4 +27,4 @@ Estados posibles:
 
 ## Relación con las decisiones de negocio
 
-Los ADRs técnicos 0003-0007 dependen de las decisiones de negocio [`D-01` a `D-08`](../decisiones-pendientes.md). No se escriben hasta que esas decisiones estén cerradas.
+Los ADRs técnicos 0004-0007 se escriben cuando las decisiones de negocio que los condicionan estén cerradas. El estado de cada decisión vive en [`docs/decisiones-pendientes.md`](../decisiones-pendientes.md).

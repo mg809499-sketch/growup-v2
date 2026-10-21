@@ -1,19 +1,19 @@
 # Decisiones de negocio pendientes
 
-> **Estado:** abierto · **Última actualización:** 2026-10-21
+> **Estado:** 5 cerradas · 1 en discusión · 2 pendientes · **Última actualización:** 2026-10-21
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
 
 ## Resumen
 
 | ID | Decisión | Prioridad | Bloquea | Estado |
 |---|---|---|---|---|
-| D-01 | Modelo de cobro a comerciantes | **IMPORTANTE** | `design.md`, admin, onboarding | Pendiente |
-| D-02 | Pasarela de pagos del MVP | **IMPORTANTE** | checkout, webhooks, conciliación | Pendiente |
-| D-03 | Facturación electrónica DIAN | **IMPORTANTE** | invoices, flujo post-pago, legal | Pendiente |
-| D-04 | Cuentas de cliente | **IMPORTANTE** | auth, RLS, checkout | Pendiente |
-| D-05 | Alcance funcional del MVP | **IMPORTANTE** | port desde `multitiendas`, olas | Pendiente |
+| D-01 | Modelo de cobro a comerciantes | **IMPORTANTE** | `design.md`, admin, onboarding | **CERRADA** (2026-10-21) |
+| D-02 | Pasarela de pagos del MVP | **IMPORTANTE** | checkout, webhooks, conciliación | **EN DISCUSIÓN** |
+| D-03 | Facturación electrónica DIAN | **IMPORTANTE** | invoices, flujo post-pago, legal | **CERRADA (modelo)** (2026-10-21) |
+| D-04 | Cuentas de cliente | **IMPORTANTE** | auth, RLS, checkout | **CERRADA** (2026-10-21) |
+| D-05 | Alcance funcional del MVP | **IMPORTANTE** | port desde `multitiendas`, olas | **CERRADA** (2026-10-21) |
 | D-06 | Moneda e impuestos | **IMPORTANTE** | precios, invoices, reportes | Pendiente |
-| D-07 | Dominios y TLS | **IMPORTANTE** | tenancy, onboarding | Pendiente |
+| D-07 | Dominios y TLS | **IMPORTANTE** | tenancy, onboarding | **CERRADA** (2026-10-21) |
 | D-08 | Primer tenant y fecha de lanzamiento | **IMPORTANTE** | contenido, QA, go-live | Pendiente |
 
 ## Protocolo para cerrar una decisión
@@ -28,7 +28,7 @@
 
 ## D-01 — Modelo de cobro a comerciantes
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — CERRADA (2026-10-21)**
 
 **Contexto:** el documento V2 describe un SaaS con builder, pero no define cómo paga el comerciante por la plataforma. Sin esto no existen `plans`, `subscriptions`, trials, suspensión por impago ni métricas de negocio.
 
@@ -38,7 +38,7 @@
 - **B. Comisión por venta** (porcentaje del GMV). Alinea incentivos, pero exige conciliación con la pasarela y reportes por tenant.
 - **C. Híbrido:** suscripción base + comisión por ventas altas o add-ons (dominio custom, storage extra).
 
-**Recomendación:** A para el MVP (0% comisión), con la estructura de datos preparada para C. El precio se define después con costos reales de infraestructura.
+**Recomendación:** A para el MVP (0% comisión), con la estructura de datos preparada para C.
 
 **Impacto si no se decide:** no se puede diseñar el admin de facturación, el onboarding ni la suspensión de tenants.
 
@@ -46,29 +46,72 @@
 
 **Criterio de cierre:** plan elegido, límites por plan y política de trial/impago.
 
-**Decisión:** _(pendiente)_
+**Decisión (2026-10-21):** **A.** Suscripción mensual con trial de 14 días y 0% de comisión durante el MVP. Los límites por plan y el precio se definen con costos reales de infraestructura. La estructura de datos queda preparada para el modelo híbrido (C).
+
+**Pendiente derivado:** precios y límites por plan. No bloquea el diseño; se define antes del onboarding.
 
 ---
 
 ## D-02 — Pasarela de pagos del MVP
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — EN DISCUSIÓN**
 
-**Contexto:** el checkout necesita una pasarela con webhooks firmados, tokenización y conciliación. El documento menciona Wompi, MercadoPago y Stripe sin elegir.
+**Contexto:** hay dos flujos de dinero distintos y el documento V2 los mezcla:
 
-**Opciones:**
+1. **Plataforma → comerciante:** cobro de la suscripción mensual (D-01).
+2. **Comerciante → comprador:** cobro del checkout de cada tienda.
 
-- **A. Wompi** (Colombia): fuerte en COP, PSE y Nequi; integración directa.
-- **B. MercadoPago** (LatAm): cobertura regional, checkout y suscripciones.
-- **C. Stripe** (internacional): mejor DX, pero menor penetración local y otro contrato.
+Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una decisión incompleta.
 
-**Recomendación:** Wompi para el MVP en Colombia y MercadoPago como segunda opción. Stripe solo si hay ventas internacionales.
+### 2.1 Decisión oculta: ¿quién es el comerciante de registro?
+
+| Modelo | Cómo funciona | Implicaciones |
+|---|---|---|
+| **Credenciales por tenant** | Cada comerciante conecta su cuenta de pasarela; la plataforma solo orquesta. | El comerciante es el *merchant of record*. Sin custodia de fondos. Onboarding más pesado. |
+| **Marketplace / connected accounts** | La plataforma es facilitadora; la pasarela divide pagos y comisiones. | Mejor UX y fee automático. Requiere soporte de marketplace y revisión legal. |
+| **Plataforma merchant of record** | La plataforma cobra y luego liquida al comerciante. | Custodia de fondos, riesgo regulatorio y contable alto. No recomendado para el MVP. |
+
+**Recomendación:** credenciales por tenant en el MVP (sin custodia de fondos). Evaluar marketplace en fase 2 si la propuesta exige checkout único y split de comisiones.
+
+### 2.2 Criterios para elegir la pasarela
+
+| Criterio | Wompi | MercadoPago | Stripe |
+|---|---|---|---|
+| Cobertura Colombia | Alta | Alta | Media |
+| COP, PSE, Nequi | Sí | Sí | Limitado |
+| Tarjetas internacionales | Media | Alta | Alta |
+| Suscripciones / cobro recurrente | Verificar | Preapproval | Billing maduro |
+| Marketplace / split | Verificar | Marketplace | Connect |
+| Webhooks firmados e idempotencia | Sí | Sí | Sí |
+| Sandbox y documentación | Buena | Buena | Excelente |
+| Tarifas | Verificar vigentes | Verificar vigentes | Verificar vigentes |
+| Complejidad de integración | Media | Media | Media-alta |
+
+> Las tarifas y la disponibilidad de suscripciones/marketplace deben confirmarse con cada proveedor antes de cerrar la decisión. No se asumen en este documento.
+
+### 2.3 Opciones
+
+- **A. Wompi para checkout + MercadoPago para suscripciones.** Dos integraciones, cobertura local fuerte.
+- **B. Solo MercadoPago:** checkout y preapproval en un solo proveedor; menor cobertura PSE/Nequi que Wompi.
+- **C. Stripe:** Billing y Connect muy maduros; menor penetración local para el checkout del comprador.
+- **D. Wompi + Stripe:** Wompi para COP/PSE/Nequi; Stripe para suscripciones y ventas internacionales.
+
+**Recomendación provisional:** D, con credenciales por tenant para el checkout y Stripe Billing (o MercadoPago preapproval) para la suscripción de la plataforma. Si se prefiere una sola integración, B.
+
+### 2.4 Preguntas para la discusión
+
+1. ¿La plataforma debe poder cobrar una comisión por venta en el futuro? Si sí, el modelo de marketplace condiciona la pasarela.
+2. ¿La suscripción se cobra solo con tarjeta o también con PSE/Nequi?
+3. ¿Se aceptan ventas internacionales en el MVP?
+4. ¿Quién asume chargebacks y refunds: plataforma o comerciante?
+5. ¿Se requiere split de pagos o liquidación manual?
+6. ¿Hay contrato o negociación de tarifas con alguna pasarela?
 
 **Impacto si no se decide:** no se puede implementar `payments`, webhooks ni conciliación.
 
-**Bloquea:** Wave 4 (checkout/pagos), DDL de `payments` y `webhook_events`.
+**Bloquea:** Wave 4 (checkout/pagos), DDL de `payments`, `webhook_events` y `subscriptions`.
 
-**Criterio de cierre:** pasarela principal, pasarela de respaldo y proveedor de suscripciones (si aplica).
+**Criterio de cierre:** pasarela de checkout, pasarela de suscripción, modelo de *merchant of record* y política de refunds/chargebacks.
 
 **Decisión:** _(pendiente)_
 
@@ -76,7 +119,7 @@
 
 ## D-03 — Facturación electrónica DIAN
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — CERRADA (modelo) — 2026-10-21**
 
 **Contexto:** en Colombia la factura electrónica es obligatoria y requiere CUFE, QR y validación ante la DIAN. Construirlo desde cero es un proyecto en sí mismo.
 
@@ -94,13 +137,15 @@
 
 **Criterio de cierre:** proveedor elegido, contrato/API key y flujo de reintentos definido.
 
-**Decisión:** _(pendiente)_
+**Decisión (2026-10-21):** **A.** Se usa un proveedor certificado. El backend guarda `electronic_ref` y el PDF, y delega la emisión. El proveedor concreto (Factus, Siigo o Alegra) se elige antes de la Wave 4.
+
+**Pendiente derivado:** selección del proveedor, contrato y API key.
 
 ---
 
 ## D-04 — Cuentas de cliente
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — CERRADA (2026-10-21)**
 
 **Contexto:** el documento no define si el comprador final tiene cuenta, si compra como invitado o si usa magic link. Esto cambia auth, RLS, checkout y soporte.
 
@@ -118,13 +163,13 @@
 
 **Criterio de cierre:** opción elegida y política de datos personales asociada.
 
-**Decisión:** _(pendiente)_
+**Decisión (2026-10-21):** **B.** Guest checkout con magic link opcional. El personal del comerciante usa Supabase Auth; el comprador no usa contraseña.
 
 ---
 
 ## D-05 — Alcance funcional del MVP
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — CERRADA (2026-10-21)**
 
 **Contexto:** `multitiendas` ya tiene returns/RMA, bespoke, promociones, envío blindado e IA/WhatsApp. La V2 no los menciona. Portar todo multiplica el tiempo; no portar nada pierde capacidades valiosas.
 
@@ -142,7 +187,7 @@
 
 **Criterio de cierre:** lista cerrada de funcionalidades MVP y lista explícita de diferidas.
 
-**Decisión:** _(pendiente)_
+**Decisión (2026-10-21):** **A.** MVP comercial. Se difieren returns/RMA, bespoke, promociones, envío blindado, IA/WhatsApp, L402, multi-moneda y dominios custom.
 
 ---
 
@@ -172,13 +217,13 @@
 
 ## D-07 — Dominios y TLS
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — CERRADA (2026-10-21)**
 
 **Contexto:** el storefront resuelve tenant por host. El MVP puede usar subdominios gestionados o permitir dominios propios desde el día 1.
 
 **Opciones:**
 
-- **A. Solo subdominios `*.cordiasolve.com`**, con wildcard TLS.
+- **A. Solo subdominios `*.growup.com`**, con wildcard TLS.
 - **B. Subdominios + dominios custom** con verificación DNS y emisión automática de certificados.
 - **C. Dominio único con path por tenant** (`/t/slug`), sin TLS por tenant.
 
@@ -190,7 +235,9 @@
 
 **Criterio de cierre:** estrategia de dominios y proveedor de TLS.
 
-**Decisión:** _(pendiente)_
+**Decisión (2026-10-21):** **A.** Subdominios `*.growup.com` con wildcard TLS. Los dominios custom se posponen a fase 3.
+
+**Pendiente derivado:** confirmar proveedor de DNS/TLS (Cloudflare o Vercel) y dominio raíz.
 
 ---
 
