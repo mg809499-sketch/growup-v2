@@ -21,6 +21,7 @@ class Settings(BaseSettings):
     db_pool_max: int = 10
     tenant_cache_ttl_seconds: int = 300
     root_domain: str = "growup.com"
+    inventory_reservation_ttl_seconds: int = 900
     redis_url: str = ""
     supabase_url: str = ""
     supabase_jwt_audience: str = "authenticated"

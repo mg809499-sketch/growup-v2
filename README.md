@@ -49,6 +49,7 @@ growup/
 - [x] `/v1/storefront/bootstrap` con resolución host→tenant, settings y caché local
 - [x] Auth de staff: JWKS, memberships, roles/permisos y `/v1/admin/me`
 - [x] Catálogo: migración, API admin/storefront, FTS, inventario inicial y 14 tests pgTAP
+- [x] Inventario: reservas atómicas por ubicación, confirmación/liberación/expiración y test de 40 reservas concurrentes sin overselling
 - [x] Gobernanza: `decide()` con políticas versionadas, `decision_logs` append-only con cadena por tenant/plataforma y verificación de integridad
 - [x] Onboarding: `POST /v1/platform/tenants` atómico con `create_tenant_with_owner` + auditoría
 - [ ] Wave 0 / Wave 1: frontend, media upload y contenido
