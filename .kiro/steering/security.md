@@ -27,7 +27,8 @@
 
 ## Media y uploads
 
-- Buckets privados; acceso por URL firmada de corta duración.
+- Catálogo: bucket público de solo lectura vía CDN, sin PII, con cache inmutable.
+- Documentos (facturas, exports): bucket privado con URL firmada de corta duración.
 - Prefijo por tenant: `tenant/{tenant_id}/...`.
 - Validación de MIME real, tamaño máximo y dimensiones.
 - PDFs: antivirus y allowlist.

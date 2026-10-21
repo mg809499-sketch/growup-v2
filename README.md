@@ -38,9 +38,9 @@ growup/
 - [x] Prompt de v0 en `docs/prompts/v0-storefront.md`
 - [x] Bootstrap del monorepo
 - [x] ADR-0001 (producto) y ADR-0002 (repositorio)
-- [ ] Decisiones de negocio (`docs/decisiones-pendientes.md`)
-- [ ] ADRs técnicos restantes
-- [ ] Specs en `.kiro/specs/`
+- [x] Decisiones de negocio (`docs/decisiones-pendientes.md`)
+- [x] ADRs técnicos 0001-0008
+- [x] Specs en `.kiro/specs/storefront-platform-v2/`
 - [ ] Wave 0 / Wave 1
 
 ## Inicio rápido — API

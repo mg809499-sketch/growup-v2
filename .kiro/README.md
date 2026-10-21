@@ -20,5 +20,5 @@ Este directorio contiene las reglas persistentes y las especificaciones ejecutab
 ## Estado
 
 - `steering/` creado.
-- `specs/` pendiente: depende de las decisiones D-01 a D-08.
-- `skills/` pendiente: se crea junto con la primera ola.
+- `specs/storefront-platform-v2/` creado con `requirements.md`, `design.md` y `tasks.md`.
+- `skills/` pendiente: `tenant-isolation-check` y `block-review` se crean en Wave 1 y Wave 3.

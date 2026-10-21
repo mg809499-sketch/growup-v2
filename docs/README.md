@@ -5,8 +5,12 @@
 ## Arquitectura y producto
 
 - [Arquitectura V2 (documento base)](arquitectura-plataforma-inteligente-cordiasolve-v2.md) — documento original, puede contener contradicciones; la fuente de verdad serán los ADRs y las specs.
+- [Overview de arquitectura](architecture/00-overview.md) — contenedores, dominios y flujos.
+- [Modelo de datos](architecture/02-datos.md) — tablas, RLS, migraciones.
+- [Tenancy y threat model](architecture/03-tenancy.md) — STRIDE y 12 vectores cross-tenant.
 - [Decisiones de negocio pendientes](decisiones-pendientes.md) — **leer antes de diseñar o implementar**.
 - [ADRs](adr/README.md) — decisiones de arquitectura aceptadas y propuestas.
+- [Spec del MVP](../.kiro/specs/storefront-platform-v2/requirements.md) — requisitos, diseño y tareas.
 
 ## Prompts
 

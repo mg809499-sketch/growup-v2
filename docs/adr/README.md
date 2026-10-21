@@ -21,11 +21,11 @@ Estados posibles:
 | [0002](0002-repositorio-y-reutilizacion.md) | Repositorio y reutilización de `multitiendas` | Aceptada | 2026-10-21 |
 | [0003](0003-identidad-tenancy-rls.md) | Identidad, tenancy y RLS | Aceptada | 2026-10-21 |
 | [0004](0004-pagos-checkout-merchant-of-record.md) | Pagos, checkout y merchant of record | Aceptada | 2026-10-21 |
-| 0005 | Modelo de contenido y publishing | Pendiente | — |
-| 0006 | Stack satélite (búsqueda, colas, media, observabilidad) | Pendiente | — |
-| 0007 | Motor de reglas y auditoría | Pendiente | — |
-| 0008 | Topología de despliegue | Pendiente | — |
+| [0005](0005-contenido-y-publishing.md) | Modelo de contenido y publishing | Propuesta | 2026-10-21 |
+| [0006](0006-stack-satelite.md) | Stack satélite (búsqueda, colas, media, observabilidad) | Aceptada | 2026-10-21 |
+| [0007](0007-motor-reglas-auditoria.md) | Motor de reglas y auditoría | Aceptada | 2026-10-21 |
+| [0008](0008-topologia-despliegue.md) | Topología de despliegue | Aceptada | 2026-10-21 |
 
 ## Relación con las decisiones de negocio
 
-Los ADRs técnicos 0005-0008 se escriben cuando las decisiones de negocio que los condicionan estén cerradas. El estado de cada decisión vive en [`docs/decisiones-pendientes.md`](../decisiones-pendientes.md).
+Las decisiones [`D-01` a `D-08`](../decisiones-pendientes.md) están cerradas. Los ADRs 0001-0008 registran las decisiones técnicas. El ADR-0005 queda en **Propuesta** hasta la revisión del modelo de bloques; cualquier cambio futuro se documenta con un ADR nuevo.
