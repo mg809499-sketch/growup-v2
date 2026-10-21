@@ -51,3 +51,13 @@ pnpm typecheck
 - Sin secretos ni PII en logs.
 - Documentación o ADR actualizado si cambió una decisión.
 - Si el cambio toca aislamiento de tenants, se ejecuta la skill `tenant-isolation-check`.
+- Si el cambio toca bloques/contenido, se ejecuta `block-review`.
+- Si el cambio toca pagos/webhooks, se ejecuta `payment-webhook-review`.
+
+## Kiro
+
+- **Steering:** `.kiro/steering/` (6 archivos, `inclusion: always`).
+- **Spec:** `.kiro/specs/storefront-platform-v2/` (`requirements`, `design`, `tasks`).
+- **Skills:** `tenant-isolation-check`, `block-review`, `payment-webhook-review`.
+- **Hooks:** `.kiro/hooks/` (calidad API, migraciones, tests, secretos).
+- Los hooks no reemplazan la CI ni los tests: solo dan feedback temprano.

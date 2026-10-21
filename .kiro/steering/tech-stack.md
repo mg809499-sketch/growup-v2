@@ -1,3 +1,7 @@
+---
+inclusion: always
+---
+
 # Tech stack y convenciones
 
 ## Monorepo

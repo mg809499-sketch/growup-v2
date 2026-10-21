@@ -33,9 +33,9 @@
 | W0-07 | Pendiente | Sentry/OTel |
 | W0-08 | Pendiente | Spikes Wompi/Stripe |
 | W1-01 | Parcial | Tenancy core con RLS; faltan tablas de olas 2-5 |
-| W1-02 | Pendiente | `app.resolve_tenant` listo; falta servicio/caché |
+| W1-02 | Hecho | `TenantResolver` + `PostgresTenantRepository` + `/v1/storefront/bootstrap`; tests unitarios, API e integración |
 | W1-03 | Parcial | JWT/JWKS listo; falta membership/auth service |
-| W1-06 | Parcial | 16 pgTAP + test de integración; faltan los 12 vectores HTTP |
+| W1-06 | Parcial | 17 pgTAP + test de integración; faltan los 12 vectores HTTP |
 
 ## Definition of Done (por tarea)
 

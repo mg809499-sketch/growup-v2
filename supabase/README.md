@@ -5,7 +5,7 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 ## Estado
 
 - Migración base aplicada en local: `migrations/20261021000000_core_tenancy.sql`.
-- Tests pgTAP: `tests/tenancy.sql` (16 assertions).
+- Tests pgTAP: `tests/tenancy.sql` (17 assertions).
 - `app_rw` existe sin `BYPASSRLS`; la API fija por transacción:
   - `SET LOCAL ROLE app_rw`
   - `SELECT set_config('app.tenant_id', $1, true)`

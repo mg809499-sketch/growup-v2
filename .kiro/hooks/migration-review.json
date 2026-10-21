@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "migration-review-create",
+      "trigger": "PostFileCreate",
+      "matcher": "supabase/migrations/.*\\.sql$",
+      "action": {
+        "type": "agent",
+        "prompt": "Se creó una migración de Growup. Revísala con la skill tenant-isolation-check y verifica: tenant_id NOT NULL en tablas de negocio, ENABLE + FORCE RLS, políticas USING/WITH CHECK, ausencia de USING (true), índices por tenant, dinero en bigint de centavos, migración expand/contract, funciones SECURITY DEFINER con search_path fijo y tests pgTAP. Si falta algo, dilo antes de continuar."
+      },
+      "enabled": true
+    },
+    {
+      "name": "migration-review-save",
+      "trigger": "PostFileSave",
+      "matcher": "supabase/migrations/.*\\.sql$",
+      "action": {
+        "type": "agent",
+        "prompt": "Se modificó una migración de Growup. Verifica que sigue siendo segura para RLS, que no introduce un DROP destructivo sin plan de rollback, que mantiene el aislamiento por tenant y que los tests pgTAP cubren el cambio."
+      },
+      "enabled": true
+    }
+  ]
+}

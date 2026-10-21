@@ -10,19 +10,10 @@ from fastapi.responses import JSONResponse
 from starlette.responses import Response
 
 from app.core.config import settings
-from app.core.db import Database
 from app.core.errors import AppError, app_error_handler
+from app.core.runtime import database
+from app.domains.tenants.router import router as storefront_router
 from app.schemas.ops import HealthResponse, ReadyResponse
-
-database: Database | None = (
-    Database(
-        settings.database_url,
-        min_size=settings.db_pool_min,
-        max_size=settings.db_pool_max,
-    )
-    if settings.database_url
-    else None
-)
 
 
 @asynccontextmanager
@@ -60,6 +51,8 @@ async def _app_error_adapter(request: Request, exc: Exception) -> Response:
 
 
 app.add_exception_handler(AppError, _app_error_adapter)
+
+app.include_router(storefront_router)
 
 
 @app.middleware("http")

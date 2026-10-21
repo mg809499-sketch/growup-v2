@@ -56,6 +56,18 @@ class Database:
         return True
 
     @asynccontextmanager
+    async def public_transaction(self) -> AsyncIterator[asyncpg.Connection]:
+        """Transacción como app_rw sin contexto de tenant.
+
+        Se usa para funciones SECURITY DEFINER acotadas (resolver host, crear
+        tenant) y para catálogo de plataforma. Las tablas con RLS no devuelven
+        filas porque `app.current_tenant()` es NULL.
+        """
+        async with self.pool.acquire() as connection, connection.transaction():
+            await connection.execute(_SET_ROLE_SQL)
+            yield connection
+
+    @asynccontextmanager
     async def tenant_transaction(self, tenant_id: UUID) -> AsyncIterator[asyncpg.Connection]:
         """Abre una transacción y fija `app.tenant_id` con SET LOCAL.
 

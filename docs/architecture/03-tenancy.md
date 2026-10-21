@@ -116,14 +116,15 @@ Fixtures: tenant A (`ropa`) y tenant B (`joyeria`), un owner y un packer por ten
 
 - Migración: `supabase/migrations/20261021000000_core_tenancy.sql`.
 - `app_rw` sin `BYPASSRLS`; `tenants`, `domains`, `tenant_settings`, `tenant_features`, `memberships`, `customers`, `addresses` y `auth_events` con RLS `ENABLE` + `FORCE`.
+- `public_transaction` fija `SET LOCAL ROLE app_rw` sin tenant para `app.resolve_tenant`/`app.create_tenant`; `tenant_transaction` añade `SET LOCAL app.tenant_id`.
 - La API fija por transacción:
   ```sql
   SET LOCAL ROLE app_rw;
   SELECT set_config('app.tenant_id', $1, true);
   ```
   El rol se resetea al terminar la transacción; el pool nunca opera como superusuario.
-- Tests pgTAP: `supabase/tests/tenancy.sql` (16 assertions, incluye resolución de host, aislamiento A/B y bloqueo de insert cross-tenant).
-- Test de integración: `services/api/tests/integration/test_tenant_transaction.py` (requiere `GROWUP_TEST_DATABASE_URL`).
+- Tests pgTAP: `supabase/tests/tenancy.sql` (17 assertions, incluye resolución de host, aislamiento A/B y bloqueo de insert cross-tenant).
+- Test de integración: `services/api/tests/integration/test_tenant_transaction.py` y `test_storefront_bootstrap.py` (requieren `GROWUP_TEST_DATABASE_URL`).
 - `plans` es catálogo de plataforma y no usa `tenant_id`; `platform_admins` se consulta con `app.is_platform_admin(uuid)`.
 
 ## 8. Riesgos residuales

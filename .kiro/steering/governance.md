@@ -1,3 +1,7 @@
+---
+inclusion: always
+---
+
 # Gobernanza e IA
 
 ## Axioma

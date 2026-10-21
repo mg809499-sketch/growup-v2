@@ -144,6 +144,19 @@ async def test_tenant_transaction_sets_local_tenant() -> None:
     assert pool.connection.transaction_exited is True
 
 
+async def test_public_transaction_sets_role_without_tenant() -> None:
+    pool = FakePool()
+    database = _database_with_pool(pool)
+
+    async with database.public_transaction() as connection:
+        assert connection is pool.connection
+
+    assert pool.connection.statements == ["SET LOCAL ROLE app_rw"]
+    assert pool.connection.executed == []
+    assert pool.connection.transaction_entered is True
+    assert pool.connection.transaction_exited is True
+
+
 async def test_tenant_transaction_rejects_non_uuid() -> None:
     database = _database_with_pool(FakePool())
 

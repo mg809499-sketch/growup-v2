@@ -5,6 +5,27 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/v1/storefront/bootstrap": {
+      "get": {
+        "tags": [
+          "storefront"
+        ],
+        "summary": "Bootstrap",
+        "operationId": "bootstrap_v1_storefront_bootstrap_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BootstrapResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/healthz": {
       "get": {
         "tags": [
@@ -62,6 +83,22 @@
   },
   "components": {
     "schemas": {
+      "BootstrapResponse": {
+        "properties": {
+          "tenant": {
+            "$ref": "#/components/schemas/TenantPublic"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/StorefrontSettings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant",
+          "settings"
+        ],
+        "title": "BootstrapResponse"
+      },
       "HealthResponse": {
         "properties": {
           "status": {
@@ -110,6 +147,87 @@
           "checks"
         ],
         "title": "ReadyResponse"
+      },
+      "StorefrontSettings": {
+        "properties": {
+          "currency": {
+            "type": "string",
+            "title": "Currency"
+          },
+          "locale": {
+            "type": "string",
+            "title": "Locale"
+          },
+          "navigation": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Navigation"
+          },
+          "seo_defaults": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Seo Defaults"
+          },
+          "shipping_zones": {
+            "items": {},
+            "type": "array",
+            "title": "Shipping Zones"
+          },
+          "contact": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Contact"
+          },
+          "social": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Social"
+          }
+        },
+        "type": "object",
+        "required": [
+          "currency",
+          "locale",
+          "navigation",
+          "seo_defaults",
+          "shipping_zones",
+          "contact",
+          "social"
+        ],
+        "title": "StorefrontSettings"
+      },
+      "TenantPublic": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TenantStatus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "name",
+          "status"
+        ],
+        "title": "TenantPublic"
+      },
+      "TenantStatus": {
+        "type": "string",
+        "enum": [
+          "trialing",
+          "active",
+          "past_due",
+          "suspended",
+          "canceled"
+        ],
+        "title": "TenantStatus"
       }
     }
   }
