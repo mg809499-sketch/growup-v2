@@ -1,6 +1,6 @@
 # Decisiones de negocio pendientes
 
-> **Estado:** 6 cerradas · 2 pendientes · **Última actualización:** 2026-10-21
+> **Estado:** 8 cerradas (D-03 con proveedor por definir) · **Última actualización:** 2026-10-21
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
 
 ## Resumen
@@ -12,9 +12,9 @@
 | D-03 | Facturación electrónica DIAN | **IMPORTANTE** | invoices, flujo post-pago, legal | **CERRADA (modelo)** (2026-10-21) |
 | D-04 | Cuentas de cliente | **IMPORTANTE** | auth, RLS, checkout | **CERRADA** (2026-10-21) |
 | D-05 | Alcance funcional del MVP | **IMPORTANTE** | port desde `multitiendas`, olas | **CERRADA** (2026-10-21) |
-| D-06 | Moneda e impuestos | **IMPORTANTE** | precios, invoices, reportes | Pendiente |
+| D-06 | Moneda e impuestos | **IMPORTANTE** | precios, invoices, reportes | **CERRADA** (2026-10-21) |
 | D-07 | Dominios y TLS | **IMPORTANTE** | tenancy, onboarding | **CERRADA** (2026-10-21) |
-| D-08 | Primer tenant y fecha de lanzamiento | **IMPORTANTE** | contenido, QA, go-live | Pendiente |
+| D-08 | Primer tenant y fecha de lanzamiento | **IMPORTANTE** | contenido, QA, go-live | **CERRADA** (2026-10-21) |
 
 ## Protocolo para cerrar una decisión
 
@@ -200,7 +200,7 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 ## D-06 — Moneda e impuestos
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — CERRADA (2026-10-21)**
 
 **Contexto:** el documento asume COP, pero no define si los precios incluyen IVA, cómo se redondea ni cómo se manejan envíos y descuentos.
 
@@ -218,7 +218,9 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 **Criterio de cierre:** moneda, tratamiento de IVA, redondeo y política de envío.
 
-**Decisión:** _(pendiente)_
+**Decisión (2026-10-21):** **A.** COP únicamente. Los precios mostrados incluyen IVA 19%. Se guardan montos en centavos y un snapshot de `subtotal_cents`, `tax_cents`, `shipping_cents` y `total_cents` en la orden, con la tasa aplicada. Envío plano por zona. El total se muestra en pesos enteros, pero el cálculo interno es en centavos. Multi-moneda queda diferido (D-05). Descuentos y promociones quedan fuera del MVP.
+
+**Pendiente derivado:** confirmar con contador el tratamiento de IVA sobre el envío, los redondeos de facturación y que todos los productos del piloto estén gravados al 19%; definir zonas y tarifas de envío.
 
 ---
 
@@ -250,7 +252,7 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 ## D-08 — Primer tenant y fecha de lanzamiento
 
-**IMPORTANTE — PENDIENTE**
+**IMPORTANTE — CERRADA (2026-10-21)**
 
 **Contexto:** sin un tenant real y una fecha, el catálogo, el contenido, el QA y el go-live quedan indefinidos.
 
@@ -268,4 +270,6 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 **Criterio de cierre:** tenant(s) piloto, fecha objetivo y responsable de contenido.
 
-**Decisión:** _(pendiente)_
+**Decisión (2026-10-21):** **A.** Piloto con ropa + joyería. Fecha objetivo: **Q1 2027**.
+
+**Pendiente derivado:** fecha exacta dentro de Q1 2027, responsable de contenido por tenant y criterios de aceptación del piloto.
