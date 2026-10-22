@@ -6,7 +6,7 @@ grant usage on schema extensions to app_rw;
 grant execute on all functions in schema extensions to app_rw;
 set search_path = public, extensions;
 
-select plan(7);
+select plan(8);
 
 select ok(
     (
@@ -76,6 +76,16 @@ select ok(
         where oid = 'app.expire_stale_uploads(integer)'::regprocedure
     ),
     'expire_stale_uploads usa pg_catalog y app, sin public'
+);
+
+select ok(
+    (
+        select proconfig::text like '%pg_catalog%'
+           and proconfig::text not like '%public%'
+        from pg_proc
+        where oid = 'app.list_tenants(uuid, text, text, integer, integer)'::regprocedure
+    ),
+    'list_tenants usa pg_catalog y app, sin public'
 );
 
 select * from finish();

@@ -4,8 +4,8 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 
 ## Estado
 
-- Migraciones aplicadas en local: `20261021000000_core_tenancy.sql`, `20261021000100_catalog.sql`, `20261021000200_governance.sql`, `20261021000300_inventory_reservations.sql`, `20261021000400_harden_security_definer.sql`, `20261021000500_media_metadata.sql` y `20261021000600_media_cleanup.sql`.
-- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14) + `tests/governance.sql` (21) + `tests/inventory.sql` (9) + `tests/media.sql` (14) + `tests/security.sql` (7); 82 en total.
+- Migraciones aplicadas en local: `20261021000000_core_tenancy.sql`, `20261021000100_catalog.sql`, `20261021000200_governance.sql`, `20261021000300_inventory_reservations.sql`, `20261021000400_harden_security_definer.sql`, `20261021000500_media_metadata.sql`, `20261021000600_media_cleanup.sql` y `20261021000700_platform_tenant_list.sql`.
+- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14) + `tests/governance.sql` (21) + `tests/inventory.sql` (9) + `tests/media.sql` (14) + `tests/platform.sql` (7) + `tests/security.sql` (8); 90 en total.
 - `app_rw` existe sin `BYPASSRLS`; la API fija por transacción:
   - `SET LOCAL ROLE app_rw`
   - `SELECT set_config('app.tenant_id', $1, true)`
@@ -16,6 +16,7 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 - `create_tenant_with_owner` crea tenant, dominio, settings, features, ubicación default y membership owner en una sola transacción.
 - Las reservas de inventario usan `location_id` explícito, `UPDATE ... WHERE available - reserved >= quantity` atómico y check `reserved <= available`; `expire` libera las vencidas.
 - `media_assets`, `media_variants` y `product_media` tienen RLS forzado. El prefijo de R2 es `tenant/{tenant_id}/...`; `original_filename` es metadata y nunca forma parte de la clave.
+- `app.list_tenants()` (SECURITY DEFINER) lista tenants cross-tenant solo si el actor existe en `platform_admins`; el listado incluye host primario, plan, trial y paginación.
 - `app.expire_stale_uploads()` (SECURITY DEFINER, `search_path` fijo) marca como `failed` los uploads que nunca se completaron; la ejecuta el worker ARQ cada hora.
 - Las funciones `SECURITY DEFINER` usan `search_path = pg_catalog, app` (sin `public`); lo verifica `tests/security.sql`.
 
