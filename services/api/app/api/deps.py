@@ -87,7 +87,9 @@ async def get_storefront_tenant(
     host = request.headers.get("X-Storefront-Host") or request.headers.get("host")
     if not host:
         raise AppError("TENANT_NOT_FOUND", "Host requerido", 404)
-    return await resolver.resolve(host)
+    tenant = await resolver.resolve(host)
+    request.state.tenant_id = str(tenant.id)
+    return tenant
 
 
 async def get_bearer_token(
@@ -118,8 +120,10 @@ async def get_admin_context(
 
 
 async def get_tenant_context(
+    request: Request,
     context: Annotated[RequestContext, Depends(get_admin_context)],
 ) -> RequestContext:
     if context.tenant_id is None:
         raise AppError("FORBIDDEN", "Se requiere un tenant", 403)
+    request.state.tenant_id = str(context.tenant_id)
     return context

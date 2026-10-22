@@ -35,6 +35,8 @@ class Settings(BaseSettings):
     supabase_url: str = ""
     supabase_jwt_audience: str = "authenticated"
     cors_origins: str = "http://localhost:3000"
+    sentry_dsn: str = ""
+    sentry_traces_sample_rate: float = 0.0
 
     @property
     def cors_origin_list(self) -> list[str]:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 from uuid import uuid4
@@ -12,6 +13,7 @@ from starlette.responses import Response
 from app.core.config import settings
 from app.core.errors import AppError, app_error_handler
 from app.core.middleware import SecurityMiddleware
+from app.core.observability import configure_logging, configure_sentry, get_logger
 from app.domains.catalog.router import admin_router as catalog_admin_router
 from app.domains.catalog.router import storefront_router as catalog_storefront_router
 from app.domains.governance.router import router as audit_router
@@ -21,6 +23,11 @@ from app.domains.tenants.platform_router import platform_router
 from app.domains.tenants.router import router as storefront_router
 from app.runtime import close_media_queue, database
 from app.schemas.ops import HealthResponse, ReadyResponse
+
+configure_logging()
+configure_sentry()
+
+logger = get_logger("growup.api")
 
 
 @asynccontextmanager
@@ -81,9 +88,37 @@ async def add_request_id(
 ) -> Response:
     request_id = request.headers.get("X-Request-ID") or str(uuid4())
     request.state.request_id = request_id
-    response = await call_next(request)
+    start = time.perf_counter()
+
+    try:
+        response = await call_next(request)
+    except Exception:
+        logger.exception(
+            "http_request",
+            method=request.method,
+            path=request.url.path,
+            status=500,
+            duration_ms=_elapsed_ms(start),
+            request_id=request_id,
+            tenant_id=getattr(request.state, "tenant_id", None),
+        )
+        raise
+
     response.headers["X-Request-ID"] = request_id
+    logger.info(
+        "http_request",
+        method=request.method,
+        path=request.url.path,
+        status=response.status_code,
+        duration_ms=_elapsed_ms(start),
+        request_id=request_id,
+        tenant_id=getattr(request.state, "tenant_id", None),
+    )
     return response
+
+
+def _elapsed_ms(start: float) -> float:
+    return round((time.perf_counter() - start) * 1000, 2)
 
 
 @app.get("/healthz", response_model=HealthResponse, tags=["ops"])
