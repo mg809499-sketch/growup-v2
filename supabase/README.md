@@ -55,7 +55,7 @@ uv run pytest
 ## Pendiente
 
 - Migraciones de contenido, comercio, pagos, billing y facturas.
-- Configurar R2 y ARQ en staging, probar el flujo E2E de upload y asociar media a productos.
+- Configurar R2 y ARQ en staging y correr el E2E real de upload; el E2E con S3-compatible (moto) ya cubre el flujo en CI.
 - Seed de dos tenants demo con usuarios de Auth.
 - Configurar Supabase local con signing keys asimétricas (JWKS) para probar login real; el verificador rechaza HS256 por diseño.
 - Política de `platform_admins` y acceso de soporte auditado.

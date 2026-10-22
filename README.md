@@ -24,6 +24,7 @@ growup/
 ├─ services/
 │  └─ api/               # FastAPI: core + dominios + workers
 ├─ packages/             # UI, contratos OpenAPI, configuración compartida
+├─ infra/                # Docker compose local (Redis + MinIO)
 ├─ supabase/             # Migraciones, seeds y tests pgTAP
 ├─ docs/
 │  ├─ adr/               # Decisiones de arquitectura
@@ -52,7 +53,7 @@ growup/
 - [x] Inventario: reservas atómicas por ubicación, confirmación/liberación/expiración y test de 40 reservas concurrentes sin overselling
 - [x] Gobernanza: `decide()` con políticas versionadas, `decision_logs` append-only con cadena por tenant/plataforma y verificación de integridad
 - [x] Platform admin: `POST /v1/platform/tenants` atómico con `create_tenant_with_owner` + auditoría, y `GET /v1/platform/tenants` paginado con búsqueda
-- [x] Media: URL prefirmada a R2, worker ARQ, AVIF/WebP 320-1600, strip de EXIF, blurhash, alt obligatorio, asociación a producto, gestión (listar/editar/borrar) y limpieza de uploads huérfanos
+- [x] Media: URL prefirmada a R2, worker ARQ, AVIF/WebP 320-1600, strip de EXIF, blurhash, alt obligatorio, asociación a producto, gestión (listar/editar/borrar), limpieza de uploads huérfanos y E2E S3 con moto
 - [x] Aislamiento: 10 vectores cross-tenant automatizados sobre HTTP real (RLS + schemas cerrados)
 - [x] Auditoría: `GET /v1/admin/audit` paginado por `seq` y `GET /v1/admin/audit/verify` sobre la cadena de hashes
 - [x] Hardening HTTP: headers de seguridad (nosniff, frame-options, referrer, CSP en `/v1`, HSTS fuera de local) y límite de cuerpo configurable
@@ -66,13 +67,16 @@ growup/
 pnpm dlx supabase start
 pnpm dlx supabase db reset
 
+# Redis + MinIO para media local (opcional)
+docker compose -f infra/docker-compose.yml up -d
+
 cd services/api
 cp .env.example .env
 uv sync
 uv run uvicorn app.main:app --reload
 # http://localhost:8000/healthz
 # http://localhost:8000/readyz
-# Worker de media (requiere Redis y R2 configurados)
+# Worker de media (requiere Redis y R2/MinIO configurados)
 uv run arq app.workers.media.WorkerSettings
 ```
 
@@ -91,6 +95,19 @@ Tests de integración contra Supabase local:
 # PowerShell
 $env:GROWUP_TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
 uv run pytest
+```
+
+E2E de media contra un S3-compatible (opcional):
+
+```bash
+# Por defecto levanta moto en un hilo; no requiere Docker ni credenciales.
+$env:GROWUP_TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
+uv run pytest tests/integration/test_media_s3.py
+
+# Contra MinIO local:
+docker compose -f infra/docker-compose.yml up -d
+$env:GROWUP_TEST_S3_ENDPOINT="http://localhost:9000"
+uv run pytest tests/integration/test_media_s3.py
 ```
 
 Tests RLS con pgTAP:
