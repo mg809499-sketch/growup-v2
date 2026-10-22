@@ -37,12 +37,12 @@
 | W1-03 | Hecho | JWT/JWKS + `AuthService` + memberships + roles/permisos + `/v1/admin/me` |
 | W1-04 | Pendiente | Login admin con Supabase SSR y cookies (frontend) |
 | W1-05 | Hecho | `POST /v1/platform/tenants` con `decide()` + `create_tenant_with_owner` + auditoría; tests unitarios e integración |
-| W1-06 | Parcial | 75 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza + 9 inventario + 8 media + 6 seguridad) + integración; faltan los 12 vectores HTTP |
+| W1-06 | Parcial | 78 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza + 9 inventario + 11 media + 6 seguridad) + integración; faltan los 12 vectores HTTP |
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
 | W1-08 | Pendiente | `auth_events` + alertas de mismatch |
-| W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (75 en total) |
+| W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (78 en total) |
 | W2-02 | Parcial | API create/list/get/update de productos y variantes; faltan update/delete de variantes y opciones normalizadas |
-| W2-03 | Parcial | URL firmada, endpoints admin, worker ARQ, AVIF/WebP 320-1600, EXIF strip, blurhash, alt obligatorio y 8 pgTAP; falta E2E con R2/ARQ real y asociación a producto |
+| W2-03 | Parcial | URL firmada, endpoints admin, worker ARQ, AVIF/WebP 320-1600, EXIF strip, blurhash, alt obligatorio, asociación a producto y 11 pgTAP; falta E2E con R2/ARQ real |
 | W2-04 | Hecho | `inventory_reservations` con `location_id`, check `reserved <= available`, reserva/confirmación/liberación/expiración + 9 pgTAP |
 | W2-05 | Parcial | FTS español + filtros + cursor; faltan facetas |
 | W2-06 | Parcial | Listado y detalle storefront; faltan colecciones e imágenes |

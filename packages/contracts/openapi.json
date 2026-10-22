@@ -395,6 +395,115 @@
         }
       }
     },
+    "/v1/admin/products/{product_id}/media": {
+      "post": {
+        "tags": [
+          "admin-catalog"
+        ],
+        "summary": "Attach Product Media",
+        "operationId": "attach_product_media_v1_admin_products__product_id__media_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Product Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MediaAttachRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/products/{product_id}/media/{media_asset_id}": {
+      "delete": {
+        "tags": [
+          "admin-catalog"
+        ],
+        "summary": "Detach Product Media",
+        "operationId": "detach_product_media_v1_admin_products__product_id__media__media_asset_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Product Id"
+            }
+          },
+          {
+            "name": "media_asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Media Asset Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/storefront/products": {
       "get": {
         "tags": [
@@ -1028,6 +1137,43 @@
         ],
         "title": "MediaAssetResponse"
       },
+      "MediaAttachRequest": {
+        "properties": {
+          "media_asset_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Media Asset Id"
+          },
+          "position": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position"
+          },
+          "is_primary": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Primary"
+          }
+        },
+        "type": "object",
+        "required": [
+          "media_asset_id"
+        ],
+        "title": "MediaAttachRequest"
+      },
       "MediaStatus": {
         "type": "string",
         "enum": [
@@ -1229,6 +1375,13 @@
             },
             "type": "array",
             "title": "Images"
+          },
+          "media": {
+            "items": {
+              "$ref": "#/components/schemas/ProductMediaResponse"
+            },
+            "type": "array",
+            "title": "Media"
           }
         },
         "type": "object",
@@ -1244,7 +1397,8 @@
           "min_price_cents",
           "max_price_cents",
           "variants",
-          "images"
+          "images",
+          "media"
         ],
         "title": "ProductDetailResponse"
       },
@@ -1275,6 +1429,124 @@
           "next_cursor"
         ],
         "title": "ProductListResponse"
+      },
+      "ProductMediaResponse": {
+        "properties": {
+          "media_asset_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Media Asset Id"
+          },
+          "r2_key": {
+            "type": "string",
+            "title": "R2 Key"
+          },
+          "alt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt"
+          },
+          "blurhash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blurhash"
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Width"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height"
+          },
+          "position": {
+            "type": "integer",
+            "title": "Position"
+          },
+          "is_primary": {
+            "type": "boolean",
+            "title": "Is Primary"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "variants": {
+            "items": {
+              "$ref": "#/components/schemas/ProductMediaVariantResponse"
+            },
+            "type": "array",
+            "title": "Variants"
+          }
+        },
+        "type": "object",
+        "required": [
+          "media_asset_id",
+          "r2_key",
+          "alt",
+          "blurhash",
+          "width",
+          "height",
+          "position",
+          "is_primary",
+          "status",
+          "variants"
+        ],
+        "title": "ProductMediaResponse"
+      },
+      "ProductMediaVariantResponse": {
+        "properties": {
+          "format": {
+            "type": "string",
+            "title": "Format"
+          },
+          "width": {
+            "type": "integer",
+            "title": "Width"
+          },
+          "height": {
+            "type": "integer",
+            "title": "Height"
+          },
+          "r2_key": {
+            "type": "string",
+            "title": "R2 Key"
+          }
+        },
+        "type": "object",
+        "required": [
+          "format",
+          "width",
+          "height",
+          "r2_key"
+        ],
+        "title": "ProductMediaVariantResponse"
       },
       "ProductStatus": {
         "type": "string",

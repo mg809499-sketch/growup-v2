@@ -11,6 +11,8 @@ from app.api.deps import get_catalog_service, get_storefront_tenant, get_tenant_
 from app.domains.catalog.models import (
     Category,
     ProductDetail,
+    ProductMedia,
+    ProductMediaVariant,
     ProductPage,
     ProductStatus,
     ProductSummary,
@@ -62,7 +64,29 @@ def _summary() -> ProductSummary:
     )
 
 
-def _detail() -> ProductDetail:
+def _media() -> ProductMedia:
+    return ProductMedia(
+        media_asset_id=uuid4(),
+        r2_key="tenant/t/originals/camiseta.jpg",
+        alt="Camiseta roja",
+        blurhash="LDT9R{]9fQ]9",
+        width=800,
+        height=600,
+        position=0,
+        is_primary=True,
+        status="ready",
+        variants=(
+            ProductMediaVariant(
+                format="webp",
+                width=320,
+                height=240,
+                r2_key="tenant/t/variants/camiseta/320.webp",
+            ),
+        ),
+    )
+
+
+def _detail(*, media: tuple[ProductMedia, ...] = ()) -> ProductDetail:
     variant = ProductVariant(
         id=uuid4(),
         sku="CAM-1",
@@ -79,6 +103,8 @@ def _detail() -> ProductDetail:
         brand="Growup",
         tags=("nuevo",),
         variants=(variant,),
+        media=media,
+        images=tuple(item.r2_key for item in media),
     )
 
 
@@ -90,11 +116,13 @@ class FakeCatalogService:
         detail: ProductDetail | None = None,
         category: Category | None = None,
         categories: tuple[Category, ...] = (),
+        detach_result: bool = True,
     ) -> None:
         self.page = page or ProductPage(items=(), next_cursor=None)
         self.detail = detail
         self.category = category
         self.categories = categories
+        self.detach_result = detach_result
         self.calls: list[tuple[str, object]] = []
 
     async def list_products(self, tenant_id: object, **kwargs: object) -> ProductPage:
@@ -120,6 +148,45 @@ class FakeCatalogService:
         patch: object,
     ) -> ProductDetail | None:
         return self.detail
+
+    async def attach_media(
+        self,
+        tenant_id: object,
+        product_id: object,
+        media_asset_id: object,
+        *,
+        position: int | None,
+        is_primary: bool | None,
+    ) -> ProductDetail | None:
+        self.calls.append(
+            (
+                "attach_media",
+                {
+                    "product_id": product_id,
+                    "media_asset_id": media_asset_id,
+                    "position": position,
+                    "is_primary": is_primary,
+                },
+            )
+        )
+        return self.detail
+
+    async def detach_media(
+        self,
+        tenant_id: object,
+        product_id: object,
+        media_asset_id: object,
+    ) -> bool:
+        self.calls.append(
+            (
+                "detach_media",
+                {
+                    "product_id": product_id,
+                    "media_asset_id": media_asset_id,
+                },
+            )
+        )
+        return self.detach_result
 
     async def list_categories(self, tenant_id: object) -> tuple[Category, ...]:
         return self.categories
@@ -250,6 +317,113 @@ def test_admin_update_product() -> None:
 
     assert response.status_code == 200
     assert response.json()["status"] == "active"
+
+
+def test_admin_attach_media() -> None:
+    media = _media()
+    fake = FakeCatalogService(detail=_detail(media=(media,)))
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+    product_id = uuid4()
+
+    response = client.post(
+        f"/v1/admin/products/{product_id}/media",
+        json={
+            "media_asset_id": str(media.media_asset_id),
+            "position": 2,
+            "is_primary": True,
+        },
+    )
+
+    assert response.status_code == 201
+    payload = response.json()
+    assert payload["media"][0]["r2_key"] == media.r2_key
+    assert payload["media"][0]["status"] == "ready"
+    assert payload["media"][0]["variants"][0]["format"] == "webp"
+    assert payload["images"] == [media.r2_key]
+    assert fake.calls[-1] == (
+        "attach_media",
+        {
+            "product_id": product_id,
+            "media_asset_id": media.media_asset_id,
+            "position": 2,
+            "is_primary": True,
+        },
+    )
+
+
+def test_admin_attach_media_product_not_found() -> None:
+    fake = FakeCatalogService(detail=None)
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.post(
+        f"/v1/admin/products/{uuid4()}/media",
+        json={"media_asset_id": str(uuid4())},
+    )
+
+    assert response.status_code == 404
+    assert response.json()["error"]["code"] == "PRODUCT_NOT_FOUND"
+
+
+def test_admin_detach_media() -> None:
+    fake = FakeCatalogService(detail=_detail())
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.delete(
+        f"/v1/admin/products/{uuid4()}/media/{uuid4()}",
+    )
+
+    assert response.status_code == 204
+    assert response.content == b""
+
+
+def test_admin_detach_media_not_found() -> None:
+    fake = FakeCatalogService(detail=_detail(), detach_result=False)
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.delete(
+        f"/v1/admin/products/{uuid4()}/media/{uuid4()}",
+    )
+
+    assert response.status_code == 404
+    assert response.json()["error"]["code"] == "PRODUCT_MEDIA_NOT_FOUND"
+
+
+def test_attach_media_forbidden_for_packer() -> None:
+    fake = FakeCatalogService(detail=_detail())
+    app.dependency_overrides[get_tenant_context] = lambda: _context(Role.PACKER)
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.post(
+        f"/v1/admin/products/{uuid4()}/media",
+        json={"media_asset_id": str(uuid4())},
+    )
+
+    assert response.status_code == 403
+    assert response.json()["error"]["code"] == "FORBIDDEN"
+    assert fake.calls == []
+
+
+def test_storefront_product_detail_includes_media() -> None:
+    media = _media()
+    fake = FakeCatalogService(detail=_detail(media=(media,)))
+    app.dependency_overrides[get_storefront_tenant] = lambda: _tenant()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.get("/v1/storefront/products/camiseta")
+
+    assert response.status_code == 200
+    assert response.json()["media"][0]["alt"] == "Camiseta roja"
+    assert response.json()["media"][0]["is_primary"] is True
 
 
 def test_storefront_list_products_uses_active_status() -> None:

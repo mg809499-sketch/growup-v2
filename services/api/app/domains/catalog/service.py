@@ -93,6 +93,41 @@ class CatalogService:
 
         return await self._repository.update_product(tenant_id, product_id, patch)
 
+    async def attach_media(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        media_asset_id: UUID,
+        *,
+        position: int | None,
+        is_primary: bool | None,
+    ) -> ProductDetail | None:
+        if position is not None and position < 0:
+            raise AppError(
+                "INVALID_POSITION",
+                "La posición no puede ser negativa",
+                422,
+            )
+        return await self._repository.attach_media(
+            tenant_id,
+            product_id,
+            media_asset_id,
+            position=position,
+            is_primary=is_primary,
+        )
+
+    async def detach_media(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        media_asset_id: UUID,
+    ) -> bool:
+        return await self._repository.detach_media(
+            tenant_id,
+            product_id,
+            media_asset_id,
+        )
+
     def _validate_product(self, data: ProductInput) -> None:
         if data.status not in _CREATABLE_STATUSES:
             raise AppError(

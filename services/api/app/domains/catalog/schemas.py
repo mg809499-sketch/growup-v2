@@ -8,6 +8,8 @@ from pydantic import BaseModel, Field, model_validator
 from app.domains.catalog.models import (
     Category,
     ProductDetail,
+    ProductMedia,
+    ProductMediaVariant,
     ProductStatus,
     ProductSummary,
     ProductVariant,
@@ -82,6 +84,12 @@ class ProductUpdate(BaseModel):
     tags: list[str] | None = Field(default=None, max_length=20)
 
 
+class MediaAttachRequest(BaseModel):
+    media_asset_id: UUID
+    position: int | None = Field(default=None, ge=0)
+    is_primary: bool | None = None
+
+
 class VariantResponse(BaseModel):
     id: UUID
     sku: str
@@ -128,6 +136,56 @@ class ProductSummaryResponse(BaseModel):
         )
 
 
+class ProductMediaVariantResponse(BaseModel):
+    format: str
+    width: int
+    height: int
+    r2_key: str
+
+    @classmethod
+    def from_domain(
+        cls,
+        variant: ProductMediaVariant,
+    ) -> ProductMediaVariantResponse:
+        return cls(
+            format=variant.format,
+            width=variant.width,
+            height=variant.height,
+            r2_key=variant.r2_key,
+        )
+
+
+class ProductMediaResponse(BaseModel):
+    media_asset_id: UUID
+    r2_key: str
+    alt: str | None
+    blurhash: str | None
+    width: int | None
+    height: int | None
+    position: int
+    is_primary: bool
+    status: str
+    variants: list[ProductMediaVariantResponse]
+
+    @classmethod
+    def from_domain(cls, media: ProductMedia) -> ProductMediaResponse:
+        return cls(
+            media_asset_id=media.media_asset_id,
+            r2_key=media.r2_key,
+            alt=media.alt,
+            blurhash=media.blurhash,
+            width=media.width,
+            height=media.height,
+            position=media.position,
+            is_primary=media.is_primary,
+            status=media.status,
+            variants=[
+                ProductMediaVariantResponse.from_domain(variant)
+                for variant in media.variants
+            ],
+        )
+
+
 class ProductDetailResponse(BaseModel):
     id: UUID
     slug: str
@@ -141,6 +199,7 @@ class ProductDetailResponse(BaseModel):
     max_price_cents: int
     variants: list[VariantResponse]
     images: list[str]
+    media: list[ProductMediaResponse]
 
     @classmethod
     def from_domain(cls, detail: ProductDetail) -> ProductDetailResponse:
@@ -157,6 +216,7 @@ class ProductDetailResponse(BaseModel):
             max_price_cents=detail.summary.max_price_cents,
             variants=[VariantResponse.from_domain(variant) for variant in detail.variants],
             images=list(detail.images),
+            media=[ProductMediaResponse.from_domain(media) for media in detail.media],
         )
 
 

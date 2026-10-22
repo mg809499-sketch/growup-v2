@@ -89,12 +89,35 @@ class ProductSummary:
 
 
 @dataclass(frozen=True, slots=True)
+class ProductMediaVariant:
+    format: str
+    width: int
+    height: int
+    r2_key: str
+
+
+@dataclass(frozen=True, slots=True)
+class ProductMedia:
+    media_asset_id: UUID
+    r2_key: str
+    alt: str | None
+    blurhash: str | None
+    width: int | None
+    height: int | None
+    position: int
+    is_primary: bool
+    status: str
+    variants: tuple[ProductMediaVariant, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class ProductDetail:
     summary: ProductSummary
     description: str | None
     brand: str | None
     tags: tuple[str, ...]
     variants: tuple[ProductVariant, ...]
+    media: tuple[ProductMedia, ...] = ()
     images: tuple[str, ...] = ()
 
 

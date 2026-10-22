@@ -13,6 +13,8 @@ from app.domains.catalog.models import (
     CategoryInput,
     ProductDetail,
     ProductInput,
+    ProductMedia,
+    ProductMediaVariant,
     ProductPage,
     ProductPatch,
     ProductStatus,
@@ -60,6 +62,23 @@ class CatalogRepository(Protocol):
         product_id: UUID,
         patch: ProductPatch,
     ) -> ProductDetail | None: ...
+
+    async def attach_media(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        media_asset_id: UUID,
+        *,
+        position: int | None,
+        is_primary: bool | None,
+    ) -> ProductDetail | None: ...
+
+    async def detach_media(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        media_asset_id: UUID,
+    ) -> bool: ...
 
 
 class PostgresCatalogRepository:
@@ -383,6 +402,158 @@ class PostgresCatalogRepository:
                 400,
             ) from exc
 
+    async def attach_media(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        media_asset_id: UUID,
+        *,
+        position: int | None,
+        is_primary: bool | None,
+    ) -> ProductDetail | None:
+        try:
+            async with self._database.tenant_transaction(tenant_id) as connection:
+                product_row = await connection.fetchrow(
+                    """
+                    select id
+                    from app.products
+                    where tenant_id = $1 and id = $2
+                    for update
+                    """,
+                    tenant_id,
+                    product_id,
+                )
+                if product_row is None:
+                    return None
+
+                asset_row = await connection.fetchrow(
+                    """
+                    select status, alt
+                    from app.media_assets
+                    where tenant_id = $1 and id = $2
+                    """,
+                    tenant_id,
+                    media_asset_id,
+                )
+                if asset_row is None:
+                    raise AppError(
+                        "MEDIA_NOT_FOUND",
+                        "La imagen no existe en este tenant",
+                        404,
+                    )
+                if asset_row["status"] != "ready":
+                    raise AppError(
+                        "MEDIA_NOT_READY",
+                        "La imagen todavía no está procesada",
+                        409,
+                    )
+                alt = asset_row["alt"]
+                if not isinstance(alt, str) or not alt.strip():
+                    raise AppError(
+                        "MEDIA_ALT_REQUIRED",
+                        "La imagen necesita alt text antes de asociarse",
+                        422,
+                    )
+
+                existing = await connection.fetchrow(
+                    """
+                    select position, is_primary
+                    from app.product_media
+                    where tenant_id = $1
+                      and product_id = $2
+                      and media_asset_id = $3
+                    """,
+                    tenant_id,
+                    product_id,
+                    media_asset_id,
+                )
+
+                if position is None:
+                    if existing is not None:
+                        position = existing["position"]
+                    else:
+                        position = await connection.fetchval(
+                            """
+                            select coalesce(max(position) + 1, 0)::int
+                            from app.product_media
+                            where tenant_id = $1 and product_id = $2
+                            """,
+                            tenant_id,
+                            product_id,
+                        )
+
+                effective_primary = (
+                    is_primary
+                    if is_primary is not None
+                    else (existing["is_primary"] if existing is not None else False)
+                )
+
+                if effective_primary:
+                    await connection.execute(
+                        """
+                        update app.product_media
+                        set is_primary = false
+                        where tenant_id = $1
+                          and product_id = $2
+                          and is_primary
+                          and media_asset_id <> $3
+                        """,
+                        tenant_id,
+                        product_id,
+                        media_asset_id,
+                    )
+
+                await connection.execute(
+                    """
+                    insert into app.product_media
+                        (tenant_id, product_id, media_asset_id, position, is_primary)
+                    values ($1, $2, $3, $4, $5)
+                    on conflict (tenant_id, product_id, media_asset_id)
+                    do update set
+                        position = excluded.position,
+                        is_primary = excluded.is_primary
+                    """,
+                    tenant_id,
+                    product_id,
+                    media_asset_id,
+                    position,
+                    effective_primary,
+                )
+
+                return await self._fetch_detail(
+                    connection,
+                    tenant_id,
+                    product_id,
+                    public_only=False,
+                )
+        except asyncpg.UniqueViolationError as exc:
+            raise AppError(
+                "MEDIA_PRIMARY_CONFLICT",
+                "No se pudo fijar la imagen principal; reintenta",
+                409,
+            ) from exc
+
+    async def detach_media(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        media_asset_id: UUID,
+    ) -> bool:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            deleted = await connection.fetchval(
+                """
+                delete from app.product_media
+                where tenant_id = $1
+                  and product_id = $2
+                  and media_asset_id = $3
+                returning 1
+                """,
+                tenant_id,
+                product_id,
+                media_asset_id,
+            )
+        return deleted is not None
+
     async def _default_location(self, connection: asyncpg.Connection, tenant_id: UUID) -> UUID:
         location_id = await connection.fetchval(
             "select id from app.locations where tenant_id = $1 and is_default limit 1",
@@ -443,12 +614,64 @@ class PostgresCatalogRepository:
             public_only,
         )
 
+        media_rows = await connection.fetch(
+            """
+            select pm.media_asset_id, pm.position, pm.is_primary,
+                   ma.r2_key, ma.alt, ma.blurhash, ma.width, ma.height, ma.status
+            from app.product_media pm
+            join app.media_assets ma
+              on ma.tenant_id = pm.tenant_id and ma.id = pm.media_asset_id
+            where pm.tenant_id = $1
+              and pm.product_id = $2
+              and (
+                  $3::boolean is false
+                  or (
+                      ma.status = 'ready'
+                      and ma.alt is not null
+                      and btrim(ma.alt) <> ''
+                  )
+              )
+            order by pm.is_primary desc, pm.position, pm.created_at, pm.media_asset_id
+            """,
+            tenant_id,
+            product_id,
+            public_only,
+        )
+
+        media_ids = [row["media_asset_id"] for row in media_rows]
+        media_variant_rows: list[Any] = []
+        if media_ids:
+            media_variant_rows = await connection.fetch(
+                """
+                select media_asset_id, format, width, height, r2_key
+                from app.media_variants
+                where tenant_id = $1
+                  and media_asset_id = any($2::uuid[])
+                order by media_asset_id, width, format
+                """,
+                tenant_id,
+                media_ids,
+            )
+
+        variants_by_media: dict[UUID, list[ProductMediaVariant]] = {}
+        for variant_row in media_variant_rows:
+            variants_by_media.setdefault(variant_row["media_asset_id"], []).append(
+                _media_variant(variant_row)
+            )
+
+        media = tuple(
+            _media(row, tuple(variants_by_media.get(row["media_asset_id"], ())))
+            for row in media_rows
+        )
+
         return ProductDetail(
             summary=_summary(row),
             description=row["description"],
             brand=row["brand"],
             tags=tuple(row["tags"] or ()),
             variants=tuple(_variant(variant) for variant in variant_rows),
+            media=media,
+            images=tuple(item.r2_key for item in media),
         )
 
 
@@ -485,6 +708,30 @@ def _variant(row: Any) -> ProductVariant:
         option_values=_as_dict(row["option_values"]),
         is_active=row["is_active"],
         stock_available=row["stock_available"],
+    )
+
+
+def _media(row: Any, variants: tuple[ProductMediaVariant, ...]) -> ProductMedia:
+    return ProductMedia(
+        media_asset_id=row["media_asset_id"],
+        r2_key=row["r2_key"],
+        alt=row["alt"],
+        blurhash=row["blurhash"],
+        width=row["width"],
+        height=row["height"],
+        position=row["position"],
+        is_primary=row["is_primary"],
+        status=row["status"],
+        variants=variants,
+    )
+
+
+def _media_variant(row: Any) -> ProductMediaVariant:
+    return ProductMediaVariant(
+        format=row["format"],
+        width=row["width"],
+        height=row["height"],
+        r2_key=row["r2_key"],
     )
 
 

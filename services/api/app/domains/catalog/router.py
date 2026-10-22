@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Annotated, Literal
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Response
 
 from app.api.deps import get_catalog_service, get_storefront_tenant, get_tenant_context
 from app.core.errors import AppError
@@ -17,6 +17,7 @@ from app.domains.catalog.models import (
 from app.domains.catalog.schemas import (
     CategoryCreate,
     CategoryResponse,
+    MediaAttachRequest,
     ProductCreate,
     ProductDetailResponse,
     ProductListResponse,
@@ -173,6 +174,55 @@ async def update_product(
     if detail is None:
         raise AppError("PRODUCT_NOT_FOUND", "Producto no encontrado", 404)
     return ProductDetailResponse.from_domain(detail)
+
+
+@admin_router.post(
+    "/products/{product_id}/media",
+    response_model=ProductDetailResponse,
+    status_code=201,
+)
+async def attach_product_media(
+    product_id: UUID,
+    payload: MediaAttachRequest,
+    context: Annotated[RequestContext, Depends(get_tenant_context)],
+    service: Annotated[CatalogService, Depends(get_catalog_service)],
+) -> ProductDetailResponse:
+    require_permission(context, Permission.CATALOG_WRITE)
+    detail = await service.attach_media(
+        _tenant_id(context),
+        product_id,
+        payload.media_asset_id,
+        position=payload.position,
+        is_primary=payload.is_primary,
+    )
+    if detail is None:
+        raise AppError("PRODUCT_NOT_FOUND", "Producto no encontrado", 404)
+    return ProductDetailResponse.from_domain(detail)
+
+
+@admin_router.delete(
+    "/products/{product_id}/media/{media_asset_id}",
+    status_code=204,
+)
+async def detach_product_media(
+    product_id: UUID,
+    media_asset_id: UUID,
+    context: Annotated[RequestContext, Depends(get_tenant_context)],
+    service: Annotated[CatalogService, Depends(get_catalog_service)],
+) -> Response:
+    require_permission(context, Permission.CATALOG_WRITE)
+    removed = await service.detach_media(
+        _tenant_id(context),
+        product_id,
+        media_asset_id,
+    )
+    if not removed:
+        raise AppError(
+            "PRODUCT_MEDIA_NOT_FOUND",
+            "La imagen no está asociada al producto",
+            404,
+        )
+    return Response(status_code=204)
 
 
 @storefront_router.get("/products", response_model=ProductListResponse)

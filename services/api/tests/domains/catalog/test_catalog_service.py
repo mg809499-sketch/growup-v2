@@ -210,3 +210,61 @@ async def test_update_product_validates_status(repository: AsyncMock) -> None:
         )
 
     assert exc_info.value.code == "INVALID_STATUS"
+
+
+async def test_attach_media_rejects_negative_position(repository: AsyncMock) -> None:
+    service = CatalogService(repository)
+
+    with pytest.raises(AppError) as exc_info:
+        await service.attach_media(
+            uuid4(),
+            uuid4(),
+            uuid4(),
+            position=-1,
+            is_primary=False,
+        )
+
+    assert exc_info.value.code == "INVALID_POSITION"
+
+
+async def test_attach_media_delegates_to_repository(repository: AsyncMock) -> None:
+    detail = _detail()
+    repository.attach_media.return_value = detail
+    service = CatalogService(repository)
+    tenant_id = uuid4()
+    product_id = uuid4()
+    media_asset_id = uuid4()
+
+    result = await service.attach_media(
+        tenant_id,
+        product_id,
+        media_asset_id,
+        position=2,
+        is_primary=True,
+    )
+
+    assert result == detail
+    repository.attach_media.assert_awaited_once_with(
+        tenant_id,
+        product_id,
+        media_asset_id,
+        position=2,
+        is_primary=True,
+    )
+
+
+async def test_detach_media_delegates_to_repository(repository: AsyncMock) -> None:
+    repository.detach_media.return_value = True
+    service = CatalogService(repository)
+    tenant_id = uuid4()
+    product_id = uuid4()
+    media_asset_id = uuid4()
+
+    result = await service.detach_media(tenant_id, product_id, media_asset_id)
+
+    assert result is True
+    repository.detach_media.assert_awaited_once_with(
+        tenant_id,
+        product_id,
+        media_asset_id,
+    )
