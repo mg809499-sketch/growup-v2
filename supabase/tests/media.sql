@@ -6,7 +6,7 @@ grant usage on schema extensions to app_rw;
 grant execute on all functions in schema extensions to app_rw;
 set search_path = public, extensions;
 
-select plan(8);
+select plan(11);
 
 select app.create_tenant('media-a', 'media-a.growup.com', 'Media A') as tenant_a \gset
 select app.create_tenant('media-b', 'media-b.growup.com', 'Media B') as tenant_b \gset
@@ -111,6 +111,46 @@ select throws_ok(
     '42501',
     null,
     'tenant B no inserta una variante de A'
+);
+
+select set_config('app.tenant_id', :'tenant_a', true);
+
+insert into app.products (tenant_id, slug, name, status)
+values (:'tenant_a', 'media-product-a', 'Media Product A', 'draft')
+returning id as product_a \gset
+
+insert into app.products (tenant_id, slug, name, status)
+values (:'tenant_a', 'media-product-a2', 'Media Product A2', 'draft')
+returning id as product_a2 \gset
+
+insert into app.product_media
+    (tenant_id, product_id, media_asset_id, position, is_primary)
+values (:'tenant_a', :'product_a', :'asset_a', 0, true);
+
+select is(
+    (select count(*)::int from app.product_media),
+    1,
+    'tenant A ve su asociación producto-media'
+);
+
+select set_config('app.tenant_id', :'tenant_b', true);
+
+select is(
+    (select count(*)::int from app.product_media),
+    0,
+    'tenant B no ve asociaciones de A'
+);
+
+select throws_ok(
+    format(
+        'insert into app.product_media '
+        '(tenant_id, product_id, media_asset_id, position, is_primary) '
+        'values (%L, %L, %L, 0, false)',
+        :'tenant_a', :'product_a2', :'asset_a'
+    ),
+    '42501',
+    null,
+    'tenant B no inserta una asociación de A'
 );
 
 select * from finish();

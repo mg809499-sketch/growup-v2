@@ -257,7 +257,7 @@ Append-only: `id`, `tenant_id` nullable, `event_type`, `actor_id`, `ip`, `user_a
 
 ### `product_media`
 
-`id`, `tenant_id`, `product_id`, `media_asset_id`, `position`, `is_primary`, `created_at`. Único `(product_id, media_asset_id)`.
+`tenant_id`, `product_id`, `media_asset_id`, `position`, `is_primary`, `created_at`. PK `(tenant_id, product_id, media_asset_id)`; índice único parcial para una sola imagen principal por producto. El admin hace upsert y solo puede asociar media `ready` con `alt`; el storefront filtra `ready` y alt no vacío.
 
 ### `product_collections`
 
