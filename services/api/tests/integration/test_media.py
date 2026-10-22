@@ -57,6 +57,9 @@ class FakeStorage:
     def public_url(self, key: str) -> str:
         return f"https://cdn.example/{key}"
 
+    async def delete(self, key: str) -> None:
+        self.objects.pop(key, None)
+
 
 def _jpeg(size: tuple[int, int] = (800, 600)) -> bytes:
     buffer = BytesIO()
@@ -72,6 +75,78 @@ async def _tenant(database: Database, suffix: str) -> UUID:
             f"it-media-{suffix}.growup.com",
             "Media Test",
         )
+
+
+async def test_media_admin_lifecycle_list_update_and_delete() -> None:
+    assert TEST_DSN is not None
+    database = Database(TEST_DSN, min_size=1, max_size=5)
+    await database.connect()
+    tenants: list[UUID] = []
+    suffix = uuid4().hex[:8]
+
+    try:
+        tenant_id = await _tenant(database, suffix)
+        tenants.append(tenant_id)
+        repository = PostgresMediaRepository(database)
+        asset_id = await repository.create_asset(
+            tenant_id,
+            r2_key=f"tenant/{tenant_id}/originals/{uuid4()}.jpg",
+            mime="image/jpeg",
+            size_bytes=100,
+            original_filename="camisa.jpg",
+        )
+        asset = await repository.get_asset(tenant_id, asset_id)
+        assert asset is not None
+        variant_key = f"tenant/{tenant_id}/variants/{asset_id}/320.webp"
+        await repository.set_alt(tenant_id, asset_id, "Camisa")
+        await repository.replace_variants(
+            tenant_id,
+            asset_id,
+            (
+                MediaVariant(
+                    format="webp",
+                    width=320,
+                    height=240,
+                    r2_key=variant_key,
+                    size_bytes=100,
+                ),
+            ),
+        )
+        await repository.mark_ready(
+            tenant_id,
+            asset_id,
+            r2_key=asset.r2_key,
+            mime="image/jpeg",
+            size_bytes=90,
+            width=800,
+            height=600,
+            blurhash="LDT9R{]9fQ]9",
+        )
+        storage = FakeStorage({asset.r2_key: b"original", variant_key: b"variant"})
+        service = MediaService(repository, storage)
+
+        assets = await service.list_assets(tenant_id, status="ready", limit=10)
+        assert [item.id for item in assets] == [asset_id]
+
+        updated = await service.update_alt(tenant_id, asset_id, alt="Camisa roja")
+        assert updated.alt == "Camisa roja"
+
+        detail_asset, variants = await service.get_asset_detail(tenant_id, asset_id)
+        assert detail_asset.id == asset_id
+        assert [variant.format for variant in variants] == ["webp"]
+
+        await service.delete_asset(tenant_id, asset_id)
+
+        assert await repository.get_asset(tenant_id, asset_id) is None
+        assert storage.objects == {}
+    finally:
+        if tenants:
+            async with database.pool.acquire() as connection:
+                await connection.execute(
+                    "delete from app.tenants where id = any($1::uuid[])",
+                    tenants,
+                )
+        await database.close()
 
 
 async def test_media_repository_lifecycle_and_rls() -> None:

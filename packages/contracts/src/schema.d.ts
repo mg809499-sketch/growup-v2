@@ -194,6 +194,42 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/admin/media": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Media Assets */
+        get: operations["list_media_assets_v1_admin_media_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/media/{asset_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Media Asset */
+        get: operations["get_media_asset_v1_admin_media__asset_id__get"];
+        put?: never;
+        post?: never;
+        /** Delete Media Asset */
+        delete: operations["delete_media_asset_v1_admin_media__asset_id__delete"];
+        options?: never;
+        head?: never;
+        /** Update Media Asset */
+        patch: operations["update_media_asset_v1_admin_media__asset_id__patch"];
+        trace?: never;
+    };
     "/v1/platform/tenants": {
         parameters: {
             query?: never;
@@ -327,6 +363,38 @@ export interface components {
             /** Permissions */
             permissions: components["schemas"]["Permission"][];
         };
+        /** MediaAssetDetailResponse */
+        MediaAssetDetailResponse: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            status: components["schemas"]["MediaStatus"];
+            /** Mime */
+            mime: string;
+            /** Size Bytes */
+            size_bytes: number;
+            /** Width */
+            width: number | null;
+            /** Height */
+            height: number | null;
+            /** Alt */
+            alt: string | null;
+            /** Blurhash */
+            blurhash: string | null;
+            /** Original Filename */
+            original_filename: string | null;
+            /** R2 Key */
+            r2_key: string;
+            /** Variants */
+            variants: components["schemas"]["MediaVariantResponse"][];
+        };
+        /** MediaAssetListResponse */
+        MediaAssetListResponse: {
+            /** Items */
+            items: components["schemas"]["MediaAssetResponse"][];
+        };
         /** MediaAssetResponse */
         MediaAssetResponse: {
             /**
@@ -349,6 +417,13 @@ export interface components {
             blurhash: string | null;
             /** Original Filename */
             original_filename: string | null;
+            /** R2 Key */
+            r2_key: string;
+        };
+        /** MediaAssetUpdate */
+        MediaAssetUpdate: {
+            /** Alt */
+            alt: string;
         };
         /** MediaAttachRequest */
         MediaAttachRequest: {
@@ -367,6 +442,19 @@ export interface components {
          * @enum {string}
          */
         MediaStatus: "uploading" | "ready" | "failed";
+        /** MediaVariantResponse */
+        MediaVariantResponse: {
+            /** Format */
+            format: string;
+            /** Width */
+            width: number;
+            /** Height */
+            height: number;
+            /** R2 Key */
+            r2_key: string;
+            /** Size Bytes */
+            size_bytes: number;
+        };
         /**
          * Permission
          * @enum {string}
@@ -1107,6 +1195,133 @@ export interface operations {
         responses: {
             /** @description Successful Response */
             202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MediaAssetResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_media_assets_v1_admin_media_get: {
+        parameters: {
+            query?: {
+                status?: ("uploading" | "ready" | "failed") | null;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MediaAssetListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_media_asset_v1_admin_media__asset_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MediaAssetDetailResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_media_asset_v1_admin_media__asset_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_media_asset_v1_admin_media__asset_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                asset_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MediaAssetUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };

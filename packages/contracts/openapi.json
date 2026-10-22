@@ -745,6 +745,220 @@
         }
       }
     },
+    "/v1/admin/media": {
+      "get": {
+        "tags": [
+          "admin-media"
+        ],
+        "summary": "List Media Assets",
+        "operationId": "list_media_assets_v1_admin_media_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "uploading",
+                    "ready",
+                    "failed"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaAssetListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/media/{asset_id}": {
+      "get": {
+        "tags": [
+          "admin-media"
+        ],
+        "summary": "Get Media Asset",
+        "operationId": "get_media_asset_v1_admin_media__asset_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Asset Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaAssetDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "admin-media"
+        ],
+        "summary": "Update Media Asset",
+        "operationId": "update_media_asset_v1_admin_media__asset_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Asset Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MediaAssetUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaAssetResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "admin-media"
+        ],
+        "summary": "Delete Media Asset",
+        "operationId": "delete_media_asset_v1_admin_media__asset_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Asset Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/platform/tenants": {
       "post": {
         "tags": [
@@ -1049,6 +1263,123 @@
         ],
         "title": "MeResponse"
       },
+      "MediaAssetDetailResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MediaStatus"
+          },
+          "mime": {
+            "type": "string",
+            "title": "Mime"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "title": "Size Bytes"
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Width"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height"
+          },
+          "alt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alt"
+          },
+          "blurhash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blurhash"
+          },
+          "original_filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Filename"
+          },
+          "r2_key": {
+            "type": "string",
+            "title": "R2 Key"
+          },
+          "variants": {
+            "items": {
+              "$ref": "#/components/schemas/MediaVariantResponse"
+            },
+            "type": "array",
+            "title": "Variants"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "mime",
+          "size_bytes",
+          "width",
+          "height",
+          "alt",
+          "blurhash",
+          "original_filename",
+          "r2_key",
+          "variants"
+        ],
+        "title": "MediaAssetDetailResponse"
+      },
+      "MediaAssetListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MediaAssetResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "MediaAssetListResponse"
+      },
       "MediaAssetResponse": {
         "properties": {
           "id": {
@@ -1121,6 +1452,10 @@
               }
             ],
             "title": "Original Filename"
+          },
+          "r2_key": {
+            "type": "string",
+            "title": "R2 Key"
           }
         },
         "type": "object",
@@ -1133,9 +1468,25 @@
           "height",
           "alt",
           "blurhash",
-          "original_filename"
+          "original_filename",
+          "r2_key"
         ],
         "title": "MediaAssetResponse"
+      },
+      "MediaAssetUpdate": {
+        "properties": {
+          "alt": {
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 1,
+            "title": "Alt"
+          }
+        },
+        "type": "object",
+        "required": [
+          "alt"
+        ],
+        "title": "MediaAssetUpdate"
       },
       "MediaAttachRequest": {
         "properties": {
@@ -1182,6 +1533,39 @@
           "failed"
         ],
         "title": "MediaStatus"
+      },
+      "MediaVariantResponse": {
+        "properties": {
+          "format": {
+            "type": "string",
+            "title": "Format"
+          },
+          "width": {
+            "type": "integer",
+            "title": "Width"
+          },
+          "height": {
+            "type": "integer",
+            "title": "Height"
+          },
+          "r2_key": {
+            "type": "string",
+            "title": "R2 Key"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "title": "Size Bytes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "format",
+          "width",
+          "height",
+          "r2_key",
+          "size_bytes"
+        ],
+        "title": "MediaVariantResponse"
       },
       "Permission": {
         "type": "string",

@@ -58,6 +58,36 @@ class FakeMediaRepository:
         asset = self.assets.get(asset_id)
         return asset if asset is not None and asset.tenant_id == tenant_id else None
 
+    async def list_assets(
+        self,
+        tenant_id: UUID,
+        *,
+        status: str | None,
+        limit: int,
+    ) -> tuple[MediaAsset, ...]:
+        assets = [
+            asset
+            for asset in self.assets.values()
+            if asset.tenant_id == tenant_id
+            and (status is None or asset.status.value == status)
+        ]
+        return tuple(assets[:limit])
+
+    async def list_variants(
+        self,
+        tenant_id: UUID,
+        asset_id: UUID,
+    ) -> tuple[MediaVariant, ...]:
+        return tuple(self.variants.get(asset_id, ()))
+
+    async def delete_asset(self, tenant_id: UUID, asset_id: UUID) -> bool:
+        asset = self.assets.get(asset_id)
+        if asset is None or asset.tenant_id != tenant_id:
+            return False
+        del self.assets[asset_id]
+        self.variants.pop(asset_id, None)
+        return True
+
     async def set_alt(self, tenant_id: UUID, asset_id: UUID, alt: str) -> None:
         self.assets[asset_id] = _replace(self.assets[asset_id], alt=alt)
 
@@ -105,7 +135,9 @@ class FakeStorage:
         self.objects = objects or {}
         self.presigned: list[dict[str, object]] = []
         self.uploaded: list[dict[str, object]] = []
+        self.deleted: list[str] = []
         self.fail_presign = False
+        self.fail_delete = False
 
     def presigned_put(
         self,
@@ -151,6 +183,12 @@ class FakeStorage:
 
     def public_url(self, key: str) -> str:
         return f"https://cdn.example/{key}"
+
+    async def delete(self, key: str) -> None:
+        if self.fail_delete:
+            raise RuntimeError("r2 down")
+        self.deleted.append(key)
+        self.objects.pop(key, None)
 
 
 def _replace(asset: MediaAsset, **changes: object) -> MediaAsset:
@@ -384,3 +422,114 @@ async def test_process_asset_missing_asset_is_404() -> None:
         await service.process_asset(uuid4(), uuid4())
 
     assert exc_info.value.code == "MEDIA_NOT_FOUND"
+
+
+async def test_list_assets_validates_limit_and_status() -> None:
+    service = MediaService(FakeMediaRepository(), FakeStorage())
+
+    with pytest.raises(AppError) as limit_error:
+        await service.list_assets(uuid4(), status=None, limit=0)
+    assert limit_error.value.code == "INVALID_LIMIT"
+
+    with pytest.raises(AppError) as status_error:
+        await service.list_assets(uuid4(), status="bogus", limit=10)
+    assert status_error.value.code == "INVALID_STATUS"
+
+
+async def test_update_alt_sets_alt() -> None:
+    repository = FakeMediaRepository()
+    tenant_id = uuid4()
+    asset_id = await repository.create_asset(
+        tenant_id,
+        r2_key="tenant/t/originals/a.jpg",
+        mime="image/jpeg",
+        size_bytes=10,
+        original_filename="a.jpg",
+    )
+    service = MediaService(repository, FakeStorage())
+
+    updated = await service.update_alt(tenant_id, asset_id, alt="  Camisa roja  ")
+
+    assert updated.alt == "Camisa roja"
+    stored = await repository.get_asset(tenant_id, asset_id)
+    assert stored is not None
+    assert stored.alt == "Camisa roja"
+
+
+async def test_update_alt_requires_alt_text() -> None:
+    repository = FakeMediaRepository()
+    tenant_id = uuid4()
+    asset_id = await repository.create_asset(
+        tenant_id,
+        r2_key="tenant/t/originals/a.jpg",
+        mime="image/jpeg",
+        size_bytes=10,
+        original_filename="a.jpg",
+    )
+    service = MediaService(repository, FakeStorage())
+
+    with pytest.raises(AppError) as exc_info:
+        await service.update_alt(tenant_id, asset_id, alt="   ")
+
+    assert exc_info.value.code == "MEDIA_ALT_REQUIRED"
+
+
+async def test_delete_asset_removes_objects_and_row() -> None:
+    repository = FakeMediaRepository()
+    tenant_id = uuid4()
+    asset_id = await repository.create_asset(
+        tenant_id,
+        r2_key="tenant/t/originals/a.jpg",
+        mime="image/jpeg",
+        size_bytes=10,
+        original_filename="a.jpg",
+    )
+    repository.variants[asset_id] = [
+        MediaVariant(
+            format="webp",
+            width=320,
+            height=240,
+            r2_key="tenant/t/variants/a/320.webp",
+            size_bytes=100,
+        )
+    ]
+    storage = FakeStorage()
+    service = MediaService(repository, storage)
+
+    await service.delete_asset(tenant_id, asset_id)
+
+    assert storage.deleted == [
+        "tenant/t/originals/a.jpg",
+        "tenant/t/variants/a/320.webp",
+    ]
+    assert asset_id not in repository.assets
+
+
+async def test_delete_asset_missing_is_404() -> None:
+    service = MediaService(FakeMediaRepository(), FakeStorage())
+
+    with pytest.raises(AppError) as exc_info:
+        await service.delete_asset(uuid4(), uuid4())
+
+    assert exc_info.value.code == "MEDIA_NOT_FOUND"
+
+
+async def test_delete_asset_keeps_row_when_storage_fails() -> None:
+    repository = FakeMediaRepository()
+    tenant_id = uuid4()
+    asset_id = await repository.create_asset(
+        tenant_id,
+        r2_key="tenant/t/originals/a.jpg",
+        mime="image/jpeg",
+        size_bytes=10,
+        original_filename="a.jpg",
+    )
+    storage = FakeStorage()
+    storage.fail_delete = True
+    service = MediaService(repository, storage)
+
+    with pytest.raises(AppError) as exc_info:
+        await service.delete_asset(tenant_id, asset_id)
+
+    assert exc_info.value.code == "MEDIA_DELETE_FAILED"
+    assert asset_id in repository.assets

@@ -21,6 +21,7 @@ class FakeS3Client:
         self.objects = objects or {}
         self.presigned: list[dict[str, Any]] = []
         self.puts: list[dict[str, Any]] = []
+        self.deleted: list[str] = []
 
     def generate_presigned_url(
         self,
@@ -61,6 +62,10 @@ class FakeS3Client:
                 "cache_control": CacheControl,
             }
         )
+
+    def delete_object(self, *, Bucket: str, Key: str) -> None:
+        self.deleted.append(Key)
+        self.objects.pop(Key, None)
 
 
 def _storage(client: FakeS3Client) -> R2Storage:
@@ -137,3 +142,13 @@ def test_missing_credentials_without_client_are_rejected() -> None:
             bucket="bucket",
             public_base_url="https://cdn.example",
         )
+
+
+async def test_delete_removes_object() -> None:
+    client = FakeS3Client({"tenant/t/a.jpg": b"data"})
+    storage = _storage(client)
+
+    await storage.delete("tenant/t/a.jpg")
+
+    assert client.deleted == ["tenant/t/a.jpg"]
+    assert client.objects == {}

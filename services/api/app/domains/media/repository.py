@@ -27,6 +27,22 @@ class MediaRepository(Protocol):
 
     async def get_asset(self, tenant_id: UUID, asset_id: UUID) -> MediaAsset | None: ...
 
+    async def list_assets(
+        self,
+        tenant_id: UUID,
+        *,
+        status: str | None,
+        limit: int,
+    ) -> tuple[MediaAsset, ...]: ...
+
+    async def list_variants(
+        self,
+        tenant_id: UUID,
+        asset_id: UUID,
+    ) -> tuple[MediaVariant, ...]: ...
+
+    async def delete_asset(self, tenant_id: UUID, asset_id: UUID) -> bool: ...
+
     async def set_alt(self, tenant_id: UUID, asset_id: UUID, alt: str) -> None: ...
 
     async def mark_ready(
@@ -112,6 +128,69 @@ class PostgresMediaRepository:
                 asset_id,
             )
         return _asset(row) if row is not None else None
+
+    async def list_assets(
+        self,
+        tenant_id: UUID,
+        *,
+        status: str | None,
+        limit: int,
+    ) -> tuple[MediaAsset, ...]:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            rows = await connection.fetch(
+                f"""
+                select {_ASSET_COLUMNS}
+                from app.media_assets
+                where tenant_id = $1
+                  and ($2::text is null or status = $2)
+                order by created_at desc, id desc
+                limit $3::int
+                """,
+                tenant_id,
+                status,
+                limit,
+            )
+        return tuple(_asset(row) for row in rows)
+
+    async def list_variants(
+        self,
+        tenant_id: UUID,
+        asset_id: UUID,
+    ) -> tuple[MediaVariant, ...]:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            rows = await connection.fetch(
+                """
+                select format, width, height, r2_key, size_bytes
+                from app.media_variants
+                where tenant_id = $1 and media_asset_id = $2
+                order by width, format
+                """,
+                tenant_id,
+                asset_id,
+            )
+        return tuple(
+            MediaVariant(
+                format=row["format"],
+                width=row["width"],
+                height=row["height"],
+                r2_key=row["r2_key"],
+                size_bytes=row["size_bytes"],
+            )
+            for row in rows
+        )
+
+    async def delete_asset(self, tenant_id: UUID, asset_id: UUID) -> bool:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            deleted = await connection.fetchval(
+                """
+                delete from app.media_assets
+                where tenant_id = $1 and id = $2
+                returning id
+                """,
+                tenant_id,
+                asset_id,
+            )
+        return deleted is not None
 
     async def set_alt(self, tenant_id: UUID, asset_id: UUID, alt: str) -> None:
         async with self._database.tenant_transaction(tenant_id) as connection:

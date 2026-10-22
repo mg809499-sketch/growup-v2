@@ -18,6 +18,8 @@ from app.domains.media.storage import MediaStorage
 
 EnqueueMedia = Callable[[UUID, UUID], Awaitable[None]]
 
+_VALID_STATUSES = {status.value for status in MediaStatus}
+
 
 class MediaService:
     """Orquesta subida directa a R2 y procesamiento en worker.
@@ -92,11 +94,7 @@ class MediaService:
         *,
         alt: str,
     ) -> MediaAsset:
-        clean_alt = alt.strip()
-        if not clean_alt:
-            raise AppError("MEDIA_ALT_REQUIRED", "El alt text es obligatorio", 422)
-        if len(clean_alt) > 300:
-            raise AppError("MEDIA_ALT_TOO_LONG", "El alt text supera 300 caracteres", 422)
+        clean_alt = _clean_alt(alt)
 
         asset = await self._repository.get_asset(tenant_id, asset_id)
         if asset is None:
@@ -129,6 +127,71 @@ class MediaService:
             ) from exc
 
         return replace(asset, alt=clean_alt)
+
+    async def list_assets(
+        self,
+        tenant_id: UUID,
+        *,
+        status: str | None,
+        limit: int,
+    ) -> tuple[MediaAsset, ...]:
+        if limit < 1 or limit > 100:
+            raise AppError("INVALID_LIMIT", "El límite debe estar entre 1 y 100", 422)
+        if status is not None and status not in _VALID_STATUSES:
+            raise AppError("INVALID_STATUS", "Estado de media inválido", 422)
+        return await self._repository.list_assets(
+            tenant_id,
+            status=status,
+            limit=limit,
+        )
+
+    async def get_asset(self, tenant_id: UUID, asset_id: UUID) -> MediaAsset:
+        asset = await self._repository.get_asset(tenant_id, asset_id)
+        if asset is None:
+            raise AppError("MEDIA_NOT_FOUND", "El media asset no existe", 404)
+        return asset
+
+    async def get_asset_detail(
+        self,
+        tenant_id: UUID,
+        asset_id: UUID,
+    ) -> tuple[MediaAsset, tuple[MediaVariant, ...]]:
+        asset = await self.get_asset(tenant_id, asset_id)
+        variants = await self._repository.list_variants(tenant_id, asset_id)
+        return asset, variants
+
+    async def update_alt(
+        self,
+        tenant_id: UUID,
+        asset_id: UUID,
+        *,
+        alt: str,
+    ) -> MediaAsset:
+        clean_alt = _clean_alt(alt)
+        asset = await self.get_asset(tenant_id, asset_id)
+        await self._repository.set_alt(tenant_id, asset_id, clean_alt)
+        return replace(asset, alt=clean_alt)
+
+    async def delete_asset(self, tenant_id: UUID, asset_id: UUID) -> None:
+        asset = await self.get_asset(tenant_id, asset_id)
+        variants = await self._repository.list_variants(tenant_id, asset_id)
+        keys = [asset.r2_key, *(variant.r2_key for variant in variants)]
+
+        failed = False
+        for key in keys:
+            try:
+                await self._storage.delete(key)
+            except Exception:
+                failed = True
+
+        if failed:
+            raise AppError(
+                "MEDIA_DELETE_FAILED",
+                "No se pudieron borrar todos los archivos",
+                502,
+            )
+
+        await self._repository.delete_asset(tenant_id, asset_id)
 
     async def process_asset(self, tenant_id: UUID, asset_id: UUID) -> None:
         asset = await self._repository.get_asset(tenant_id, asset_id)
@@ -185,6 +248,15 @@ class MediaService:
             height=processed.height,
             blurhash=processed.blurhash,
         )
+
+
+def _clean_alt(alt: str) -> str:
+    clean = alt.strip()
+    if not clean:
+        raise AppError("MEDIA_ALT_REQUIRED", "El alt text es obligatorio", 422)
+    if len(clean) > 300:
+        raise AppError("MEDIA_ALT_TOO_LONG", "El alt text supera 300 caracteres", 422)
+    return clean
 
 
 def _clean_filename(filename: str) -> str:

@@ -31,6 +31,8 @@ class MediaStorage(Protocol):
         cache_control: str = _IMMUTABLE_CACHE,
     ) -> None: ...
 
+    async def delete(self, key: str) -> None: ...
+
     def public_url(self, key: str) -> str: ...
 
 
@@ -115,6 +117,13 @@ class R2Storage:
             Body=data,
             ContentType=content_type,
             CacheControl=cache_control,
+        )
+
+    async def delete(self, key: str) -> None:
+        await asyncio.to_thread(
+            self._client.delete_object,
+            Bucket=self._bucket,
+            Key=key,
         )
 
     def public_url(self, key: str) -> str:

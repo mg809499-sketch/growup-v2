@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import pytest
 from fastapi.testclient import TestClient
@@ -9,14 +9,40 @@ from app.api.deps import get_admin_context, get_media_service
 from app.core.errors import AppError
 from app.domains.identity.models import Actor, RequestContext, Role
 from app.domains.identity.permissions import permissions_for
-from app.domains.media.models import MediaAsset, MediaStatus, UploadTicket
+from app.domains.media.models import MediaAsset, MediaStatus, MediaVariant, UploadTicket
 from app.main import app
+
+
+def _asset(
+    *,
+    asset_id: UUID | None = None,
+    alt: str | None = "Camisa roja",
+    status: MediaStatus = MediaStatus.READY,
+) -> MediaAsset:
+    return MediaAsset(
+        id=asset_id or uuid4(),
+        tenant_id=uuid4(),
+        r2_key="tenant/t/originals/a.jpg",
+        mime="image/jpeg",
+        size_bytes=10,
+        original_filename="a.jpg",
+        width=800,
+        height=600,
+        alt=alt,
+        blurhash="LDT9R{]9fQ]9",
+        status=status,
+    )
 
 
 class FakeMediaService:
     def __init__(self) -> None:
         self.uploads: list[dict[str, object]] = []
         self.completions: list[dict[str, object]] = []
+        self.listed: list[dict[str, object]] = []
+        self.updated: list[dict[str, object]] = []
+        self.deleted: list[object] = []
+        self.assets: tuple[MediaAsset, ...] = ()
+        self.variants: tuple[MediaVariant, ...] = ()
         self.error: Exception | None = None
 
     async def create_upload(
@@ -58,19 +84,47 @@ class FakeMediaService:
         self.completions.append(
             {"tenant_id": tenant_id, "asset_id": asset_id, "alt": alt}
         )
-        return MediaAsset(
-            id=asset_id,  # type: ignore[arg-type]
-            tenant_id=tenant_id,  # type: ignore[arg-type]
-            r2_key="tenant/t/originals/a.jpg",
-            mime="image/jpeg",
-            size_bytes=10,
-            original_filename="a.jpg",
-            width=None,
-            height=None,
-            alt=alt,
-            blurhash=None,
-            status=MediaStatus.UPLOADING,
-        )
+        return _asset(asset_id=asset_id, alt=alt, status=MediaStatus.UPLOADING)
+
+    async def list_assets(
+        self,
+        tenant_id: object,
+        *,
+        status: str | None,
+        limit: int,
+    ) -> tuple[MediaAsset, ...]:
+        if self.error is not None:
+            raise self.error
+        self.listed.append({"tenant_id": tenant_id, "status": status, "limit": limit})
+        return self.assets
+
+    async def get_asset_detail(
+        self,
+        tenant_id: object,
+        asset_id: object,
+    ) -> tuple[MediaAsset, tuple[MediaVariant, ...]]:
+        if self.error is not None:
+            raise self.error
+        if not self.assets:
+            raise AppError("MEDIA_NOT_FOUND", "El media asset no existe", 404)
+        return self.assets[0], self.variants
+
+    async def update_alt(
+        self,
+        tenant_id: object,
+        asset_id: object,
+        *,
+        alt: str,
+    ) -> MediaAsset:
+        if self.error is not None:
+            raise self.error
+        self.updated.append({"asset_id": asset_id, "alt": alt})
+        return _asset(asset_id=asset_id, alt=alt)
+
+    async def delete_asset(self, tenant_id: object, asset_id: object) -> None:
+        if self.error is not None:
+            raise self.error
+        self.deleted.append(asset_id)
 
 
 def _context(role: Role = Role.OWNER) -> RequestContext:
@@ -191,3 +245,100 @@ def test_invalid_payload_is_rejected() -> None:
 
     assert response.status_code == 422
     assert fake.uploads == []
+
+
+def test_list_media_assets() -> None:
+    fake = FakeMediaService()
+    fake.assets = (_asset(),)
+    app.dependency_overrides[get_admin_context] = lambda: _context()
+    app.dependency_overrides[get_media_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.get("/v1/admin/media?status=ready&limit=10")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert len(payload["items"]) == 1
+    assert payload["items"][0]["status"] == "ready"
+    assert fake.listed[0]["status"] == "ready"
+    assert fake.listed[0]["limit"] == 10
+
+
+def test_get_media_asset_detail() -> None:
+    fake = FakeMediaService()
+    asset = _asset()
+    fake.assets = (asset,)
+    fake.variants = (
+        MediaVariant(
+            format="webp",
+            width=320,
+            height=240,
+            r2_key="tenant/t/variants/a/320.webp",
+            size_bytes=100,
+        ),
+    )
+    app.dependency_overrides[get_admin_context] = lambda: _context()
+    app.dependency_overrides[get_media_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.get(f"/v1/admin/media/{asset.id}")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["id"] == str(asset.id)
+    assert payload["variants"][0]["format"] == "webp"
+
+
+def test_get_media_asset_not_found() -> None:
+    fake = FakeMediaService()
+    app.dependency_overrides[get_admin_context] = lambda: _context()
+    app.dependency_overrides[get_media_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.get(f"/v1/admin/media/{uuid4()}")
+
+    assert response.status_code == 404
+    assert response.json()["error"]["code"] == "MEDIA_NOT_FOUND"
+
+
+def test_update_media_alt() -> None:
+    fake = FakeMediaService()
+    asset_id = uuid4()
+    app.dependency_overrides[get_admin_context] = lambda: _context()
+    app.dependency_overrides[get_media_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.patch(
+        f"/v1/admin/media/{asset_id}",
+        json={"alt": "Camisa azul"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["alt"] == "Camisa azul"
+    assert fake.updated[0]["alt"] == "Camisa azul"
+
+
+def test_delete_media_asset() -> None:
+    fake = FakeMediaService()
+    asset_id = uuid4()
+    app.dependency_overrides[get_admin_context] = lambda: _context()
+    app.dependency_overrides[get_media_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.delete(f"/v1/admin/media/{asset_id}")
+
+    assert response.status_code == 204
+    assert fake.deleted == [asset_id]
+
+
+def test_packer_cannot_delete_media() -> None:
+    fake = FakeMediaService()
+    app.dependency_overrides[get_admin_context] = lambda: _context(Role.PACKER)
+    app.dependency_overrides[get_media_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.delete(f"/v1/admin/media/{uuid4()}")
+
+    assert response.status_code == 403
+    assert response.json()["error"]["code"] == "FORBIDDEN"
+    assert fake.deleted == []
