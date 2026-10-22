@@ -1,9 +1,17 @@
 from __future__ import annotations
 
+from uuid import UUID
+
 from app.core.errors import AppError
 from app.domains.governance.models import Decision, PolicyInput, PolicyResult
 from app.domains.governance.policies import decide, input_hash, redact
-from app.domains.governance.repository import DecisionLogEntry, DecisionLogRepository
+from app.domains.governance.repository import (
+    DecisionLogEntry,
+    DecisionLogRecord,
+    DecisionLogRepository,
+)
+
+_DECISIONS = {decision.value for decision in Decision}
 
 
 class GovernanceService:
@@ -59,3 +67,34 @@ class GovernanceService:
 
     async def verify_chain(self, chain_key: str) -> bool:
         return await self._repository.verify_chain(chain_key)
+
+    async def list_logs(
+        self,
+        tenant_id: UUID,
+        *,
+        action: str | None,
+        decision: str | None,
+        limit: int,
+        before_seq: int | None,
+    ) -> tuple[tuple[DecisionLogRecord, ...], int | None]:
+        if limit < 1 or limit > 100:
+            raise AppError("INVALID_LIMIT", "El límite debe estar entre 1 y 100", 422)
+        if decision is not None and decision not in _DECISIONS:
+            raise AppError("INVALID_DECISION", "Decisión inválida", 422)
+        if before_seq is not None and before_seq < 1:
+            raise AppError("INVALID_CURSOR", "El cursor debe ser positivo", 422)
+
+        normalized_action = action.strip() if action else None
+        if normalized_action is not None and len(normalized_action) > 120:
+            raise AppError("ACTION_TOO_LONG", "La acción es demasiado larga", 422)
+
+        return await self._repository.list_logs(
+            tenant_id,
+            action=normalized_action,
+            decision=decision,
+            limit=limit,
+            before_seq=before_seq,
+        )
+
+    async def verify_tenant_chain(self, tenant_id: UUID) -> bool:
+        return await self._repository.verify_chain(str(tenant_id))

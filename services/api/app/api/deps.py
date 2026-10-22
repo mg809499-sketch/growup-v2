@@ -9,6 +9,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from app import runtime
 from app.core.errors import AppError
 from app.domains.catalog.service import CatalogService
+from app.domains.governance.service import GovernanceService
 from app.domains.identity.models import Actor, RequestContext
 from app.domains.identity.service import AuthService, build_context
 from app.domains.media.service import MediaService
@@ -57,6 +58,16 @@ def get_platform_tenant_service() -> PlatformTenantService:
             503,
         )
     return runtime.platform_tenant_service
+
+
+def get_governance_service() -> GovernanceService:
+    if runtime.governance_service is None:
+        raise AppError(
+            "SERVICE_UNAVAILABLE",
+            "La gobernanza no está configurada",
+            503,
+        )
+    return runtime.governance_service
 
 
 def get_media_service() -> MediaService:

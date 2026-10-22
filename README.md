@@ -54,6 +54,7 @@ growup/
 - [x] Platform admin: `POST /v1/platform/tenants` atómico con `create_tenant_with_owner` + auditoría, y `GET /v1/platform/tenants` paginado con búsqueda
 - [x] Media: URL prefirmada a R2, worker ARQ, AVIF/WebP 320-1600, strip de EXIF, blurhash, alt obligatorio, asociación a producto, gestión (listar/editar/borrar) y limpieza de uploads huérfanos
 - [x] Aislamiento: 10 vectores cross-tenant automatizados sobre HTTP real (RLS + schemas cerrados)
+- [x] Auditoría: `GET /v1/admin/audit` paginado por `seq` y `GET /v1/admin/audit/verify` sobre la cadena de hashes
 - [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API

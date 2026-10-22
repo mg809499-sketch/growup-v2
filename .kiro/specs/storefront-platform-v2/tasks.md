@@ -50,7 +50,7 @@
 | W2-08 | Hecho | 40 reservas concurrentes sobre stock 10: 10 éxitos, 30 `INSUFFICIENT_STOCK`, sin negativos |
 | W2-09 | Pendiente | Seed de catálogo piloto |
 | W6-01 | Hecho | `decide()` determinista con políticas versionadas y fail-closed; tests table-driven |
-| W6-02 | Hecho | `decision_logs` + cadena por `chain_key` + `verify_decision_chain`; 21 pgTAP, tamper detectado y guard de contexto de tenant |
+| W6-02 | Hecho | `decision_logs` + cadena por `chain_key` + `verify_decision_chain` + `GET /v1/admin/audit` y `/verify`; 21 pgTAP, tamper detectado y guard de contexto de tenant |
 | W6-03 | Parcial | Tabla `approval_tasks` con RLS; falta bandeja/UI y handoff desde `decide()` |
 | W6-04 | Parcial | `GET`/`POST /v1/platform/tenants` con búsqueda y paginación; faltan suspender, planes, auditoría y UI |
 

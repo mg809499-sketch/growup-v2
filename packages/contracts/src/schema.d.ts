@@ -230,6 +230,40 @@ export interface paths {
         patch: operations["update_media_asset_v1_admin_media__asset_id__patch"];
         trace?: never;
     };
+    "/v1/admin/audit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Audit Logs */
+        get: operations["list_audit_logs_v1_admin_audit_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/audit/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Verify Audit Chain */
+        get: operations["verify_audit_chain_v1_admin_audit_verify_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/platform/tenants": {
         parameters: {
             query?: never;
@@ -292,6 +326,62 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AuditLogListResponse */
+        AuditLogListResponse: {
+            /** Items */
+            items: components["schemas"]["AuditLogResponse"][];
+            /** Next Cursor */
+            next_cursor: number | null;
+        };
+        /** AuditLogResponse */
+        AuditLogResponse: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Seq */
+            seq: number;
+            /** Actor Type */
+            actor_type: string;
+            /** Actor Id */
+            actor_id: string | null;
+            /** Action */
+            action: string;
+            /** Resource Type */
+            resource_type: string | null;
+            /** Resource Id */
+            resource_id: string | null;
+            /** Policy Id */
+            policy_id: string;
+            /** Policy Version */
+            policy_version: string;
+            decision: components["schemas"]["Decision"];
+            /** Reason Code */
+            reason_code: string;
+            /** Input Hash */
+            input_hash: string;
+            /** Context Summary */
+            context_summary: {
+                [key: string]: unknown;
+            };
+            /** Latency Ms */
+            latency_ms: number;
+            /** Trace Id */
+            trace_id: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** AuditVerifyResponse */
+        AuditVerifyResponse: {
+            /** Chain Key */
+            chain_key: string;
+            /** Valid */
+            valid: boolean;
+        };
         /** BootstrapResponse */
         BootstrapResponse: {
             tenant: components["schemas"]["TenantPublic"];
@@ -332,6 +422,11 @@ export interface components {
             /** Alt */
             alt: string;
         };
+        /**
+         * Decision
+         * @enum {string}
+         */
+        Decision: "ALLOW" | "DENY" | "HANDOFF";
         /** HTTPValidationError */
         HTTPValidationError: {
             /** Detail */
@@ -1372,6 +1467,60 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_audit_logs_v1_admin_audit_get: {
+        parameters: {
+            query?: {
+                action?: string | null;
+                decision?: components["schemas"]["Decision"] | null;
+                limit?: number;
+                before_seq?: number | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditLogListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    verify_audit_chain_v1_admin_audit_verify_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditVerifyResponse"];
                 };
             };
         };
