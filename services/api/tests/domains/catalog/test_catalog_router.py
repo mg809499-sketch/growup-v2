@@ -188,6 +188,43 @@ class FakeCatalogService:
         )
         return self.detach_result
 
+    async def update_variant(
+        self,
+        tenant_id: object,
+        product_id: object,
+        variant_id: object,
+        *,
+        changes: object,
+    ) -> ProductDetail | None:
+        self.calls.append(
+            (
+                "update_variant",
+                {
+                    "product_id": product_id,
+                    "variant_id": variant_id,
+                    "changes": changes,
+                },
+            )
+        )
+        return self.detail
+
+    async def delete_variant(
+        self,
+        tenant_id: object,
+        product_id: object,
+        variant_id: object,
+    ) -> bool:
+        self.calls.append(
+            (
+                "delete_variant",
+                {
+                    "product_id": product_id,
+                    "variant_id": variant_id,
+                },
+            )
+        )
+        return self.detach_result
+
     async def list_categories(self, tenant_id: object) -> tuple[Category, ...]:
         return self.categories
 
@@ -424,6 +461,75 @@ def test_storefront_product_detail_includes_media() -> None:
     assert response.status_code == 200
     assert response.json()["media"][0]["alt"] == "Camiseta roja"
     assert response.json()["media"][0]["is_primary"] is True
+
+
+def test_admin_update_variant() -> None:
+    fake = FakeCatalogService(detail=_detail())
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+    product_id = uuid4()
+    variant_id = uuid4()
+
+    response = client.patch(
+        f"/v1/admin/products/{product_id}/variants/{variant_id}",
+        json={"price_cents": 9900000, "is_active": False},
+    )
+
+    assert response.status_code == 200
+    call = fake.calls[-1][1]
+    assert isinstance(call, dict)
+    assert call["product_id"] == product_id
+    assert call["variant_id"] == variant_id
+    assert call["changes"] == {"price_cents": 9900000, "is_active": False}
+
+
+def test_admin_update_variant_not_found() -> None:
+    fake = FakeCatalogService(detail=None)
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.patch(
+        f"/v1/admin/products/{uuid4()}/variants/{uuid4()}",
+        json={"price_cents": 9900000},
+    )
+
+    assert response.status_code == 404
+    assert response.json()["error"]["code"] == "VARIANT_NOT_FOUND"
+
+
+def test_admin_delete_variant() -> None:
+    fake = FakeCatalogService(detail=_detail())
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+    product_id = uuid4()
+    variant_id = uuid4()
+
+    response = client.delete(
+        f"/v1/admin/products/{product_id}/variants/{variant_id}",
+    )
+
+    assert response.status_code == 204
+    assert fake.calls[-1] == (
+        "delete_variant",
+        {"product_id": product_id, "variant_id": variant_id},
+    )
+
+
+def test_admin_delete_variant_not_found() -> None:
+    fake = FakeCatalogService(detail=_detail(), detach_result=False)
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.delete(
+        f"/v1/admin/products/{uuid4()}/variants/{uuid4()}",
+    )
+
+    assert response.status_code == 404
+    assert response.json()["error"]["code"] == "VARIANT_NOT_FOUND"
 
 
 def test_storefront_list_products_uses_active_status() -> None:

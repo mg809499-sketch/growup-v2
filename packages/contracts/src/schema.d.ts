@@ -126,6 +126,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/admin/products/{product_id}/variants/{variant_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Product Variant */
+        delete: operations["delete_product_variant_v1_admin_products__product_id__variants__variant_id__delete"];
+        options?: never;
+        head?: never;
+        /** Update Product Variant */
+        patch: operations["update_product_variant_v1_admin_products__product_id__variants__variant_id__patch"];
+        trace?: never;
+    };
     "/v1/storefront/products": {
         parameters: {
             query?: never;
@@ -910,6 +928,27 @@ export interface components {
             /** Stock Available */
             stock_available: number;
         };
+        /** VariantUpdate */
+        VariantUpdate: {
+            /** Name */
+            name?: string | null;
+            /** Price Cents */
+            price_cents?: number | null;
+            /** Compare At Price Cents */
+            compare_at_price_cents?: number | null;
+            /** Cost Cents */
+            cost_cents?: number | null;
+            /** Weight Grams */
+            weight_grams?: number | null;
+            /** Option Values */
+            option_values?: {
+                [key: string]: string;
+            } | null;
+            /** Is Active */
+            is_active?: boolean | null;
+            /** Position */
+            position?: number | null;
+        };
     };
     responses: never;
     parameters: never;
@@ -1199,6 +1238,72 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_product_variant_v1_admin_products__product_id__variants__variant_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                product_id: string;
+                variant_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_product_variant_v1_admin_products__product_id__variants__variant_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                product_id: string;
+                variant_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VariantUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductDetailResponse"];
+                };
             };
             /** @description Validation Error */
             422: {

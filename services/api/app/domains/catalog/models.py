@@ -5,6 +5,19 @@ from datetime import datetime
 from enum import StrEnum
 from uuid import UUID
 
+VARIANT_PATCH_FIELDS: frozenset[str] = frozenset(
+    {
+        "name",
+        "price_cents",
+        "compare_at_price_cents",
+        "cost_cents",
+        "weight_grams",
+        "option_values",
+        "is_active",
+        "position",
+    }
+)
+
 
 class ProductStatus(StrEnum):
     DRAFT = "draft"

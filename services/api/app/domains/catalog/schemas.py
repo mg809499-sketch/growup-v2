@@ -68,6 +68,19 @@ class VariantCreate(BaseModel):
         return self
 
 
+class VariantUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    name: str | None = Field(default=None, min_length=1, max_length=200)
+    price_cents: int | None = Field(default=None, gt=0)
+    compare_at_price_cents: int | None = Field(default=None, ge=0)
+    cost_cents: int | None = Field(default=None, ge=0)
+    weight_grams: int | None = Field(default=None, ge=0)
+    option_values: dict[str, str] | None = None
+    is_active: bool | None = None
+    position: int | None = Field(default=None, ge=0)
+
+
 class ProductCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
 

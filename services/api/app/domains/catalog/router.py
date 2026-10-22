@@ -23,6 +23,7 @@ from app.domains.catalog.schemas import (
     ProductListResponse,
     ProductSummaryResponse,
     ProductUpdate,
+    VariantUpdate,
 )
 from app.domains.catalog.service import CatalogService
 from app.domains.identity.models import Permission, RequestContext
@@ -220,6 +221,58 @@ async def detach_product_media(
         raise AppError(
             "PRODUCT_MEDIA_NOT_FOUND",
             "La imagen no está asociada al producto",
+            404,
+        )
+    return Response(status_code=204)
+
+
+@admin_router.patch(
+    "/products/{product_id}/variants/{variant_id}",
+    response_model=ProductDetailResponse,
+)
+async def update_product_variant(
+    product_id: UUID,
+    variant_id: UUID,
+    payload: VariantUpdate,
+    context: Annotated[RequestContext, Depends(get_tenant_context)],
+    service: Annotated[CatalogService, Depends(get_catalog_service)],
+) -> ProductDetailResponse:
+    require_permission(context, Permission.CATALOG_WRITE)
+    detail = await service.update_variant(
+        _tenant_id(context),
+        product_id,
+        variant_id,
+        changes=payload.model_dump(exclude_unset=True),
+    )
+    if detail is None:
+        raise AppError(
+            "VARIANT_NOT_FOUND",
+            "Producto o variante no encontrados",
+            404,
+        )
+    return ProductDetailResponse.from_domain(detail)
+
+
+@admin_router.delete(
+    "/products/{product_id}/variants/{variant_id}",
+    status_code=204,
+)
+async def delete_product_variant(
+    product_id: UUID,
+    variant_id: UUID,
+    context: Annotated[RequestContext, Depends(get_tenant_context)],
+    service: Annotated[CatalogService, Depends(get_catalog_service)],
+) -> Response:
+    require_permission(context, Permission.CATALOG_WRITE)
+    removed = await service.delete_variant(
+        _tenant_id(context),
+        product_id,
+        variant_id,
+    )
+    if not removed:
+        raise AppError(
+            "VARIANT_NOT_FOUND",
+            "Producto o variante no encontrados",
             404,
         )
     return Response(status_code=204)

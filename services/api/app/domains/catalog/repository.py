@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Mapping
 from typing import Any, Protocol, cast
 from uuid import UUID
 
@@ -9,6 +10,7 @@ import asyncpg  # type: ignore[import-untyped]
 from app.core.db import Database
 from app.core.errors import AppError
 from app.domains.catalog.models import (
+    VARIANT_PATCH_FIELDS,
     Category,
     CategoryInput,
     ProductDetail,
@@ -78,6 +80,21 @@ class CatalogRepository(Protocol):
         tenant_id: UUID,
         product_id: UUID,
         media_asset_id: UUID,
+    ) -> bool: ...
+
+    async def update_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        variant_id: UUID,
+        changes: Mapping[str, object],
+    ) -> ProductDetail | None: ...
+
+    async def delete_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        variant_id: UUID,
     ) -> bool: ...
 
 
@@ -553,6 +570,207 @@ class PostgresCatalogRepository:
                 media_asset_id,
             )
         return deleted is not None
+
+    async def update_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        variant_id: UUID,
+        changes: Mapping[str, object],
+    ) -> ProductDetail | None:
+        unknown = {key for key in changes if key not in VARIANT_PATCH_FIELDS}
+        if unknown:
+            raise AppError(
+                "INVALID_VARIANT_FIELD",
+                "Campo de variante inválido",
+                422,
+            )
+
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            product_row = await connection.fetchrow(
+                """
+                select id, status
+                from app.products
+                where tenant_id = $1 and id = $2
+                for update
+                """,
+                tenant_id,
+                product_id,
+            )
+            if product_row is None:
+                return None
+
+            variant_row = await connection.fetchrow(
+                """
+                select id, price_cents, compare_at_price_cents, is_active
+                from app.product_variants
+                where tenant_id = $1 and product_id = $2 and id = $3
+                """,
+                tenant_id,
+                product_id,
+                variant_id,
+            )
+            if variant_row is None:
+                return None
+
+            price = cast(int, changes.get("price_cents", variant_row["price_cents"]))
+            compare_at = cast(
+                int | None,
+                changes.get(
+                    "compare_at_price_cents",
+                    variant_row["compare_at_price_cents"],
+                ),
+            )
+            if compare_at is not None and compare_at < price:
+                raise AppError(
+                    "INVALID_COMPARE_AT_PRICE",
+                    "El precio anterior no puede ser menor que el precio actual",
+                    422,
+                )
+
+            if changes.get("is_active") is False and product_row["status"] == "active":
+                other_active = await connection.fetchval(
+                    """
+                    select count(*)
+                    from app.product_variants
+                    where tenant_id = $1
+                      and product_id = $2
+                      and id <> $3
+                      and is_active
+                    """,
+                    tenant_id,
+                    product_id,
+                    variant_id,
+                )
+                if not other_active:
+                    raise AppError(
+                        "PRODUCT_WITHOUT_ACTIVE_VARIANTS",
+                        "El producto activo necesita al menos una variante activa",
+                        422,
+                    )
+
+            updates: list[str] = []
+            values: list[object] = []
+            parameter = 4
+            for field in VARIANT_PATCH_FIELDS:
+                if field not in changes:
+                    continue
+                if field == "option_values":
+                    updates.append(f"option_values = ${parameter}::jsonb")
+                    values.append(json.dumps(changes[field]))
+                else:
+                    updates.append(f"{field} = ${parameter}")
+                    values.append(changes[field])
+                parameter += 1
+
+            if updates:
+                await connection.execute(
+                    f"update app.product_variants set {', '.join(updates)} "
+                    "where tenant_id = $1 and product_id = $2 and id = $3",
+                    tenant_id,
+                    product_id,
+                    variant_id,
+                    *values,
+                )
+
+            return await self._fetch_detail(
+                connection,
+                tenant_id,
+                product_id,
+                public_only=False,
+            )
+
+    async def delete_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        variant_id: UUID,
+    ) -> bool:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            product_row = await connection.fetchrow(
+                """
+                select id, status
+                from app.products
+                where tenant_id = $1 and id = $2
+                for update
+                """,
+                tenant_id,
+                product_id,
+            )
+            if product_row is None:
+                return False
+
+            variant_row = await connection.fetchrow(
+                """
+                select id, is_active
+                from app.product_variants
+                where tenant_id = $1 and product_id = $2 and id = $3
+                """,
+                tenant_id,
+                product_id,
+                variant_id,
+            )
+            if variant_row is None:
+                return False
+
+            variant_count = await connection.fetchval(
+                """
+                select count(*)
+                from app.product_variants
+                where tenant_id = $1 and product_id = $2
+                """,
+                tenant_id,
+                product_id,
+            )
+            if variant_count <= 1:
+                raise AppError(
+                    "PRODUCT_WITHOUT_VARIANTS",
+                    "El producto debe conservar al menos una variante",
+                    422,
+                )
+
+            if variant_row["is_active"] and product_row["status"] == "active":
+                active_count = await connection.fetchval(
+                    """
+                    select count(*)
+                    from app.product_variants
+                    where tenant_id = $1 and product_id = $2 and is_active
+                    """,
+                    tenant_id,
+                    product_id,
+                )
+                if active_count <= 1:
+                    raise AppError(
+                        "PRODUCT_WITHOUT_ACTIVE_VARIANTS",
+                        "El producto activo necesita al menos una variante activa",
+                        422,
+                    )
+
+            active_reservations = await connection.fetchval(
+                """
+                select count(*)
+                from app.inventory_reservations
+                where tenant_id = $1
+                  and variant_id = $2
+                  and status = 'active'
+                  and expires_at > now()
+                """,
+                tenant_id,
+                variant_id,
+            )
+            if active_reservations:
+                raise AppError(
+                    "VARIANT_HAS_ACTIVE_RESERVATIONS",
+                    "La variante tiene reservas activas; espera a que expiren",
+                    409,
+                )
+
+            await connection.execute(
+                "delete from app.product_variants where tenant_id = $1 and id = $2",
+                tenant_id,
+                variant_id,
+            )
+            return True
 
     async def _default_location(self, connection: asyncpg.Connection, tenant_id: UUID) -> UUID:
         location_id = await connection.fetchval(

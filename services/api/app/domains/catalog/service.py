@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from uuid import UUID
 
 from app.core.errors import AppError
 from app.domains.catalog.models import (
+    VARIANT_PATCH_FIELDS,
     Category,
     CategoryInput,
     ProductDetail,
@@ -128,6 +130,34 @@ class CatalogService:
             media_asset_id,
         )
 
+    async def update_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        variant_id: UUID,
+        *,
+        changes: Mapping[str, object],
+    ) -> ProductDetail | None:
+        _validate_variant_changes(changes)
+        return await self._repository.update_variant(
+            tenant_id,
+            product_id,
+            variant_id,
+            changes,
+        )
+
+    async def delete_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        variant_id: UUID,
+    ) -> bool:
+        return await self._repository.delete_variant(
+            tenant_id,
+            product_id,
+            variant_id,
+        )
+
     def _validate_product(self, data: ProductInput) -> None:
         if data.status not in _CREATABLE_STATUSES:
             raise AppError(
@@ -168,3 +198,47 @@ class CatalogService:
                 "Un producto activo necesita al menos una variante activa",
                 422,
             )
+
+
+def _validate_variant_changes(changes: Mapping[str, object]) -> None:
+    unknown = {key for key in changes if key not in VARIANT_PATCH_FIELDS}
+    if unknown:
+        raise AppError("INVALID_VARIANT_FIELD", "Campo de variante inválido", 422)
+
+    if "name" in changes:
+        name = changes["name"]
+        if not isinstance(name, str) or not name.strip():
+            raise AppError("INVALID_NAME", "El nombre no puede estar vacío", 422)
+
+    if "price_cents" in changes:
+        price = changes["price_cents"]
+        if isinstance(price, bool) or not isinstance(price, int) or price <= 0:
+            raise AppError("INVALID_PRICE", "El precio debe ser mayor que cero", 422)
+
+    for field in ("compare_at_price_cents", "cost_cents", "weight_grams"):
+        if field not in changes:
+            continue
+        value = changes[field]
+        if value is not None and (
+            isinstance(value, bool) or not isinstance(value, int) or value < 0
+        ):
+            raise AppError(
+                "INVALID_VARIANT_FIELD",
+                f"El campo {field} debe ser un entero no negativo o null",
+                422,
+            )
+
+    if "position" in changes:
+        position = changes["position"]
+        if isinstance(position, bool) or not isinstance(position, int) or position < 0:
+            raise AppError("INVALID_POSITION", "La posición no puede ser negativa", 422)
+
+    if "is_active" in changes and not isinstance(changes["is_active"], bool):
+        raise AppError("INVALID_VARIANT_FIELD", "is_active debe ser booleano", 422)
+
+    if "option_values" in changes and not isinstance(changes["option_values"], dict):
+        raise AppError(
+            "INVALID_VARIANT_FIELD",
+            "option_values debe ser un objeto",
+            422,
+        )

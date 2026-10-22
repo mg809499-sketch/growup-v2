@@ -41,11 +41,11 @@
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
 | W1-08 | Pendiente | `auth_events` + alertas de mismatch |
 | W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (90 en total) |
-| W2-02 | Parcial | API create/list/get/update de productos y variantes; faltan update/delete de variantes y opciones normalizadas |
+| W2-02 | Hecho | API create/list/get/update de productos y update/delete de variantes con validación de precio, última variante activa y reservas; faltan opciones normalizadas |
 | W2-03 | Parcial | URL firmada, endpoints admin (upload, complete, listar, editar alt, borrar), worker ARQ, AVIF/WebP 320-1600, EXIF strip, blurhash, alt obligatorio, asociación a producto, limpieza de uploads huérfanos, 14 pgTAP y E2E S3 (moto); falta E2E con R2/ARQ real en staging |
 | W2-04 | Hecho | `inventory_reservations` con `location_id`, check `reserved <= available`, reserva/confirmación/liberación/expiración + 9 pgTAP |
 | W2-05 | Parcial | FTS español + filtros + cursor; faltan facetas |
-| W2-06 | Parcial | Listado y detalle storefront; faltan colecciones e imágenes |
+| W2-06 | Parcial | Listado y detalle storefront con imágenes y variantes; faltan colecciones |
 | W2-07 | Parcial | API admin de catálogo; falta UI |
 | W2-08 | Hecho | 40 reservas concurrentes sobre stock 10: 10 éxitos, 30 `INSUFFICIENT_STOCK`, sin negativos |
 | W2-09 | Pendiente | Seed de catálogo piloto |
