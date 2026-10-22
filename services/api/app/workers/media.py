@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 from uuid import UUID
 
+from arq import cron
 from arq.connections import RedisSettings
 
 from app.core.config import settings
@@ -18,6 +19,21 @@ _CTX_MEDIA_SERVICE = "media_service"
 async def process_media(ctx: dict[str, Any], tenant_id: str, asset_id: str) -> None:
     service: MediaService = ctx[_CTX_MEDIA_SERVICE]
     await service.process_asset(UUID(tenant_id), UUID(asset_id))
+
+
+async def cleanup_uploads(ctx: dict[str, Any]) -> None:
+    """Marca como `failed` los uploads que nunca se completaron.
+
+    El job es cross-tenant: la función `app.expire_stale_uploads()` es
+    SECURITY DEFINER y se llama desde una transacción pública, sin
+    `app.tenant_id`.
+    """
+    database: Database = ctx[_CTX_DATABASE]
+    async with database.public_transaction() as connection:
+        await connection.fetchval(
+            "select app.expire_stale_uploads($1)",
+            settings.media_stale_upload_seconds,
+        )
 
 
 async def startup(ctx: dict[str, Any]) -> None:
@@ -62,6 +78,7 @@ async def shutdown(ctx: dict[str, Any]) -> None:
 
 class WorkerSettings:
     functions = [process_media]
+    cron_jobs = [cron(cleanup_uploads, minute=0)]
     on_startup = startup
     on_shutdown = shutdown
     redis_settings = (

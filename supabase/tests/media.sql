@@ -6,7 +6,7 @@ grant usage on schema extensions to app_rw;
 grant execute on all functions in schema extensions to app_rw;
 set search_path = public, extensions;
 
-select plan(11);
+select plan(14);
 
 select app.create_tenant('media-a', 'media-a.growup.com', 'Media A') as tenant_a \gset
 select app.create_tenant('media-b', 'media-b.growup.com', 'Media B') as tenant_b \gset
@@ -151,6 +151,54 @@ select throws_ok(
     '42501',
     null,
     'tenant B no inserta una asociación de A'
+);
+
+select set_config('app.tenant_id', :'tenant_a', true);
+
+insert into app.media_assets
+    (tenant_id, r2_key, mime, size_bytes, original_filename, status, updated_at)
+values (
+    :'tenant_a',
+    'tenant/' || :'tenant_a' || '/originals/stale.jpg',
+    'image/jpeg',
+    100,
+    'stale.jpg',
+    'uploading',
+    now() - interval '2 hours'
+)
+returning id as asset_stale \gset
+
+insert into app.media_assets
+    (tenant_id, r2_key, mime, size_bytes, original_filename, status)
+values (
+    :'tenant_a',
+    'tenant/' || :'tenant_a' || '/originals/fresh.jpg',
+    'image/jpeg',
+    100,
+    'fresh.jpg',
+    'uploading'
+)
+returning id as asset_fresh \gset
+
+select app.expire_stale_uploads(3600);
+
+select is(
+    (select status from app.media_assets where id = :'asset_stale'),
+    'failed',
+    'el upload vencido queda en failed'
+);
+
+select is(
+    (select status from app.media_assets where id = :'asset_fresh'),
+    'uploading',
+    'el upload reciente sigue uploading'
+);
+
+select throws_ok(
+    'select app.expire_stale_uploads(10)',
+    'P0001',
+    'max_age_seconds must be at least 60',
+    'la limpieza exige un TTL mínimo de 60 segundos'
 );
 
 select * from finish();

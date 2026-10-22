@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     r2_public_base_url: str = ""
     media_upload_url_ttl_seconds: int = 900
     media_max_image_bytes: int = 10 * 1024 * 1024
+    media_stale_upload_seconds: int = 3600
     supabase_url: str = ""
     supabase_jwt_audience: str = "authenticated"
     cors_origins: str = "http://localhost:3000"

@@ -7,10 +7,12 @@ from uuid import UUID, uuid4
 import pytest
 from PIL import Image
 
+from app.core.config import settings
 from app.core.db import Database
 from app.domains.media.models import MediaStatus, MediaVariant
 from app.domains.media.repository import PostgresMediaRepository
 from app.domains.media.service import MediaService
+from app.workers.media import cleanup_uploads
 
 TEST_DSN = os.getenv("GROWUP_TEST_DATABASE_URL")
 
@@ -139,6 +141,61 @@ async def test_media_admin_lifecycle_list_update_and_delete() -> None:
 
         assert await repository.get_asset(tenant_id, asset_id) is None
         assert storage.objects == {}
+    finally:
+        if tenants:
+            async with database.pool.acquire() as connection:
+                await connection.execute(
+                    "delete from app.tenants where id = any($1::uuid[])",
+                    tenants,
+                )
+        await database.close()
+
+
+async def test_cleanup_uploads_expires_stale_assets(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    assert TEST_DSN is not None
+    monkeypatch.setattr(settings, "media_stale_upload_seconds", 3600)
+    database = Database(TEST_DSN, min_size=1, max_size=5)
+    await database.connect()
+    tenants: list[UUID] = []
+    suffix = uuid4().hex[:8]
+
+    try:
+        tenant_id = await _tenant(database, suffix)
+        tenants.append(tenant_id)
+        repository = PostgresMediaRepository(database)
+        # El trigger `set_updated_at` impide fechar hacia atrás con UPDATE,
+        # así que el asset vencido se inserta con su `updated_at` explícito.
+        async with database.pool.acquire() as connection:
+            stale_id = await connection.fetchval(
+                """
+                insert into app.media_assets
+                    (tenant_id, r2_key, mime, size_bytes, original_filename,
+                     status, updated_at)
+                values ($1, $2, 'image/jpeg', 10, 'stale.jpg', 'uploading',
+                        now() - interval '2 hours')
+                returning id
+                """,
+                tenant_id,
+                f"tenant/{tenant_id}/originals/{uuid4()}.jpg",
+            )
+        fresh_id = await repository.create_asset(
+            tenant_id,
+            r2_key=f"tenant/{tenant_id}/originals/{uuid4()}.jpg",
+            mime="image/jpeg",
+            size_bytes=10,
+            original_filename="fresh.jpg",
+        )
+
+        await cleanup_uploads({"database": database})
+
+        stale = await repository.get_asset(tenant_id, stale_id)
+        fresh = await repository.get_asset(tenant_id, fresh_id)
+        assert stale is not None
+        assert stale.status is MediaStatus.FAILED
+        assert fresh is not None
+        assert fresh.status is MediaStatus.UPLOADING
     finally:
         if tenants:
             async with database.pool.acquire() as connection:

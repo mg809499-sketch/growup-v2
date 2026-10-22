@@ -269,7 +269,7 @@ Append-only: `id`, `tenant_id` nullable, `event_type`, `actor_id`, `ip`, `user_a
 
 `media_variants`: `id`, `tenant_id`, `media_asset_id`, `format` (`avif`, `webp`), `width`, `height`, `r2_key`, `size_bytes`. Único `(media_asset_id, format, width)`.
 
-Flujo: URL prefirmada → upload directo a R2 con prefijo `tenant/{tenant_id}/originals/{asset_id}` → worker valida MIME real, tamaño (10 MB), dimensiones (6000×6000, 100 MP), aplica orientación y strip de EXIF, genera AVIF/WebP en 320/640/960/1280/1600 y `blurhash`, y marca `ready`. El nombre original nunca se usa como clave. Borrar un asset elimina en cascada sus variantes y asociaciones con productos, y borra los objetos en R2 antes de borrar la fila.
+Flujo: URL prefirmada → upload directo a R2 con prefijo `tenant/{tenant_id}/originals/{asset_id}` → worker valida MIME real, tamaño (10 MB), dimensiones (6000×6000, 100 MP), aplica orientación y strip de EXIF, genera AVIF/WebP en 320/640/960/1280/1600 y `blurhash`, y marca `ready`. El nombre original nunca se usa como clave. Borrar un asset elimina en cascada sus variantes y asociaciones con productos, y borra los objetos en R2 antes de borrar la fila. `app.expire_stale_uploads()` marca como `failed` los uploads que nunca se completaron.
 
 ### `locations`
 
