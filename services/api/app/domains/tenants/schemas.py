@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.domains.tenants.models import TenantBootstrap, TenantStatus
 
@@ -52,6 +52,8 @@ class BootstrapResponse(BaseModel):
 
 
 class TenantCreateRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     slug: str = Field(min_length=1, max_length=63, pattern=_SLUG_PATTERN)
     name: str = Field(min_length=1, max_length=200)
     legal_name: str | None = Field(default=None, max_length=200)

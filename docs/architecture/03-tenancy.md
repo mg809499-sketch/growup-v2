@@ -71,7 +71,7 @@ Fixtures: tenant A (`ropa`) y tenant B (`joyeria`), un owner y un packer por ten
 | # | Vector | Resultado esperado |
 |---|---|---|
 | 1 | Autenticado en A, cambiar `Host` a B | `403 TENANT_MISMATCH` |
-| 2 | JWT de A + `X-Tenant-ID: B` | `403 TENANT_MISMATCH` |
+| 2 | JWT de A + `X-Tenant-ID: B` | Se ignora el header; el tenant sale del JWT o del host |
 | 3 | `GET /v1/products/{uuid_de_B}` con JWT de A | `404` (no filtrar existencia) |
 | 4 | `POST /v1/products` con `tenant_id: B` en body | `422` (campo prohibido) o `403` |
 | 5 | `PATCH` de producto de B con JWT de A | `404`/`403`, 0 filas |
@@ -88,6 +88,22 @@ Fixtures: tenant A (`ropa`) y tenant B (`joyeria`), un owner y un packer por ten
 | 16 | Membership desactivada con JWT vigente | `403 FORBIDDEN` en ruta sensible |
 
 > Los vectores 1-12 son obligatorios en CI. Los 13-16 se añaden en la Wave 1 de seguridad.
+
+Cobertura automatizada a hoy (`services/api/tests/security/test_tenant_isolation.py`, 10 tests sobre HTTP y RLS reales con dos tenants):
+
+| Vector | Test | Estado |
+|---|---|---|
+| 2 | `test_x_tenant_id_header_is_ignored` | Cubierto (el header se ignora) |
+| 3 | `test_admin_cannot_read_product_of_other_tenant` | Cubierto (`404`, sin filtrar existencia) |
+| 4 | `test_body_cannot_force_another_tenant` | Cubierto (`422`: los schemas de entrada prohíben campos extra) |
+| 5 | `test_admin_cannot_update_product_of_other_tenant` | Cubierto (`404` y 0 filas afectadas) |
+| 6 | `test_admin_list_only_returns_own_tenant_products` | Cubierto |
+| 7 | `test_storefront_ignores_tenant_id_query` | Cubierto (el tenant sale del host) |
+| 11 (parcial) | `test_storefront_resolves_tenant_by_host` | Cubierto para el catálogo; falta la caché del storefront |
+| 12 | `test_media_of_other_tenant_cannot_be_attached` | Cubierto (`404 MEDIA_NOT_FOUND`) |
+| Extra | `test_media_list_only_returns_own_tenant`, `test_platform_admin_has_no_tenant_scope` | Sin fuga por media ni por platform admin |
+
+Pendientes de automatizar cuando existan los endpoints que los exponen: vector 1 (binding host+JWT en rutas autenticadas), 8 y 9 (webhooks de pago), 10 (preview de contenido) y 11 completo (caché del storefront).
 
 ## 5. Capas de enforcement
 

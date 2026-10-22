@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Literal
 from uuid import UUID
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from app.domains.catalog.models import (
     Category,
@@ -19,6 +19,8 @@ _SLUG_PATTERN = r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$"
 
 
 class CategoryCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     slug: str = Field(min_length=1, max_length=63, pattern=_SLUG_PATTERN)
     name: str = Field(min_length=1, max_length=200)
     description: str | None = Field(default=None, max_length=5000)
@@ -44,6 +46,8 @@ class CategoryResponse(BaseModel):
 
 
 class VariantCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     sku: str = Field(min_length=1, max_length=100)
     name: str = Field(min_length=1, max_length=200)
     price_cents: int = Field(gt=0)
@@ -65,6 +69,8 @@ class VariantCreate(BaseModel):
 
 
 class ProductCreate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     slug: str = Field(min_length=1, max_length=63, pattern=_SLUG_PATTERN)
     name: str = Field(min_length=1, max_length=200)
     description: str | None = Field(default=None, max_length=20000)
@@ -76,6 +82,8 @@ class ProductCreate(BaseModel):
 
 
 class ProductUpdate(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     name: str | None = Field(default=None, min_length=1, max_length=200)
     description: str | None = Field(default=None, max_length=20000)
     category_id: UUID | None = None
@@ -85,6 +93,8 @@ class ProductUpdate(BaseModel):
 
 
 class MediaAttachRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     media_asset_id: UUID
     position: int | None = Field(default=None, ge=0)
     is_primary: bool | None = None

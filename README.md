@@ -53,6 +53,7 @@ growup/
 - [x] Gobernanza: `decide()` con políticas versionadas, `decision_logs` append-only con cadena por tenant/plataforma y verificación de integridad
 - [x] Onboarding: `POST /v1/platform/tenants` atómico con `create_tenant_with_owner` + auditoría
 - [x] Media: URL prefirmada a R2, worker ARQ, AVIF/WebP 320-1600, strip de EXIF, blurhash, alt obligatorio, asociación a producto y gestión (listar/editar/borrar)
+- [x] Aislamiento: 10 vectores cross-tenant automatizados sobre HTTP real (RLS + schemas cerrados)
 - [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API

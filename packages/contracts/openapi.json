@@ -1112,6 +1112,7 @@
             "default": 0
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "slug",
@@ -1169,6 +1170,7 @@
             "title": "Alt"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "alt"
@@ -1482,6 +1484,7 @@
             "title": "Alt"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "alt"
@@ -1519,6 +1522,7 @@
             "title": "Is Primary"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "media_asset_id"
@@ -1671,6 +1675,7 @@
             "title": "Variants"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "slug",
@@ -2075,6 +2080,7 @@
             "title": "Tags"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "title": "ProductUpdate"
       },
@@ -2215,6 +2221,7 @@
             "title": "Owner Email"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "slug",
@@ -2316,6 +2323,7 @@
             "title": "Size Bytes"
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "filename",
@@ -2467,6 +2475,7 @@
             "default": true
           }
         },
+        "additionalProperties": false,
         "type": "object",
         "required": [
           "sku",
