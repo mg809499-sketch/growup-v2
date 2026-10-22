@@ -11,6 +11,7 @@ from starlette.responses import Response
 
 from app.core.config import settings
 from app.core.errors import AppError, app_error_handler
+from app.core.middleware import SecurityMiddleware
 from app.domains.catalog.router import admin_router as catalog_admin_router
 from app.domains.catalog.router import storefront_router as catalog_storefront_router
 from app.domains.governance.router import router as audit_router
@@ -48,6 +49,11 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+)
+
+app.add_middleware(
+    SecurityMiddleware,
+    max_request_bytes=settings.max_request_bytes,
 )
 
 

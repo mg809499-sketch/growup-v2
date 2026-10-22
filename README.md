@@ -55,6 +55,7 @@ growup/
 - [x] Media: URL prefirmada a R2, worker ARQ, AVIF/WebP 320-1600, strip de EXIF, blurhash, alt obligatorio, asociación a producto, gestión (listar/editar/borrar) y limpieza de uploads huérfanos
 - [x] Aislamiento: 10 vectores cross-tenant automatizados sobre HTTP real (RLS + schemas cerrados)
 - [x] Auditoría: `GET /v1/admin/audit` paginado por `seq` y `GET /v1/admin/audit/verify` sobre la cadena de hashes
+- [x] Hardening HTTP: headers de seguridad (nosniff, frame-options, referrer, CSP en `/v1`, HSTS fuera de local) y límite de cuerpo configurable
 - [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API

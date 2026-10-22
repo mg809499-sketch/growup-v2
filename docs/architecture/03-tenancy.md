@@ -108,7 +108,7 @@ Pendientes de automatizar cuando existan los endpoints que los exponen: vector 1
 ## 5. Capas de enforcement
 
 1. **Borde:** TLS, WAF, rate limit, normalización de host.
-2. **API:** resolución host→tenant, verificación JWKS, match de claim, autorización por rol, validación de schemas.
+2. **API:** resolución host→tenant, verificación JWKS, match de claim, autorización por rol, validación de schemas, headers de seguridad y límite de tamaño del cuerpo.
 3. **Dominio:** servicios reciben `tenant_id` como parámetro explícito; repositories nunca construyen queries sin él.
 4. **DB:** `app_rw` sin `BYPASSRLS`, RLS `ENABLE` + `FORCE`, políticas `USING`/`WITH CHECK`, constraints.
 5. **Contenido:** schemas cerrados, Markdown saneado, CSP.

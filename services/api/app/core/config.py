@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     tenant_cache_ttl_seconds: int = 300
     root_domain: str = "growup.com"
     inventory_reservation_ttl_seconds: int = 900
+    max_request_bytes: int = 1024 * 1024
     redis_url: str = ""
     r2_endpoint_url: str = ""
     r2_access_key_id: str = ""

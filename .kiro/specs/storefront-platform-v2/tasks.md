@@ -37,7 +37,7 @@
 | W1-03 | Hecho | JWT/JWKS + `AuthService` + memberships + roles/permisos + `/v1/admin/me` |
 | W1-04 | Pendiente | Login admin con Supabase SSR y cookies (frontend) |
 | W1-05 | Hecho | `POST /v1/platform/tenants` con `decide()` + `create_tenant_with_owner` + auditoría; tests unitarios e integración |
-| W1-06 | Parcial | 90 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza + 9 inventario + 14 media + 7 platform + 8 seguridad) + integración + 10 vectores HTTP de aislamiento; faltan webhooks, preview y caché del storefront |
+| W1-06 | Parcial | 90 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza + 9 inventario + 14 media + 7 platform + 8 seguridad) + integración + 10 vectores HTTP de aislamiento + headers de seguridad y límite de cuerpo; faltan webhooks, preview y caché del storefront |
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
 | W1-08 | Pendiente | `auth_events` + alertas de mismatch |
 | W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (90 en total) |
