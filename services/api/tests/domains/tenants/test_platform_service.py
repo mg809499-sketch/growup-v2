@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import pytest
 
 from app.core.errors import AppError
 from app.domains.governance.models import Decision, PolicyInput, PolicyResult
-from app.domains.tenants.models import Tenant, TenantStatus
+from app.domains.tenants.models import PlatformTenant, Tenant, TenantStatus
 from app.domains.tenants.platform_service import PlatformTenantService
 
 
@@ -47,6 +48,9 @@ class FakeTenantRepository:
     def __init__(self, *, error: Exception | None = None) -> None:
         self.error = error
         self.created: list[dict[str, object]] = []
+        self.listed: list[dict[str, object]] = []
+        self.tenants: tuple[PlatformTenant, ...] = ()
+        self.total = 0
 
     async def find_by_host(self, host: str) -> Tenant | None:
         return None
@@ -62,6 +66,12 @@ class FakeTenantRepository:
             raise self.error
         self.created.append(kwargs)
         return uuid4()
+
+    async def list_tenants(self, **kwargs: object) -> tuple[tuple[PlatformTenant, ...], int]:
+        if self.error is not None:
+            raise self.error
+        self.listed.append(kwargs)
+        return self.tenants, self.total
 
 
 async def test_create_tenant_allowed() -> None:
@@ -178,3 +188,105 @@ async def test_repository_error_propagates() -> None:
         )
 
     assert exc_info.value.code == "SLUG_TAKEN"
+
+
+async def test_list_tenants_validates_filters() -> None:
+    service = PlatformTenantService(FakeTenantRepository(), FakeGovernance())  # type: ignore[arg-type]
+
+    with pytest.raises(AppError) as invalid_status:
+        await service.list_tenants(
+            actor_id=uuid4(),
+            status="bogus",
+            query=None,
+            limit=50,
+            offset=0,
+        )
+    assert invalid_status.value.code == "INVALID_STATUS"
+
+    with pytest.raises(AppError) as invalid_limit:
+        await service.list_tenants(
+            actor_id=uuid4(),
+            status=None,
+            query=None,
+            limit=0,
+            offset=0,
+        )
+    assert invalid_limit.value.code == "INVALID_LIMIT"
+
+    with pytest.raises(AppError) as invalid_offset:
+        await service.list_tenants(
+            actor_id=uuid4(),
+            status=None,
+            query=None,
+            limit=50,
+            offset=-1,
+        )
+    assert invalid_offset.value.code == "INVALID_OFFSET"
+
+    with pytest.raises(AppError) as long_query:
+        await service.list_tenants(
+            actor_id=uuid4(),
+            status=None,
+            query="x" * 101,
+            limit=50,
+            offset=0,
+        )
+    assert long_query.value.code == "QUERY_TOO_LONG"
+
+
+async def test_list_tenants_delegates_and_returns_page() -> None:
+    repository = FakeTenantRepository()
+    tenant = PlatformTenant(
+        id=uuid4(),
+        slug="ropa",
+        name="Ropa",
+        status=TenantStatus.TRIALING,
+        host="ropa.growup.com",
+        plan_id=None,
+        trial_ends_at=None,
+        created_at=datetime.now(UTC),
+    )
+    repository.tenants = (tenant,)
+    repository.total = 1
+    service = PlatformTenantService(repository, FakeGovernance())  # type: ignore[arg-type]
+    actor_id = uuid4()
+
+    page = await service.list_tenants(
+        actor_id=actor_id,
+        status="trialing",
+        query="  ropa  ",
+        limit=10,
+        offset=0,
+    )
+
+    assert page.items == (tenant,)
+    assert page.total == 1
+    assert page.limit == 10
+    assert page.offset == 0
+    assert repository.listed == [
+        {
+            "actor_id": actor_id,
+            "status": "trialing",
+            "query": "ropa",
+            "limit": 10,
+            "offset": 0,
+        }
+    ]
+
+
+async def test_list_tenants_propagates_repository_error() -> None:
+    repository = FakeTenantRepository(
+        error=AppError("PLATFORM_ADMIN_REQUIRED", "denegado", 403)
+    )
+    service = PlatformTenantService(repository, FakeGovernance())  # type: ignore[arg-type]
+
+    with pytest.raises(AppError) as exc_info:
+        await service.list_tenants(
+            actor_id=uuid4(),
+            status=None,
+            query=None,
+            limit=50,
+            offset=0,
+        )
+
+    assert exc_info.value.code == "PLATFORM_ADMIN_REQUIRED"

@@ -8,7 +8,12 @@ import asyncpg  # type: ignore[import-untyped]
 
 from app.core.db import Database
 from app.core.errors import AppError
-from app.domains.tenants.models import Tenant, TenantSettings, TenantStatus
+from app.domains.tenants.models import (
+    PlatformTenant,
+    Tenant,
+    TenantSettings,
+    TenantStatus,
+)
 
 
 class TenantRepository(Protocol):
@@ -37,6 +42,16 @@ class TenantRepository(Protocol):
         legal_name: str | None = None,
         plan_id: UUID | None = None,
     ) -> UUID: ...
+
+    async def list_tenants(
+        self,
+        *,
+        actor_id: UUID,
+        status: str | None,
+        query: str | None,
+        limit: int,
+        offset: int,
+    ) -> tuple[tuple[PlatformTenant, ...], int]: ...
 
 
 class PostgresTenantRepository:
@@ -149,6 +164,48 @@ class PostgresTenantRepository:
             raise AppError("PLAN_NOT_FOUND", "El plan no existe", 400) from exc
 
         return cast(UUID, tenant_id)
+
+    async def list_tenants(
+        self,
+        *,
+        actor_id: UUID,
+        status: str | None,
+        query: str | None,
+        limit: int,
+        offset: int,
+    ) -> tuple[tuple[PlatformTenant, ...], int]:
+        try:
+            async with self._database.public_transaction() as connection:
+                rows = await connection.fetch(
+                    "select * from app.list_tenants($1, $2, $3, $4, $5)",
+                    actor_id,
+                    status,
+                    query,
+                    limit,
+                    offset,
+                )
+        except asyncpg.InsufficientPrivilegeError as exc:
+            raise AppError(
+                "PLATFORM_ADMIN_REQUIRED",
+                "Se requiere un platform admin",
+                403,
+            ) from exc
+
+        total = int(rows[0]["total_count"]) if rows else 0
+        return tuple(_platform_tenant(row) for row in rows), total
+
+
+def _platform_tenant(row: Any) -> PlatformTenant:
+    return PlatformTenant(
+        id=row["id"],
+        slug=row["slug"],
+        name=row["name"],
+        status=TenantStatus(row["status"]),
+        host=row["host"],
+        plan_id=row["plan_id"],
+        trial_ends_at=row["trial_ends_at"],
+        created_at=row["created_at"],
+    )
 
 
 def _as_dict(value: object) -> dict[str, Any]:

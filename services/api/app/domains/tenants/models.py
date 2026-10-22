@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import datetime
 from enum import StrEnum
 from typing import Any
 from uuid import UUID
@@ -41,3 +42,23 @@ class TenantSettings:
 class TenantBootstrap:
     tenant: Tenant
     settings: TenantSettings
+
+
+@dataclass(frozen=True, slots=True)
+class PlatformTenant:
+    id: UUID
+    slug: str
+    name: str
+    status: TenantStatus
+    host: str | None
+    plan_id: UUID | None
+    trial_ends_at: datetime | None
+    created_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class PlatformTenantPage:
+    items: tuple[PlatformTenant, ...]
+    total: int
+    limit: int
+    offset: int

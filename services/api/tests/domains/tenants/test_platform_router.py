@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -9,13 +10,29 @@ from app.api.deps import get_admin_context, get_platform_tenant_service
 from app.core.errors import AppError
 from app.domains.identity.models import Actor, RequestContext, Role
 from app.domains.identity.permissions import permissions_for
-from app.domains.tenants.models import Tenant, TenantStatus
+from app.domains.tenants.models import (
+    PlatformTenant,
+    PlatformTenantPage,
+    Tenant,
+    TenantStatus,
+)
 from app.main import app
 
 
 class FakePlatformTenantService:
-    def __init__(self, *, error: Exception | None = None) -> None:
+    def __init__(
+        self,
+        *,
+        error: Exception | None = None,
+        page: PlatformTenantPage | None = None,
+    ) -> None:
         self.error = error
+        self.page = page or PlatformTenantPage(
+            items=(),
+            total=0,
+            limit=50,
+            offset=0,
+        )
         self.calls: list[dict[str, object]] = []
 
     async def create_tenant(self, **kwargs: object) -> Tenant:
@@ -28,6 +45,12 @@ class FakePlatformTenantService:
             name=str(kwargs["name"]),
             status=TenantStatus.TRIALING,
         )
+
+    async def list_tenants(self, **kwargs: object) -> PlatformTenantPage:
+        self.calls.append({"list_tenants": kwargs})
+        if self.error is not None:
+            raise self.error
+        return self.page
 
 
 def _context(role: Role) -> RequestContext:
@@ -145,6 +168,66 @@ def test_invalid_slug_is_rejected_by_schema() -> None:
             "owner_email": "owner@ropa.com",
         },
     )
+
+    assert response.status_code == 422
+    assert fake.calls == []
+
+
+def test_platform_admin_lists_tenants() -> None:
+    tenant = PlatformTenant(
+        id=uuid4(),
+        slug="ropa",
+        name="Ropa",
+        status=TenantStatus.TRIALING,
+        host="ropa.growup.com",
+        plan_id=None,
+        trial_ends_at=None,
+        created_at=datetime.now(UTC),
+    )
+    fake = FakePlatformTenantService(
+        page=PlatformTenantPage(items=(tenant,), total=1, limit=10, offset=0)
+    )
+    app.dependency_overrides[get_admin_context] = lambda: _context(Role.PLATFORM_ADMIN)
+    app.dependency_overrides[get_platform_tenant_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.get(
+        "/v1/platform/tenants?status=trialing&q=ropa&limit=10&offset=0"
+    )
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["total"] == 1
+    assert payload["items"][0]["slug"] == "ropa"
+    assert payload["items"][0]["host"] == "ropa.growup.com"
+    call = fake.calls[-1]["list_tenants"]
+    assert isinstance(call, dict)
+    assert call["status"] == "trialing"
+    assert call["query"] == "ropa"
+    assert call["limit"] == 10
+    assert call["offset"] == 0
+
+
+def test_tenant_owner_cannot_list_tenants() -> None:
+    fake = FakePlatformTenantService()
+    app.dependency_overrides[get_admin_context] = lambda: _context(Role.OWNER)
+    app.dependency_overrides[get_platform_tenant_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.get("/v1/platform/tenants")
+
+    assert response.status_code == 403
+    assert response.json()["error"]["code"] == "FORBIDDEN"
+    assert fake.calls == []
+
+
+def test_invalid_status_filter_is_rejected() -> None:
+    fake = FakePlatformTenantService()
+    app.dependency_overrides[get_admin_context] = lambda: _context(Role.PLATFORM_ADMIN)
+    app.dependency_overrides[get_platform_tenant_service] = lambda: fake
+    client = TestClient(app)
+
+    response = client.get("/v1/platform/tenants?status=bogus")
 
     assert response.status_code == 422
     assert fake.calls == []

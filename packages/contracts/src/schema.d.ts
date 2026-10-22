@@ -237,7 +237,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** List Tenants */
+        get: operations["list_tenants_v1_platform_tenants_get"];
         put?: never;
         /** Create Tenant */
         post: operations["create_tenant_v1_platform_tenants_post"];
@@ -460,6 +461,41 @@ export interface components {
          * @enum {string}
          */
         Permission: "catalog:read" | "catalog:write" | "content:read" | "content:write" | "content:publish" | "orders:read" | "orders:fulfill" | "payments:read" | "payments:refund" | "billing:read" | "billing:write" | "team:read" | "team:write" | "settings:read" | "settings:write" | "customers:read" | "audit:read" | "platform:tenants" | "platform:audit" | "platform:support";
+        /** PlatformTenantListResponse */
+        PlatformTenantListResponse: {
+            /** Items */
+            items: components["schemas"]["PlatformTenantResponse"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+        };
+        /** PlatformTenantResponse */
+        PlatformTenantResponse: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Slug */
+            slug: string;
+            /** Name */
+            name: string;
+            status: components["schemas"]["TenantStatus"];
+            /** Host */
+            host: string | null;
+            /** Plan Id */
+            plan_id: string | null;
+            /** Trial Ends At */
+            trial_ends_at: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
         /** ProductCreate */
         ProductCreate: {
             /** Slug */
@@ -1327,6 +1363,40 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["MediaAssetResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_tenants_v1_platform_tenants_get: {
+        parameters: {
+            query?: {
+                status?: components["schemas"]["TenantStatus"] | null;
+                q?: string | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformTenantListResponse"];
                 };
             };
             /** @description Validation Error */

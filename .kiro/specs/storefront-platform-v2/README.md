@@ -24,8 +24,8 @@ Spec del MVP comercial de Growup: dos tenants piloto (ropa y joyería), storefro
 | ADRs | 0001-0004, 0006-0008 aceptadas; 0005 propuesta |
 | Arquitectura | Overview, datos y tenancy documentados |
 | Seguridad | JWT/JWKS, host, errores, transacción con `SET LOCAL ROLE app_rw`, memberships/roles, `/v1/admin/me` y 10 vectores cross-tenant automatizados |
-| Base de datos | Tenancy + catálogo + gobernanza + inventario + media; 82 tests pgTAP |
-| API | `/healthz`, `/readyz`, `/v1/storefront/bootstrap`, `/v1/admin/me`, catálogo admin/storefront, onboarding platform y media admin |
+| Base de datos | Tenancy + catálogo + gobernanza + inventario + media; 90 tests pgTAP |
+| API | `/healthz`, `/readyz`, `/v1/storefront/bootstrap`, `/v1/admin/me`, catálogo admin/storefront, onboarding/listado platform y media admin |
 | Catálogo | API base, media upload/worker y asociación producto-media listos; faltan E2E R2, facetas y colecciones |
 | Contratos | OpenAPI → TypeScript con check en CI |
 | Frontend | Pendiente del export de v0 |

@@ -37,10 +37,10 @@
 | W1-03 | Hecho | JWT/JWKS + `AuthService` + memberships + roles/permisos + `/v1/admin/me` |
 | W1-04 | Pendiente | Login admin con Supabase SSR y cookies (frontend) |
 | W1-05 | Hecho | `POST /v1/platform/tenants` con `decide()` + `create_tenant_with_owner` + auditoría; tests unitarios e integración |
-| W1-06 | Parcial | 82 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza + 9 inventario + 14 media + 7 seguridad) + integración + 10 vectores HTTP de aislamiento; faltan webhooks, preview y caché del storefront |
+| W1-06 | Parcial | 90 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza + 9 inventario + 14 media + 7 platform + 8 seguridad) + integración + 10 vectores HTTP de aislamiento; faltan webhooks, preview y caché del storefront |
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
 | W1-08 | Pendiente | `auth_events` + alertas de mismatch |
-| W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (82 en total) |
+| W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (90 en total) |
 | W2-02 | Parcial | API create/list/get/update de productos y variantes; faltan update/delete de variantes y opciones normalizadas |
 | W2-03 | Parcial | URL firmada, endpoints admin (upload, complete, listar, editar alt, borrar), worker ARQ, AVIF/WebP 320-1600, EXIF strip, blurhash, alt obligatorio, asociación a producto, limpieza de uploads huérfanos y 14 pgTAP; falta E2E con R2/ARQ real |
 | W2-04 | Hecho | `inventory_reservations` con `location_id`, check `reserved <= available`, reserva/confirmación/liberación/expiración + 9 pgTAP |
@@ -52,7 +52,7 @@
 | W6-01 | Hecho | `decide()` determinista con políticas versionadas y fail-closed; tests table-driven |
 | W6-02 | Hecho | `decision_logs` + cadena por `chain_key` + `verify_decision_chain`; 21 pgTAP, tamper detectado y guard de contexto de tenant |
 | W6-03 | Parcial | Tabla `approval_tasks` con RLS; falta bandeja/UI y handoff desde `decide()` |
-| W6-04 | Parcial | `POST /v1/platform/tenants`; faltan listar/suspender y UI |
+| W6-04 | Parcial | `GET`/`POST /v1/platform/tenants` con búsqueda y paginación; faltan suspender, planes, auditoría y UI |
 
 ## Definition of Done (por tarea)
 

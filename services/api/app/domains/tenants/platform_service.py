@@ -3,11 +3,14 @@ from __future__ import annotations
 from uuid import UUID
 
 from app.core.config import settings
+from app.core.errors import AppError
 from app.core.tenancy import validate_slug
 from app.domains.governance.models import PolicyInput
 from app.domains.governance.service import GovernanceService
-from app.domains.tenants.models import Tenant, TenantStatus
+from app.domains.tenants.models import PlatformTenantPage, Tenant, TenantStatus
 from app.domains.tenants.repository import TenantRepository
+
+_VALID_STATUSES = {status.value for status in TenantStatus}
 
 
 class PlatformTenantService:
@@ -74,4 +77,38 @@ class PlatformTenantService:
             slug=slug,
             name=name,
             status=TenantStatus.TRIALING,
+        )
+
+    async def list_tenants(
+        self,
+        *,
+        actor_id: UUID,
+        status: str | None,
+        query: str | None,
+        limit: int,
+        offset: int,
+    ) -> PlatformTenantPage:
+        if status is not None and status not in _VALID_STATUSES:
+            raise AppError("INVALID_STATUS", "Estado de tenant inválido", 422)
+        if limit < 1 or limit > 100:
+            raise AppError("INVALID_LIMIT", "El límite debe estar entre 1 y 100", 422)
+        if offset < 0:
+            raise AppError("INVALID_OFFSET", "El offset no puede ser negativo", 422)
+
+        normalized_query = query.strip() if query else None
+        if normalized_query is not None and len(normalized_query) > 100:
+            raise AppError("QUERY_TOO_LONG", "La búsqueda es demasiado larga", 422)
+
+        items, total = await self._tenants.list_tenants(
+            actor_id=actor_id,
+            status=status,
+            query=normalized_query,
+            limit=limit,
+            offset=offset,
+        )
+        return PlatformTenantPage(
+            items=items,
+            total=total,
+            limit=limit,
+            offset=offset,
         )
