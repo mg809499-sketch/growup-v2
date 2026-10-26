@@ -2,6 +2,7 @@
 
 > **Estado:** 8 cerradas (D-03 con proveedor por definir) · **Última actualización:** 2026-10-21
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
+> **Nota (2026-10-26):** D-09 a D-18 están en **propuesta** en `docs/decisiones-pendientes (1).md`; no se consideran cerradas. Cubren DPA, DSR/retención, PCI/SAQ, brechas, devoluciones, fraude, email, soporte, marketplace facilitator y SOC 2. El detalle, los riesgos y la secuencia están en ese archivo.
 
 ## Resumen
 
