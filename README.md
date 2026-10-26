@@ -58,6 +58,7 @@ growup/
 - [x] Auditoría: `GET /v1/admin/audit` paginado por `seq` y `GET /v1/admin/audit/verify` sobre la cadena de hashes
 - [x] Hardening HTTP: headers de seguridad (nosniff, frame-options, referrer, CSP en `/v1`, HSTS fuera de local) y límite de cuerpo configurable
 - [x] Observabilidad: logs estructurados con `request_id`, `tenant_id` y duración; Sentry opcional sin PII
+- [x] Storefront base: home, colección y detalle de producto contra la API multi-tenant (dirección visual del prompt v0; falta export final)
 - [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API

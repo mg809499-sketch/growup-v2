@@ -1,8 +1,8 @@
 # Decisiones de negocio pendientes
 
-> **Estado:** 8 cerradas (D-03 con proveedor por definir) · **Última actualización:** 2026-10-21
+> **Estado:** 10 cerradas (D-01 a D-08, D-17 y D-18; D-03 con proveedor por definir) · 8 en propuesta (D-09 a D-16) · **Última actualización:** 2026-10-26
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
-> **Nota (2026-10-26):** D-09 a D-18 están en **propuesta** en `docs/decisiones-pendientes (1).md`; no se consideran cerradas. Cubren DPA, DSR/retención, PCI/SAQ, brechas, devoluciones, fraude, email, soporte, marketplace facilitator y SOC 2. El detalle, los riesgos y la secuencia están en ese archivo.
+> **Nota (2026-10-26):** D-09 a D-16 están en **propuesta** en `docs/decisiones-pendientes (1).md`; no se consideran cerradas. Cubren DPA, DSR/retención, PCI/SAQ, brechas, devoluciones, fraude, email y soporte. D-17 y D-18 se cerraron el 2026-10-26. El detalle, los riesgos y la secuencia están en ese archivo.
 
 ## Resumen
 

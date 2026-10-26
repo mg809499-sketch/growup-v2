@@ -28,7 +28,7 @@
 | W0-02 | Hecho | Migración `20261021000000_core_tenancy.sql`; `supabase db reset` limpio |
 | W0-03 | Hecho | `Database` con `SET LOCAL ROLE app_rw` + `app.tenant_id`; `/readyz`; tests unitarios e integración |
 | W0-04 | Hecho | `packages/contracts` + `pnpm contracts:check` + job CI |
-| W0-05 | Pendiente | Espera export de v0 |
+| W0-05 | Parcial | Base funcional de storefront desde el prompt v0 (home, colección y PDP con API real); falta integrar el export visual final |
 | W0-06 | Pendiente | Playwright |
 | W0-07 | Pendiente | Sentry/OTel |
 | W0-08 | Pendiente | Spikes Wompi/Stripe |
@@ -45,7 +45,7 @@
 | W2-03 | Parcial | URL firmada, endpoints admin (upload, complete, listar, editar alt, borrar), worker ARQ, AVIF/WebP 320-1600, EXIF strip, blurhash, alt obligatorio, asociación a producto, limpieza de uploads huérfanos, 14 pgTAP y E2E S3 (moto); falta E2E con R2/ARQ real en staging |
 | W2-04 | Hecho | `inventory_reservations` con `location_id`, check `reserved <= available`, reserva/confirmación/liberación/expiración + 9 pgTAP |
 | W2-05 | Parcial | FTS español + filtros + cursor; faltan facetas |
-| W2-06 | Parcial | Listado y detalle storefront con imágenes y variantes; faltan colecciones |
+| W2-06 | Parcial | Home, colección y detalle storefront con productos e imágenes reales; falta carrito, checkout y colecciones |
 | W2-07 | Parcial | API admin de catálogo; falta UI |
 | W2-08 | Hecho | 40 reservas concurrentes sobre stock 10: 10 éxitos, 30 `INSUFFICIENT_STOCK`, sin negativos |
 | W2-09 | Pendiente | Seed de catálogo piloto |

@@ -1,9 +1,9 @@
 # Decisiones de negocio pendientes
 
-> **Estado:** 8 cerradas (D-03 con proveedor por definir) · 10 en propuesta (D-09 a D-18, no cerradas) · **Última actualización:** 2026-10-26
+> **Estado:** 10 cerradas (D-03 con proveedor por definir; D-17 y D-18 cerradas el 2026-10-26) · 8 en propuesta (D-09 a D-16, no cerradas) · **Última actualización:** 2026-10-26
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
 > **Origen de D-09 a D-18 (2026-10-24):** brechas detectadas al comparar la arquitectura con los procesos y la normativa de una plataforma de comercio de referencia (Shopify + PCI-DSS v4.0.1, GDPR Art. 28, CCPA, marketplace facilitator USA, SOC 2). Cubren cumplimiento legal, riesgo de pagos y operación, ejes que las 8 decisiones originales no abordan.
-> **Nota (2026-10-26):** D-09 a D-18 se mantienen como propuesta. La opción A es la dirección recomendada, sujeta a revisión legal, verificación de proveedores y aprobación explícita. No se implementan como decisiones cerradas hasta completar esas condiciones. Ver “Resolución propuesta y secuencia” al final.
+> **Nota (2026-10-26):** D-09 a D-16 se mantienen como propuesta, sujetas a revisión legal, verificación de proveedores y aprobación explícita. D-17 y D-18 se cerraron el 2026-10-26: no hay custodio de fondos ni split en el MVP, y se adopta una postura alineada con SOC 2 sin certificación. Ver “Resolución propuesta y secuencia” al final.
 
 ## Resumen
 
@@ -25,8 +25,8 @@
 | D-14 | Fraude y chargebacks: responsabilidad y flujo | **IMPORTANTE** | checkout, pagos, órdenes | **PROPUESTA** (2026-10-26) |
 | D-15 | Proveedor de email transaccional y región | **IMPORTANTE** | Wave 4/8, emails de orden | **PROPUESTA** (2026-10-26) |
 | D-16 | Soporte al comerciante y SLA | **IMPORTANTE** | operación, producto | **PROPUESTA** (2026-10-26) |
-| D-17 | Marketplace facilitator / responsabilidad fiscal | **A CONSIDERAR** | fase 2, impuestos, comisión | **PROPUESTA** (2026-10-26) |
-| D-18 | Vendor risk y objetivo SOC 2 | **A CONSIDERAR** | change management, proveedores | **PROPUESTA** (2026-10-26) |
+| D-17 | Marketplace facilitator / responsabilidad fiscal | **A CONSIDERAR** | fase 2, impuestos, comisión | **CERRADA** (2026-10-26) |
+| D-18 | Vendor risk y objetivo SOC 2 | **A CONSIDERAR** | change management, proveedores | **CERRADA** (2026-10-26) |
 
 ## Protocolo para cerrar una decisión
 
@@ -487,7 +487,7 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 ## D-17 — Marketplace facilitator / responsabilidad fiscal
 
-**A CONSIDERAR — PROPUESTA (2026-10-26)**
+**A CONSIDERAR — CERRADA (2026-10-26)**
 
 **Contexto:** D-01 y D-02 anticipan que en fase 2 Growup podría cobrar comisión o hacer *split* de pagos (modelo marketplace). En USA, las leyes de *marketplace facilitator* trasladan la obligación de recaudar y remitir impuestos de venta al facilitador cuando este procesa los pagos, y el nexus económico (umbral típico USD 100k / 200 transacciones por estado) determina dónde aplica. Esto cambia **quién remite impuestos**. Aunque no aplica al MVP (merchant of record = comerciante, COP, Colombia), conviene registrar la postura para no decidirlo en silencio en fase 2.
 
@@ -507,11 +507,13 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 **Nota de propuesta (2026-10-26):** se puede registrar la postura del MVP ahora. Cualquier custodia de fondos, split o comisión obliga a reabrir con asesoría fiscal colombiana y, si aplica, análisis de marketplace facilitator en USA.
 
+**Decisión (2026-10-26):** **A.** Growup no actúa como marketplace facilitator ni intermediario fiscal en el MVP. El comerciante es merchant of record y responsable de IVA, facturación y retenciones. Se registra la postura en los ToS y se prohíbe custodia de fondos o split hasta reabrir con asesoría fiscal. **Responsable:** Equipo Growup (producto e ingeniería). **Gatillo de reapertura:** comisión, split o custodia de fondos.
+
 ---
 
 ## D-18 — Vendor risk y objetivo SOC 2
 
-**A CONSIDERAR — PROPUESTA (2026-10-26)**
+**A CONSIDERAR — CERRADA (2026-10-26)**
 
 **Contexto:** SOC 2 Type II es hoy un requisito de facto para vender SaaS a clientes enterprise. Decidir si Growup apunta a SOC 2 (y cuándo) define desde ya prácticas que son baratas si se adoptan temprano y caras de retrofittear: gestión de cambios en producción (*change management*), revisión periódica de proveedores (*vendor risk* sobre Wompi, Stripe, Cloudflare R2, Supabase), inventario de activos, respuesta a incidentes y entrenamiento. Los hallazgos típicos de auditoría se concentran justo en acceso, change management y vendor risk.
 
@@ -531,11 +533,13 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 **Nota de propuesta (2026-10-26):** adoptar “alineado con SOC 2”, no “certificado”. La matriz de controles y la evidencia deben existir antes de afirmar la postura; OTel aún no está implementado y `decision_logs` es el ledger real (no `ai_audit_logs`).
 
+**Decisión (2026-10-26):** **A.** Adoptar una postura alineada con SOC 2, sin certificación formal. Controles mínimos: change management (PR + CI + revisión + migraciones), acceso con MFA y mínimo privilegio, revisión trimestral de accesos, vendor risk anual (Supabase, Wompi, Stripe, Cloudflare, Fly, R2, Resend), inventario de activos, respuesta a incidentes (D-12), backups con prueba de restauración y evidencia en el repositorio. No se afirmará certificación SOC 2. **Responsable:** Ingeniería/Operaciones. **Gatillo de reapertura:** cliente enterprise que exija auditoría formal.
+
 ---
 
 ## Resolución propuesta y secuencia (2026-10-26)
 
-D-09 a D-18 **no se cierran** en esta fecha. La opción A se mantiene como dirección recomendada, con estas condiciones:
+D-09 a D-16 **no se cierran** en esta fecha. La opción A se mantiene como dirección recomendada, con estas condiciones:
 
 | ID | Estado propuesto | Condición para cerrar |
 |---|---|---|
@@ -547,13 +551,13 @@ D-09 a D-18 **no se cierran** en esta fecha. La opción A se mantiene como direc
 | D-14 | Condicionada | Verificar 3DS/campos Wompi; retención de PII; cuenta pendiente |
 | D-15 | Condicionada | Spike Resend/Postmark + dominio por tenant + DKIM/SPF/DMARC con ARQ |
 | D-16 | Condicionada | SLA realista + on-call + acceso de soporte auditado |
-| D-17 | Se puede cerrar | Registrar “no facilitador” y gatillo de reapertura |
-| D-18 | Se puede cerrar | Postura “alineado con SOC 2” + matriz de controles y evidencia |
+| D-17 | **CERRADA** (2026-10-26) | Postura “no facilitador” registrada; reabrir si hay comisión/split/custodia |
+| D-18 | **CERRADA** (2026-10-26) | Postura “alineado con SOC 2”; matriz de controles y evidencia en curso |
 
 ### Secuencia
 
 **Ahora**
-- D-17 (postura) y D-18 (alineación, sin certificar).
+- D-17 (postura) y D-18 (alineación, sin certificar): **cerradas el 2026-10-26**.
 - D-16: definir canal y SLA realista; email/shared inbox primero.
 - D-15: dirección por tenant y spike de proveedor; ARQ.
 - D-11: diseñar checkout sin terceros y con redirect; **no** comprar/integrar Wompi aún.
