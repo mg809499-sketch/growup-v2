@@ -110,7 +110,7 @@ jobs:
         run: pnpm contracts:check
 
   frontend:
-    name: Storefront (Next.js)
+    name: Frontend (storefront + admin)
     runs-on: ubuntu-latest
     env:
       NEXT_TELEMETRY_DISABLED: "1"
@@ -139,3 +139,12 @@ jobs:
 
       - name: Build storefront
         run: pnpm --filter @growup/storefront build
+
+      - name: Lint admin
+        run: pnpm --filter @growup/admin lint
+
+      - name: Typecheck admin
+        run: pnpm --filter @growup/admin typecheck
+
+      - name: Build admin
+        run: pnpm --filter @growup/admin build

@@ -59,6 +59,7 @@ growup/
 - [x] Hardening HTTP: headers de seguridad (nosniff, frame-options, referrer, CSP en `/v1`, HSTS fuera de local) y límite de cuerpo configurable
 - [x] Observabilidad: logs estructurados con `request_id`, `tenant_id` y duración; Sentry opcional sin PII
 - [x] Storefront base: home, colección y detalle de producto contra la API multi-tenant (dirección visual del prompt v0; falta export final)
+- [x] Admin base: login Supabase SSR, resumen, catálogo, media, auditoría y tenants de plataforma (solo lectura)
 - [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API
@@ -111,7 +112,7 @@ $env:GROWUP_TEST_S3_ENDPOINT="http://localhost:9000"
 uv run pytest tests/integration/test_media_s3.py
 ```
 
-CI (`.github/workflows/ci.yml`): lint, `mypy` y `pytest` con Postgres real y todas las migraciones aplicadas; pgTAP con Supabase CLI; `contracts:check`; y lint/typecheck/build del storefront.
+CI (`.github/workflows/ci.yml`): lint, `mypy` y `pytest` con Postgres real y todas las migraciones aplicadas; pgTAP con Supabase CLI; `contracts:check`; y lint/typecheck/build de storefront y admin.
 
 Tests RLS con pgTAP:
 

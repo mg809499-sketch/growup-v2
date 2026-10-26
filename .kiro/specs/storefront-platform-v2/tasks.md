@@ -35,7 +35,7 @@
 | W1-01 | Parcial | Tenancy core con RLS; faltan tablas de olas 2-5 |
 | W1-02 | Hecho | `TenantResolver` + `PostgresTenantRepository` + `/v1/storefront/bootstrap`; tests unitarios, API e integración |
 | W1-03 | Hecho | JWT/JWKS + `AuthService` + memberships + roles/permisos + `/v1/admin/me` |
-| W1-04 | Pendiente | Login admin con Supabase SSR y cookies (frontend) |
+| W1-04 | Parcial | Login admin con Supabase SSR/cookies implementado; falta configurar signing keys ES256 locales, usuarios staff y E2E |
 | W1-05 | Hecho | `POST /v1/platform/tenants` con `decide()` + `create_tenant_with_owner` + auditoría; tests unitarios e integración |
 | W1-06 | Parcial | 90 pgTAP (17 tenancy + 14 catálogo + 21 gobernanza + 9 inventario + 14 media + 7 platform + 8 seguridad) + integración + 10 vectores HTTP de aislamiento + headers de seguridad + límite de cuerpo + logs estructurados; faltan webhooks, preview y caché del storefront |
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
@@ -46,7 +46,7 @@
 | W2-04 | Hecho | `inventory_reservations` con `location_id`, check `reserved <= available`, reserva/confirmación/liberación/expiración + 9 pgTAP |
 | W2-05 | Parcial | FTS español + filtros + cursor; faltan facetas |
 | W2-06 | Parcial | Home, colección y detalle storefront con productos e imágenes reales; falta carrito, checkout y colecciones |
-| W2-07 | Parcial | API admin de catálogo; falta UI |
+| W2-07 | Parcial | Admin shell + login Supabase + catálogo/media/auditoría/tenants de solo lectura; falta edición, builder y pedidos |
 | W2-08 | Hecho | 40 reservas concurrentes sobre stock 10: 10 éxitos, 30 `INSUFFICIENT_STOCK`, sin negativos |
 | W2-09 | Pendiente | Seed de catálogo piloto |
 | W6-01 | Hecho | `decide()` determinista con políticas versionadas y fail-closed; tests table-driven |

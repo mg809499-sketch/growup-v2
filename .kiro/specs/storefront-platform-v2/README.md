@@ -28,7 +28,7 @@ Spec del MVP comercial de Growup: dos tenants piloto (ropa y joyería), storefro
 | API | `/healthz`, `/readyz`, `/v1/storefront/bootstrap`, `/v1/admin/me`, catálogo admin/storefront, onboarding/listado platform, media admin y auditoría |
 | Catálogo | API base, media upload/worker y asociación producto-media listos; faltan E2E R2, facetas y colecciones |
 | Contratos | OpenAPI → TypeScript con check en CI |
-| Frontend | Storefront base con home, colección y PDP contra la API real; falta export visual final y admin |
+| Frontend | Storefront con catálogo real y admin con login/lectura de catálogo, media, auditoría y tenants; falta builder y edición |
 | Catálogo/contenido/comercio | Pendiente (olas 2-4) |
 
 ## Próximo hito
