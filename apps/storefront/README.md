@@ -1,17 +1,31 @@
 # apps/storefront
 
-Storefront único del SaaS. Renderiza la versión publicada de cada página según el tenant resuelto por host.
+Storefront único del SaaS. Resuelve el tenant por host y renderiza catálogo
+desde la API FastAPI. El builder/publishing y el diseño final llegan con el
+export de v0; esta primera base usa la dirección visual de
+[`docs/prompts/v0-storefront.md`](../../docs/prompts/v0-storefront.md).
 
 ## Estado
 
-Pendiente: aquí se integrará el export de v0 descrito en [`docs/prompts/v0-storefront.md`](../../docs/prompts/v0-storefront.md).
+- Home, colección y detalle de producto con datos reales de la API.
+- Temas `ropa` y `joyeria` por variables CSS (`GROWUP_DEFAULT_THEME`).
+- Sin carrito/checkout todavía.
+- Sin login (el storefront es público).
 
-## Criterios de integración
+## Ejecutar
+
+```bash
+cp apps/storefront/.env.example apps/storefront/.env.local
+pnpm install
+pnpm --filter @growup/storefront dev
+```
+
+La API debe estar en `GROWUP_API_URL` y el host configurado en
+`GROWUP_STOREFRONT_HOST` debe existir en `app.domains`.
+
+## Criterios
 
 - Next.js 16 App Router + TypeScript estricto + Tailwind CSS 4.
-- Tokens de tema en CSS variables; dos presets (`ropa`, `joyeria`).
-- `BlockRenderer` con discriminated unions y schema cerrado.
-- Sin llamadas directas a Supabase; todo pasa por FastAPI.
-- Sin `NEXT_PUBLIC_TENANT_ID`: el tenant se resuelve por host.
-- `next/image` con `sizes` y `priority` solo en el hero.
-- WCAG 2.2 AA y `npm run build` en verde.
+- `next/image` y `next/font`; sin librerías de UI.
+- El tenant se resuelve por host; no se usa `NEXT_PUBLIC_TENANT_ID`.
+- WCAG 2.2 AA y `pnpm build` en verde.
