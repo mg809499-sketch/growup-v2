@@ -88,7 +88,10 @@ export default async function LoginPage({
 
         <p className="mt-6 text-xs leading-relaxed text-slate-400">
           El storefront público no requiere login.{" "}
-          <Link className="underline underline-offset-2" href="http://localhost:3000">
+          <Link
+            className="underline underline-offset-2"
+            href={process.env.NEXT_PUBLIC_STOREFRONT_URL ?? "http://localhost:3000"}
+          >
             Ir al storefront
           </Link>
         </p>
