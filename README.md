@@ -111,7 +111,7 @@ $env:GROWUP_TEST_S3_ENDPOINT="http://localhost:9000"
 uv run pytest tests/integration/test_media_s3.py
 ```
 
-CI (`.github/workflows/ci.yml`): lint, `mypy` y `pytest` con Postgres real y todas las migraciones aplicadas; pgTAP con Supabase CLI; `contracts:check`.
+CI (`.github/workflows/ci.yml`): lint, `mypy` y `pytest` con Postgres real y todas las migraciones aplicadas; pgTAP con Supabase CLI; `contracts:check`; y lint/typecheck/build del storefront.
 
 Tests RLS con pgTAP:
 

@@ -109,5 +109,33 @@ jobs:
       - name: Check contracts are up to date
         run: pnpm contracts:check
 
-  # El job de frontend se activa cuando `apps/storefront` tenga package.json
-  # (después de integrar el export de v0).
+  frontend:
+    name: Storefront (Next.js)
+    runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install JS dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint storefront
+        run: pnpm --filter @growup/storefront lint
+
+      - name: Typecheck storefront
+        run: pnpm --filter @growup/storefront typecheck
+
+      - name: Build storefront
+        run: pnpm --filter @growup/storefront build
