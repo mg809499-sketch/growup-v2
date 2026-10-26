@@ -70,8 +70,16 @@ catalog_repository: PostgresCatalogRepository | None = (
     PostgresCatalogRepository(database) if database is not None else None
 )
 
+media_public_base_url = settings.r2_public_base_url or (
+    f"{settings.r2_endpoint_url.rstrip('/')}/{settings.r2_catalog_bucket}"
+    if settings.r2_endpoint_url
+    else ""
+)
+
 catalog_service: CatalogService | None = (
-    CatalogService(catalog_repository) if catalog_repository is not None else None
+    CatalogService(catalog_repository, media_public_base_url)
+    if catalog_repository is not None
+    else None
 )
 
 governance_repository: PostgresDecisionLogRepository | None = (
@@ -105,7 +113,7 @@ if (
         access_key_id=settings.r2_access_key_id,
         secret_access_key=settings.r2_secret_access_key,
         bucket=settings.r2_catalog_bucket,
-        public_base_url=settings.r2_public_base_url
+        public_base_url=media_public_base_url
         or f"{settings.r2_endpoint_url.rstrip('/')}/{settings.r2_catalog_bucket}",
     )
 

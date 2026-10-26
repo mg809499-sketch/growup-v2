@@ -679,6 +679,8 @@ export interface components {
             media_asset_id: string;
             /** R2 Key */
             r2_key: string;
+            /** Url */
+            url: string;
             /** Alt */
             alt: string | null;
             /** Blurhash */
@@ -706,6 +708,8 @@ export interface components {
             height: number;
             /** R2 Key */
             r2_key: string;
+            /** Url */
+            url: string;
         };
         /**
          * ProductStatus
@@ -730,6 +734,8 @@ export interface components {
             min_price_cents: number;
             /** Max Price Cents */
             max_price_cents: number;
+            /** Primary Image Key */
+            primary_image_key: string | null;
         };
         /** ProductUpdate */
         ProductUpdate: {

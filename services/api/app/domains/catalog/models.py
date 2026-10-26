@@ -99,6 +99,7 @@ class ProductSummary:
     min_price_cents: int
     max_price_cents: int
     created_at: datetime
+    primary_image_key: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -107,6 +108,7 @@ class ProductMediaVariant:
     width: int
     height: int
     r2_key: str
+    url: str = ""
 
 
 @dataclass(frozen=True, slots=True)
@@ -121,6 +123,7 @@ class ProductMedia:
     is_primary: bool
     status: str
     variants: tuple[ProductMediaVariant, ...]
+    url: str = ""
 
 
 @dataclass(frozen=True, slots=True)

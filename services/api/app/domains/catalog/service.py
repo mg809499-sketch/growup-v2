@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
+from dataclasses import replace
 from uuid import UUID
 
 from app.core.errors import AppError
@@ -21,8 +22,13 @@ _CREATABLE_STATUSES = {ProductStatus.DRAFT.value, ProductStatus.ACTIVE.value}
 
 
 class CatalogService:
-    def __init__(self, repository: CatalogRepository) -> None:
+    def __init__(
+        self,
+        repository: CatalogRepository,
+        media_public_base_url: str = "",
+    ) -> None:
         self._repository = repository
+        self._media_base_url = media_public_base_url.rstrip("/")
 
     async def list_categories(self, tenant_id: UUID) -> tuple[Category, ...]:
         return await self._repository.list_categories(tenant_id)
@@ -67,22 +73,25 @@ class CatalogService:
         *,
         public_only: bool,
     ) -> ProductDetail | None:
-        return await self._repository.get_product_by_slug(
+        detail = await self._repository.get_product_by_slug(
             tenant_id,
             slug,
             public_only=public_only,
         )
+        return self._with_media_urls(detail) if detail is not None else None
 
     async def get_product_by_id(
         self,
         tenant_id: UUID,
         product_id: UUID,
     ) -> ProductDetail | None:
-        return await self._repository.get_product_by_id(tenant_id, product_id)
+        detail = await self._repository.get_product_by_id(tenant_id, product_id)
+        return self._with_media_urls(detail) if detail is not None else None
 
     async def create_product(self, tenant_id: UUID, data: ProductInput) -> ProductDetail:
         self._validate_product(data)
-        return await self._repository.create_product(tenant_id, data)
+        detail = await self._repository.create_product(tenant_id, data)
+        return self._with_media_urls(detail)
 
     async def update_product(
         self,
@@ -93,7 +102,8 @@ class CatalogService:
         if patch.status is not None and patch.status not in _VALID_STATUSES:
             raise AppError("INVALID_STATUS", "Estado de producto inválido", 422)
 
-        return await self._repository.update_product(tenant_id, product_id, patch)
+        detail = await self._repository.update_product(tenant_id, product_id, patch)
+        return self._with_media_urls(detail) if detail is not None else None
 
     async def attach_media(
         self,
@@ -110,13 +120,14 @@ class CatalogService:
                 "La posición no puede ser negativa",
                 422,
             )
-        return await self._repository.attach_media(
+        detail = await self._repository.attach_media(
             tenant_id,
             product_id,
             media_asset_id,
             position=position,
             is_primary=is_primary,
         )
+        return self._with_media_urls(detail) if detail is not None else None
 
     async def detach_media(
         self,
@@ -139,12 +150,13 @@ class CatalogService:
         changes: Mapping[str, object],
     ) -> ProductDetail | None:
         _validate_variant_changes(changes)
-        return await self._repository.update_variant(
+        detail = await self._repository.update_variant(
             tenant_id,
             product_id,
             variant_id,
             changes,
         )
+        return self._with_media_urls(detail) if detail is not None else None
 
     async def delete_variant(
         self,
@@ -157,6 +169,30 @@ class CatalogService:
             product_id,
             variant_id,
         )
+
+    def _with_media_urls(self, detail: ProductDetail) -> ProductDetail:
+        if not self._media_base_url:
+            return detail
+
+        media = tuple(
+            replace(
+                item,
+                url=self._media_url(item.r2_key),
+                variants=tuple(
+                    replace(variant, url=self._media_url(variant.r2_key))
+                    for variant in item.variants
+                ),
+            )
+            for item in detail.media
+        )
+        return replace(
+            detail,
+            media=media,
+            images=tuple(item.url for item in media),
+        )
+
+    def _media_url(self, key: str) -> str:
+        return f"{self._media_base_url}/{key.lstrip('/')}"
 
     def _validate_product(self, data: ProductInput) -> None:
         if data.status not in _CREATABLE_STATUSES:

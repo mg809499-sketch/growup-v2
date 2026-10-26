@@ -157,10 +157,25 @@ class PostgresCatalogRepository:
             rows = await connection.fetch(
                 """
                 select p.id, p.slug, p.name, p.status, p.category_id,
-                       p.min_price_cents, p.max_price_cents, p.created_at
+                       p.min_price_cents, p.max_price_cents, p.created_at,
+                       img.r2_key as primary_image_key
                 from app.products p
                 left join app.categories c
                   on c.tenant_id = p.tenant_id and c.id = p.category_id
+                left join lateral (
+                    select ma.r2_key
+                    from app.product_media pm
+                    join app.media_assets ma
+                      on ma.tenant_id = pm.tenant_id
+                     and ma.id = pm.media_asset_id
+                    where pm.tenant_id = p.tenant_id
+                      and pm.product_id = p.id
+                      and ma.status = 'ready'
+                      and ma.alt is not null
+                      and btrim(ma.alt) <> ''
+                    order by pm.is_primary desc, pm.position, pm.created_at
+                    limit 1
+                ) img on true
                 where p.tenant_id = $1
                   and ($2::text is null or p.status = $2)
                   and ($3::text is null or c.slug = $3)
@@ -799,8 +814,23 @@ class PostgresCatalogRepository:
         row = await connection.fetchrow(
             """
             select id, slug, name, description, status, category_id, brand, tags,
-                   min_price_cents, max_price_cents, created_at
+                   min_price_cents, max_price_cents, created_at,
+                   img.r2_key as primary_image_key
             from app.products
+            left join lateral (
+                select ma.r2_key
+                from app.product_media pm
+                join app.media_assets ma
+                  on ma.tenant_id = pm.tenant_id
+                 and ma.id = pm.media_asset_id
+                where pm.tenant_id = app.products.tenant_id
+                  and pm.product_id = app.products.id
+                  and ma.status = 'ready'
+                  and ma.alt is not null
+                  and btrim(ma.alt) <> ''
+                order by pm.is_primary desc, pm.position, pm.created_at
+                limit 1
+            ) img on true
             where tenant_id = $1
               and id = $2
               and ($3::boolean is false or status = 'active')
@@ -913,6 +943,7 @@ def _summary(row: Any) -> ProductSummary:
         min_price_cents=row["min_price_cents"],
         max_price_cents=row["max_price_cents"],
         created_at=row["created_at"],
+        primary_image_key=row.get("primary_image_key"),
     )
 
 

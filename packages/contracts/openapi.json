@@ -2441,6 +2441,10 @@
             "type": "string",
             "title": "R2 Key"
           },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
           "alt": {
             "anyOf": [
               {
@@ -2509,6 +2513,7 @@
         "required": [
           "media_asset_id",
           "r2_key",
+          "url",
           "alt",
           "blurhash",
           "width",
@@ -2537,6 +2542,10 @@
           "r2_key": {
             "type": "string",
             "title": "R2 Key"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
           }
         },
         "type": "object",
@@ -2544,7 +2553,8 @@
           "format",
           "width",
           "height",
-          "r2_key"
+          "r2_key",
+          "url"
         ],
         "title": "ProductMediaVariantResponse"
       },
@@ -2594,6 +2604,17 @@
           "max_price_cents": {
             "type": "integer",
             "title": "Max Price Cents"
+          },
+          "primary_image_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Image Key"
           }
         },
         "type": "object",
@@ -2604,7 +2625,8 @@
           "status",
           "category_id",
           "min_price_cents",
-          "max_price_cents"
+          "max_price_cents",
+          "primary_image_key"
         ],
         "title": "ProductSummaryResponse"
       },

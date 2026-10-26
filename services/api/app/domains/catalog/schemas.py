@@ -145,6 +145,7 @@ class ProductSummaryResponse(BaseModel):
     category_id: UUID | None
     min_price_cents: int
     max_price_cents: int
+    primary_image_key: str | None
 
     @classmethod
     def from_domain(cls, product: ProductSummary) -> ProductSummaryResponse:
@@ -156,6 +157,7 @@ class ProductSummaryResponse(BaseModel):
             category_id=product.category_id,
             min_price_cents=product.min_price_cents,
             max_price_cents=product.max_price_cents,
+            primary_image_key=product.primary_image_key,
         )
 
 
@@ -164,6 +166,7 @@ class ProductMediaVariantResponse(BaseModel):
     width: int
     height: int
     r2_key: str
+    url: str
 
     @classmethod
     def from_domain(
@@ -175,12 +178,14 @@ class ProductMediaVariantResponse(BaseModel):
             width=variant.width,
             height=variant.height,
             r2_key=variant.r2_key,
+            url=variant.url,
         )
 
 
 class ProductMediaResponse(BaseModel):
     media_asset_id: UUID
     r2_key: str
+    url: str
     alt: str | None
     blurhash: str | None
     width: int | None
@@ -195,6 +200,7 @@ class ProductMediaResponse(BaseModel):
         return cls(
             media_asset_id=media.media_asset_id,
             r2_key=media.r2_key,
+            url=media.url,
             alt=media.alt,
             blurhash=media.blurhash,
             width=media.width,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import UTC, datetime
 from unittest.mock import AsyncMock
 from uuid import uuid4
@@ -10,6 +11,8 @@ from app.core.errors import AppError
 from app.domains.catalog.models import (
     ProductDetail,
     ProductInput,
+    ProductMedia,
+    ProductMediaVariant,
     ProductPage,
     ProductPatch,
     ProductStatus,
@@ -337,3 +340,38 @@ async def test_delete_variant_delegates_to_repository(repository: AsyncMock) -> 
         product_id,
         variant_id,
     )
+
+
+async def test_get_product_maps_media_urls(repository: AsyncMock) -> None:
+    media = ProductMedia(
+        media_asset_id=uuid4(),
+        r2_key="tenant/t/originals/a.jpg",
+        alt="Camisa",
+        blurhash="LDT9R{]9fQ]9",
+        width=800,
+        height=600,
+        position=0,
+        is_primary=True,
+        status="ready",
+        variants=(
+            ProductMediaVariant(
+                format="webp",
+                width=320,
+                height=240,
+                r2_key="tenant/t/variants/a/320.webp",
+            ),
+        ),
+    )
+    detail = replace(_detail(), media=(media,), images=(media.r2_key,))
+    repository.get_product_by_slug.return_value = detail
+    service = CatalogService(repository, "https://cdn.example/")
+
+    result = await service.get_product(uuid4(), "camiseta", public_only=True)
+
+    assert result is not None
+    assert result.media[0].url == "https://cdn.example/tenant/t/originals/a.jpg"
+    assert (
+        result.media[0].variants[0].url
+        == "https://cdn.example/tenant/t/variants/a/320.webp"
+    )
+    assert result.images == ("https://cdn.example/tenant/t/originals/a.jpg",)
