@@ -18,6 +18,118 @@ pytestmark = pytest.mark.skipif(
 )
 
 
+async def test_add_variant_creates_inventory_and_rejects_duplicate_sku() -> None:
+    assert TEST_DSN is not None
+    database = Database(TEST_DSN, min_size=1, max_size=5)
+    await database.connect()
+    tenants: list[UUID] = []
+    suffix = uuid4().hex[:8]
+
+    try:
+        async with database.pool.acquire() as connection:
+            tenant_id = await connection.fetchval(
+                "select app.create_tenant($1, $2, $3)",
+                f"it-add-variant-{suffix}",
+                f"it-add-variant-{suffix}.growup.com",
+                "Add Variant Test",
+            )
+        tenants.append(tenant_id)
+        catalog = PostgresCatalogRepository(database)
+        product = await catalog.create_product(
+            tenant_id,
+            ProductInput(
+                slug=f"camisa-add-{suffix}",
+                name="Camisa",
+                description=None,
+                category_id=None,
+                status="active",
+                brand=None,
+                tags=(),
+                variants=(
+                    VariantInput(
+                        sku=f"BASE-{suffix}",
+                        name="M",
+                        price_cents=5000000,
+                        stock=2,
+                    ),
+                ),
+            ),
+        )
+
+        detail = await catalog.add_variant(
+            tenant_id,
+            product.summary.id,
+            VariantInput(
+                sku=f"NEW-{suffix}",
+                name="L",
+                price_cents=6000000,
+                compare_at_price_cents=7000000,
+                stock=4,
+                option_values={"Talla": "L"},
+            ),
+        )
+        assert detail is not None
+        assert len(detail.variants) == 2
+        added = next(item for item in detail.variants if item.sku == f"NEW-{suffix}")
+        assert added.price_cents == 6000000
+        assert added.stock_available == 4
+
+        async with database.pool.acquire() as connection:
+            level = await connection.fetchrow(
+                "select available from app.inventory_levels "
+                "where tenant_id = $1 and variant_id = $2",
+                tenant_id,
+                added.id,
+            )
+            movement = await connection.fetchrow(
+                "select reason, reference_type from app.inventory_movements "
+                "where tenant_id = $1 and variant_id = $2 "
+                "order by created_at desc limit 1",
+                tenant_id,
+                added.id,
+            )
+        assert level is not None
+        assert level["available"] == 4
+        assert movement is not None
+        assert movement["reason"] == "restock"
+        assert movement["reference_type"] == "variant_creation"
+
+        with pytest.raises(AppError) as duplicate:
+            await catalog.add_variant(
+                tenant_id,
+                product.summary.id,
+                VariantInput(
+                    sku=f"NEW-{suffix}",
+                    name="L",
+                    price_cents=6000000,
+                    stock=1,
+                ),
+            )
+        assert duplicate.value.code == "SKU_TAKEN"
+
+        assert (
+            await catalog.add_variant(
+                tenant_id,
+                uuid4(),
+                VariantInput(
+                    sku=f"ORPHAN-{suffix}",
+                    name="Única",
+                    price_cents=1000000,
+                    stock=1,
+                ),
+            )
+            is None
+        )
+    finally:
+        if tenants:
+            async with database.pool.acquire() as connection:
+                await connection.execute(
+                    "delete from app.tenants where id = any($1::uuid[])",
+                    tenants,
+                )
+        await database.close()
+
+
 async def test_variant_update_and_delete_rules() -> None:
     assert TEST_DSN is not None
     database = Database(TEST_DSN, min_size=1, max_size=5)

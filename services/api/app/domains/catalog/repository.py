@@ -22,6 +22,7 @@ from app.domains.catalog.models import (
     ProductStatus,
     ProductSummary,
     ProductVariant,
+    VariantInput,
 )
 from app.domains.catalog.pagination import decode_cursor, encode_cursor
 
@@ -88,6 +89,13 @@ class CatalogRepository(Protocol):
         product_id: UUID,
         variant_id: UUID,
         changes: Mapping[str, object],
+    ) -> ProductDetail | None: ...
+
+    async def add_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        data: VariantInput,
     ) -> ProductDetail | None: ...
 
     async def delete_variant(
@@ -383,15 +391,15 @@ class PostgresCatalogRepository:
                     updates.append(f"name = ${parameter}")
                     values.append(patch.name)
                     parameter += 1
-                if patch.description is not None:
+                if patch.description_set:
                     updates.append(f"description = ${parameter}")
                     values.append(patch.description)
                     parameter += 1
-                if patch.category_id is not None:
+                if patch.category_id_set:
                     updates.append(f"category_id = ${parameter}")
                     values.append(patch.category_id)
                     parameter += 1
-                if patch.brand is not None:
+                if patch.brand_set:
                     updates.append(f"brand = ${parameter}")
                     values.append(patch.brand)
                     parameter += 1
@@ -585,6 +593,103 @@ class PostgresCatalogRepository:
                 media_asset_id,
             )
         return deleted is not None
+
+    async def add_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        data: VariantInput,
+    ) -> ProductDetail | None:
+        try:
+            async with self._database.tenant_transaction(tenant_id) as connection:
+                product_row = await connection.fetchrow(
+                    """
+                    select id
+                    from app.products
+                    where tenant_id = $1 and id = $2
+                    for update
+                    """,
+                    tenant_id,
+                    product_id,
+                )
+                if product_row is None:
+                    return None
+
+                position = await connection.fetchval(
+                    """
+                    select coalesce(max(position) + 1, 0)::int
+                    from app.product_variants
+                    where tenant_id = $1 and product_id = $2
+                    """,
+                    tenant_id,
+                    product_id,
+                )
+
+                variant_id = await connection.fetchval(
+                    """
+                    insert into app.product_variants
+                        (tenant_id, product_id, sku, name, price_cents,
+                         compare_at_price_cents, cost_cents, weight_grams,
+                         option_values, position, is_active)
+                    values ($1, $2, $3, $4, $5, $6, $7, $8, $9::jsonb, $10, $11)
+                    returning id
+                    """,
+                    tenant_id,
+                    product_id,
+                    data.sku,
+                    data.name,
+                    data.price_cents,
+                    data.compare_at_price_cents,
+                    data.cost_cents,
+                    data.weight_grams,
+                    json.dumps(data.option_values),
+                    position,
+                    data.is_active,
+                )
+                if variant_id is None:
+                    raise AppError(
+                        "VARIANT_CREATE_FAILED",
+                        "No se pudo crear la variante",
+                        500,
+                    )
+
+                location_id = await self._default_location(connection, tenant_id)
+                await connection.execute(
+                    """
+                    insert into app.inventory_levels
+                        (tenant_id, variant_id, location_id, available)
+                    values ($1, $2, $3, $4)
+                    """,
+                    tenant_id,
+                    variant_id,
+                    location_id,
+                    data.stock,
+                )
+                if data.stock > 0:
+                    await connection.execute(
+                        """
+                        insert into app.inventory_movements
+                            (tenant_id, variant_id, delta, reason,
+                             reference_type, reference_id)
+                        values ($1, $2, $3, 'restock', 'variant_creation', $4)
+                        """,
+                        tenant_id,
+                        variant_id,
+                        data.stock,
+                        variant_id,
+                    )
+
+                return await self._fetch_detail(
+                    connection,
+                    tenant_id,
+                    product_id,
+                    public_only=False,
+                )
+        except asyncpg.UniqueViolationError as exc:
+            constraint = getattr(exc, "constraint_name", "") or ""
+            if "sku" in constraint:
+                raise AppError("SKU_TAKEN", "El SKU ya existe", 409) from exc
+            raise
 
     async def update_variant(
         self,

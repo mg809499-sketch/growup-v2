@@ -225,6 +225,15 @@ class FakeCatalogService:
         )
         return self.detach_result
 
+    async def add_variant(
+        self,
+        tenant_id: object,
+        product_id: object,
+        data: object,
+    ) -> ProductDetail | None:
+        self.calls.append(("add_variant", {"product_id": product_id, "data": data}))
+        return self.detail
+
     async def list_categories(self, tenant_id: object) -> tuple[Category, ...]:
         return self.categories
 
@@ -530,6 +539,33 @@ def test_admin_delete_variant_not_found() -> None:
 
     assert response.status_code == 404
     assert response.json()["error"]["code"] == "VARIANT_NOT_FOUND"
+
+
+def test_admin_add_variant() -> None:
+    fake = FakeCatalogService(detail=_detail())
+    app.dependency_overrides[get_tenant_context] = lambda: _context()
+    app.dependency_overrides[get_catalog_service] = lambda: fake
+    client = TestClient(app)
+    product_id = uuid4()
+
+    response = client.post(
+        f"/v1/admin/products/{product_id}/variants",
+        json={
+            "sku": "CAM-2",
+            "name": "L",
+            "price_cents": 9900000,
+            "stock": 4,
+            "option_values": {"Talla": "L"},
+        },
+    )
+
+    assert response.status_code == 201
+    call = fake.calls[-1][1]
+    assert isinstance(call, dict)
+    assert call["product_id"] == product_id
+    data = call["data"]
+    assert data.sku == "CAM-2"  # type: ignore[attr-defined]
+    assert data.stock == 4  # type: ignore[attr-defined]
 
 
 def test_storefront_list_products_uses_active_status() -> None:

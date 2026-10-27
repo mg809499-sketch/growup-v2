@@ -342,6 +342,28 @@ async def test_delete_variant_delegates_to_repository(repository: AsyncMock) -> 
     )
 
 
+async def test_add_variant_validates_and_delegates(repository: AsyncMock) -> None:
+    detail = _detail()
+    repository.add_variant.return_value = detail
+    service = CatalogService(repository)
+    tenant_id = uuid4()
+    product_id = uuid4()
+    data = _variant()
+
+    with pytest.raises(AppError) as invalid_price:
+        await service.add_variant(
+            tenant_id,
+            product_id,
+            _variant(price_cents=0),
+        )
+    assert invalid_price.value.code == "INVALID_PRICE"
+
+    result = await service.add_variant(tenant_id, product_id, data)
+
+    assert result == detail
+    repository.add_variant.assert_awaited_once_with(tenant_id, product_id, data)
+
+
 async def test_get_product_maps_media_urls(repository: AsyncMock) -> None:
     media = ProductMedia(
         media_asset_id=uuid4(),

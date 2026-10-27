@@ -116,6 +116,15 @@ async def test_catalog_repository_lifecycle() -> None:
         assert updated is not None
         assert updated.summary.status == ProductStatus.DRAFT
 
+        cleared = await repository.update_product(
+            tenant_id,
+            detail.summary.id,
+            ProductPatch(description=None, description_set=True, brand_set=True),
+        )
+        assert cleared is not None
+        assert cleared.description is None
+        assert cleared.brand is None
+
         hidden = await repository.get_product_by_slug(
             tenant_id,
             product_slug,

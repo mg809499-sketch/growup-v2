@@ -75,6 +75,9 @@ class ProductPatch:
     status: str | None = None
     brand: str | None = None
     tags: tuple[str, ...] | None = None
+    description_set: bool = False
+    category_id_set: bool = False
+    brand_set: bool = False
 
 
 @dataclass(frozen=True, slots=True)

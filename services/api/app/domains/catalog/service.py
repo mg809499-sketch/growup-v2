@@ -14,6 +14,7 @@ from app.domains.catalog.models import (
     ProductPage,
     ProductPatch,
     ProductStatus,
+    VariantInput,
 )
 from app.domains.catalog.repository import CatalogRepository
 
@@ -170,6 +171,16 @@ class CatalogService:
             variant_id,
         )
 
+    async def add_variant(
+        self,
+        tenant_id: UUID,
+        product_id: UUID,
+        data: VariantInput,
+    ) -> ProductDetail | None:
+        self._validate_variant(data)
+        detail = await self._repository.add_variant(tenant_id, product_id, data)
+        return self._with_media_urls(detail) if detail is not None else None
+
     def _with_media_urls(self, detail: ProductDetail) -> ProductDetail:
         if not self._media_base_url:
             return detail
@@ -214,17 +225,7 @@ class CatalogService:
             raise AppError("DUPLICATE_SKU", "Hay SKUs duplicados", 422)
 
         for variant in data.variants:
-            if variant.price_cents <= 0:
-                raise AppError("INVALID_PRICE", "El precio debe ser mayor que cero", 422)
-            if (
-                variant.compare_at_price_cents is not None
-                and variant.compare_at_price_cents < variant.price_cents
-            ):
-                raise AppError(
-                    "INVALID_COMPARE_AT_PRICE",
-                    "El precio anterior no puede ser menor que el precio actual",
-                    422,
-                )
+            self._validate_variant(variant)
 
         if data.status == ProductStatus.ACTIVE.value and not any(
             variant.is_active for variant in data.variants
@@ -232,6 +233,21 @@ class CatalogService:
             raise AppError(
                 "PRODUCT_WITHOUT_ACTIVE_VARIANTS",
                 "Un producto activo necesita al menos una variante activa",
+                422,
+            )
+
+    def _validate_variant(self, variant: VariantInput) -> None:
+        if not variant.sku.strip():
+            raise AppError("INVALID_SKU", "El SKU no puede estar vacío", 422)
+        if variant.price_cents <= 0:
+            raise AppError("INVALID_PRICE", "El precio debe ser mayor que cero", 422)
+        if (
+            variant.compare_at_price_cents is not None
+            and variant.compare_at_price_cents < variant.price_cents
+        ):
+            raise AppError(
+                "INVALID_COMPARE_AT_PRICE",
+                "El precio anterior no puede ser menor que el precio actual",
                 422,
             )
 

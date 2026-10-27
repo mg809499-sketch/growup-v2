@@ -23,6 +23,7 @@ from app.domains.catalog.schemas import (
     ProductListResponse,
     ProductSummaryResponse,
     ProductUpdate,
+    VariantCreate,
     VariantUpdate,
 )
 from app.domains.catalog.service import CatalogService
@@ -40,6 +41,20 @@ def _tenant_id(context: RequestContext) -> UUID:
     return context.tenant_id
 
 
+def _to_variant_input(variant: VariantCreate) -> VariantInput:
+    return VariantInput(
+        sku=variant.sku,
+        name=variant.name,
+        price_cents=variant.price_cents,
+        compare_at_price_cents=variant.compare_at_price_cents,
+        cost_cents=variant.cost_cents,
+        weight_grams=variant.weight_grams,
+        stock=variant.stock,
+        option_values=variant.option_values,
+        is_active=variant.is_active,
+    )
+
+
 def _to_product_input(payload: ProductCreate) -> ProductInput:
     return ProductInput(
         slug=payload.slug,
@@ -49,24 +64,12 @@ def _to_product_input(payload: ProductCreate) -> ProductInput:
         status=payload.status,
         brand=payload.brand,
         tags=tuple(payload.tags),
-        variants=tuple(
-            VariantInput(
-                sku=variant.sku,
-                name=variant.name,
-                price_cents=variant.price_cents,
-                compare_at_price_cents=variant.compare_at_price_cents,
-                cost_cents=variant.cost_cents,
-                weight_grams=variant.weight_grams,
-                stock=variant.stock,
-                option_values=variant.option_values,
-                is_active=variant.is_active,
-            )
-            for variant in payload.variants
-        ),
+        variants=tuple(_to_variant_input(variant) for variant in payload.variants),
     )
 
 
 def _to_product_patch(payload: ProductUpdate) -> ProductPatch:
+    fields = payload.model_fields_set
     return ProductPatch(
         name=payload.name,
         description=payload.description,
@@ -74,6 +77,9 @@ def _to_product_patch(payload: ProductUpdate) -> ProductPatch:
         status=payload.status,
         brand=payload.brand,
         tags=tuple(payload.tags) if payload.tags is not None else None,
+        description_set="description" in fields,
+        category_id_set="category_id" in fields,
+        brand_set="brand" in fields,
     )
 
 
@@ -276,6 +282,28 @@ async def delete_product_variant(
             404,
         )
     return Response(status_code=204)
+
+
+@admin_router.post(
+    "/products/{product_id}/variants",
+    response_model=ProductDetailResponse,
+    status_code=201,
+)
+async def create_product_variant(
+    product_id: UUID,
+    payload: VariantCreate,
+    context: Annotated[RequestContext, Depends(get_tenant_context)],
+    service: Annotated[CatalogService, Depends(get_catalog_service)],
+) -> ProductDetailResponse:
+    require_permission(context, Permission.CATALOG_WRITE)
+    detail = await service.add_variant(
+        _tenant_id(context),
+        product_id,
+        _to_variant_input(payload),
+    )
+    if detail is None:
+        raise AppError("PRODUCT_NOT_FOUND", "Producto no encontrado", 404)
+    return ProductDetailResponse.from_domain(detail)
 
 
 @storefront_router.get("/products", response_model=ProductListResponse)
