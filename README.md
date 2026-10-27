@@ -114,6 +114,10 @@ uv run pytest tests/integration/test_media_s3.py
 
 CI (`.github/workflows/ci.yml`): lint, `mypy` y `pytest` con Postgres real y todas las migraciones aplicadas; pgTAP con Supabase CLI; `contracts:check`; y lint/typecheck/build de storefront y admin.
 
+## Equipo
+
+Somos dos personas. El reparto de tareas, el setup, las reglas y el prompt para arrancar en OpenCode están en [`docs/reparto-trabajo.md`](docs/reparto-trabajo.md).
+
 Tests RLS con pgTAP:
 
 ```bash
