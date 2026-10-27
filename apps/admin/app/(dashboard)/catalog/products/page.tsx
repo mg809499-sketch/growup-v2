@@ -41,10 +41,19 @@ export default async function ProductsPage({
 
   return (
     <div className="space-y-6">
+      <div className="flex justify-end">
+        <Link
+          className="mono border border-slate-950 bg-slate-950 px-3 py-2 text-[11px] uppercase tracking-[0.12em] text-white hover:bg-white hover:text-slate-950"
+          href="/catalog/products/new"
+        >
+          Nuevo producto
+        </Link>
+      </div>
+
       <PageHeader
         eyebrow="Catálogo"
         title="Productos"
-        description="Vista de lectura del catálogo del tenant. La edición de producto y variantes vive en la API admin."
+        description="Listado y edición de productos, variantes y media del tenant."
       />
 
       <form className="flex flex-wrap items-end gap-3 border border-slate-200 bg-white p-4">

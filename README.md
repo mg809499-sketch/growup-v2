@@ -59,7 +59,7 @@ growup/
 - [x] Hardening HTTP: headers de seguridad (nosniff, frame-options, referrer, CSP en `/v1`, HSTS fuera de local) y límite de cuerpo configurable
 - [x] Observabilidad: logs estructurados con `request_id`, `tenant_id` y duración; Sentry opcional sin PII
 - [x] Storefront base: home, colección y detalle de producto contra la API multi-tenant (dirección visual del prompt v0; falta export final)
-- [x] Admin base: login Supabase SSR, resumen, catálogo, media, auditoría y tenants de plataforma (solo lectura)
+- [x] Admin base: login Supabase SSR, resumen, catálogo editable (producto/variantes/media), auditoría y tenants de plataforma
 - [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API

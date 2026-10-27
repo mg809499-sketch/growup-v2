@@ -7,11 +7,11 @@ más adelante, builder y pedidos.
 
 - Login con Supabase Auth (staff) y sesión por cookies.
 - Resumen con rol, tenant y permisos (`/v1/admin/me`).
-- Catálogo de solo lectura: listado y detalle con variantes/media.
-- Media de solo lectura.
+- Catálogo editable: crear/editar producto, añadir/editar/eliminar variantes.
+- Media: asociar/quitar imágenes del producto y editar `alt`.
 - Auditoría con verificación de cadena.
 - Tenants de plataforma con búsqueda, estado y paginación.
-- Sin builder, pedidos ni edición todavía.
+- Sin builder, pedidos, upload directo de media ni ajuste de inventario todavía.
 
 ## Ejecutar
 

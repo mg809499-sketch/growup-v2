@@ -101,7 +101,7 @@ Trabajas conmigo en el admin y en decisiones de producto.
 
 | ID | Tarea | Estado |
 |---|---|---|
-| A-01 | CRUD de productos, variantes y media en el admin | En curso |
+| A-01 | CRUD de productos, variantes y media en el admin | Hecho |
 | A-02 | Login admin local con signing keys ES256 y usuarios staff | Pendiente |
 | A-03 | Integrar export visual de v0 cuando llegue | Pendiente |
 | A-04 | Cerrar decisiones de negocio con abogado/contador | Pendiente |

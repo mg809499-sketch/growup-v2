@@ -41,12 +41,12 @@
 | W1-07 | Parcial | `is_platform_admin` y rol; falta support access temporal |
 | W1-08 | Pendiente | `auth_events` + alertas de mismatch |
 | W2-01 | Hecho | Migración de catálogo + 14 tests pgTAP (90 en total) |
-| W2-02 | Hecho | API create/list/get/update de productos y update/delete de variantes con validación de precio, última variante activa y reservas; faltan opciones normalizadas |
+| W2-02 | Hecho | API create/list/get/update de productos y create/update/delete de variantes con validación de precio, última variante activa y reservas; faltan opciones normalizadas |
 | W2-03 | Parcial | URL firmada, endpoints admin (upload, complete, listar, editar alt, borrar), worker ARQ, AVIF/WebP 320-1600, EXIF strip, blurhash, alt obligatorio, asociación a producto, limpieza de uploads huérfanos, 14 pgTAP y E2E S3 (moto); falta E2E con R2/ARQ real en staging |
 | W2-04 | Hecho | `inventory_reservations` con `location_id`, check `reserved <= available`, reserva/confirmación/liberación/expiración + 9 pgTAP |
 | W2-05 | Parcial | FTS español + filtros + cursor; faltan facetas |
 | W2-06 | Parcial | Home, colección y detalle storefront con productos e imágenes reales; falta carrito, checkout y colecciones |
-| W2-07 | Parcial | Admin shell + login Supabase + catálogo/media/auditoría/tenants de solo lectura; falta edición, builder y pedidos |
+| W2-07 | Parcial | Admin shell + login Supabase + catálogo editable (producto/variantes/media) + auditoría/tenants; faltan builder, pedidos y upload directo |
 | W2-08 | Hecho | 40 reservas concurrentes sobre stock 10: 10 éxitos, 30 `INSUFFICIENT_STOCK`, sin negativos |
 | W2-09 | Pendiente | Seed de catálogo piloto |
 | W6-01 | Hecho | `decide()` determinista con políticas versionadas y fail-closed; tests table-driven |

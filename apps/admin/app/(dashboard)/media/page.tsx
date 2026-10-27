@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { updateMediaAltAction } from "@/app/(dashboard)/media/actions";
 import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
@@ -11,7 +12,7 @@ import { formatBytes } from "@/lib/format";
 export default async function MediaPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; limit?: string }>;
+  searchParams: Promise<{ status?: string; limit?: string; error?: string }>;
 }) {
   const params = await searchParams;
   const { token } = await requireSession();
@@ -28,6 +29,12 @@ export default async function MediaPage({
         title="Biblioteca del tenant"
         description="Assets subidos a R2, estado de procesamiento, alt text y dimensiones."
       />
+
+      {params.error ? (
+        <p className="border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+          {params.error}
+        </p>
+      ) : null}
 
       <form className="flex flex-wrap items-end gap-3 border border-slate-200 bg-white p-4">
         <label className="block">
@@ -74,7 +81,7 @@ export default async function MediaPage({
                 <th className="px-4 py-3 font-medium">Tipo</th>
                 <th className="px-4 py-3 font-medium">Tamaño</th>
                 <th className="px-4 py-3 font-medium">Dimensiones</th>
-                <th className="px-4 py-3 font-medium">Alt</th>
+                <th className="px-4 py-3 font-medium">Alt (editable)</th>
                 <th className="px-4 py-3 font-medium">Clave R2</th>
               </tr>
             </thead>
@@ -103,8 +110,31 @@ export default async function MediaPage({
                       ? `${asset.width}×${asset.height}`
                       : "—"}
                   </td>
-                  <td className="px-4 py-3 text-slate-600">
-                    {asset.alt ?? "—"}
+                  <td className="px-4 py-3">
+                    <form
+                      action={updateMediaAltAction}
+                      className="flex min-w-[240px] items-center gap-2"
+                    >
+                      <input
+                        type="hidden"
+                        name="media_asset_id"
+                        value={asset.id}
+                      />
+                      <input
+                        className="w-full border border-slate-300 px-2 py-1 text-xs"
+                        name="alt"
+                        defaultValue={asset.alt ?? ""}
+                        maxLength={300}
+                        required
+                        aria-label="Alt text"
+                      />
+                      <button
+                        className="mono shrink-0 border border-slate-300 px-2 py-1 text-[10px] uppercase tracking-[0.08em] hover:border-slate-950"
+                        type="submit"
+                      >
+                        Guardar
+                      </button>
+                    </form>
                   </td>
                   <td className="mono max-w-[280px] truncate px-4 py-3 text-[10px] text-slate-400">
                     {asset.r2_key}
