@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" width="1200" height="620" role="img" aria-labelledby="t4 d4">
+  <title id="t4">Solicitud de un titular (DSR)</title>
+  <desc id="d4">Flujo de una solicitud de derechos del titular: solicitud, verificación, ejecución con decisión de anonimizar o conservar, registro y respuesta.</desc>
+  <defs>
+    <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr4p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2E5E4E"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="620" fill="#FBFAF8"/>
+
+  <text x="64" y="60" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="27" font-weight="600" fill="#16181A" letter-spacing="-0.4">Solicitud de un titular (DSR)</text>
+  <text x="64" y="90" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14.5" fill="#5B6167">Acceso, corrección o supresión de datos personales de un comprador.</text>
+  <line x1="64" y1="112" x2="1136" y2="112" stroke="#E2DED6" stroke-width="1"/>
+
+  <rect x="64" y="180" width="190" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="84" y="208" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8A8F94">01</text>
+  <text x="84" y="236" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15.5" font-weight="600" fill="#16181A">Solicitud</text>
+  <text x="84" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">comprador o tenant</text>
+
+  <rect x="289" y="180" width="190" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="309" y="208" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8A8F94">02</text>
+  <text x="309" y="236" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15.5" font-weight="600" fill="#16181A">Verificar identidad</text>
+  <text x="309" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">no ejecutar a ciegas</text>
+
+  <rect x="514" y="180" width="190" height="104" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.45"/>
+  <text x="534" y="208" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#41695B">03</text>
+  <text x="534" y="236" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15.5" font-weight="600" fill="#22483C">Ejecutar el DSR</text>
+  <text x="534" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">permiso platform:dsr</text>
+
+  <rect x="739" y="180" width="190" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="759" y="208" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8A8F94">04</text>
+  <text x="759" y="236" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15.5" font-weight="600" fill="#16181A">Registrar</text>
+  <text x="759" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">append-only</text>
+
+  <rect x="964" y="180" width="190" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="984" y="208" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8A8F94">05</text>
+  <text x="984" y="236" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15.5" font-weight="600" fill="#16181A">Responder</text>
+  <text x="984" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">dentro del plazo</text>
+
+  <line x1="258" y1="232" x2="283" y2="232" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr4)"/>
+  <line x1="483" y1="232" x2="508" y2="232" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr4)"/>
+  <line x1="708" y1="232" x2="733" y2="232" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr4)"/>
+  <line x1="933" y1="232" x2="958" y2="232" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+  <!-- Decisión -->
+  <line x1="609" y1="288" x2="609" y2="324" stroke="#2E5E4E" stroke-width="1.5" marker-end="url(#arr4p)"/>
+  <text x="619" y="312" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#41695B">decide</text>
+
+  <rect x="64" y="330" width="1072" height="170" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="92" y="364" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">¿El dato es fiscal o de auditoría?</text>
+
+  <rect x="88" y="392" width="496" height="88" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
+  <text x="112" y="420" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.3" fill="#41695B">NO ES FISCAL NI DE AUDITORÍA</text>
+  <text x="112" y="446" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#22483C">→ se anonimiza: nombre, contacto, dirección, historial</text>
+  <text x="112" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#41695B">La operación queda registrada; el dato, no.</text>
+
+  <rect x="616" y="392" width="496" height="88" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.35"/>
+  <text x="640" y="420" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.3" fill="#8A6114">SÍ ES FISCAL O DE AUDITORÍA</text>
+  <text x="640" y="446" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5C4410">→ se conserva el mínimo: factura y cadena de auditoría</text>
+  <text x="640" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#7A5A1E">Se anonimiza todo lo demás.</text>
+
+  <text x="64" y="540" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#16181A">Regla: se anonimiza por campo. No se borra la fila.</text>
+  <text x="64" y="562" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">No se promete borrado inmediato en backups ni en logs históricos.</text>
+
+  <text x="1136" y="596" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup · docs/legal · 2026-11</text>
+</svg>

@@ -12,6 +12,13 @@
 - [ADRs](adr/README.md) — decisiones de arquitectura aceptadas y propuestas.
 - [Spec del MVP](../.kiro/specs/storefront-platform-v2/requirements.md) — requisitos, diseño y tareas.
 
+## Legal
+
+- [Flujos legales](legal/flujos.md) — cinco diagramas SVG: roles, ruta, onboarding, DSR y brechas.
+- [Guion de la reunión](legal/guion-abogado.md) — qué decir, en qué orden, cómo cerrar y cómo seguir.
+- [Agenda con el abogado](legal/agenda-abogado.md) — preparación, preguntas y entregables por bloque.
+- [Anexo de una página](legal/anexo-abogado.md) — lo que se envía 48 h antes.
+
 ## Prompts
 
 - [Prompt v0 — Storefront multi-tenant](prompts/v0-storefront.md) — prototipo visual de las dos marcas.

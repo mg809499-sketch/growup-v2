@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" role="img" aria-labelledby="t2 d2">
+  <title id="t2">Ruta legal: cuatro compuertas antes de lanzar</title>
+  <desc id="d2">Secuencia de compuertas legales: entidad y titularidad, onboarding, checkout y go-live.</desc>
+  <defs>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B6B1A8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="640" fill="#FBFAF8"/>
+
+  <text x="64" y="60" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="27" font-weight="600" fill="#16181A" letter-spacing="-0.4">Ruta legal: cuatro compuertas antes de lanzar</text>
+  <text x="64" y="90" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14.5" fill="#5B6167">Cada compuerta desbloquea la siguiente. Si una falla, la siguiente no se abre.</text>
+  <line x1="64" y1="112" x2="1136" y2="112" stroke="#E2DED6" stroke-width="1"/>
+
+  <text x="184" y="146" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8A8F94">HOY</text>
+  <text x="1024" y="146" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8A8F94">Q1 2027</text>
+
+  <line x1="184" y1="170" x2="1024" y2="170" stroke="#D9D5CE" stroke-width="2"/>
+  <circle cx="184" cy="170" r="6" fill="#FBFAF8" stroke="#C08A2E" stroke-width="2"/>
+  <circle cx="464" cy="170" r="6" fill="#FBFAF8" stroke="#B4483A" stroke-width="2"/>
+  <circle cx="744" cy="170" r="6" fill="#FBFAF8" stroke="#C08A2E" stroke-width="2"/>
+  <circle cx="1024" cy="170" r="6" fill="#FBFAF8" stroke="#C9C5BE" stroke-width="2"/>
+
+  <!-- Compuerta 0 -->
+  <rect x="64" y="196" width="240" height="264" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <circle cx="80" cy="222" r="4" fill="#C08A2E"/>
+  <text x="92" y="226" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#8A6114">COMPUERTA 0</text>
+  <text x="88" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">Entidad y</text>
+  <text x="88" y="284" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">titularidad</text>
+  <text x="88" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Persona natural o SAS</text>
+  <text x="88" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Marca, dominio y código</text>
+  <text x="88" y="362" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Quién firma contratos</text>
+  <rect x="88" y="390" width="106" height="28" rx="14" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
+  <text x="141" y="408" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#8A6114">ABIERTO</text>
+
+  <!-- Compuerta 1 -->
+  <rect x="344" y="196" width="240" height="264" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <circle cx="360" cy="222" r="4" fill="#B4483A"/>
+  <text x="372" y="226" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#8E3428">COMPUERTA 1</text>
+  <text x="368" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">Onboarding</text>
+  <text x="368" y="284" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">del tenant</text>
+  <text x="368" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">DPA y términos</text>
+  <text x="368" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Política de datos</text>
+  <text x="368" y="362" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Aceptaciones versionadas</text>
+  <rect x="368" y="390" width="106" height="28" rx="14" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="421" y="408" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#8E3428">BLOQUEA</text>
+
+  <!-- Compuerta 2 -->
+  <rect x="624" y="196" width="240" height="264" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <circle cx="640" cy="222" r="4" fill="#C08A2E"/>
+  <text x="652" y="226" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#8A6114">COMPUERTA 2</text>
+  <text x="648" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">Checkout y</text>
+  <text x="648" y="284" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">dinero</text>
+  <text x="648" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Consumidor y devoluciones</text>
+  <text x="648" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Nota crédito DIAN</text>
+  <text x="648" y="362" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">PCI y scripts</text>
+  <rect x="648" y="390" width="152" height="28" rx="14" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
+  <text x="724" y="408" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#8A6114">CONDICIONADO</text>
+
+  <!-- Compuerta 3 -->
+  <rect x="904" y="196" width="240" height="264" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <circle cx="920" cy="222" r="4" fill="#A0A5AA"/>
+  <text x="932" y="226" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#5B6167">COMPUERTA 3</text>
+  <text x="928" y="260" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">Go-live y</text>
+  <text x="928" y="284" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16181A">operación</text>
+  <text x="928" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Brechas y retención</text>
+  <text x="928" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Soporte y SLA</text>
+  <text x="928" y="362" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Evidencia y auditoría</text>
+  <rect x="928" y="390" width="122" height="28" rx="14" fill="#F2F0EC" stroke="#C9C5BE"/>
+  <text x="989" y="408" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">PENDIENTE</text>
+
+  <!-- Conectores -->
+  <line x1="310" y1="170" x2="338" y2="170" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <line x1="590" y1="170" x2="618" y2="170" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <line x1="870" y1="170" x2="898" y2="170" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arr2)"/>
+
+  <!-- Banner -->
+  <rect x="64" y="500" width="1072" height="86" rx="12" fill="#F4F1EB"/>
+  <text x="92" y="532" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="600" fill="#16181A">Si una compuerta falla, la siguiente no se abre.</text>
+  <text x="92" y="556" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Corte de 45 minutos: si la reunión se acorta, solo compuertas 0 y 1. Sin DPA y sin términos no se firma un comerciante.</text>
+
+  <text x="1136" y="616" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup · docs/legal · 2026-11</text>
+</svg>

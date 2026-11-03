@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" role="img" aria-labelledby="t3 d3">
+  <title id="t3">Onboarding legal de un tenant</title>
+  <desc id="d3">Estados desde el alta del tenant hasta la publicación, con la rama de no aceptación.</desc>
+  <defs>
+    <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr3d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="700" fill="#FBFAF8"/>
+
+  <text x="64" y="60" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="27" font-weight="600" fill="#16181A" letter-spacing="-0.4">Onboarding legal de un tenant</text>
+  <text x="64" y="90" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14.5" fill="#5B6167">Ningún comerciante se activa ni publica sin aceptar el DPA y los términos.</text>
+  <line x1="64" y1="112" x2="1136" y2="112" stroke="#E2DED6" stroke-width="1"/>
+
+  <!-- Fila 1 -->
+  <rect x="64" y="160" width="300" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="88" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">01</text>
+  <text x="88" y="220" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Alta del tenant</text>
+  <text x="88" y="246" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">platform admin · pending_legal</text>
+
+  <rect x="450" y="160" width="300" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="474" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">02</text>
+  <text x="474" y="220" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Magic link al owner</text>
+  <text x="474" y="246" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">correo con enlace de un solo uso</text>
+
+  <rect x="836" y="160" width="300" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="860" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">03</text>
+  <text x="860" y="220" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">El owner inicia sesión</text>
+  <text x="860" y="246" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Supabase Auth · magic link</text>
+
+  <line x1="368" y1="222" x2="442" y2="222" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="754" y1="222" x2="828" y2="222" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+  <!-- Fila 2 -->
+  <rect x="836" y="380" width="300" height="124" rx="12" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.45"/>
+  <text x="860" y="410" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A6114">04</text>
+  <text x="860" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Acepta DPA y términos</text>
+  <text x="860" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#7A5A1E">clickwrap · versión vigente</text>
+
+  <rect x="450" y="380" width="300" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="474" y="410" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">05</text>
+  <text x="474" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Registro de aceptación</text>
+  <text x="474" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">hash · timestamp · IP hasheada</text>
+
+  <rect x="64" y="380" width="300" height="124" rx="12" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.45"/>
+  <text x="88" y="410" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#41695B">06</text>
+  <text x="88" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#22483C">Tenant activo</text>
+  <text x="88" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#41695B">publica storefront</text>
+
+  <line x1="986" y1="288" x2="986" y2="374" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="832" y1="442" x2="758" y2="442" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="446" y1="442" x2="372" y2="442" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr3)"/>
+
+  <!-- Rama: no acepta -->
+  <polyline points="986,508 986,548" fill="none" stroke="#B4483A" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr3d)"/>
+  <text x="974" y="532" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8E3428">no acepta</text>
+
+  <rect x="450" y="554" width="636" height="76" rx="12" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4" stroke-dasharray="5 4"/>
+  <text x="474" y="582" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8E3428">SIN ACEPTACIÓN</text>
+  <text x="474" y="606" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#7A5A55">No se activa, no se publica. Recordatorio a los 3 y 7 días. Expira a los 30 y se archiva.</text>
+
+  <text x="64" y="660" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Cambio de versión del documento → el owner debe aceptar de nuevo antes de seguir operando.</text>
+
+  <text x="1136" y="676" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup · docs/legal · 2026-11</text>
+</svg>
