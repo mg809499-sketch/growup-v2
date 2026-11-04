@@ -1,0 +1,96 @@
+<xml version="1.0" encoding="UTF-8">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 720" width="1300" height="720" role="img" aria-labelledby="tD11 dD11">
+  <title id="tD11">D-11 - PCI-DSS v4.0.1, SAQ A y gobierno de scripts</title>
+  <desc id="dD11">Checkout hosted Wompi, SAQ A, requisitos 6.4.3 e 11.6.1, CSP estricta, SRI, cero scripts de terceros en /checkout, MFA y cambio de gestion.</desc>
+  <defs>
+    <marker id="arr11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr11Red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+  </defs>
+  <rect width="1300" height="720" fill="#FBFAF8"/>
+
+  <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-11 - PCI-DSS v4.0.1, SAQ A y gobierno de scripts</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">PCI-DSS v4.0.1 Req 6.4.3 y 11.6.1 (obligatorio desde 31-mar-2025) - Hosted Checkout Wompi - SAQ A</text>
+  <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
+
+  <!-- Flujo de pago -->
+  <rect x="60" y="114" width="260" height="104" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
+  <text x="80" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 - CHECKOUT DEL COMPRADOR</text>
+  <text x="80" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#2B4470">Redirect a Wompi Web Checkout</text>
+  <text x="80" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Captura de tarjeta fuera de Growup</text>
+  <text x="80" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Growup nunca ve PAN, CVV ni fechas</text>
+
+  <!-- Gobierno de scripts -->
+  <rect x="340" y="114" width="260" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="360" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 - GOBIERNO DE SCRIPTS (6.4.3)</text>
+  <text x="360" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="600" fill="#16181A">Inventario justificado y auditado</text>
+  <text x="360" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Cero scripts de terceros en /checkout</text>
+  <text x="360" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Sin GTM, pixels ni analitica</text>
+
+  <!-- CSP y SRI -->
+  <rect x="620" y="114" width="260" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="640" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">3 - CSP + SRI (11.6.1)</text>
+  <text x="640" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Cabeceras CSP restrictivas</text>
+  <text x="640" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Allowlist: origen propio + dominios Wompi</text>
+  <text x="640" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">SRI en assets; no `unsafe-inline`</text>
+
+  <!-- Deteccion manipulacion -->
+  <rect x="900" y="114" width="340" height="104" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
+  <text x="920" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">4 - DETECCION DE MANIPULACION</text>
+  <text x="920" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#8A6114">11.6.1 - e-skimming / Magecart</text>
+  <text x="920" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Monitoreo de integridad en borde (Cloudflare)</text>
+  <text x="920" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Alerta ante alteracion de cabeceras HTTP o contenido</text>
+
+  <!-- Conexiones -->
+  <line x1="324" y1="166" x2="334" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr11)"/>
+  <line x1="604" y1="166" x2="614" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr11)"/>
+  <line x1="884" y1="166" x2="894" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr11)"/>
+
+  <!-- SAQ A -->
+  <rect x="60" y="248" width="590" height="118" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
+  <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">ALCANCE SAQ A</text>
+  <text x="80" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Checkout delegado 100% a Wompi -> alcance SAQ A mas simple</text>
+  <text x="80" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Si Wompi exige widget con JS en nuestra pagina -> evaluar SAQ A-EP + ASV</text>
+  <text x="80" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">No se afirma SAQ A de antemano; se decide tras spike de Wompi</text>
+
+  <!-- MFA y cambio de gestion -->
+  <rect x="670" y="248" width="570" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">CONTROLES OPERATIVOS</text>
+  <text x="690" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">MFA en accesos administrativos</text>
+  <text x="690" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Gestion de cambios para todo lo que toque checkout</text>
+  <text x="690" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Revision anual de SAQ - evidencia de MFA para accesos admin</text>
+
+  <!-- Prohibidos -->
+  <rect x="60" y="390" width="590" height="92" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="80" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">PROHIBIDO EN /CHECKOUT</text>
+  <text x="80" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Google Tag Manager - Meta Pixel - mapas de calor - analitica de terceros</text>
+  <text x="80" y="458" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Datos de tarjeta en logs, Sentry, analytics ni base de datos</text>
+  <text x="80" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Formulario de tarjeta propio (PCI completo prohibido)</text>
+
+  <!-- No datos de tarjeta -->
+  <rect x="670" y="390" width="570" height="92" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">DATOS DE TARJETA</text>
+  <text x="690" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Nunca capturan, transmiten ni almacenan en Growup</text>
+  <text x="690" y="458" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">PAN / CVV / fechas de expiracion = fuera de alcance</text>
+  <text x="690" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Hosted checkout / redirect del proveedor</text>
+
+  <!-- Verificacion -->
+  <rect x="60" y="508" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="536" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMO SE VERIFICA</text>
+  <text x="80" y="558" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Test de headers: CSP, X-Frame-Options, Referrer-Policy en /checkout</text>
+  <text x="80" y="578" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Inventario de scripts versionado; test falla si aparece tercero en checkout</text>
+  <text x="80" y="598" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">E2E en sandbox: redirect, pago aprobado, webhook firmado, orden creada</text>
+  <text x="80" y="618" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Revision anual de SAQ y evidencia de MFA para accesos administrativos</text>
+
+  <!-- Pendiente spike -->
+  <rect x="670" y="508" width="570" height="130" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="690" y="536" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">PENDIENTE DE SPIKE WOMPI</text>
+  <text x="690" y="558" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Cuenta Wompi sin crear - redirect vs widget aun sin definir</text>
+  <text x="690" y="578" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">3DS y campos de riesgo: verificar exposicion de Wompi</text>
+  <text x="690" y="598" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Decision final SAQ A / A-EP y ASV al final de la secuencia (D-11)</text>
+
+  <text x="1240" y="700" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/adr - D-11 - 2026-11</text>
+</svg>

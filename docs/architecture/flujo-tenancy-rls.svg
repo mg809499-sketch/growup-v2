@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" width="1400" height="760" role="img" aria-labelledby="tTen dTen">
+  <title id="tTen">Tenancy, RLS y aislamiento cross-tenant</title>
+  <desc id="dTen">Resolución de host→tenant, verificación JWT/JWKS, RLS forzado y los 12 vectores cross-tenant (D-03, ADR-0003).</desc>
+  <defs>
+    <marker id="arrTen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arrTenDeny" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="760" fill="#FBFAF8"/>
+
+  <text x="700" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="26" font-weight="700" fill="#16181A" letter-spacing="-0.3">Tenancy y aislamiento cross-tenant</text>
+  <text x="700" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13.5" fill="#5B6167">Host → tenant · JWKS · RLS `tenant_id = app.current_tenant()` · 12 vectores de prueba</text>
+  <line x1="64" y1="90" x2="1336" y2="90" stroke="#E2DED6" stroke-width="1"/>
+
+  <!-- Paso 1: Host -->
+  <rect x="64" y="118" width="230" height="104" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
+  <text x="84" y="152" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 · RESOLUCIÓN DE HOST</text>
+  <text x="84" y="176" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#2B4470">`Host` normalizado</text>
+  <text x="84" y="198" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#4B5F7E">minúsculas · sin puerto · IDN→punycode</text>
+  <text x="84" y="216" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#4B5F7E">→ `domains.host` → `tenant_id`</text>
+
+  <!-- Paso 2: JWT -->
+  <rect x="314" y="118" width="230" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="334" y="152" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 · VERIFICACIÓN JWT</text>
+  <text x="334" y="176" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#16181A">Supabase JWKS (RS256/ES256)</text>
+  <text x="334" y="198" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`iss` · `aud` · `exp` · `nbf` · firma verificada</text>
+  <text x="334" y="216" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`tenant_id` y `role` de `app_metadata`</text>
+
+  <!-- Paso 3: Match -->
+  <rect x="564" y="118" width="230" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="584" y="152" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">3 · MATCH HOST ↔ CLAIM</text>
+  <text x="584" y="176" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#16181A">`X-Tenant-ID` ignorado si mismatchea</text>
+  <text x="584" y="198" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`TENANT_MISMATCH` → `403` + auditoría</text>
+  <text x="584" y="216" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`app.resolve_tenant(host)` `SECURITY DEFINER`</text>
+
+  <!-- Paso 4: Contexto DB -->
+  <rect x="814" y="118" width="230" height="104" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
+  <text x="834" y="152" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">4 · CONTEXTO DE TRANSACCIÓN</text>
+  <text x="834" y="176" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="16" font-weight="600" fill="#22483C">`SET LOCAL app.tenant_id`</text>
+  <text x="834" y="198" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#41695B">`SET LOCAL ROLE app_rw` (sin `BYPASSRLS`)</text>
+  <text x="834" y="216" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#41695B">Pooler transaccional · `SET LOCAL` obligatorio</text>
+
+  <!-- Paso 5: RLS -->
+  <rect x="1064" y="118" width="272" height="104" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
+  <text x="1084" y="152" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">5 · RLS FORZADO</text>
+  <text x="1084" y="176" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#8A6114">`ENABLE` + `FORCE ROW LEVEL SECURITY`</text>
+  <text x="1084" y="198" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`tenant_id = app.current_tenant()`</text>
+  <text x="1084" y="216" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`USING` y `WITH CHECK` · sin `USING (true)`</text>
+
+  <!-- Conexiones 1-5 -->
+  <line x1="298" y1="170" x2="308" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrTen)"/>
+  <line x1="548" y1="170" x2="558" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrTen)"/>
+  <line x1="798" y1="170" x2="808" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrTen)"/>
+  <line x1="1048" y1="170" x2="1058" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrTen)"/>
+
+  <!-- Denegaciones -->
+  <rect x="64" y="252" width="230" height="92" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="84" y="282" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428">✗ DENEGADO</text>
+  <text x="84" y="306" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Host desconocido → `404 TENANT_NOT_FOUND`</text>
+  <text x="84" y="324" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">JWT inválido / `alg:none` / expirado → `401`</text>
+  <text x="84" y="342" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Cross-tenant → `403` / `404` (sin filtrar existencia)</text>
+
+  <rect x="314" y="252" width="230" height="92" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="334" y="282" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428">✗ TAMPERING</text>
+  <text x="334" y="306" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">`tenant_id` en body → `422` (campo prohibido)</text>
+  <text x="334" y="324" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">`X-Tenant-ID` spoofeado → `403`</text>
+  <text x="334" y="342" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Update cross-tenant → `0 filas` / `403`</text>
+
+  <rect x="564" y="252" width="230" height="92" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="584" y="282" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428">✗ REPUDIATION</text>
+  <text x="584" y="306" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Acción sin rastro → bloqueada</text>
+  <text x="584" y="324" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">`decision_logs` hash chain append-only</text>
+  <text x="584" y="342" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Job diario verifica la cadena</text>
+
+  <!-- 12 vectores -->
+  <rect x="814" y="252" width="522" height="142" rx="10" fill="#FFFFFF" stroke="#C9C5BE"/>
+  <text x="834" y="280" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">LOS 12 VECTORES CROSS-TENANT (CI obligatorio)</text>
+  <text x="834" y="302" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">1. Host A + JWT A → acceso a B: `403 TENANT_MISMATCH`</text>
+  <text x="834" y="318" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">2. JWT A + `X-Tenant-ID: B` → header ignorado</text>
+  <text x="834" y="334" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">3. Producto de B con JWT de A → `404`</text>
+  <text x="834" y="350" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">4. `POST` con `tenant_id: B` en body → `422`</text>
+  <text x="834" y="366" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">5. `PATCH` producto de B con JWT de A → `403` / `0 filas`</text>
+  <text x="834" y="382" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">6. Listado sin filtro → solo productos de A</text>
+  <text x="834" y="398" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">7. `tenant_id=B` → ignorado, solo A</text>
+  <text x="834" y="414" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">8. Webhook key B + payload A → `403` / `404`</text>
+  <text x="834" y="430" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">9. Stripe `metadata.tenant_id: B` → `403` / `404`</text>
+  <text x="834" y="446" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">10. Preview token de B en host A → `401 PREVIEW_INVALID`</text>
+  <text x="834" y="462" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">11. Caché envenenada → respuesta de B o `404`, nunca A</text>
+  <text x="834" y="478" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">12. `r2_key` con traversal `../` → `403`</text>
+
+  <!-- Roles DB -->
+  <rect x="64" y="414" width="712" height="142" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="84" y="442" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">ROLES DE BASE DE DATOS</text>
+  <text x="100" y="466" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">`app_rw`</text>
+  <text x="130" y="466" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">— API. Sujeto a RLS. Sin `BYPASSRLS`.</text>
+  <text x="100" y="486" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">`app_worker`</text>
+  <text x="130" y="486" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">— Workers. RLS con contexto explícito por tenant.</text>
+  <text x="100" y="506" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">`service_role`</text>
+  <text x="130" y="506" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">— Solo workers y tareas administrativas auditadas.</text>
+  <text x="100" y="526" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">`tenants`</text>
+  <text x="130" y="526" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">— Sin `USING (true)`. Resolución vía función `SECURITY DEFINER`.</text>
+
+  <text x="1336" y="740" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="10.5" fill="#A0A5AA">Growup · docs/architecture · 2026-11</text>
+</svg>

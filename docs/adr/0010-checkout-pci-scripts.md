@@ -65,3 +65,4 @@ La integración real, la cuenta Wompi, los webhooks y la decisión final de SAQ 
 - `docs/decisiones-pendientes (1).md` — D-02, D-11, D-14
 - `docs/adr/0004-pagos-checkout-merchant-of-record.md`
 - `docs/adr/0008-topologia-despliegue.md`
+- [Diagrama D-11 — PCI SAQ A y gobierno de scripts](flujo-d-11-pci-saq-a.svg)

@@ -70,3 +70,5 @@ La plantilla de DPA, los plazos de retención y la región definitiva quedan **p
 - `docs/decisiones-pendientes (1).md` — D-09, D-10, D-12
 - `docs/architecture/03-tenancy.md`
 - `supabase/migrations/20261021000200_governance.sql`
+- [Flujo de onboarding legal](../legal/flujo-onboarding-legal.svg)
+- [Flujo DSR, anonimización y retención](../legal/flujo-dsr.svg)

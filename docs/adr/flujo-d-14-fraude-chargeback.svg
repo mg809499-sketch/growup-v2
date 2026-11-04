@@ -1,0 +1,84 @@
+<xml version="1.0" encoding="UTF-8">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 760" width="1300" height="760" role="img" aria-labelledby="tD14 dD14">
+  <title id="tD14">D-14 - Fraude, chargebacks y disputas de pago</title>
+  <desc id="dD14">Delegacion antifraude a Wompi, 3DS obligatorio, liability shift, metadatos de riesgo en tabla payments, expediente digital para disputa del tenant (Ley 1480/2011, estandares de pasarelas bancarias CO).</desc>
+  <defs>
+    <marker id="arr14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr14Red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+    <marker id="arr14Green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2E5E4E"/>
+    </marker>
+  </defs>
+  <rect width="1300" height="760" fill="#FBFAF8"/>
+
+  <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-14 - Fraude, chargebacks y disputas</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Merchant of record = tenant - 3DS obligatorio - liability shift - Wompi scoring - Ledger PAY-04</text>
+  <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
+
+  <!-- Paso 1: Checkout con 3DS -->
+  <rect x="60" y="114" width="240" height="120" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
+  <text x="80" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 - CHECKOUT CON 3DS</text>
+  <text x="80" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#2B4470">3DS obligatorio</text>
+  <text x="80" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Liability shift al emisor en fraude</text>
+  <text x="80" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Solo tarjetas; no PSE/Nequi</text>
+
+  <!-- Paso 2: Motor antifraude Wompi -->
+  <rect x="320" y="114" width="240" height="120" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="340" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 - ANTIFRAUDE WOMPI</text>
+  <text x="340" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Antifraude de Wompi</text>
+  <text x="340" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Risk score de la pasarela</text>
+  <text x="340" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Sin scoring propio en MVP</text>
+
+  <!-- Paso 3: Metadatos de riesgo -->
+  <rect x="580" y="114" width="240" height="120" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="600" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">3 - METADATOS EN `payments`</text>
+  <text x="600" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Riesgo por transaccion</text>
+  <text x="600" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Pasarela; riesgo; IP comprador</text>
+  <text x="600" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Device fingerprint - estado 3DS</text>
+
+  <!-- Paso 4: Expediente de disputa -->
+  <rect x="840" y="114" width="400" height="120" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
+  <text x="860" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">4 - EXPEDIENTE DIGITAL DE DISPUTA</text>
+  <text x="860" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#8A6114">Gestion de disputas</text>
+  <text x="860" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Logs de orden - comprobantes de entrega</text>
+  <text x="860" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Marcas de auditoria - radicacion ante operador financiero</text>
+
+  <!-- Conexiones -->
+  <line x1="304" y1="166" x2="314" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr14)"/>
+  <line x1="564" y1="166" x2="574" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr14)"/>
+  <line x1="824" y1="166" x2="834" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr14)"/>
+
+  <!-- Responsabilidad -->
+  <rect x="60" y="248" width="590" height="118" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">RESPONSABILIDAD FINANCIERA</text>
+  <text x="80" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Recae en el comerciante (merchant of record)</text>
+  <text x="80" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Growup no arbitra ni custodia fondos</text>
+  <text x="80" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Platform gestiona solo disputas de su suscripcion</text>
+
+  <!-- Ledger PAY-04 -->
+  <rect x="670" y="248" width="570" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">LEDGER `PAY-04`</text>
+  <text x="690" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Trazabilidad de pagos y reembolsos</text>
+  <text x="690" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Idempotente - `provider_refund_id` - monto - motivo - estado</text>
+  <text x="690" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Vinculado con D-03 (nota credito) y D-13 (devoluciones)</text>
+
+  <!-- Verificacion -->
+  <rect x="60" y="390" width="590" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMO SE VERIFICA</text>
+  <text x="80" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">3DS activado en cuentas Wompi integradas</text>
+  <text x="80" y="460" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Metadatos de riesgo guardados en `payments`</text>
+  <text x="80" y="480" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Expediente disponible para disputa del tenant</text>
+
+  <!-- Pendiente spike -->
+  <rect x="670" y="390" width="570" height="118" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="690" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">PENDIENTE DE CUENTA WOMPI</text>
+  <text x="690" y="414" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Cuenta Wompi pendiente - verificar 3DS y campos de riesgo</text>
+  <text x="690" y="438" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">3DS solo aplica a tarjetas, no a PSE/Nequi</text>
+  <text x="690" y="458" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Campos de riesgo solo si Wompi los expone</text>
+
+  <text x="1240" y="740" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/adr - D-14 - 2026-11</text>
+</svg>

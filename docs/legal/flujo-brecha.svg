@@ -1,56 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" role="img" aria-labelledby="t5 d5">
-  <title id="t5">Notificación de una brecha de datos</title>
-  <desc id="d5">Tres fases de respuesta a una brecha: detección y contención, decisión y aviso al tenant, notificación y aprendizaje.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 700" width="1300" height="700" role="img" aria-labelledby="tBrecha dBrecha">
+  <title id="tBrecha">Notificación de una brecha de datos — SLA dual</title>
+  <desc id="dBrecha">Tres fases de respuesta a una brecha: detección y contención, aviso al tenant (≤24h), notificación a SIC/RNBD (≤15 días hábiles), post-mortem y runbook OPS-05.</desc>
   <defs>
-    <marker id="arr5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+    <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#B6B1A8"/>
     </marker>
   </defs>
+  <rect width="1300" height="700" fill="#FBFAF8"/>
 
-  <rect width="1200" height="640" fill="#FBFAF8"/>
-
-  <text x="64" y="60" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="27" font-weight="600" fill="#16181A" letter-spacing="-0.4">Notificación de una brecha de datos</text>
-  <text x="64" y="90" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14.5" fill="#5B6167">Growup es encargado y avisa al tenant. El tenant es responsable y notifica a la autoridad.</text>
-  <line x1="64" y1="112" x2="1136" y2="112" stroke="#E2DED6" stroke-width="1"/>
+  <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">Notificación de una brecha de datos</text>
+  <text x="650" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="13" fill="#5B6167">D-12 · Ley 1581/RNBD 15 días hábiles SIC · aviso al tenant ≤ 24h · Runbook OPS-05 · GDPR 72h referencia</text>
+  <line x1="60" y1="90" x2="1240" y2="90" stroke="#E2DED6" stroke-width="1"/>
 
   <!-- Fase 1 -->
-  <rect x="64" y="170" width="340" height="360" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
-  <circle cx="88" cy="206" r="4" fill="#B4483A"/>
-  <text x="104" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8E3428">0 – 1 H</text>
-  <text x="88" y="248" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="19" font-weight="600" fill="#16181A">Detectar y contener</text>
-  <text x="88" y="290" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· alerta de 5xx, auth o cadena rota</text>
-  <text x="88" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· reporte de un tenant o comprador</text>
-  <text x="88" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· triage: qué datos y cuántos titulares</text>
-  <text x="88" y="368" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· contención: rotar claves, cortar acceso</text>
-  <text x="88" y="394" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· evidencia intacta antes de tocar nada</text>
+  <rect x="60" y="170" width="340" height="330" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <circle cx="84" cy="206" r="4" fill="#B4483A"/>
+  <text x="100" y="210" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8E3426">0 – 1 H</text>
+  <text x="84" y="248" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="19" font-weight="600" fill="#16181A">Detectar y contener</text>
+  <text x="84" y="290" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· alerta de 5xx, auth o cadena rota</text>
+  <text x="84" y="316" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· reporte de un tenant o comprador</text>
+  <text x="84" y="342" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· triage: qué datos y cuántos titulares</text>
+  <text x="84" y="368" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· contención: rotar claves, cortar acceso</text>
+  <text x="84" y="394" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· evidencia intacta antes de tocar nada</text>
 
   <!-- Fase 2 -->
-  <rect x="444" y="170" width="340" height="360" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <rect x="444" y="170" width="340" height="330" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
   <circle cx="468" cy="206" r="4" fill="#C08A2E"/>
-  <text x="484" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A6114">1 – 24 H</text>
-  <text x="468" y="248" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="19" font-weight="600" fill="#16181A">Decidir y avisar</text>
-  <text x="468" y="290" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· severidad y deber de notificar</text>
-  <text x="468" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· aviso al tenant: objetivo ≤ 24 h</text>
-  <text x="468" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· paquete de evidencia para el tenant</text>
-  <text x="468" y="368" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· canal directo con el owner</text>
-  <text x="468" y="394" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· solo hechos confirmados</text>
+  <text x="484" y="210" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A6114">1 – 24 H</text>
+  <text x="468" y="248" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="19" font-weight="600" fill="#16181A">Decidir y avisar al tenant</text>
+  <text x="468" y="290" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· severidad y deber de notificar</text>
+  <text x="468" y="316" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· aviso al tenant: objetivo ≤ 24 h (contractual)</text>
+  <text x="468" y="342" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· paquete de evidencia para el tenant</text>
+  <text x="468" y="368" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· canal directo con el owner</text>
+  <text x="468" y="394" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· solo hechos confirmados</text>
 
   <!-- Fase 3 -->
-  <rect x="824" y="170" width="340" height="360" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
-  <circle cx="848" cy="206" r="4" fill="#2E5E4E"/>
-  <text x="864" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#41695B">24 – 72 H</text>
-  <text x="848" y="248" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="19" font-weight="600" fill="#16181A">Notificar y aprender</text>
-  <text x="848" y="290" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· el tenant notifica a SIC y titulares</text>
-  <text x="848" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· Growup apoya con evidencia y texto</text>
-  <text x="848" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· post-mortem sin PII</text>
-  <text x="848" y="368" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· acciones con dueño y fecha</text>
-  <text x="848" y="394" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">· se actualiza el runbook</text>
+  <rect x="828" y="170" width="412" height="330" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <circle cx="852" cy="206" r="4" fill="#2E5E4E"/>
+  <text x="868" y="210" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.5" fill="#41695B">24 H – 15 DÍAS HÁBILES</text>
+  <text x="852" y="248" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="19" font-weight="600" fill="#16181A">Notificar a SIC y aprender</text>
+  <text x="852" y="290" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· tenant notifica a SIC/RNBD (≤ 15 días hábiles)</text>
+  <text x="852" y="316" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· Growup apoya con evidencia y texto</text>
+  <text x="852" y="342" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· post-mortem sin culpables</text>
+  <text x="852" y="368" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12.5" fill="#5B6167">· acciones con dueño y fecha</text>
+  <text x="852" y="394" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12.5" fill="#5B6167">· se actualiza el runbook OPS-05</text>
 
-  <line x1="408" y1="350" x2="438" y2="350" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arr5)"/>
-  <line x1="788" y1="350" x2="818" y2="350" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arr5)"/>
+  <line x1="408" y1="336" x2="438" y2="336" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arrB)"/>
+  <line x1="792" y1="336" x2="822" y2="336" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arrB)"/>
 
-  <text x="64" y="566" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" font-weight="600" fill="#16181A">La plataforma no notifica sola: entrega al tenant lo que necesita para cumplir su deber.</text>
-  <text x="64" y="588" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Los plazos exactos ante la SIC se validan con abogado. Las 72 h son referencia GDPR, no norma colombiana.</text>
+  <!-- SLA dual -->
+  <rect x="60" y="526" width="546" height="100" rx="12" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
+  <text x="80" y="554" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">SLA DUAL</text>
+  <text x="80" y="576" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">24 h → aviso al tenant (objetivo contractual, no legal)</text>
+  <text x="80" y="596" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">15 días hábiles → informe técnico a SIC/RNBD (plazo legal colombiano)</text>
+  <text x="80" y="616" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Las 72 h son referencia GDPR; el plazo real ante la SIC se valida con abogado</text>
 
-  <text x="1136" y="616" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup · docs/legal · 2026-11</text>
+  <!-- Runbook -->
+  <rect x="626" y="526" width="614" height="100" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="646" y="554" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">RUNBOOK OPS-05</text>
+  <text x="646" y="576" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Detección real: auth, WAF, DB, cadena de auditoría (no solo Sentry)</text>
+  <text x="646" y="596" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">On-call y cadena de mando (DPO/seguridad) · plantillas de notificación preparadas</text>
+
+  <!-- Sin PII -->
+  <text x="60" y="652" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12.5" font-weight="600" fill="#16181A">SIN PII CRUDA</text>
+  <text x="60" y="674" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Logs sin nombres, emails, teléfonos ni direcciones · trace_id para correlación · prompt_hash en lugar de prompts completos</text>
+
+  <text x="1240" y="680" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="10.5" fill="#A0A5AA">Growup · docs/legal · 2026-11</text>
 </svg>

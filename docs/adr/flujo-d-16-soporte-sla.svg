@@ -1,0 +1,61 @@
+<xml version="1.0" encoding="UTF-8">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 740" width="1300" height="740" role="img" aria-labelledby="tD16 dD16">
+  <title id="tD16">D-16 - Soporte al comerciante y SLA</title>
+  <desc id="dD16">Canal unico email/ticket, matriz SLA (S1/S2/S3), rol support, acceso temporal auditado, base de conocimiento y escalado (D-16, COBIT 2019, SLA B2B SaaS).</desc>
+  <defs>
+    <marker id="arr16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr16Red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+  </defs>
+  <rect width="1300" height="740" fill="#FBFAF8"/>
+  <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-16 - Soporte al comerciante y SLA</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Canal unico email/ticket, matriz SLA (S1/S2/S3), rol support, acceso temporal auditado, base de conocimiento y escalado</text>
+  <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
+  <rect x="60" y="114" width="240" height="120" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
+  <text x="80" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 - CANAL UNICO</text>
+  <text x="80" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#2B4470">Email + tickets</text>
+  <text x="80" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Modulo de tickets en Admin Panel</text>
+  <text x="80" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">FAQ basica</text>
+  <rect x="320" y="114" width="240" height="120" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="340" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 - ROL support</text>
+  <text x="340" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Supabase Auth</text>
+  <text x="340" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Consulta de config. y logs</text>
+  <text x="340" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Modo lectura bajo supervision</text>
+  <rect x="580" y="114" width="240" height="120" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
+  <text x="600" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">3 - ACCESO TEMPORAL AUDITADO</text>
+  <text x="600" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#8A6114">Consentimiento del tenant</text>
+  <text x="600" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Acciones en ai_audit_logs</text>
+  <text x="600" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">W1-07: acceso temporal y auditado</text>
+  <line x1="304" y1="166" x2="314" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr16)"/>
+  <line x1="564" y1="166" x2="574" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr16)"/>
+  <rect x="60" y="248" width="590" height="230" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">MATRIZ DE SLA (ACUERDOS DE NIVEL DE SERVICIO)</text>
+  <text x="80" y="300" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Nivel - Criterio - Respuesta - Solucion</text>
+  <text x="80" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">S1 Critico - Indisponibilidad total / caida checkout / seguridad - &lt; 2h - &lt; 6h</text>
+  <text x="80" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">S2 Alto - API DIAN / webhooks de pago - &lt; 6h - &lt; 12h</text>
+  <text x="80" y="358" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">S3 Normal - Builder / catalogo / configuracion - &lt; 12h habiles - &lt; 24h habiles</text>
+  <text x="80" y="382" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Calibrado a capacidad real: horas habiles y on-call financiado para S1</text>
+  <text x="80" y="402" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Respuesta y workaround, no resolucion de dependencias externas</text>
+  <rect x="670" y="248" width="570" height="230" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">ESCALADO Y GOBERNANZA</text>
+  <text x="690" y="300" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">S1: respuesta &lt; 2 horas, on-call financiado</text>
+  <text x="690" y="320" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Escalado a ingenieria si no se resuelve en SLA</text>
+  <text x="690" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">COBIT 2019 - SLA comercial B2B SaaS</text>
+  <text x="690" y="360" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Piloto Q1 2027: dos tenants (ropa y joyeria)</text>
+  <text x="690" y="380" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Soporte parte del producto, no un extra</text>
+  <rect x="60" y="502" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="530" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMO SE VERIFICA</text>
+  <text x="80" y="552" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Canal de soporte operativo antes del go-live</text>
+  <text x="80" y="572" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Matriz SLA publicada en el panel admin</text>
+  <text x="80" y="592" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Acceso de soporte con motivo, consentimiento y auditoria</text>
+  <text x="80" y="612" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Pregunta frecuente (FAQ) minima publicada</text>
+  <rect x="670" y="502" width="570" height="130" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="690" y="530" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">PENDIENTE</text>
+  <text x="690" y="552" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">SLA realista calibrado a capacidad del equipo</text>
+  <text x="690" y="572" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">On-call financiado para S1</text>
+  <text x="690" y="592" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Escalar a plataforma de ticketing dedicada cuando crezca el numero de tenants</text>
+  <text x="1240" y="720" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/adr - D-16 - 2026-11</text>
+</svg>

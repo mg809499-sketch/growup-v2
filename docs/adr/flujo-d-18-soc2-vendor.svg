@@ -1,0 +1,78 @@
+<xml version="1.0" encoding="UTF-8">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 800" width="1300" height="800" role="img" aria-labelledby="tD18 dD18">
+  <title id="tD18">D-18 - Vendor risk y objetivo SOC 2-ready</title>
+  <desc id="dD18">Postura SOC 2-ready sin certificar, cambio management, revision anual de proveedores, inventario de activos, respuesta a incidentes, backups con prueba de restauracion.</desc>
+  <defs>
+    <marker id="arr18" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr18Red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+    <marker id="arr18Green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2E5E4E"/>
+    </marker>
+  </defs>
+  <rect width="1300" height="800" fill="#FBFAF8"/>
+
+  <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-18 - Vendor risk y SOC 2-ready</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">SOC 2-ready (no certificado) - change management - vendor risk anual - ISO 27001 - COBIT 2019 - NIST AI RMF 1.0</text>
+  <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
+
+  <!-- Tres pilares -->
+  <rect x="60" y="114" width="390" height="118" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
+  <text x="80" y="142" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">PILAR 1 - CHANGE MANAGEMENT</text>
+  <text x="80" y="164" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#22483C">Sin cambios directos en produccion</text>
+  <text x="80" y="184" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">GitHub -> pruebas -> revision par -> despliegue</text>
+  <text x="80" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Migraciones expand/contract - sin DROP destructivo</text>
+
+  <rect x="470" y="114" width="390" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="490" y="142" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">PILAR 2 - TRAZABILIDAD E INMUTABILIDAD</text>
+  <text x="490" y="164" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">`decision_logs` append-only + hash chain</text>
+  <text x="490" y="184" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Acciones admin + sugerencias IA + resoluciones</text>
+  <text x="490" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Firmas criptograficas para auditoria</text>
+
+  <rect x="880" y="114" width="360" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="900" y="142" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">PILAR 3 - VENDOR RISK</text>
+  <text x="900" y="164" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Revision anual de proveedores criticos</text>
+  <text x="900" y="184" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Supabase - Wompi - Stripe - Cloudflare - Fly - Resend</text>
+  <text x="900" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Inventario de activos - respuesta a incidentes</text>
+
+  <!-- Conexiones pilares -->
+  <line x1="454" y1="173" x2="464" y2="173" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr18)"/>
+  <line x1="864" y1="173" x2="874" y2="173" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr18)"/>
+
+  <!-- Matriz de proveedores -->
+  <rect x="60" y="252" width="1180" height="230" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="280" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">MATRIZ DE PROVEEDORES CRITICOS</text>
+  <text x="80" y="300" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Proveedor - Funcion - Certificaciones - Mitigacion en plataforma</text>
+  <text x="80" y="320" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Supabase - DB PostgreSQL, Auth, RLS - SOC 2 Type II, ISO 27001 - RLS con `app.current_tenant()`</text>
+  <text x="80" y="340" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Wompi - Pasarela de pago checkout - PCI-DSS Level 1 - Hosted checkout; cero almacenamiento de tarjetas</text>
+  <text x="80" y="360" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Cloudflare - Edge CDN, R2, WAF, DNS - SOC 2 Type II, PCI-DSS - CSP estricta e inspeccion WAF en borde</text>
+  <text x="80" y="380" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Fly.io - Computo backend FastAPI - SOC 2 Type I - Contenedores aislados con monitoreo de salud</text>
+  <text x="80" y="400" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Resend / Postmark - Emails transaccionales - SOC 2 Type II - DKIM/SPF por dominio</text>
+  <text x="80" y="420" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">DIAN (Factus/Siigo/Alegra) - Factura electronica certificada - Certificacion DIAN - API de emision delegada</text>
+
+  <!-- SOC 2-ready -->
+  <rect x="60" y="506" width="590" height="130" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
+  <text x="80" y="534" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">POSTURA SOC 2-READY (NO CERTIFICADO)</text>
+  <text x="80" y="556" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Practicas adoptadas desde el MVP, certificacion diferida</text>
+  <text x="80" y="576" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">6-14 meses y costo alto si se certifica ahora; prematuro para piloto</text>
+  <text x="80" y="596" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Gatillo de reapertura: cliente enterprise que exija auditoria formal</text>
+
+  <!-- Backups -->
+  <rect x="670" y="506" width="570" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="534" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">BACKUPS Y RECUPERACION</text>
+  <text x="690" y="556" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Supabase PITR + dump logico diario a R2</text>
+  <text x="690" y="576" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Prueba de restauracion trimestral en staging</text>
+  <text x="690" y="596" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">RPO &lt;= 15 min - RTO &lt;= 2h API/storefront, &lt;= 4h workers</text>
+
+  <!-- Verificacion -->
+  <rect x="60" y="660" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="688" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMO SE VERIFICA</text>
+  <text x="80" y="710" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Matriz de controles y evidencia en el repositorio</text>
+  <text x="80" y="730" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Revision trimestral de accesos y vendor risk anual</text>
+  <text x="80" y="750" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Cambios en produccion solo via PR + CI + revision de par</text>
+
+  <text x="1240" y="780" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/adr - D-18 - 2026-11</text>
+</svg>

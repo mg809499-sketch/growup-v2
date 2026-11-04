@@ -1,0 +1,88 @@
+<xml version="1.0" encoding="UTF-8">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 760" width="1300" height="760" role="img" aria-labelledby="tD15 dD15">
+  <title id="tD15">D-15 - Email transaccional, identidad por tenant y residencia</title>
+  <desc id="dD15">Proveedor dedicado (Resend/Postmark), DKIM/SPF/DMARC, ARQ, identidad de envio por tenant, Supabase Auth SMTP, retencion y region alineada con D-10.</desc>
+  <defs>
+    <marker id="arr15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr15Red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+  </defs>
+  <rect width="1300" height="760" fill="#FBFAF8"/>
+
+  <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-15 - Email transaccional multi-tenant</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Resend / Postmark - ARQ - DKIM/SPF/DMARC - identidad por tenant - region alineada con D-10</text>
+  <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
+
+  <!-- Paso 1: Evento de email -->
+  <rect x="60" y="114" width="240" height="120" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
+  <text x="80" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 - EVENTO DE EMAIL</text>
+  <text x="80" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="600" fill="#2B4470">Orden, email, factura y dunning</text>
+  <text x="80" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Wave 4/8; ORD/CHK/AUTH/BILL</text>
+
+  <!-- Paso 2: Worker ARQ -->
+  <rect x="320" y="114" width="240" height="120" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="340" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 - WORKER ARQ</text>
+  <text x="340" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Envio, reintentos y rebotes</text>
+  <text x="340" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Redis + ARQ (no Celery)</text>
+  <text x="340" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Eventos: auditoria y supresion</text>
+
+  <!-- Paso 3: Proveedor dedicado -->
+  <rect x="580" y="114" width="240" height="120" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
+  <text x="600" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">3 - PROVEEDOR DEDICADO</text>
+  <text x="600" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#22483C">Resend o Postmark</text>
+  <text x="600" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Webhooks de rebote y entrega</text>
+  <text x="600" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Validar entrega, webhooks y region</text>
+
+  <!-- Paso 4: Identidad por tenant -->
+  <rect x="840" y="114" width="400" height="120" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="860" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">4 - IDENTIDAD DE ENVIO POR TENANT</text>
+  <text x="860" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Subdominio Growup verificado</text>
+  <text x="860" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Fase 2: dominio propio del cliente (CNAME/TXT)</text>
+  <text x="860" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">DKIM/SPF/DMARC por tenant; fallback compartido</text>
+
+  <!-- Conexiones -->
+  <line x1="304" y1="166" x2="314" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr15)"/>
+  <line x1="564" y1="166" x2="574" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr15)"/>
+  <line x1="824" y1="166" x2="834" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr15)"/>
+
+  <!-- Dominio central -->
+  <rect x="60" y="248" width="590" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">DOMINIO CENTRAL `growup.com`</text>
+  <text x="80" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Reservado para auth, billing y alertas de plataforma</text>
+  <text x="80" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">DKIM, SPF y DMARC gestionados en Cloudflare</text>
+  <text x="80" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Emails de compradores salen por identidad del tenant</text>
+
+  <!-- Supabase Auth SMTP -->
+  <rect x="670" y="248" width="570" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">SUPABASE AUTH SMTP</text>
+  <text x="690" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Configurado con el mismo proveedor para magic links</text>
+  <text x="690" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">O canal separado decidido explicitamente</text>
+  <text x="690" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Automatizacion del onboarding: DNS por API o fallback manual</text>
+
+  <!-- Retencion y PII -->
+  <rect x="60" y="390" width="590" height="118" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
+  <text x="80" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">RETENCION Y PII</text>
+  <text x="80" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Cuerpo del email no se guarda en logs</text>
+  <text x="80" y="460" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Metadatos y ID del proveedor: si se guardan</text>
+  <text x="80" y="480" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Region alineada con D-10 (residencia de datos)</text>
+
+  <!-- Verificacion -->
+  <rect x="670" y="390" width="570" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMO SE VERIFICA</text>
+  <text x="690" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Envio con dominio verificado y DKIM/SPF/DMARC en verde</text>
+  <text x="690" y="460" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Rebote y queja: lista de supresion</text>
+  <text x="690" y="480" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Idempotencia y reintentos del worker ARQ</text>
+  <text x="690" y="500" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Logs sin cuerpo ni destinatarios completos</text>
+
+  <!-- Pendiente spike -->
+  <rect x="60" y="532" width="590" height="118" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="80" y="560" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">PENDIENTE DE SPIKE</text>
+  <text x="80" y="582" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Eleccion Resend/Postmark pendiente</text>
+  <text x="80" y="602" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Estrategia definitiva de dominio por tenant pendiente</text>
+  <text x="80" y="622" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Si el proveedor no permite verificacion por API, fallback a dominio compartido</text>
+
+  <text x="1240" y="740" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/adr - D-15 - 2026-11</text>
+</svg>

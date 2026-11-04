@@ -1,0 +1,100 @@
+<xml version="1.0" encoding="UTF-8">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 780" width="1300" height="780" role="img" aria-labelledby="tD12 dD12">
+  <title id="tD12">D-12 - Notificacion de brechas, SLA dual 24h/15d</title>
+  <desc id="dD12">Protocolo de respuesta a incidentes: deteccion, contencion, aviso al tenant (&lt;=24h), notificacion a SIC/RNBD (&lt;=15 dias habiles), post-mortem y runbook OPS-05 (Ley 1581, SLA SaaS Enterprise).</desc>
+  <defs>
+    <marker id="arr12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
+    </marker>
+    <marker id="arr12Red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
+    </marker>
+    <marker id="arr12Green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2E5E4E"/>
+    </marker>
+  </defs>
+  <rect width="1300" height="780" fill="#FBFAF8"/>
+
+  <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-12 - Notificacion de brechas de seguridad</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Ley 1581 / RNBD (15 dias habiles SIC) - SLA Enterprise 24h a tenant - Runbook OPS-05 - DPO</text>
+  <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
+
+  <!-- Paso 1: Deteccion -->
+  <rect x="60" y="114" width="240" height="104" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
+  <text x="80" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 - DETECTAR</text>
+  <text x="80" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#2B4470">Observabilidad + WAF</text>
+  <text x="80" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">OpenTelemetry, Sentry y WAF</text>
+  <text x="80" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Alerta critica -> Seguridad + DPO</text>
+
+  <!-- Paso 2: Contencion -->
+  <rect x="320" y="114" width="240" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="340" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 - CONTENER</text>
+  <text x="340" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Revocar tokens y sesiones</text>
+  <text x="340" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Deshabilitar endpoint o tenant</text>
+  <text x="340" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Preservar logs de auditoria</text>
+
+  <!-- Paso 3: Aviso al tenant -->
+  <rect x="580" y="114" width="240" height="104" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
+  <text x="600" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">3 - AVISO AL TENANT (&lt;= 24 h)</text>
+  <text x="600" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#8A6114">Incidente confirmado</text>
+  <text x="600" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Email transaccional + panel</text>
+  <text x="600" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Evidencia para el tenant</text>
+
+  <!-- Paso 4: Notificacion SIC -->
+  <rect x="840" y="114" width="400" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="860" y="144" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">4 - NOTIFICACION A SIC / RNBD (&lt;= 15 dias habiles)</text>
+  <text x="860" y="166" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Informe tecnico radificado por equipo legal</text>
+  <text x="860" y="186" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Ley 1581: 15 dias habiles desde conocimiento de la falla</text>
+  <text x="860" y="204" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">GDPR Art. 33: 72 h (referencia internacional, no norma CO)</text>
+
+  <!-- Conexiones -->
+  <line x1="304" y1="166" x2="314" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr12)"/>
+  <line x1="564" y1="166" x2="574" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr12)"/>
+  <line x1="824" y1="166" x2="834" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr12)"/>
+
+  <!-- Doble plazo -->
+  <rect x="60" y="248" width="590" height="118" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
+  <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">SLA DUAL</text>
+  <text x="80" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" fill="#8A6114">24 h -> tenant (objetivo contractual, no legal)</text>
+  <text x="80" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" fill="#8A6114">15 dias habiles -> SIC / RNBD (plazo legal colombiano)</text>
+  <text x="80" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">El plazo de 72 h es de GDPR; la obligacion real ante la SIC se valida con abogado</text>
+
+  <!-- Runbook -->
+  <rect x="670" y="248" width="570" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">RUNBOOK OPS-05</text>
+  <text x="690" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Deteccion real: auth, WAF, DB, cadena de auditoria (no solo Sentry)</text>
+  <text x="690" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">On-call y cadena de mando definida (DPO / seguridad)</text>
+  <text x="690" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Plantillas de notificacion a autoridad y tenants preparadas</text>
+
+  <!-- Post-mortem -->
+  <rect x="60" y="390" width="590" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">POST-MORTEM Y APRENDIZAJE</text>
+  <text x="80" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Post-mortem sin culpables y con acciones con dueno y fecha</text>
+  <text x="80" y="460" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Actualizacion del runbook y reglas de deteccion</text>
+  <text x="80" y="480" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Evidencia inmutable en `decision_logs` (cadena de hash)</text>
+
+  <!-- Sin PII -->
+  <rect x="670" y="390" width="570" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="690" y="418" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">SIN PII CRUDA</text>
+  <text x="690" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Logs de seguridad sin nombres, emails, telefonos ni direcciones</text>
+  <text x="690" y="460" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`trace_id` para correlacion sin exponer datos personales</text>
+  <text x="690" y="480" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`prompt_hash` en lugar de prompts completos (gobernanza IA)</text>
+
+  <!-- Verificacion -->
+  <rect x="60" y="532" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
+  <text x="80" y="560" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMO SE VERIFICA</text>
+  <text x="80" y="582" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Simulacion de brecha: deteccion -> contencion -> aviso &lt;= 24h</text>
+  <text x="80" y="602" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Plantillas de notificacion revisadas por legal</text>
+  <text x="80" y="622" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Runbook OPS-05 ejecutable en staging</text>
+  <text x="80" y="642" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Alerta de cadena de auditoria fallida bloquea mutaciones sensibles</text>
+
+  <!-- Pendiente legal -->
+  <rect x="670" y="532" width="570" height="130" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
+  <text x="690" y="560" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">PENDIENTE DE REVISION LEGAL</text>
+  <text x="690" y="582" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Plazo ante la SIC y aplicacion de GDPR: validar con abogado</text>
+  <text x="690" y="602" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Canales directos a tenants y formato de notificacion</text>
+  <text x="690" y="622" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Responsable nombrado (DPO / seguridad) y SLA interno</text>
+  <text x="690" y="642" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">On-call financiado para S1; deteccion real, no solo Sentry</text>
+
+  <text x="1240" y="760" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/adr - D-12 - 2026-11</text>
+</svg>
