@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800" width="1400" height="800" role="img" aria-labelledby="tPay dPay">
   <title id="tPay">Flujo de pagos, checkout y merchant of record</title>
-  <desc id="dPay">Dos flujos de dinero separados: plataforma→comerciante (suscripción Stripe) y comerciante→comprador (checkout Wompi). Webhooks firmados, idempotencia, SAQ A, 3DS y chargebacks.</desc>
+  <desc id="dPay">Dos flujos de dinero separados: plataformacomerciante (suscripcion Stripe) y comerciantecomprador (checkout Wompi). Webhooks firmados, idempotencia, SAQ A, 3DS y chargebacks.</desc>
   <defs>
     <marker id="arrPay" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
@@ -11,100 +12,100 @@
   </defs>
   <rect width="1400" height="800" fill="#FBFAF8"/>
 
-  <text x="700" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="26" font-weight="700" fill="#16181A" letter-spacing="-0.3">Pagos, checkout y merchant of record</text>
-  <text x="700" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="13.5" fill="#5B6167">D-02 · D-11 · D-14 · ADR-0004 · ADR-0010 · Wompi · Stripe · PCI-DSS v4.0.1</text>
+  <text x="700" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="26" font-weight="700" fill="#16181A" letter-spacing="-0.3">Pagos, checkout y merchant of record</text>
+  <text x="700" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13.5" fill="#5B6167">D-02 | D-11 | D-14 | ADR-0004 | ADR-0010 | Wompi | Stripe | PCI-DSS v4.0.1</text>
   <line x1="64" y1="90" x2="1336" y2="90" stroke="#E2DED6" stroke-width="1"/>
 
-  <!-- Flujo 1: Comprador → Comerciante -->
+  <!-- Flujo 1: Comprador Comerciante -->
   <rect x="64" y="118" width="300" height="118" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
-  <text x="84" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">A · COMPRADOR</text>
-  <text x="84" y="170" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#2B4470">Checkout invitado</text>
-  <text x="84" y="192" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#4B5F7E">Sin cuenta · magic link opcional</text>
-  <text x="84" y="210" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#4B5F7E">PSE · Nequi · tarjeta (3DS)</text>
+  <text x="84" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">A COMPRADOR</text>
+  <text x="84" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#2B4470">Checkout invitado</text>
+  <text x="84" y="192" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Sin cuenta magic link opcional</text>
+  <text x="84" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">PSE Nequi tarjeta (3DS)</text>
 
   <rect x="384" y="118" width="300" height="118" rx="10" fill="#F7E9E3" stroke="#B4553C" stroke-opacity="0.35"/>
-  <text x="404" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E422E">B · TENANT / COMERCIANTE</text>
-  <text x="404" y="170" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#8E422E">Merchant of record</text>
-  <text x="404" y="192" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E5B4C">Cuenta propia de Wompi</text>
-  <text x="404" y="210" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E5B4C">Responsable de IVA, DIAN, chargebacks</text>
+  <text x="404" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E422E">B TENANT / COMERCIANTE</text>
+  <text x="404" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#8E422E">Merchant of record</text>
+  <text x="404" y="192" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E5B4C">Cuenta propia de Wompi</text>
+  <text x="404" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E5B4C">Responsable de IVA, DIAN, chargebacks</text>
 
   <rect x="704" y="118" width="300" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="724" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">C · WOMPI</text>
-  <text x="724" y="170" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#16181A">Web Checkout hosted</text>
-  <text x="724" y="192" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Redirect / ventana flotante</text>
-  <text x="724" y="210" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">3DS obligatorio · sin PAN/CVV en Growup</text>
+  <text x="724" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">C WOMPI</text>
+  <text x="724" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16181A">Web Checkout hosted</text>
+  <text x="724" y="192" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Redirect / ventana flotante</text>
+  <text x="724" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">3DS obligatorio sin PAN/CVV en Growup</text>
 
-  <!-- Flujo 2: Plataforma → Comerciante (suscripción) -->
+  <!-- Flujo 2: Plataforma Comerciante (suscripcion) -->
   <rect x="64" y="262" width="300" height="118" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
-  <text x="84" y="292" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">D · PLATAFORMA</text>
-  <text x="84" y="314" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#22483C">Suscripción mensual</text>
-  <text x="84" y="336" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#41695B">Stripe Billing · trial 14 días</text>
-  <text x="84" y="354" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#41695B">COP · tarjeta · sin custodia de fondos del checkout</text>
+  <text x="84" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">D PLATAFORMA</text>
+  <text x="84" y="314" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#22483C">Suscripcion mensual</text>
+  <text x="84" y="336" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Stripe Billing trial 14 dias</text>
+  <text x="84" y="354" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">COP | tarjeta | sin custodia de fondos</text>
 
   <rect x="384" y="262" width="300" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="404" y="292" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">E · STRIPE</text>
-  <text x="404" y="314" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#16181A">Stripe Billing</text>
-  <text x="404" y="336" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">1 customer por tenant</text>
-  <text x="404" y="354" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">· Customer Portal · webhooks firmados</text>
+  <text x="404" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">E STRIPE</text>
+  <text x="404" y="314" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16181A">Stripe Billing</text>
+  <text x="404" y="336" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">1 customer por tenant</text>
+  <text x="404" y="354" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167"> Customer Portal webhooks firmados</text>
 
   <!-- Webhooks -->
   <rect x="704" y="262" width="300" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="724" y="292" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">F · WEBHOOKS</text>
-  <text x="724" y="314" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#16181A">Firmados + idempotentes</text>
-  <text x="724" y="336" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Wompi: `webhook_key` no adivinable</text>
-  <text x="724" y="354" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Stripe: `Stripe-Signature` + `event.id`</text>
+  <text x="724" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">F WEBHOOKS</text>
+  <text x="724" y="314" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16181A">Firmados + idempotentes</text>
+  <text x="724" y="336" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Wompi: `webhook_key` no adivinable</text>
+  <text x="724" y="354" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Stripe: `Stripe-Signature` + `event.id`</text>
 
   <!-- Fuente de verdad -->
   <rect x="1024" y="118" width="312" height="262" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
-  <text x="1044" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">FUENTE DE VERDAD</text>
-  <text x="1044" y="172" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#8A6114">Webhook firmado = pagado</text>
-  <text x="1044" y="196" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">El redirect del navegador nunca confirma</text>
-  <text x="1044" y="216" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Monto/moneda mismatch → `PAYMENT_MISMATCH`</text>
-  <text x="1044" y="236" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Replay no duplica pago ni factura</text>
-  <text x="1044" y="256" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Montos en centavos (`bigint`), nunca `float`</text>
+  <text x="1044" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">FUENTE DE VERDAD</text>
+  <text x="1044" y="172" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#8A6114">Webhook firmado = pagado</text>
+  <text x="1044" y="196" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">El redirect del navegador nunca confirma</text>
+  <text x="1044" y="216" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Monto/moneda mismatch `PAYMENT_MISMATCH`</text>
+  <text x="1044" y="236" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Replay no duplica pago ni factura</text>
+  <text x="1044" y="256" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Montos en centavos (`bigint`), nunca `float`</text>
 
   <!-- PCI / SAQ A -->
   <rect x="1024" y="406" width="312" height="130" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
-  <text x="1044" y="434" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">PCI-DSS v4.0.1 · SAQ A</text>
-  <text x="1044" y="458" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">6.4.3: inventario de scripts auditado</text>
-  <text x="1044" y="476" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">11.6.1: detección de manipulación (e-skimming)</text>
-  <text x="1044" y="496" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">CSP estricta · SRI · sin `unsafe-inline` en /checkout</text>
-  <text x="1044" y="516" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Cero scripts de terceros en página de pago</text>
+  <text x="1044" y="434" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">PCI-DSS v4.0.1 SAQ A</text>
+  <text x="1044" y="458" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">6.4.3: inventario de scripts auditado</text>
+  <text x="1044" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">11.6.1: deteccion de manipulacion (e-skimming)</text>
+  <text x="1044" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">CSP estricta SRI sin `unsafe-inline` en /checkout</text>
+  <text x="1044" y="516" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Cero scripts de terceros en pagina de pago</text>
 
   <!-- Fraude / 3DS / Chargebacks -->
   <rect x="64" y="406" width="300" height="130" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
-  <text x="84" y="434" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428">FRAUDE Y CHARGEBACKS</text>
-  <text x="84" y="458" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">3DS obligatorio → liability shift al emisor</text>
-  <text x="84" y="476" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Wompi scoring + risk score en `payments`</text>
-  <text x="84" y="496" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">IP, device fingerprint, estado 3DS</text>
-  <text x="84" y="516" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Expediente digital para disputa del tenant</text>
+  <text x="84" y="434" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428">FRAUDE Y CHARGEBACKS</text>
+  <text x="84" y="458" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">3DS obligatorio liability shift al emisor</text>
+  <text x="84" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">Wompi scoring + risk score en `payments`</text>
+  <text x="84" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">IP, device fingerprint, estado 3DS</text>
+  <text x="84" y="516" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">Expediente digital para disputa del tenant</text>
 
   <!-- Estados -->
   <rect x="384" y="406" width="300" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="404" y="434" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">ESTADOS</text>
-  <text x="404" y="458" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">Pago: `pending → authorized → paid →`</text>
-  <text x="404" y="476" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">`refunded / partially_refunded / failed / expired`</text>
-  <text x="404" y="496" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">Orden: `pending_payment → paid → fulfilled →`</text>
-  <text x="404" y="516" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">`cancelled / refunded`</text>
+  <text x="404" y="434" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">ESTADOS</text>
+  <text x="404" y="458" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Pago: `pending / authorized / paid`</text>
+  <text x="404" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">`refunded / partially_refunded / failed / expired`</text>
+  <text x="404" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Orden: `pending_payment / paid / fulfilled`</text>
+  <text x="404" y="516" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">`cancelled / refunded`</text>
 
-  <!-- Conciliación -->
+  <!-- Conciliacion -->
   <rect x="704" y="406" width="300" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="724" y="434" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">CONCILIACIÓN</text>
-  <text x="724" y="458" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Job diario por tenant: órdenes vs Wompi</text>
-  <text x="724" y="476" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12" fill="#5B6167">Job diario de suscripciones vs Stripe</text>
-  <text x="724" y="496" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Diferencias → alerta operativa (no corrección automática)</text>
-  <text x="724" y="516" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Ledger `PAY-04` idempotente</text>
+  <text x="724" y="434" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">CONCILIACION</text>
+  <text x="724" y="458" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Job diario por tenant: ordenes vs Wompi</text>
+  <text x="724" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Job diario de suscripciones vs Stripe</text>
+  <text x="724" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Diferencias: alerta operativa; sin autocorreccion</text>
+  <text x="724" y="516" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Ledger `PAY-04` idempotente</text>
 
   <!-- Conexiones -->
   <line x1="368" y1="177" x2="378" y2="177" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrPay)"/>
   <line x1="688" y1="177" x2="698" y2="177" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrPay)"/>
   <line x1="368" y1="321" x2="378" y2="321" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrPay)"/>
   <line x1="688" y1="321" x2="698" y2="321" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrPay)"/>
-  <line x1="920" y1="249" x2="930" y2="249" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrPay)"/>
+  <line x1="1006" y1="321" x2="1018" y2="321" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrPay)"/>
 
   <!-- Flecha de dinero -->
-  <polyline points="688,249 760,249 760,177 700,177" fill="none" stroke="#8E422E" stroke-width="2" marker-end="url(#arrPayDeny)"/>
-  <text x="725" y="232" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" fill="#8E422E">dinero directo al comerciante</text>
+  <polyline points="854,236 854,244 694,244" fill="none" stroke="#8E422E" stroke-width="2" marker-end="url(#arrPayDeny)"/>
+  <text x="854" y="258" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#8E422E">Fondos directos al comerciante</text>
 
-  <text x="1336" y="780" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="10.5" fill="#A0A5AA">Growup · docs/architecture · 2026-11</text>
+  <text x="1336" y="780" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup docs/architecture 2026-11</text>
 </svg>

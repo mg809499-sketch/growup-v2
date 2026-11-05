@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 820" width="1400" height="820" role="img" aria-labelledby="tGov dGov">
-  <title id="tGov">Gobernanza, decide() y cadena de auditoría</title>
-  <desc id="dGov">Motor de reglas determinista, decision_logs append-only, approval_tasks HANDOFF y flujos de mutación sensible (D-09 a D-18, ADR-0007).</desc>
+  <title id="tGov">Gobernanza, decide() y cadena de auditoria</title>
+  <desc id="dGov">Motor de reglas determinista, decision_logs append-only, approval_tasks HANDOFF y flujos de mutacion sensible (D-09 a D-18, ADR-0007).</desc>
   <defs>
     <marker id="arrGov" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
@@ -17,117 +18,119 @@
   </defs>
   <rect width="1400" height="820" fill="#FBFAF8"/>
 
-  <text x="700" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="26" font-weight="700" fill="#16181A" letter-spacing="-0.3">Gobernanza — decide() y auditoría inmutable</text>
-  <text x="700" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="13.5" fill="#5B6167">D-09 a D-18 · ADR-0007 · ALLOW / DENY / HANDOFF · cadena de hash · ai_audit_logs</text>
+  <text x="700" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="26" font-weight="700" fill="#16181A" letter-spacing="-0.3">Gobernanza decide() y auditoria inmutable</text>
+  <text x="700" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13.5" fill="#5B6167">D-09 a D-18 | ADR-0007 | ALLOW / DENY / HANDOFF | hash chain</text>
   <line x1="64" y1="90" x2="1336" y2="90" stroke="#E2DED6" stroke-width="1"/>
 
   <!-- Entrada -->
   <rect x="64" y="118" width="300" height="92" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
-  <text x="84" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 · PETICIÓN</text>
-  <text x="84" y="172" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="16" font-weight="600" fill="#2B4470">Endpoint sensible</text>
-  <text x="84" y="192" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#4B5F7E">pago · reembolso · publish · cambio de rol</text>
-  <text x="84" y="210" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#4B5F7E">suspensión de tenant · acceso cross-tenant</text>
+  <text x="84" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 PETICION</text>
+  <text x="84" y="172" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#2B4470">Endpoint sensible</text>
+  <text x="84" y="192" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">pago/reembolso; publish; cambio de rol</text>
+  <text x="84" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">suspension tenant; acceso cross-tenant</text>
 
   <!-- decide() -->
   <rect x="384" y="118" width="300" height="92" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="404" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 · MOTOR DE REGLAS</text>
-  <text x="404" y="172" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#16181A">`decide(policy_id, input)`</text>
-  <text x="404" y="192" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Síncrono · determinista · sin red</text>
-  <text x="404" y="210" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Políticas versionadas en el repositorio</text>
+  <text x="404" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 MOTOR DE REGLAS</text>
+  <text x="404" y="172" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16181A">`decide(policy_id, input)`</text>
+  <text x="404" y="192" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Sincrono determinista sin red</text>
+  <text x="404" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Politicas versionadas en el repositorio</text>
 
   <!-- Decisiones -->
   <rect x="704" y="118" width="300" height="92" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="724" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">3 · DECISIÓN</text>
-  <text x="724" y="172" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#16181A">`ALLOW` / `DENY` / `HANDOFF`</text>
-  <text x="724" y="192" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Excepción → `DENY` (`POLICY_ERROR`)</text>
-  <text x="724" y="210" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Umbrales por tenant, versionados</text>
+  <text x="724" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">3 DECISION</text>
+  <text x="724" y="172" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16181A">`ALLOW` / `DENY` / `HANDOFF`</text>
+  <text x="724" y="192" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Excepcion `DENY` (`POLICY_ERROR`)</text>
+  <text x="724" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Umbrales por tenant, versionados</text>
 
   <!-- Registro -->
   <rect x="1024" y="118" width="312" height="92" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
-  <text x="1044" y="148" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">4 · AUDITORÍA</text>
-  <text x="1044" y="172" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="16" font-weight="600" fill="#8A6114">`decision_logs` append-only</text>
-  <text x="1044" y="192" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Hash chain por tenant + cadena `platform`</text>
-  <text x="1044" y="210" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Sin PII cruda · `prompt_hash` · `context_summary`</text>
+  <text x="1044" y="148" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">4 AUDITORIA</text>
+  <text x="1044" y="172" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#8A6114">`decision_logs` append-only</text>
+  <text x="1044" y="192" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Hash chain por tenant + cadena `platform`</text>
+  <text x="1044" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Sin PII cruda `prompt_hash` `context_summary`</text>
 
   <!-- Ramas -->
   <!-- ALLOW -->
   <rect x="64" y="240" width="230" height="92" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
-  <text x="84" y="268" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">✓ ALLOW</text>
-  <text x="84" y="292" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#41695B">Mutación ejecutada</text>
-  <text x="84" y="312" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#41695B">Registrado en `decision_logs`</text>
+  <text x="84" y="268" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C"> ALLOW</text>
+  <text x="84" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Mutacion ejecutada</text>
+  <text x="84" y="312" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Registrado en `decision_logs`</text>
 
   <!-- DENY -->
   <rect x="314" y="240" width="230" height="92" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
-  <text x="334" y="268" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428">✗ DENY</text>
-  <text x="334" y="292" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">Mutación bloqueada</text>
-  <text x="334" y="312" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E3428">`reason_code` estable (`TENANT_MISMATCH`, etc.)</text>
+  <text x="334" y="268" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428"> DENY</text>
+  <text x="334" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">Mutacion bloqueada</text>
+  <text x="334" y="312" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8E3428">reason_code: `TENANT_MISMATCH`</text>
 
   <!-- HANDOFF -->
   <rect x="564" y="240" width="230" height="92" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
-  <text x="584" y="268" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">⇄ HANDOFF</text>
-  <text x="584" y="292" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8A6114">Tarea en `approval_tasks`</text>
-  <text x="584" y="312" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8A6114">4 ojos: quién solicita no aprueba</text>
+  <text x="584" y="268" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114"> HANDOFF</text>
+  <text x="584" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8A6114">Tarea en `approval_tasks`</text>
+  <text x="584" y="312" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8A6114">4 ojos: quien solicita no aprueba</text>
 
   <!-- Approval -->
   <rect x="814" y="240" width="230" height="92" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="834" y="268" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">APROBACIÓN</text>
-  <text x="834" y="292" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`approved` / `rejected` / `expired`</text>
-  <text x="834" y="312" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Resolución registrada en auditoría</text>
+  <text x="834" y="268" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">APROBACION</text>
+  <text x="834" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`approved` / `rejected` / `expired`</text>
+  <text x="834" y="312" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Resolucion registrada en auditoria</text>
 
   <!-- Cadena de hash -->
   <rect x="64" y="362" width="1272" height="118" rx="10" fill="#FFFFFF" stroke="#C9C5BE" stroke-dasharray="6 4"/>
-  <text x="84" y="390" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">CADENA DE INTEGRIDAD</text>
-  <text x="84" y="412" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#16181A">`genesis = 64 ceros` → `hash_i = SHA-256(row_i + prev_hash_i)`</text>
-  <text x="84" y="432" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Serialización con `pg_advisory_xact_lock(hashtext(chain_key))`</text>
-  <text x="84" y="452" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Job diario verifica la cadena → `GOVERNANCE_INTEGRITY_FAILURE` si falla</text>
-  <text x="84" y="472" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Retención mínima 5 años · exportable a R2</text>
+  <text x="84" y="390" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">CADENA DE INTEGRIDAD</text>
+  <text x="84" y="412" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">`genesis = 64 ceros` `hash_i = SHA-256(row_i + prev_hash_i)`</text>
+  <text x="84" y="432" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Serializacion con `pg_advisory_xact_lock(hashtext(chain_key))`</text>
+  <text x="84" y="452" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Job diario verifica la cadena `GOVERNANCE_INTEGRITY_FAILURE` si falla</text>
+  <text x="84" y="472" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Retencion y archivo en R2 segun politica aprobada (D-10)</text>
 
   <!-- Compuertas del MVP -->
   <rect x="64" y="504" width="300" height="216" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="84" y="532" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMPUERTAS OBLIGATORIAS (MVP)</text>
-  <text x="84" y="556" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">• `payments.confirm` — solo webhook firmado</text>
-  <text x="84" y="576" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">• `payments.refund` — ALLOW bajo umbral / HANDOFF sobre</text>
-  <text x="84" y="596" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">• `content.publish` — ALLOW si schema y permisos válidos</text>
-  <text x="84" y="616" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">• `identity.change_role` — solo `owner`</text>
-  <text x="84" y="636" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">• `platform.suspend_tenant` — HANDOFF + auditoría</text>
-  <text x="84" y="656" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">• `platform.cross_tenant_access` — HANDOFF, nunca silencioso</text>
+  <text x="84" y="532" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">COMPUERTAS OBLIGATORIAS (MVP)</text>
+  <text x="84" y="556" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167"> `payments.confirm` solo webhook firmado</text>
+  <text x="84" y="576" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">`payments.refund`: ALLOW bajo limite; HANDOFF sobre</text>
+  <text x="84" y="596" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">`content.publish`: ALLOW con schema valido</text>
+  <text x="84" y="616" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167"> `identity.change_role` solo `owner`</text>
+  <text x="84" y="636" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167"> `platform.suspend_tenant` HANDOFF + auditoria</text>
+  <text x="84" y="656" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`cross_tenant_access`: HANDOFF, nunca silencioso</text>
 
   <!-- IA futura -->
   <rect x="384" y="504" width="300" height="216" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.3"/>
-  <text x="404" y="532" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">MARCO IA (FUTURO, D-05 DIFERIDO)</text>
-  <text x="404" y="556" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Solo intents de allowlist versionada</text>
-  <text x="404" y="576" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`ActionProposal` → `decide()` evalúa como entrada</text>
-  <text x="404" y="596" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Confianza baja → `HANDOFF` a humano</text>
-  <text x="404" y="616" font-family="Inter, 'Segoed UI', system-ui, nos" font-size="12" fill="#5B6167">Presupuesto por tenant/agente · circuit breaker</text>
-  <text x="404" y="636" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Fallback a plantillas estáticas</text>
-  <text x="404" y="656" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`prompt_hash` en lugar de prompt completo</text>
+  <text x="404" y="532" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">MARCO IA (FUTURO, D-05 DIFERIDO)</text>
+  <text x="404" y="556" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Solo intents de allowlist versionada</text>
+  <text x="404" y="576" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`ActionProposal` `decide()` evalua como entrada</text>
+  <text x="404" y="596" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Confianza baja `HANDOFF` a humano</text>
+  <text x="404" y="616" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Presupuesto por tenant/agente circuit breaker</text>
+  <text x="404" y="636" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Fallback a plantillas estaticas</text>
+  <text x="404" y="656" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`prompt_hash` en lugar de prompt completo</text>
 
   <!-- Observabilidad -->
   <rect x="704" y="504" width="300" height="216" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="724" y="532" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">OBSERVABILIDAD DE GOBERNANZA</text>
-  <text x="724" y="556" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Métricas por `policy_id`, `decision`, `reason_code`</text>
-  <text x="724" y="576" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Alertas: DENY/HANDOFF anomalía, cadena inválida</text>
-  <text x="724" y="596" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">Endpoint sensible sin política → falla en CI</text>
-  <text x="724" y="616" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#5B6167">`trace_id` correlaciona toda la traza</text>
+  <text x="724" y="532" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">OBSERVABILIDAD DE GOBERNANZA</text>
+  <text x="724" y="556" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Metricas por `policy_id`, `decision`, `reason_code`</text>
+  <text x="724" y="576" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Alertas: DENY/HANDOFF anomalia, cadena invalida</text>
+  <text x="724" y="596" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Endpoint sensible sin politica falla en CI</text>
+  <text x="724" y="616" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`trace_id` correlaciona toda la traza</text>
 
   <!-- Vendor risk / SOC 2 -->
   <rect x="1024" y="504" width="312" height="216" rx="10" fill="#F7E9E3" stroke="#B4553C" stroke-opacity="0.35"/>
-  <text x="1044" y="532" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E422E">D-18 · SOC 2-READY + VENDOR RISK</text>
-  <text x="1044" y="556" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E422E">Change management: PR + CI + revisión + migraciones</text>
-  <text x="1044" y="576" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E422E">Revisión trimestral de accesos · vendor risk anual</text>
-  <text x="1044" y="596" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E422E">Inventario de activos · respuesta a incidentes</text>
-  <text x="1044" y="616" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E422E">Backups con prueba de restauración · evidencia en repo</text>
-  <text x="1044" y="636" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="12" fill="#8E422E">No certificación formal hasta cliente enterprise</text>
+  <text x="1044" y="532" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E422E">D-18 SOC 2-READY + VENDOR RISK</text>
+  <text x="1044" y="556" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E422E">Change management: PR + CI + revision + migraciones</text>
+  <text x="1044" y="576" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E422E">Revision trimestral de accesos vendor risk anual</text>
+  <text x="1044" y="596" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E422E">Inventario de activos respuesta a incidentes</text>
+  <text x="1044" y="616" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E422E">Prueba de restauracion; evidencia en repo</text>
+  <text x="1044" y="636" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E422E">No certificacion formal hasta cliente enterprise</text>
 
   <!-- Conexiones -->
   <line x1="368" y1="164" x2="378" y2="164" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrGov)"/>
   <line x1="688" y1="164" x2="698" y2="164" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrGov)"/>
-  <line x1="1184" y1="164" x2="1194" y2="164" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrGov)"/>
+  <line x1="1008" y1="164" x2="1018" y2="164" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrGov)"/>
 
-  <line x1="179" y1="286" x2="308" y2="286" stroke="#2E5E4E" stroke-width="1.5" marker-end="url(#arrGovAllow)"/>
-  <line x1="429" y1="286" x2="558" y2="286" stroke="#B4483A" stroke-width="1.5" marker-end="url(#arrGovDeny)"/>
-  <line x1="679" y1="286" x2="788" y2="286" stroke="#C08A2E" stroke-width="1.5" marker-end="url(#arrGovHandoff)"/>
-  <line x1="934" y1="286" x2="944" y2="286" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrGov)"/>
+  <line x1="854" y1="210" x2="854" y2="224" stroke="#6B7177" stroke-width="1.5"/>
+  <line x1="179" y1="224" x2="929" y2="224" stroke="#6B7177" stroke-width="1.5"/>
+  <line x1="179" y1="224" x2="179" y2="236" stroke="#2E5E4E" stroke-width="1.5" marker-end="url(#arrGovAllow)"/>
+  <line x1="429" y1="224" x2="429" y2="236" stroke="#B4483A" stroke-width="1.5" marker-end="url(#arrGovDeny)"/>
+  <line x1="679" y1="224" x2="679" y2="236" stroke="#C08A2E" stroke-width="1.5" marker-end="url(#arrGovHandoff)"/>
+  <line x1="929" y1="224" x2="929" y2="236" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrGov)"/>
 
-  <text x="1336" y="800" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, nos" font-size="10.5" fill="#A0A5AA">Growup · docs/architecture · 2026-11</text>
+  <text x="1336" y="800" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup docs/architecture 2026-11</text>
 </svg>

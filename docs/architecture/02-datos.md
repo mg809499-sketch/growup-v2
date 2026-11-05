@@ -445,14 +445,16 @@ Cada migración incluye RLS, índices y tests. Sin `DROP` destructivo en el mism
 
 ## 11. Retención y datos personales
 
+> **Propuesta sujeta a D-10.** El requisito actual del proyecto pide conservar órdenes, facturas y `decision_logs` por al menos 5 años; se registra aquí como criterio provisional, no como conclusión legal. Legal/Contabilidad deben confirmar categorías, fundamento, evento inicial, excepciones y acceso. No configurar borrados automáticos ni responder solicitudes basándose solo en esta tabla hasta aprobar la matriz.
+
 | Dato | Retención | Nota |
 |---|---|---|
-| Órdenes y facturas | 5 años | Obligación contable/DIAN |
-| `decision_logs` | 5 años | Gobernanza |
-| `auth_events` | 1 año | Seguridad |
-| Carritos abandonados | 30 días | Luego anonimizar |
-| Media huérfana | 30 días | Limpieza por job |
-| Logs de aplicación | 30-90 días | Sin PII |
+| Órdenes y facturas | ≥5 años como requisito provisional; validar | Confirmar obligación, campos mínimos, acceso, inicio y disposición |
+| `decision_logs` | ≥5 años como requisito provisional; validar en D-10 | Mantener integridad de cadena y minimizar datos personales |
+| `auth_events` | Pendiente de validar | Definir necesidad de seguridad, plazo y datos de red |
+| Carritos abandonados | Pendiente de definir | Definir expiración y tratamiento de identificadores |
+| Media huérfana | Limpieza operativa propuesta | Validar ventana de recuperación y borrar objeto/metadata coordinadamente |
+| Logs de aplicación | Pendiente de definir | Minimizar PII; alinear retención en todos los proveedores |
 
 ## 12. Pendientes
 

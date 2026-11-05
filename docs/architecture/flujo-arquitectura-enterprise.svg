@@ -1,6 +1,7 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" width="1400" height="900" role="img" aria-labelledby="tArc dArc">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" width="1400" height="900" role="img" aria-labelledby="tArc dArc">
   <title id="tArc">Arquitectura enterprise Cordiasolve V2 - Resolucion D-09 a D-18</title>
-  <desc id="dArc">Flujo de arquitectura completa con componentes de plataforma, gobernanza, pagos, privacidad y cumplimiento normativo colombiano.</desc>
+  <desc id="dArc">Mapa de arquitectura objetivo. D-09, D-10 y D-12 siguen propuestas; roles, retencion y plazos legales requieren validacion antes de produccion.</desc>
   <defs>
     <marker id="arrArc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
@@ -8,7 +9,7 @@
   </defs>
   <rect width="1400" height="900" fill="#FBFAF8"/>
   <text x="700" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="26" font-weight="700" fill="#16181A" letter-spacing="-0.3">Arquitectura enterprise - Cordiasolve V2 (D-09 a D-18)</text>
-  <text x="700" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13.5" fill="#5B6167">Componentes, flujos de datos y cumplimiento normativo colombiano</text>
+  <text x="700" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13.5" fill="#5B6167">Arquitectura objetivo, no prueba de controles activos ni dictamen legal</text>
   <line x1="64" y1="90" x2="1336" y2="90" stroke="#E2DED6" stroke-width="1"/>
   <rect x="64" y="110" width="300" height="118" rx="10" fill="#FFFFFF" stroke="#C9C5BE"/>
   <text x="84" y="142" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">01 - BORDE</text>
@@ -64,8 +65,8 @@
   <text x="404" y="438" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">10 - PRIVACIDAD</text>
   <text x="404" y="462" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#8A6114">D-09 / D-10 / D-12</text>
   <text x="404" y="484" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">DPA clickwrap - DSR asistido</text>
-  <text x="404" y="502" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">- fn_anonymize_customer</text>
-  <text x="404" y="520" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">- Brecha 24h / 15 dias habiles</text>
+  <text x="404" y="502" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">- DSR: flujo y retencion por definir</text>
+  <text x="404" y="520" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">- Brechas: SLA y plazos legales pendientes</text>
   <rect x="704" y="406" width="300" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="724" y="438" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">11 - EMAIL</text>
   <text x="724" y="462" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16181A">Resend / Postmark</text>
@@ -82,22 +83,20 @@
   <text x="84" y="592" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">13 - PROVEEDORES CRITICOS (Vendor Risk D-18)</text>
   <text x="84" y="614" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" fill="#16181A">Supabase (DB/Auth/RLS) - Wompi (checkout) - Stripe (suscripcion) - Cloudflare (R2/CDN/WAF) - Fly.io (API/workers) - Resend/Postmark (email) - DIAN (factura electronica)</text>
   <text x="84" y="636" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Revision anual de proveedores - SOC 2-ready - No custodia de fondos - No facilitador de mercado (D-17)</text>
-  <line x1="218" y1="170" x2="376" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="538" y1="170" x2="696" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="858" y1="170" x2="1016" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="218" y1="318" x2="376" y2="318" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="538" y1="318" x2="696" y2="318" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="858" y1="318" x2="1016" y2="318" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="1184" y1="318" x2="1184" y2="494" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="1184" y1="494" x2="218" y2="494" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="218" y1="618" x2="376" y2="618" stroke="#B4553C" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="538" y1="618" x2="696" y2="618" stroke="#B4553C" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="858" y1="618" x2="1016" y2="618" stroke="#B4553C" stroke-width="1.5" marker-end="url(#arrArc)"/>
-  <line x1="1184" y1="618" x2="1184" y2="554" stroke="#B4553C" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="368" y1="170" x2="378" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="688" y1="170" x2="698" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="1008" y1="170" x2="1018" y2="170" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="368" y1="318" x2="378" y2="318" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="688" y1="318" x2="698" y2="318" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="1008" y1="318" x2="1018" y2="318" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="1184" y1="382" x2="1184" y2="398" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="1018" y1="470" x2="1008" y2="470" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="698" y1="470" x2="688" y2="470" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
+  <line x1="378" y1="470" x2="368" y2="470" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrArc)"/>
   <rect x="64" y="700" width="1272" height="140" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.3"/>
   <text x="84" y="730" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">FLUJOS CLAVE (D-09 A D-18)</text>
-  <text x="84" y="752" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-09 DPA clickwrap - legal_acceptances - D-10 DSR anonimizacion - fn_anonymize_customer - D-11 SAQ A + CSP/SRI en /checkout</text>
-  <text x="84" y="774" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-12 Brecha 24h tenant / 15 dias habiles SIC - D-13 Retracto + Nota Credito DIAN - D-14 Fraude 3DS + chargebacks</text>
+  <text x="84" y="752" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-09 DPA propuesto, acceptance pendiente - D-10 DSR y retencion por validar - D-11 SAQ condicionado al checkout final</text>
+  <text x="84" y="774" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-12 incidente: SLA y deberes externos pendientes de validacion legal; no se fijan plazos en este mapa</text>
   <text x="84" y="796" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-15 Email transaccional ARQ - D-16 Soporte SLA matriz - D-17 No facilitador fiscal MVP - D-18 SOC 2-ready + vendor risk anual</text>
   <text x="1336" y="880" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/architecture - 2026-11</text>
 </svg>

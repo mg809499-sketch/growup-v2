@@ -131,6 +131,8 @@ Returns/RMA, bespoke, promociones, envío blindado, IA/WhatsApp, L402, multi-mon
 
 - [Modelo de datos](02-datos.md)
 - [Tenancy y threat model](03-tenancy.md)
+- [Flujos de seguridad de extremo a extremo](04-flujos-seguridad.md)
+- [Flujos legales propuestos](../legal/flujos.md)
 - [ADRs](../adr/README.md)
 - [Decisiones de negocio](../decisiones-pendientes.md)
 - [Spec del MVP](../../.kiro/specs/storefront-platform-v2/requirements.md)

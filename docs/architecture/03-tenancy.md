@@ -7,7 +7,7 @@
 
 - SaaS multi-tenant con base de datos compartida y aislamiento por **Row Level Security**.
 - Resolución: `Host` normalizado → `domains.host` → `tenant_id`.
-- El JWT de staff lleva `app_metadata.tenant_id` y `app_metadata.role`.
+- El JWT verificado puede aportar `app_metadata.tenant_id` como claim a comparar; el rol efectivo sale de la membresía activa y la matriz de permisos.
 - El comprador es invitado; si usa magic link, su `auth_user_id` se vincula a `customers`.
 - `X-Tenant-ID` es un hint interno entre servicios; nunca es fuente de verdad.
 - Platform admin tiene `tenant_id = null` y acceso cross-tenant solo por endpoints auditados.
@@ -167,5 +167,7 @@ Pendientes de automatizar cuando existan los endpoints que los exponen: vector 1
 ## Enlaces
 
 - [ADR-0003](../adr/0003-identidad-tenancy-rls.md)
+- [Flujos de seguridad de extremo a extremo](04-flujos-seguridad.md)
+- [Flujos legales propuestos](../legal/flujos.md)
 - [Modelo de datos](02-datos.md)
 - [Security steering](../../.kiro/steering/security.md)
