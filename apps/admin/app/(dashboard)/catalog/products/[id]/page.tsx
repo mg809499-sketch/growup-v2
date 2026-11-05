@@ -27,11 +27,18 @@ export default async function ProductDetailPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; media_offset?: string }>;
 }) {
   const { id } = await params;
-  const { error } = await searchParams;
+  const { error, media_offset } = await searchParams;
   const { token } = await requireSession();
+  const requestedMediaOffset = Number(media_offset);
+  const mediaOffset =
+    Number.isSafeInteger(requestedMediaOffset) &&
+    requestedMediaOffset >= 0 &&
+    requestedMediaOffset <= 1_000_000
+      ? requestedMediaOffset
+      : 0;
 
   let product: ProductDetailResponse;
   let mediaLibrary: MediaAssetListResponse;
@@ -41,7 +48,10 @@ export default async function ProductDetailPage({
         `/v1/admin/products/${encodeURIComponent(id)}`,
         token,
       ),
-      apiGet<MediaAssetListResponse>("/v1/admin/media?status=ready&limit=100", token),
+      apiGet<MediaAssetListResponse>(
+        `/v1/admin/media?status=ready&limit=100&offset=${mediaOffset}`,
+        token,
+      ),
     ]);
   } catch (apiError) {
     if (apiError instanceof ApiError && apiError.status === 404) {
@@ -319,6 +329,40 @@ export default async function ProductDetailPage({
             vuelve a esta pantalla.
           </p>
         )}
+        {mediaLibrary.total > mediaLibrary.limit ? (
+          <nav
+            aria-label="Paginación de biblioteca de imágenes"
+            className="flex items-center justify-between border-t border-slate-200 px-4 py-3 text-sm"
+          >
+            <span className="text-slate-500">
+              {mediaOffset + 1}–
+              {mediaOffset + mediaLibrary.items.length} de {mediaLibrary.total}
+            </span>
+            <div className="flex gap-3">
+              {mediaOffset > 0 ? (
+                <Link
+                  className="underline underline-offset-4"
+                  href={`/catalog/products/${product.id}?media_offset=${Math.max(
+                    0,
+                    mediaOffset - mediaLibrary.limit,
+                  )}`}
+                >
+                  Anterior
+                </Link>
+              ) : null}
+              {mediaOffset + mediaLibrary.items.length < mediaLibrary.total ? (
+                <Link
+                  className="underline underline-offset-4"
+                  href={`/catalog/products/${product.id}?media_offset=${
+                    mediaOffset + mediaLibrary.items.length
+                  }`}
+                >
+                  Siguiente
+                </Link>
+              ) : null}
+            </div>
+          </nav>
+        ) : null}
       </div>
 
       <div className="border border-slate-200 bg-white p-4">

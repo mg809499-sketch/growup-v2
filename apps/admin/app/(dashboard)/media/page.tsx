@@ -12,15 +12,43 @@ import { formatBytes } from "@/lib/format";
 export default async function MediaPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; limit?: string; error?: string }>;
+  searchParams: Promise<{
+    status?: string;
+    limit?: string;
+    offset?: string;
+    error?: string;
+  }>;
 }) {
   const params = await searchParams;
   const { token } = await requireSession();
-  const limit = Math.min(Number(params.limit) || 50, 100);
+  const requestedLimit = Number(params.limit);
+  const limit =
+    Number.isInteger(requestedLimit) && requestedLimit >= 1 && requestedLimit <= 100
+      ? requestedLimit
+      : 50;
+  const requestedOffset = Number(params.offset);
+  const offset =
+    Number.isSafeInteger(requestedOffset) &&
+    requestedOffset >= 0 &&
+    requestedOffset <= 1_000_000
+      ? requestedOffset
+      : 0;
   const page = await apiGet<MediaAssetListResponse>(
-    `/v1/admin/media${queryString({ status: params.status, limit })}`,
+    `/v1/admin/media${queryString({ status: params.status, limit, offset })}`,
     token,
   );
+  const previousOffset = Math.max(0, offset - limit);
+  const nextOffset = offset + page.items.length;
+  const pageHref = (targetOffset: number) => {
+    const query = new URLSearchParams({
+      limit: String(limit),
+      offset: String(targetOffset),
+    });
+    if (params.status) {
+      query.set("status", params.status);
+    }
+    return `/media?${query.toString()}`;
+  };
 
   return (
     <div className="space-y-6">
@@ -145,6 +173,40 @@ export default async function MediaPage({
           </table>
         </div>
       )}
+      <nav
+        aria-label="Paginación de media"
+        className="flex items-center justify-between gap-4 text-sm"
+      >
+        <p className="text-slate-500">
+          {page.total === 0
+            ? "0 assets"
+            : `${offset + 1}–${offset + page.items.length} de ${page.total}`}
+        </p>
+        <div className="flex gap-2">
+          <Link
+            aria-disabled={offset === 0}
+            className={`border px-3 py-2 ${
+              offset === 0
+                ? "pointer-events-none border-slate-200 text-slate-300"
+                : "border-slate-300 hover:border-slate-950"
+            }`}
+            href={pageHref(previousOffset)}
+          >
+            Anterior
+          </Link>
+          <Link
+            aria-disabled={nextOffset >= page.total}
+            className={`border px-3 py-2 ${
+              nextOffset >= page.total
+                ? "pointer-events-none border-slate-200 text-slate-300"
+                : "border-slate-300 hover:border-slate-950"
+            }`}
+            href={pageHref(nextOffset)}
+          >
+            Siguiente
+          </Link>
+        </div>
+      </nav>
     </div>
   );
 }

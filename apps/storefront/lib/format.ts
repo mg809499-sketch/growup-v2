@@ -25,13 +25,23 @@ export function mediaUrl(url: string, r2Key: string): string {
 
 export function productImage(
   media: ProductMediaResponse[] | undefined,
-): { url: string; alt: string } | null {
+): { mediaAssetId: string; url: string; alt: string } | null {
   if (!media || media.length === 0) {
     return null;
   }
 
-  const primary = media.find((item) => item.is_primary) ?? media[0];
-  const url = mediaUrl(primary.url, primary.r2_key);
-
-  return url ? { url, alt: primary.alt ?? "" } : null;
+  const prioritized = [...media].sort(
+    (left, right) => Number(right.is_primary) - Number(left.is_primary),
+  );
+  for (const item of prioritized) {
+    const url = mediaUrl(item.url, item.r2_key);
+    if (url) {
+      return {
+        mediaAssetId: item.media_asset_id,
+        url,
+        alt: item.alt ?? "",
+      };
+    }
+  }
+  return null;
 }

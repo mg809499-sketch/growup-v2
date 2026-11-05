@@ -6,12 +6,42 @@ import { Price } from "@/components/price";
 import { SectionLabel } from "@/components/section-label";
 import {
   ApiError,
+  getBootstrap,
   getProduct,
   getStorefrontHost,
 } from "@/lib/api";
-import { mediaUrl } from "@/lib/format";
+import type { ProductDetailResponse } from "@/lib/api";
+import { mediaUrl, productImage } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const host = await getStorefrontHost();
+  let product: ProductDetailResponse;
+  let tenantName: string;
+  try {
+    [product, { tenant: { name: tenantName } }] = await Promise.all([
+      getProduct(host, slug),
+      getBootstrap(host),
+    ]);
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) {
+      notFound();
+    }
+    throw error;
+  }
+  return {
+    title: `${product.name} | ${tenantName}`,
+    description:
+      product.description ??
+      `Conoce ${product.name} en la tienda ${tenantName}.`,
+  };
+}
 
 function variantLabel(optionValues: Record<string, string>): string {
   const entries = Object.entries(optionValues);
@@ -39,6 +69,7 @@ export default async function ProductPage({
     throw error;
   }
 
+  const primaryImage = productImage(product.media);
   const media = product.media
     .map((item) => ({
       ...item,
@@ -46,9 +77,16 @@ export default async function ProductPage({
     }))
     .filter((item) => item.absoluteUrl);
 
-  const main = media[0];
+  const main = primaryImage;
+  const thumbnails = media
+    .filter((item) => item.media_asset_id !== primaryImage?.mediaAssetId)
+    .slice(0, 4);
   const hasActiveVariant = product.variants.some(
     (variant) => variant.is_active && variant.stock_available > 0,
+  );
+  const minimumPriceVariant = product.variants.find(
+    (variant) =>
+      variant.is_active && variant.price_cents === product.min_price_cents,
   );
 
   return (
@@ -70,8 +108,8 @@ export default async function ProductPage({
           <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--surface-2)]">
             {main ? (
               <Image
-                src={main.absoluteUrl}
-                alt={main.alt ?? product.name}
+                src={main.url}
+                alt={main.alt || product.name}
                 fill
                 priority
                 sizes="(min-width: 1024px) 55vw, 100vw"
@@ -84,9 +122,9 @@ export default async function ProductPage({
             )}
           </div>
 
-          {media.length > 1 ? (
+          {thumbnails.length > 0 ? (
             <div className="mt-3 grid grid-cols-4 gap-3">
-              {media.slice(1, 5).map((item) => (
+              {thumbnails.map((item) => (
                 <div
                   key={item.media_asset_id}
                   className="relative aspect-square overflow-hidden bg-[var(--surface-2)]"
@@ -113,6 +151,7 @@ export default async function ProductPage({
           <div className="mt-4 flex items-center gap-4">
             <Price
               cents={product.min_price_cents}
+              compareAtCents={minimumPriceVariant?.compare_at_price_cents}
               className="text-lg"
             />
             <span
@@ -149,7 +188,9 @@ export default async function ProductPage({
                   <div className="text-right">
                     <Price cents={variant.price_cents} className="text-sm" />
                     <p className="label mt-1 text-[var(--muted)]">
-                      {variant.stock_available > 0
+                      {!variant.is_active
+                        ? "No disponible"
+                        : variant.stock_available > 0
                         ? `${variant.stock_available} disponibles`
                         : "Agotado"}
                     </p>

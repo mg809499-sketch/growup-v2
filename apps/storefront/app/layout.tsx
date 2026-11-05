@@ -10,7 +10,7 @@ import {
 import "./globals.css";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getBootstrap, getStorefrontHost } from "@/lib/api";
+import { ApiError, getBootstrap, getStorefrontHost } from "@/lib/api";
 import type { BootstrapResponse } from "@/lib/api";
 import { defaultTheme } from "@/lib/format";
 
@@ -46,10 +46,24 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Growup",
-  description: "Comercio editorial multi-tenant.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const host = await getStorefrontHost();
+  try {
+    const { tenant } = await getBootstrap(host);
+    return {
+      title: tenant.name,
+      description: `Descubre el catálogo y las novedades de ${tenant.name}.`,
+    };
+  } catch (error) {
+    if (error instanceof ApiError) {
+      return {
+        title: "Growup",
+        description: "Tienda online de cada marca en Growup.",
+      };
+    }
+    throw error;
+  }
+}
 
 export default async function RootLayout({
   children,

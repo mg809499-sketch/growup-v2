@@ -20,7 +20,11 @@ function required(formData: FormData, key: string, label: string): string {
 }
 
 function priceToCents(formData: FormData, key: string, label: string): number {
-  return parsePrice(text(formData, key), label) ?? 0;
+  const cents = parsePrice(text(formData, key), label);
+  if (cents === null || cents <= 0) {
+    throw new Error(`${label} debe ser mayor que cero`);
+  }
+  return cents;
 }
 
 function parsePrice(raw: string, label: string): number | null {
@@ -28,10 +32,14 @@ function parsePrice(raw: string, label: string): number | null {
     return null;
   }
   const pesos = Number(raw);
-  if (!Number.isInteger(pesos) || pesos < 0) {
+  if (!Number.isSafeInteger(pesos) || pesos < 0) {
     throw new Error(`${label} debe ser un entero en pesos`);
   }
-  return pesos * 100;
+  const cents = pesos * 100;
+  if (!Number.isSafeInteger(cents)) {
+    throw new Error(`${label} está fuera del rango permitido`);
+  }
+  return cents;
 }
 
 function integer(formData: FormData, key: string, label: string): number {
