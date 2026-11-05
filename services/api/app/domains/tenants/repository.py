@@ -175,7 +175,7 @@ class PostgresTenantRepository:
         offset: int,
     ) -> tuple[tuple[PlatformTenant, ...], int]:
         try:
-            async with self._database.public_transaction() as connection:
+            async with self._database.public_transaction(actor_id=actor_id) as connection:
                 rows = await connection.fetch(
                     "select * from app.list_tenants($1, $2, $3, $4, $5)",
                     actor_id,

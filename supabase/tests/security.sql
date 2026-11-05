@@ -6,7 +6,7 @@ grant usage on schema extensions to app_rw;
 grant execute on all functions in schema extensions to app_rw;
 set search_path = public, extensions;
 
-select plan(8);
+select plan(10);
 
 select ok(
     (
@@ -76,6 +76,24 @@ select ok(
         where oid = 'app.expire_stale_uploads(integer)'::regprocedure
     ),
     'expire_stale_uploads usa pg_catalog y app, sin public'
+);
+
+select ok(
+    not has_function_privilege(
+        'app_rw',
+        'app.expire_stale_uploads(integer)',
+        'EXECUTE'
+    ),
+    'app_rw no puede ejecutar la limpieza cross-tenant'
+);
+
+select ok(
+    has_function_privilege(
+        'app_worker',
+        'app.expire_stale_uploads(integer)',
+        'EXECUTE'
+    ),
+    'app_worker puede ejecutar la limpieza cross-tenant acotada'
 );
 
 select ok(

@@ -4,20 +4,21 @@ Base de datos PostgreSQL gestionada. La API nunca permite acceso directo del nav
 
 ## Estado
 
-- Migraciones aplicadas en local: `20261021000000_core_tenancy.sql`, `20261021000100_catalog.sql`, `20261021000200_governance.sql`, `20261021000300_inventory_reservations.sql`, `20261021000400_harden_security_definer.sql`, `20261021000500_media_metadata.sql`, `20261021000600_media_cleanup.sql`, `20261021000700_platform_tenant_list.sql` y `20261021000800_extensions_schema.sql`.
-- Tests pgTAP: `tests/tenancy.sql` (17) + `tests/catalog.sql` (14) + `tests/governance.sql` (21) + `tests/inventory.sql` (9) + `tests/media.sql` (14) + `tests/platform.sql` (7) + `tests/security.sql` (8); 90 en total.
-- `app_rw` existe sin `BYPASSRLS`; la API fija por transacción:
+- Migraciones aplicadas en local: `20261021000000_core_tenancy.sql` a `20261021000900_harden_inventory_and_worker_access.sql`.
+- Tests pgTAP: tenancy (17), catálogo (14), gobernanza (21), inventario (11), media (14), plataforma (8) y seguridad (10); 95 en total.
+- `app_rw` y `app_worker` existen sin `BYPASSRLS`; la API fija por transacción:
   - `SET LOCAL ROLE app_rw`
   - `SELECT set_config('app.tenant_id', $1, true)`
+- El worker de media usa `GROWUP_WORKER_DATABASE_URL` con un login distinto del API, miembro de `app_rw` y `app_worker`. No se debe conceder `app_worker` al login de la API.
 - `tenants`, `domains`, `tenant_settings`, `tenant_features`, `memberships`, `customers`, `addresses` y `auth_events` tienen RLS `ENABLE` + `FORCE`.
 - `plans` es catálogo de plataforma (sin `tenant_id`); `app_rw` solo tiene `SELECT`.
 - `platform_admins` no es accesible directamente por `app_rw`; se consulta con `app.is_platform_admin(uuid)`.
 - `decision_logs` es append-only y usa `chain_key` (UUID del tenant o `platform`) para que la cadena sobreviva al borrado del tenant. `audit_chain_state` no tiene política RLS: solo lo tocan funciones `SECURITY DEFINER`.
 - `create_tenant_with_owner` crea tenant, dominio, settings, features, ubicación default y membership owner en una sola transacción.
-- Las reservas de inventario usan `location_id` explícito, `UPDATE ... WHERE available - reserved >= quantity` atómico y check `reserved <= available`; `expire` libera las vencidas.
+- Las reservas de inventario usan `location_id` explícito, `UPDATE ... WHERE available - reserved >= quantity` atómico, `reserved <= available` y triggers diferidos que validan el total activo; `expire` libera las vencidas.
 - `media_assets`, `media_variants` y `product_media` tienen RLS forzado. El prefijo de R2 es `tenant/{tenant_id}/...`; `original_filename` es metadata y nunca forma parte de la clave.
-- `app.list_tenants()` (SECURITY DEFINER) lista tenants cross-tenant solo si el actor existe en `platform_admins`; el listado incluye host primario, plan, trial y paginación.
-- `app.expire_stale_uploads()` (SECURITY DEFINER, `search_path` fijo) marca como `failed` los uploads que nunca se completaron; la ejecuta el worker ARQ cada hora.
+- `app.list_tenants()` (SECURITY DEFINER) compara el actor con el contexto verificado por la API y exige que exista en `platform_admins`; el listado incluye host primario, plan, trial y paginación.
+- `app.expire_stale_uploads()` (SECURITY DEFINER, `search_path` fijo) solo es ejecutable por `app_worker` y marca como `failed` los uploads que nunca se completaron; la ejecuta el worker ARQ cada hora.
 - Las funciones `SECURITY DEFINER` usan `search_path = pg_catalog, app` (sin `public`); lo verifica `tests/security.sql`.
 
 ## Reglas

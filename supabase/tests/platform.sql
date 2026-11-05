@@ -6,7 +6,7 @@ grant usage on schema extensions to app_rw;
 grant execute on all functions in schema extensions to app_rw;
 set search_path = public, extensions;
 
-select plan(7);
+select plan(8);
 
 select app.create_tenant(
     'platform-list-a',
@@ -28,6 +28,7 @@ values (
 );
 
 set local role app_rw;
+select set_config('app.actor_id', '00000000-0000-0000-0000-000000000001', true);
 
 select is(
     (
@@ -91,6 +92,7 @@ select is(
     'limit y offset paginan el listado'
 );
 
+select set_config('app.actor_id', '00000000-0000-0000-0000-000000000002', true);
 select throws_ok(
     format(
         'select * from app.list_tenants(%L)',
@@ -99,6 +101,17 @@ select throws_ok(
     '42501',
     'platform admin required',
     'un usuario sin platform admin no lista tenants'
+);
+
+select set_config('app.actor_id', '00000000-0000-0000-0000-000000000001', true);
+select throws_ok(
+    format(
+        'select * from app.list_tenants(%L)',
+        '00000000-0000-0000-0000-000000000002'
+    ),
+    '42501',
+    'platform admin required',
+    'el actor del argumento debe coincidir con la identidad verificada'
 );
 
 select throws_ok(

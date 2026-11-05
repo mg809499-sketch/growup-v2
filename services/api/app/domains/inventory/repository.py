@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any, Protocol
 from uuid import UUID
 
@@ -224,6 +224,12 @@ class PostgresInventoryRepository:
                 raise AppError(
                     "RESERVATION_NOT_ACTIVE",
                     "La reserva expiró o fue liberada",
+                    409,
+                )
+            if row["expires_at"] <= datetime.now(UTC):
+                raise AppError(
+                    "RESERVATION_EXPIRED",
+                    "La reserva expiró y no puede confirmarse",
                     409,
                 )
             if row["order_id"] is not None and row["order_id"] != order_id:

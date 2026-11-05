@@ -6,7 +6,7 @@ grant usage on schema extensions to app_rw;
 grant execute on all functions in schema extensions to app_rw;
 set search_path = public, extensions;
 
-select plan(9);
+select plan(11);
 
 select app.create_tenant('inv-a', 'inv-a.growup.com', 'Inv A') as tenant_a \gset
 select app.create_tenant('inv-b', 'inv-b.growup.com', 'Inv B') as tenant_b \gset
@@ -34,6 +34,12 @@ returning id as variant_a \gset
 
 insert into app.inventory_levels (tenant_id, variant_id, location_id, available)
 values (:'tenant_a', :'variant_a', :'location_a', 10);
+
+update app.inventory_levels
+set reserved = 2
+where tenant_id = :'tenant_a'
+  and variant_id = :'variant_a'
+  and location_id = :'location_a';
 
 select lives_ok(
     format(
@@ -96,6 +102,32 @@ select throws_ok(
     '23514',
     null,
     'reserved no puede superar available'
+);
+
+set constraints app.inventory_levels_reservation_balance,
+                app.inventory_reservations_balance immediate;
+
+select throws_ok(
+    format(
+        'update app.inventory_levels set reserved = 3 '
+        'where tenant_id = %L and variant_id = %L',
+        :'tenant_a', :'variant_a'
+    ),
+    '23514',
+    'inventory reservation balance mismatch',
+    'un contador no puede desviarse de las reservas activas'
+);
+
+select throws_ok(
+    format(
+        'insert into app.inventory_reservations '
+        '(tenant_id, variant_id, location_id, quantity, expires_at) '
+        'values (%L, %L, %L, 1, now() + interval ''15 minutes'')',
+        :'tenant_a', :'variant_a', :'location_a'
+    ),
+    '23514',
+    'inventory reservation balance mismatch',
+    'una escritura directa de reserva no puede alterar el contador'
 );
 
 select set_config('app.tenant_id', :'tenant_b', true);

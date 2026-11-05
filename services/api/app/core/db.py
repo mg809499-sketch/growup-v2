@@ -9,7 +9,9 @@ import asyncpg  # type: ignore[import-untyped]
 from app.core.errors import AppError
 
 _SET_TENANT_SQL = "SELECT set_config('app.tenant_id', $1, true)"
+_SET_ACTOR_SQL = "SELECT set_config('app.actor_id', $1, true)"
 _SET_ROLE_SQL = "SET LOCAL ROLE app_rw"
+_SET_WORKER_ROLE_SQL = "SET LOCAL ROLE app_worker"
 
 
 class Database:
@@ -56,15 +58,29 @@ class Database:
         return True
 
     @asynccontextmanager
-    async def public_transaction(self) -> AsyncIterator[asyncpg.Connection]:
+    async def public_transaction(
+        self,
+        *,
+        actor_id: UUID | None = None,
+    ) -> AsyncIterator[asyncpg.Connection]:
         """Transacción como app_rw sin contexto de tenant.
 
         Se usa para funciones SECURITY DEFINER acotadas (resolver host, crear
         tenant) y para catálogo de plataforma. Las tablas con RLS no devuelven
-        filas porque `app.current_tenant()` es NULL.
+        filas porque `app.current_tenant()` es NULL. `actor_id` se usa solo
+        cuando la API ya verificó la identidad del actor.
         """
         async with self.pool.acquire() as connection, connection.transaction():
             await connection.execute(_SET_ROLE_SQL)
+            if actor_id is not None:
+                await connection.fetchval(_SET_ACTOR_SQL, str(actor_id))
+            yield connection
+
+    @asynccontextmanager
+    async def worker_transaction(self) -> AsyncIterator[asyncpg.Connection]:
+        """Transacción con permisos mínimos para tareas cross-tenant acotadas."""
+        async with self.pool.acquire() as connection, connection.transaction():
+            await connection.execute(_SET_WORKER_ROLE_SQL)
             yield connection
 
     @asynccontextmanager

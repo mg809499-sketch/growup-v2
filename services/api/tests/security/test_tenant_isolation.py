@@ -51,9 +51,13 @@ class FakeStorage:
         key: str,
         *,
         content_type: str,
+        content_length: int,
         expires_in: int = 900,
     ) -> str:
         return f"https://r2.example/{key}?sig=1"
+
+    async def head_size(self, key: str) -> int:
+        return len(self.objects[key])
 
     async def download(self, key: str, *, max_bytes: int) -> bytes:
         return self.objects[key]

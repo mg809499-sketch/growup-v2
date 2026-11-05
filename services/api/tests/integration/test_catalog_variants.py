@@ -244,16 +244,24 @@ async def test_variant_update_and_delete_rules() -> None:
                 "select id from app.locations where tenant_id = $1 and is_default limit 1",
                 tenant_id,
             )
-            await connection.execute(
-                """
-                insert into app.inventory_reservations
-                    (tenant_id, variant_id, location_id, quantity, expires_at)
-                values ($1, $2, $3, 1, now() + interval '15 minutes')
-                """,
-                tenant_id,
-                variant_m.id,
-                location_id,
-            )
+            async with connection.transaction():
+                await connection.execute(
+                    "update app.inventory_levels set reserved = 1 "
+                    "where tenant_id = $1 and variant_id = $2 and location_id = $3",
+                    tenant_id,
+                    variant_m.id,
+                    location_id,
+                )
+                await connection.execute(
+                    """
+                    insert into app.inventory_reservations
+                        (tenant_id, variant_id, location_id, quantity, expires_at)
+                    values ($1, $2, $3, 1, now() + interval '15 minutes')
+                    """,
+                    tenant_id,
+                    variant_m.id,
+                    location_id,
+                )
         with pytest.raises(AppError) as reserved:
             await catalog.delete_variant(
                 tenant_id,
@@ -262,12 +270,19 @@ async def test_variant_update_and_delete_rules() -> None:
             )
         assert reserved.value.code == "VARIANT_HAS_ACTIVE_RESERVATIONS"
 
-        async with database.pool.acquire() as connection:
+        async with database.pool.acquire() as connection, connection.transaction():
             await connection.execute(
                 "update app.inventory_reservations set status = 'expired' "
                 "where tenant_id = $1 and variant_id = $2",
                 tenant_id,
                 variant_m.id,
+            )
+            await connection.execute(
+                "update app.inventory_levels set reserved = 0 "
+                "where tenant_id = $1 and variant_id = $2 and location_id = $3",
+                tenant_id,
+                variant_m.id,
+                location_id,
             )
         assert (
             await catalog.delete_variant(

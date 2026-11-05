@@ -276,3 +276,38 @@ async def test_expire_releases_only_expired_reservations() -> None:
                     tenants,
                 )
         await database.close()
+
+
+async def test_confirm_rejects_expired_reservation() -> None:
+    assert TEST_DSN is not None
+    database = Database(TEST_DSN, min_size=1, max_size=5)
+    await database.connect()
+    tenants: list[UUID] = []
+    suffix = uuid4().hex[:8]
+
+    try:
+        tenant_id, variant_id = await _create_variant(database, suffix, stock=10)
+        tenants.append(tenant_id)
+        repository = PostgresInventoryRepository(database)
+        reservation = await repository.reserve(
+            tenant_id,
+            variant_id=variant_id,
+            quantity=2,
+            expires_at=datetime.now(UTC) - timedelta(seconds=1),
+        )
+
+        with pytest.raises(AppError) as exc_info:
+            await repository.confirm(tenant_id, reservation.id, order_id=uuid4())
+        assert exc_info.value.code == "RESERVATION_EXPIRED"
+        assert await _level(database, tenant_id, variant_id) == (10, 2)
+
+        assert await repository.expire(tenant_id) == 1
+        assert await _level(database, tenant_id, variant_id) == (10, 0)
+    finally:
+        if tenants:
+            async with database.pool.acquire() as connection:
+                await connection.execute(
+                    "delete from app.tenants where id = any($1::uuid[])",
+                    tenants,
+                )
+        await database.close()
