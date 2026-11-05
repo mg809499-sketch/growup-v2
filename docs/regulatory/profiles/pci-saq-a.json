@@ -1,0 +1,80 @@
+{
+  "id": "pci-saq-a",
+  "title": "PCI-DSS v4.0.1 — SAQ A (checkout hosted)",
+  "sources": ["D-11", "ADR-0010", "PAY-05"],
+  "controls": [
+    {
+      "id": "PCI-01",
+      "title": "Ningún dato de tarjeta en el código de la API",
+      "rule": {
+        "type": "file_not_contains",
+        "glob": "services/api/app/**/*.py",
+        "pattern": "\\b(card_number|cvv2?|cvc|pan)\\b"
+      },
+      "evidence": "services/api/app"
+    },
+    {
+      "id": "PCI-02",
+      "title": "Checkout hosted o redirect, sin formulario propio",
+      "rule": {
+        "type": "file_contains",
+        "glob": "docs/adr/0010-checkout-pci-scripts.md",
+        "pattern": "Web Checkout|redirect|hosted",
+        "min_count": 2
+      },
+      "evidence": "docs/adr/0010-checkout-pci-scripts.md"
+    },
+    {
+      "id": "PCI-03",
+      "title": "CSP en las respuestas de la API",
+      "rule": {
+        "type": "file_contains",
+        "glob": "services/api/app/core/middleware.py",
+        "pattern": "content-security-policy",
+        "min_count": 1
+      },
+      "evidence": "services/api/tests/core/test_security_middleware.py"
+    },
+    {
+      "id": "PCI-04",
+      "title": "La página de pago no puede embeberse",
+      "rule": {
+        "type": "file_contains",
+        "glob": "services/api/app/core/middleware.py",
+        "pattern": "frame-ancestors 'none'",
+        "min_count": 1
+      },
+      "evidence": "services/api/tests/core/test_security_middleware.py"
+    },
+    {
+      "id": "PCI-05",
+      "title": "Webhook firmado con verificación de monto",
+      "rule": {
+        "type": "task_status",
+        "task": "W4-05",
+        "min": "Hecho"
+      },
+      "evidence": "W4-05 en tasks.md"
+    },
+    {
+      "id": "PCI-06",
+      "title": "Alcance PCI documentado",
+      "rule": {
+        "type": "file_exists",
+        "path": "docs/adr/flujo-d-11-pci-saq-a.svg"
+      },
+      "evidence": "docs/adr/flujo-d-11-pci-saq-a.svg"
+    },
+    {
+      "id": "PCI-07",
+      "title": "Headers de seguridad cubiertos por tests",
+      "rule": {
+        "type": "file_contains",
+        "glob": "services/api/tests/core/test_security_middleware.py",
+        "pattern": "content-security-policy",
+        "min_count": 2
+      },
+      "evidence": "services/api/tests/core/test_security_middleware.py"
+    }
+  ]
+}

@@ -109,7 +109,7 @@ Pedir explícitamente que **no** proponga un modelo distinto de negocio: la arqu
 | ¿Qué se anonimiza y qué se conserva por obligación fiscal? | Regla por campo | D-10 |
 | Plazo legal para responder un DSR | Plazo | D-10 |
 | ¿Colombia exige residencia local de datos? ¿Qué implica transferir a Supabase/Fly/Resend? | Postura | D-10, D-07 |
-| Deber real de notificación de brechas ante la SIC y ante los titulares (las 72 h son de GDPR, no de Colombia) | Protocolo y plazos | D-12 |
+| Deber aplicable de notificación de brechas ante autoridades y titulares, según jurisdicción y roles | Protocolo y plazos | D-12 |
 | ¿Cómo se reparte la notificación entre Growup (encargado) y tenant (responsable)? | Cláusula + runbook | D-12 |
 
 **Decisión que desbloquea:** D-10 y D-12.

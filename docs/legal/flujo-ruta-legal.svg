@@ -1,4 +1,4 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 820" width="1300" height="820" role="img" aria-labelledby="tRuta dRuta">
   <title id="tRuta">Ruta legal: olas de desarrollo y decisiones D-09 a D-18</title>
   <desc id="dRuta">Secuencia de olas de desarrollo (Waves), compuertas legales y estado de cada decision D-09 a D-18 con condiciones de cierre y bloqueos.</desc>
@@ -26,10 +26,10 @@
   <!-- Ola 1 -->
   <rect x="60" y="180" width="240" height="320" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
   <circle cx="76" cy="206" r="4" fill="#C08A2E"/>
-  <text x="88" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#8A6114">OLA 1  -  HOY</text>
+  <text x="88" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#8A6114">OLA 1 - HOY</text>
   <text x="76" y="240" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Onboarding</text>
   <text x="76" y="264" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">y tenants</text>
-  <text x="76" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-09  -  D-10</text>
+  <text x="76" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-09 - D-10</text>
   <text x="76" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">legal_acceptances</text>
   <text x="76" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">pantalla DPA clickwrap</text>
   <text x="76" y="352" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">fn_anonymize_customer</text>
@@ -42,9 +42,9 @@
   <text x="348" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#8E3428">OLA 4</text>
   <text x="336" y="240" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Checkout</text>
   <text x="336" y="264" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">y pagos</text>
-  <text x="336" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-11  -  D-13  -  D-14  -  D-15</text>
-  <text x="336" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">CSP/SAQ A  -  webhooks Wompi</text>
-  <text x="336" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">worker email ARQ  -  nota credito DIAN</text>
+  <text x="336" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-11 - D-13 - D-14 - D-15</text>
+  <text x="336" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">CSP/SAQ A - webhooks Wompi</text>
+  <text x="336" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">worker email ARQ - nota credito DIAN</text>
   <text x="336" y="352" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">fraude 3DS + chargebacks</text>
   <rect x="336" y="380" width="152" height="28" rx="14" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
   <text x="412" y="398" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#8E3428">BLOQUEA</text>
@@ -55,9 +55,9 @@
   <text x="608" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#8A6114">OLA 7</text>
   <text x="596" y="240" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Observabilidad</text>
   <text x="596" y="264" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">y ops</text>
-  <text x="596" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-12  -  D-18</text>
-  <text x="596" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">runbook OPS-05  -  Sentry/OTel</text>
-  <text x="596" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">cambio management  -  vendor risk</text>
+  <text x="596" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-12 - D-18</text>
+  <text x="596" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">runbook OPS-05 - Sentry/OTel</text>
+  <text x="596" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">cambio management - vendor risk</text>
   <text x="596" y="352" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">ai_audit_logs firmado</text>
   <rect x="596" y="380" width="152" height="28" rx="14" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
   <text x="672" y="398" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#8A6114">CONDICIONADO</text>
@@ -68,8 +68,8 @@
   <text x="868" y="210" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.5" fill="#5B6167">OLA 8</text>
   <text x="856" y="240" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Go-live piloto</text>
   <text x="856" y="264" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Q1 2027</text>
-  <text x="856" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-16  -  D-17</text>
-  <text x="856" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">canal soporte  -  matriz SLA</text>
+  <text x="856" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-16 - D-17</text>
+  <text x="856" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">canal soporte - matriz SLA</text>
   <text x="856" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">no facilitador fiscal en ToS</text>
   <text x="856" y="352" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">verificacion final de exenciones</text>
   <rect x="856" y="380" width="152" height="28" rx="14" fill="#F2F0EC" stroke="#C9C5BE"/>
@@ -81,36 +81,36 @@
   <line x1="824" y1="146" x2="834" y2="146" stroke="#B6B1A8" stroke-width="1.5" marker-end="url(#arrRt)"/>
 
   <!-- Matriz de decisiones D-09 a D-18 -->
-  <text x="60" y="530" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6" fill="#8A8F94">MATRIZ DE DECISIONES D-09 A D-18  -  ESTADO Y CONDICION DE CIERRE</text>
+  <text x="60" y="530" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6" fill="#8A8F94">MATRIZ DE DECISIONES D-09 A D-18 - ESTADO Y CONDICION DE CIERRE</text>
 
   <rect x="60" y="544" width="590" height="230" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="80" y="570" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">D-09 DPA Processor/Controller</text>
-  <text x="80" y="588" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A  -  clickwrap version en onboarding</text>
+  <text x="80" y="588" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A - clickwrap version en onboarding</text>
   <text x="80" y="606" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8A6114">Cierre: abogado + plantilla + aceptacion owner + tabla legal_acceptances</text>
-  <text x="80" y="624" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: Ola 1  -  onboarding  -  go-live legal</text>
+  <text x="80" y="624" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: Ola 1 - onboarding - go-live legal</text>
 
   <text x="80" y="652" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">D-10 DSR y retencion</text>
-  <text x="80" y="670" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A  -  DSR asistido + anonimizacion</text>
+  <text x="80" y="670" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A - DSR asistido + anonimizacion</text>
   <text x="80" y="688" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8A6114">Cierre: abogado + matriz retencion + region + anonimizacion por campo</text>
-  <text x="80" y="706" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: RLS  -  auditoria  -  residencia  -  W0-09</text>
+  <text x="80" y="706" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: RLS - auditoria - residencia - W0-09</text>
 
   <text x="80" y="734" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">D-11 PCI-DSS SAQ A</text>
-  <text x="80" y="752" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A  -  SAQ A + gobierno de scripts</text>
+  <text x="80" y="752" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A - SAQ A + gobierno de scripts</text>
   <text x="80" y="770" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8A6114">Cierre: spike Wompi (redirect/widget, dominios, 3DS)</text>
 
   <rect x="670" y="544" width="570" height="230" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="690" y="570" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">D-12 Brechas (SLA 24h/15d)</text>
-  <text x="690" y="588" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A  -  protocolo formal + SLA dual</text>
+  <text x="690" y="570" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">D-12 Brechas (SLA y deberes por validar)</text>
+  <text x="690" y="588" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Protocolo formal + canales y responsables aprobados</text>
   <text x="690" y="606" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8A6114">Cierre: abogado/DPO + on-call + deteccion + plantillas</text>
-  <text x="690" y="624" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: gobernanza  -  go-live legal  -  OPS-05</text>
+  <text x="690" y="624" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: gobernanza - go-live legal - OPS-05</text>
 
   <text x="690" y="652" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">D-13 Retracto y devolucion</text>
-  <text x="690" y="670" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A  -  plantilla Ley 1480 + campos tenant</text>
+  <text x="690" y="670" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A - plantilla Ley 1480 + campos tenant</text>
   <text x="690" y="688" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8A6114">Cierre: plantilla legal + campos acotados; nota credito condicionada a D-03</text>
-  <text x="690" y="706" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: legal  -  storefront  -  checkout (enlace terminos)</text>
+  <text x="690" y="706" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#5B6167">Bloquea: legal - storefront - checkout (enlace terminos)</text>
 
   <text x="690" y="734" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.2" fill="#5B6167">D-14 Fraude y chargebacks</text>
-  <text x="690" y="752" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A  -  delegacion Wompi + 3DS</text>
+  <text x="690" y="752" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Opcion A - delegacion Wompi + 3DS</text>
   <text x="690" y="770" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#8A6114">Cierre: verificar 3DS/campos Wompi; cuenta pendiente</text>
 
   <rect x="60" y="790" width="590" height="28" rx="14" fill="#F4F1EB" stroke="#C9C5BE"/>
@@ -121,5 +121,5 @@
   <text x="88" y="870" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="600" fill="#16181A">Corte de 45 minutos: solo Olas 1 y 4. Sin DPA (D-09) y sin terminos (D-13) no se firma un comerciante.</text>
   <text x="88" y="892" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">D-17 y D-18 ya cerrados (postura no facilitador y SOC 2-ready sin certificar). D-09 a D-16 sujetas a revision legal.</text>
 
-  <text x="1240" y="970" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup  -  docs/legal  -  2026-11</text>
+  <text x="1240" y="970" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/legal - 2026-11</text>
 </svg>

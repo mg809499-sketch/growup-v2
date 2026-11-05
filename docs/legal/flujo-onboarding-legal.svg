@@ -1,7 +1,7 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 780" width="1300" height="780" role="img" aria-labelledby="tOn dOn">
-  <title id="tOn">Onboarding legal de un tenant  -  DPA y aceptaciones</title>
-  <desc id="dOn">Estados desde el alta del tenant hasta la publicacion, con DPA clickwrap, tabla legal_acceptances, rama de no aceptacion y relacion con D-09 y D-18.</desc>
+  <title id="tOn">Onboarding legal de un tenant - DPA y aceptaciones</title>
+  <desc id="dOn">Diseno propuesto, no implementado: estados desde el alta hasta la compuerta de publicacion; D-09 sigue pendiente de aprobacion legal.</desc>
   <defs>
     <marker id="arrOn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
@@ -13,14 +13,14 @@
   <rect width="1300" height="780" fill="#FBFAF8"/>
 
   <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">Onboarding legal de un tenant</text>
-  <text x="650" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">D-09  -  DPA clickwrap versionado  -  legal_acceptances  -  tenant pendiente_legal hasta aceptar</text>
+  <text x="650" y="66" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Diseno objetivo, no implementado - D-09 propuesta - compuerta legal pendiente</text>
   <line x1="60" y1="90" x2="1240" y2="90" stroke="#E2DED6" stroke-width="1"/>
 
   <!-- Fila 1 -->
   <rect x="60" y="160" width="300" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="84" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">01</text>
   <text x="84" y="220" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Alta del tenant</text>
-  <text x="84" y="246" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">platform admin  -  pending_legal</text>
+  <text x="84" y="246" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">platform admin - estado bloqueado propuesto</text>
 
   <rect x="450" y="160" width="300" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="474" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">02</text>
@@ -30,7 +30,7 @@
   <rect x="840" y="160" width="400" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="864" y="190" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">03</text>
   <text x="864" y="220" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">El owner inicia sesion</text>
-  <text x="864" y="246" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Supabase Auth  -  magic link (no contrasena)</text>
+  <text x="864" y="246" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">Supabase Auth - magic link (no contrasena)</text>
 
   <line x1="364" y1="222" x2="444" y2="222" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrOn)"/>
   <line x1="758" y1="222" x2="834" y2="222" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrOn)"/>
@@ -39,17 +39,17 @@
   <rect x="840" y="380" width="400" height="124" rx="12" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.45"/>
   <text x="864" y="410" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A6114">04</text>
   <text x="864" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Acepta DPA y terminos</text>
-  <text x="864" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#7A5A1E">clickwrap  -  version vigente  -  Circular 003/2025</text>
+  <text x="864" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#7A5A1E">solo tras aprobacion legal del texto y del mecanismo</text>
 
   <rect x="450" y="380" width="300" height="124" rx="12" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="474" y="410" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#8A8F94">05</text>
   <text x="474" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#16181A">Registro de aceptacion</text>
-  <text x="474" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">hash  -  timestamp  -  IP hasheada  -  actor</text>
+  <text x="474" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#5B6167">version/hash - actor - instante - evidencia por definir con Legal</text>
 
   <rect x="60" y="380" width="300" height="124" rx="12" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.45"/>
   <text x="84" y="410" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#41695B">06</text>
   <text x="84" y="440" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="600" fill="#22483C">Tenant activo</text>
-  <text x="84" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#41695B">publica storefront</text>
+  <text x="84" y="466" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12.5" fill="#41695B">solo tras compuertas aprobadas y verificadas</text>
 
   <line x1="990" y1="288" x2="990" y2="374" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrOn)"/>
   <line x1="836" y1="442" x2="742" y2="442" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arrOn)"/>
@@ -61,19 +61,19 @@
 
   <rect x="450" y="554" width="790" height="92" rx="12" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4" stroke-dasharray="5 4"/>
   <text x="474" y="582" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="1.4" fill="#8E3426">SIN ACEPTACION</text>
-  <text x="474" y="606" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#7A5A55">Sin aceptar: no activa ni publica. Avisos a los 3 y 7 dias; expira a los 30 y se archiva.</text>
-  <text x="474" y="624" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#7A5A55">Si cambia el documento, se requiere una nueva aceptacion.</text>
+  <text x="474" y="606" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#7A5A55">Sin aceptacion: no habilita publicacion/datos reales. Recordatorios y expiracion pendientes.</text>
+  <text x="474" y="624" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#7A5A55">Cambio de version: transicion y nueva aceptacion por definir con Legal.</text>
 
   <!-- Tablas legales -->
   <rect x="60" y="660" width="590" height="100" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="80" y="688" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">TABLA `legal_acceptances` (append-only, RLS por tenant)</text>
-  <text x="80" y="708" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">tenant  -  documento  -  version  -  actor  -  ip_hash  -  accepted_at  -  method  -  user_agent</text>
-  <text x="80" y="728" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Sin PII cruda: IP hasheada, actor pseudonimo, context_summary redactado</text>
+  <text x="80" y="688" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">TABLA `legal_acceptances` PROPUESTA (no implementada)</text>
+  <text x="80" y="708" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">tenant - documento/version - actor - instante - evidencia minima aprobada</text>
+  <text x="80" y="728" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Append-only y RLS propuestos; minimizacion y retencion por validar</text>
 
   <rect x="670" y="660" width="570" height="100" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="690" y="688" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">TABLA `legal_documents`</text>
-  <text x="690" y="708" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">type (DPA/ToS/privacidad)  -  version  -  hash de contenido  -  vigencia  -  inmutable</text>
-  <text x="690" y="728" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Plantilla aprobada por legal antes de cerrar D-09  -  versionado con hash</text>
+  <text x="690" y="708" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">tipo - version - hash - vigencia - contenido aprobado e inmutable</text>
+  <text x="690" y="728" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Plantilla y evidencia requieren aprobacion de Legal para cerrar D-09</text>
 
-  <text x="1240" y="760" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup  -  docs/legal  -  2026-11</text>
+  <text x="1240" y="760" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/legal - 2026-11</text>
 </svg>

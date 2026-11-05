@@ -1,0 +1,89 @@
+{
+  "id": "soc2",
+  "title": "SOC 2 (alineado, no certificado)",
+  "sources": ["D-18", "ADR-0007", "ADR-0009"],
+  "controls": [
+    {
+      "id": "SOC2-AC-01",
+      "title": "RLS forzado en las tablas de negocio",
+      "rule": {
+        "type": "file_contains",
+        "glob": "supabase/migrations/*.sql",
+        "pattern": "FORCE ROW LEVEL SECURITY",
+        "min_count": 5
+      },
+      "evidence": "supabase/migrations/*.sql"
+    },
+    {
+      "id": "SOC2-AU-01",
+      "title": "Ledger de decisiones append-only",
+      "rule": {
+        "type": "file_contains",
+        "glob": "supabase/migrations/*.sql",
+        "pattern": "decision_logs",
+        "min_count": 1
+      },
+      "evidence": "supabase/tests/governance.sql"
+    },
+    {
+      "id": "SOC2-CM-01",
+      "title": "Change management con revisión por PR",
+      "rule": {
+        "type": "file_contains",
+        "glob": ".github/workflows/ci.yml",
+        "pattern": "pull_request",
+        "min_count": 1
+      },
+      "evidence": ".github/workflows/ci.yml"
+    },
+    {
+      "id": "SOC2-VR-01",
+      "title": "Vendor risk documentado",
+      "rule": {
+        "type": "file_exists",
+        "path": "docs/adr/flujo-d-18-soc2-vendor.svg"
+      },
+      "evidence": "docs/adr/flujo-d-18-soc2-vendor.svg"
+    },
+    {
+      "id": "SOC2-OP-01",
+      "title": "Logs estructurados con contexto de tenant",
+      "rule": {
+        "type": "file_contains",
+        "glob": "services/api/app/**/*.py",
+        "pattern": "structlog",
+        "min_count": 3
+      },
+      "evidence": "services/api/app/core/logging.py"
+    },
+    {
+      "id": "SOC2-IR-01",
+      "title": "Plan de respuesta a incidentes y brechas",
+      "rule": {
+        "type": "file_exists",
+        "path": "docs/legal/flujo-brecha.svg"
+      },
+      "evidence": "docs/legal/flujo-brecha.svg"
+    },
+    {
+      "id": "SOC2-RC-01",
+      "title": "Restore drill ejecutado",
+      "rule": {
+        "type": "task_status",
+        "task": "W7-05",
+        "min": "Hecho"
+      },
+      "evidence": "W7-05 en tasks.md"
+    },
+    {
+      "id": "SOC2-SE-01",
+      "title": "Pen-test y remediaciones cerradas",
+      "rule": {
+        "type": "task_status",
+        "task": "W7-03",
+        "min": "Hecho"
+      },
+      "evidence": "W7-03 en tasks.md"
+    }
+  ]
+}

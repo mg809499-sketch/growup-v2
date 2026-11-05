@@ -146,7 +146,7 @@ Anota la respuesta y vuelve al equipo antes de decidir nada.
 4. > "Tenemos una bitácora de auditoría que no se puede borrar. Si un comprador pide que borren sus datos, ¿qué se anonimiza y qué se conserva por obligación fiscal?"
 5. > "¿En cuánto tiempo hay que responder una solicitud de un titular?"
 6. > "¿Colombia exige que los datos estén en Colombia? Trabajamos con Supabase, Fly y un proveedor de correo."
-7. > "Si hay una brecha: ¿a quién notificamos, en qué plazo y con qué formato? Las 72 horas que conozco son de GDPR, no de Colombia, y quiero el deber real."
+7. > "Si hay una brecha: ¿quién debe notificar, a quién, en qué plazo y con qué formato según la ley aplicable y nuestros roles? ¿Cuándo aplica el plazo de GDPR y cuál es el deber concreto en Colombia?"
 8. > "¿Cómo repartimos esa notificación con el comerciante? Nosotros somos encargados; él es responsable."
 
 **Si dice "eso es GDPR":**
