@@ -1,22 +1,16 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 800" width="1300" height="800" role="img" aria-labelledby="tD10 dD10">
   <title id="tD10">D-10 - DSR, anonimizacion y retencion de datos</title>
-  <desc id="dD10">Flujo de solicitud de derechos del titular (DSR), anonimizacion por campo, conservacion fiscal de facturas, retencion y residencia de datos (Ley 1581, Circular 002/2025 SIC, DIAN).</desc>
+  <desc id="dD10">Diseno propuesto, no implementado: verificar la solicitud, clasificar datos y aplicar disposicion definida por matriz legal aprobada. D-10 sigue abierta.</desc>
   <defs>
     <marker id="arr10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
-    </marker>
-    <marker id="arr10Green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2E5E4E"/>
-    </marker>
-    <marker id="arr10Red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#B4483A"/>
     </marker>
   </defs>
   <rect width="1300" height="800" fill="#FBFAF8"/>
 
   <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-10 - DSR, anonimizacion y retencion</text>
-  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Ley 1581/2012 - Circular 002/2025 SIC - DIAN (5 anos) - fn_anonymize_customer - residencia unica</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Diseno propuesto - D-10 abierta - plazos, retencion y residencia pendientes de validar</text>
   <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
 
   <!-- Paso 1: Solicitud -->
@@ -24,35 +18,35 @@
   <text x="80" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 - SOLICITUD DSR</text>
   <text x="80" y="168" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#2B4470">Titular o tenant solicita</text>
   <text x="80" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Acceso, correccion, supresion</text>
-  <text x="80" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Plazo legal de respuesta</text>
+  <text x="80" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Registrar fecha y plazo validado</text>
 
   <!-- Paso 2: Verificacion -->
   <rect x="300" y="114" width="220" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="320" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 - VERIFICAR IDENTIDAD</text>
   <text x="320" y="168" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">No ejecutar a ciegas</text>
   <text x="320" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Motivo y actor registrados</text>
-  <text x="320" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">`SECURITY DEFINER`; validar actor</text>
+  <text x="320" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Verificar permisos y actor</text>
 
   <!-- Paso 3: Decision por campo -->
   <rect x="540" y="114" width="220" height="104" rx="10" fill="#E7EFEA" stroke="#2E5E4E" stroke-opacity="0.35"/>
-  <text x="560" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">3 - DATO FISCAL O DE AUDITORIA</text>
+  <text x="560" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">3 - CLASIFICAR POR DATO</text>
   <text x="560" y="168" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#22483C">Decision por campo</text>
-  <text x="560" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Si: conservar factura y nota</text>
-  <text x="560" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">No -> anonimizar por campo</text>
+  <text x="560" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Aplicar decision documentada</text>
+  <text x="560" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">en la matriz aprobada</text>
 
   <!-- Paso 4: Anonimizar -->
   <rect x="780" y="114" width="220" height="104" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
-  <text x="800" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">4 - `fn_anonymize_customer`</text>
+  <text x="800" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">4 - DISPOSICION SELECTIVA</text>
   <text x="800" y="168" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#8A6114">Anonimizacion por campo</text>
-  <text x="800" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Nombres genericos; email anonimo</text>
-  <text x="800" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Sin telefono; conservar fiscal</text>
+  <text x="800" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Suprimir, anonimizar o restringir</text>
+  <text x="800" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">segun base y plazo aprobados</text>
 
   <!-- Paso 5: Registrar y responder -->
   <rect x="1020" y="114" width="220" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="1040" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">5 - REGISTRO Y RESPUESTA</text>
   <text x="1040" y="168" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Registro y respuesta</text>
-  <text x="1040" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">DIAN: factura y nota, 5 anos</text>
-  <text x="1040" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Backups historicos no se borran</text>
+  <text x="1040" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Evidencia minima y respuesta segura</text>
+  <text x="1040" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Backups segun politica aprobada</text>
 
   <!-- Conexiones -->
   <line x1="284" y1="166" x2="294" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr10)"/>
@@ -60,42 +54,39 @@
   <line x1="764" y1="166" x2="774" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr10)"/>
   <line x1="1004" y1="166" x2="1014" y2="166" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr10)"/>
 
-  <!-- Rama NO fiscal -->
-  <polyline points="650,166 650,240 770,240" fill="none" stroke="#2E5E4E" stroke-width="1.5" marker-end="url(#arr10Green)"/>
-  <!-- Rama SI fiscal -->
-  <polyline points="650,190 650,310 770,310" fill="none" stroke="#B4483A" stroke-width="1.5" marker-end="url(#arr10Red)"/>
+  <!-- Clasificacion consulta la matriz de retencion -->
+  <polyline points="650,218 650,232 355,232 355,244" fill="none" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr10)"/>
 
   <!-- Matriz de retencion -->
   <rect x="60" y="252" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="80" y="280" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">MATRIZ DE RETENCION</text>
-  <text x="80" y="302" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Ordenes y facturas: 5 anos (obligacion contable/DIAN)</text>
-  <text x="80" y="322" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">`decision_logs`: 5 anos (gobernanza)</text>
-  <text x="80" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">`auth_events`: 1 ano (seguridad)</text>
-  <text x="80" y="362" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Carritos abandonados: 30 dias -> anonimizar</text>
-  <text x="80" y="382" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Media huerfana: 30 dias -> limpieza por job</text>
+  <text x="80" y="280" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">MATRIZ DE RETENCION PENDIENTE (D-10)</text>
+  <text x="80" y="302" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Ordenes/facturas/decision_logs: 5 anos provisional; validar base y computo</text>
+  <text x="80" y="322" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">auth_events, carritos y soporte: evento y plazo por definir</text>
+  <text x="80" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Media y backups: politica de disposicion pendiente</text>
+  <text x="80" y="362" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">No activar borrados/anonimizacion automatica aun</text>
 
   <!-- Residencia -->
   <rect x="670" y="252" width="570" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="690" y="280" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">RESIDENCIA DE DATOS</text>
-  <text x="690" y="302" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Region unica del proyecto Supabase (referencia)</text>
-  <text x="690" y="322" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Computo, colas, storage y observabilidad alineados</text>
-  <text x="690" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Transferencia internacional amparada por DPA + Clausulas Modelo</text>
+  <text x="690" y="302" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Preferencia de region unica aun no confirmada</text>
+  <text x="690" y="322" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Alinear proveedores solo tras evaluar regiones y contratos</text>
+  <text x="690" y="342" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Transferencias y salvaguardas requieren revision legal</text>
   <text x="690" y="362" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#16181A">Medir latencia desde Colombia antes de produccion</text>
 
   <!-- Tension DSR vs factura -->
   <rect x="60" y="408" width="590" height="130" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
   <text x="80" y="436" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">TENSION DSR vs OBLIGACION TRIBUTARIA</text>
-  <text x="80" y="456" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">DSR de supresion (Ley 1581) vs conservacion de facturas (DIAN, 5 anos)</text>
-  <text x="80" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Solucion: anonimizacion de identidad, no borrado fisico</text>
-  <text x="80" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Se conserva direccion fiscal y NIT/CC para validez de factura electronica</text>
-  <text x="80" y="516" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">La identidad viva del cliente se elimina del sistema operativo</text>
+  <text x="80" y="456" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Supresion solicitada vs obligaciones potenciales de conservacion</text>
+  <text x="80" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Legal/contador definen fundamento y dato estrictamente necesario</text>
+  <text x="80" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Restringir acceso y anonimizar/suprimir los demas datos cuando proceda</text>
+  <text x="80" y="516" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Escalar casos ambiguos; no decidir retencion por conveniencia tecnica</text>
 
   <!-- Auditoria inmutable -->
   <rect x="670" y="408" width="570" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="690" y="436" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">AUDITORIA INMUTABLE</text>
-  <text x="690" y="456" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`ai_audit_logs` append-only con cadena de hash</text>
+  <text x="690" y="436" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">LEDGER DE DECISIONES (ADR-0007)</text>
+  <text x="690" y="456" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`decision_logs` append-only con cadena de hash</text>
   <text x="690" y="476" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">No se puede "limpiar" retroactivamente sin romper la cadena</text>
-  <text x="690" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">La anonimizacion no afecta a los registros contables del tenant</text>
+  <text x="690" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">El diseno de supresion no debe romper la cadena; validar campos</text>
 
   <!-- Verificacion -->
   <rect x="60" y="562" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>

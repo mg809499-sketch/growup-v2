@@ -1,4 +1,4 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 700" width="1300" height="700" role="img" aria-labelledby="tD17 dD17">
   <title id="tD17">D-17 - Responsabilidad fiscal y marketplace facilitator</title>
   <desc id="dD17">Postura no facilitador en MVP, merchant of record, IVA DIAN, estatuto tributario CO, gatillo de reapertura para fase 2 (comision/split/custodia).</desc>
@@ -63,9 +63,9 @@
   <!-- Relacion D-06 -->
   <rect x="670" y="248" width="570" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="690" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">RELACION CON D-06</text>
-  <text x="690" y="272" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">IVA e impuestos CO (D-06) separado del modelo facilitador</text>
-  <text x="690" y="292" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Fases fuera de Colombia: multi-jurisdiccion por D-17</text>
-  <text x="690" y="312" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Multi-moneda diferida (D-05)</text>
+  <text x="690" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">IVA/impuestos CO (D-06), separado del modelo</text>
+  <text x="690" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Fases fuera de Colombia: multi-jurisdiccion (D-17)</text>
+  <text x="690" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Multi-moneda diferida (D-05)</text>
 
   <!-- Verificacion -->
   <rect x="60" y="390" width="590" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
@@ -83,4 +83,3 @@
 
   <text x="1240" y="680" text-anchor="end" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10.5" fill="#A0A5AA">Growup - docs/adr - D-17 - 2026-11</text>
 </svg>
-

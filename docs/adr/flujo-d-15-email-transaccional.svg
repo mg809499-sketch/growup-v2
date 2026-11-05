@@ -1,4 +1,4 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 760" width="1300" height="760" role="img" aria-labelledby="tD15 dD15">
   <title id="tD15">D-15 - Email transaccional, identidad por tenant y residencia</title>
   <desc id="dD15">Proveedor dedicado (Resend/Postmark), DKIM/SPF/DMARC, ARQ, identidad de envio por tenant, Supabase Auth SMTP, retencion y region alineada con D-10.</desc>

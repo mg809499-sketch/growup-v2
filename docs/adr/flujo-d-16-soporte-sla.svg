@@ -1,4 +1,4 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 740" width="1300" height="740" role="img" aria-labelledby="tD16 dD16">
   <title id="tD16">D-16 - Soporte al comerciante y SLA</title>
   <desc id="dD16">Canal unico email/ticket, matriz SLA (S1/S2/S3), rol support, acceso temporal auditado, base de conocimiento y escalado (D-16, COBIT 2019, SLA B2B SaaS).</desc>

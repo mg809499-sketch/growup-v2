@@ -96,7 +96,7 @@ Reglas:
 - Génesis = 64 ceros. La escritura se serializa con `pg_advisory_xact_lock(hashtext(chain_key))` para evitar bifurcaciones.
 - Un job diario verifica la cadena. Si falla: alerta crítica `GOVERNANCE_INTEGRITY_FAILURE` y bloqueo de mutaciones sensibles hasta que operaciones resuelva.
 - `context_summary` solo guarda campos allowlist; nunca prompts, tokens, datos de tarjeta ni PII.
-- Retención mínima de 5 años o la que exija la ley; exportable a R2 para archivo.
+- Política técnica propuesta: conservar por un periodo aprobado y exportable a R2. El periodo de 5 años de versiones previas no es una conclusión legal; D-10 debe validar plazo, fundamento, campos, acceso y borrado antes de activarlo.
 
 ### 4. Handoff humano
 
@@ -156,7 +156,7 @@ Reglas:
 - Hay que instrumentar cada endpoint sensible y mantener las políticas.
 - La serialización por tenant puede ser un cuello de botella si hay muchas decisiones concurrentes; se mitiga con lotes o colas.
 - El handoff requiere UI y proceso operativo.
-- La retención de 5 años implica costo de almacenamiento y anonimización.
+- El periodo de conservación, una vez validado en D-10, implica costo de almacenamiento y anonimización.
 
 ### Neutras
 

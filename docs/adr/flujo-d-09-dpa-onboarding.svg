@@ -1,7 +1,7 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 760" width="1300" height="760" role="img" aria-labelledby="tD09 dD09">
   <title id="tD09">D-09 - DPA Processor/Controller y onboarding legal</title>
-  <desc id="dD09">Flujo de aceptacion del DPA por clickwrap versionado durante el onboarding del tenant, tabla legal_acceptances y bloqueo hasta aceptacion (Ley 1581, Circular Externa 003/2025 SIC).</desc>
+  <desc id="dD09">Diseno propuesto, no implementado: acceptance versionada del DPA con compuerta de publicacion; D-09 sigue pendiente de revision legal.</desc>
   <defs>
     <marker id="arr09" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
@@ -13,7 +13,7 @@
   <rect width="1300" height="760" fill="#FBFAF8"/>
 
   <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-09 - DPA Processor/Controller y onboarding legal</text>
-  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Ley 1581/2012 - Circular Externa 003/2025 SIC - clickwrap versionado - `pending_legal` hasta aceptacion</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Diseno propuesto, no implementado - D-09 abierta - contrato y mecanismo pendientes de aprobacion</text>
   <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
 
   <!-- Paso 1: Alta tenant -->
@@ -35,14 +35,14 @@
   <text x="560" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">3 - ACEPTACION DPA</text>
   <text x="560" y="168" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#22483C">Clickwrap versionado</text>
   <text x="560" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Casilla + texto legal</text>
-  <text x="560" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#41695B">Clausulas modelo (Circular 003/2025)</text>
+  <text x="560" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#41695B">Texto y mecanismo aprobados por Legal</text>
 
   <!-- Paso 4: Endpoint y registro -->
   <rect x="780" y="114" width="220" height="104" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
   <text x="800" y="146" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">4 - PERSISTENCIA</text>
   <text x="800" y="168" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" fill="#16181A">`POST /tenants/legal/accept`</text>
   <text x="800" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">`legal_acceptances` append-only</text>
-  <text x="800" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" fill="#5B6167">Tenant; doc; version; actor; IP hash</text>
+  <text x="800" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="10" fill="#5B6167">Tenant; version; actor; evidencia</text>
 
   <!-- Paso 5: Activacion -->
   <rect x="1020" y="114" width="220" height="104" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
@@ -59,10 +59,10 @@
 
   <!-- Esquema legal_acceptances -->
   <rect x="60" y="248" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
-  <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">TABLA `legal_acceptances` (append-only, RLS por tenant)</text>
+  <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">TABLA `legal_acceptances` PROPUESTA (no implementada)</text>
   <text x="80" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">`id` uuid PK - `tenant_id` uuid FK - `document_type` text - `version` text</text>
-  <text x="80" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">`hash` text SHA-256 - `actor_id` text - `method` text - `ip_hash` text</text>
-  <text x="80" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">`accepted_at` timestamptz - `user_agent` text - RLS: `tenant_id = app.current_tenant()`</text>
+  <text x="80" y="316" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">`document_hash` - `actor_id` - `method` - `accepted_at` (campos por validar)</text>
+  <text x="80" y="334" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11.5" fill="#16181A">Append-only + RLS propuestos; minimizacion/evidencia por aprobar</text>
 
   <!-- Esquema legal_documents -->
   <rect x="670" y="248" width="570" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
@@ -75,13 +75,13 @@
   <rect x="60" y="400" width="590" height="118" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
   <text x="80" y="428" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">SUBCARGADOS (procesadores de datos)</text>
   <text x="80" y="450" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Supabase - Vercel - Cloudflare - Fly.io - R2 - Resend/Postmark - Wompi - Stripe</text>
-  <text x="80" y="470" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Listado en el DPA - autorizacion de cambio - transferencia internacional amparada por DPA + Clausulas Modelo</text>
+  <text x="80" y="470" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Inventario, autorizacion de cambios y transferencias sujetos a revision legal</text>
 
   <!-- Residencia -->
   <rect x="670" y="400" width="570" height="118" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
   <text x="690" y="428" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">RESIDENCIA Y TRANSFERENCIA</text>
-  <text x="690" y="450" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Supabase PostgreSQL y computo en region unica (EE. UU. us-east-1 en V2)</text>
-  <text x="690" y="470" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Transferencia internacional amparada por DPA con Clausulas modelo (Circular 003/2025)</text>
+  <text x="690" y="450" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Region/proveedores definitivos pendientes de confirmar</text>
+  <text x="690" y="470" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" fill="#5B6167">Transferencias y salvaguardas requieren analisis y aprobacion legal</text>
 
   <!-- Sin PII -->
   <rect x="60" y="540" width="590" height="118" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
@@ -93,7 +93,7 @@
   <rect x="670" y="540" width="570" height="118" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
   <text x="690" y="568" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3428">PENDIENTE DE REVISION LEGAL</text>
   <text x="690" y="590" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">Plantilla de DPA aprobada por abogado antes de cerrar D-09</text>
-  <text x="690" y="608" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">Plazos de retencion y region definitiva: validar con legal/DPO</text>
+  <text x="690" y="608" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3428">Texto, evidencia, retencion, subencargados y region: validar</text>
 
   <!-- Conexiones a tablas -->
   <line x1="170" y1="218" x2="170" y2="242" stroke="#6B7177" stroke-width="1.5" marker-end="url(#arr09)"/>

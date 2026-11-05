@@ -3,7 +3,7 @@
 - **Estado:** Aceptada
 - **Fecha:** 2026-10-21
 - **Decisores:** equipo de ingeniería y producto
-- **Relacionado con:** D-01, D-02, D-06 (pendiente), ADR-0003
+- **Relacionado con:** D-01, D-02, D-06, ADR-0003
 
 ## Contexto
 
@@ -14,7 +14,7 @@ Growup tiene dos flujos de dinero que no se pueden mezclar:
 
 La decisión D-02 cerró el modelo: **el comerciante es el merchant of record**. Growup usa credenciales por tenant, no custodia fondos y no implementa split de pagos en el MVP. El checkout usa **Wompi** y la suscripción de la plataforma usa **Stripe Billing**.
 
-La decisión D-06 (moneda e impuestos) sigue abierta. Este ADR no fija la política de IVA: los importes se guardan en centavos y se congelan en el snapshot de la orden; el cálculo de impuestos se define en el ADR de datos/comercio cuando D-06 se cierre.
+D-06 (moneda e impuestos) está cerrada: el MVP opera solo en COP, muestra precios con IVA del 19% incluido y conserva importes en centavos con un snapshot en la orden. El tratamiento fiscal del envío, los redondeos y la confirmación de las categorías gravadas siguen como validaciones derivadas con contador; no reabren la decisión de moneda.
 
 ## Decisión
 
@@ -182,7 +182,7 @@ Todas llevan `tenant_id`, `ENABLE` + `FORCE ROW LEVEL SECURITY` y la política `
 
 ## Pendientes derivados
 
-- **D-06:** tratamiento de IVA y moneda; afecta el cálculo del monto, no la arquitectura de pagos.
+- **D-06:** decisión cerrada; quedan por validar con contador el tratamiento fiscal del envío, los redondeos y las categorías gravadas.
 - **D-02-b:** comisión por venta y marketplace; se decide en fase 2.
 - Confirmar disponibilidad de Stripe para la entidad legal de Growup.
 - Confirmar tarifas y flujo exacto de Wompi Web Checkout.

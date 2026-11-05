@@ -1,4 +1,4 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 720" width="1300" height="720" role="img" aria-labelledby="tD11 dD11">
   <title id="tD11">D-11 - PCI-DSS v4.0.1, SAQ A y gobierno de scripts</title>
   <desc id="dD11">Checkout hosted Wompi, SAQ A, requisitos 6.4.3 e 11.6.1, CSP estricta, SRI, cero scripts de terceros en /checkout, MFA y cambio de gestion.</desc>

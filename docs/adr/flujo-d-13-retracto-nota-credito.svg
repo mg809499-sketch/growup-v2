@@ -1,7 +1,7 @@
-<xml version="1.0" encoding="UTF-8">
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 780" width="1300" height="780" role="img" aria-labelledby="tD13 dD13">
   <title id="tD13">D-13 - Retracto, devolucion y nota credito DIAN</title>
-  <desc id="dD13">Derecho de retracto (5 dias habiles), reversion de pago (Art. 51), plantilla Ley 1480 editable por tenant, webhook de reembolso y nota credito electronica DIAN vinculada al CUFE.</desc>
+  <desc id="dD13">Diseno propuesto: solicitud de retracto/devolucion y proceso de reembolso. Plazos, excepciones, texto y documentos tributarios requieren validacion legal/contable.</desc>
   <defs>
     <marker id="arr13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#6B7177"/>
@@ -16,14 +16,14 @@
   <rect width="1300" height="780" fill="#FBFAF8"/>
 
   <text x="650" y="38" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#16181A" letter-spacing="-0.3">D-13 - Retracto, devoluciones y nota credito DIAN</text>
-  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">Ley 1480/2011 Art. 47 y 51 - Decreto 587/2016 - DIAN Res. 000165/2023 - plantilla editable por tenant</text>
+  <text x="650" y="64" text-anchor="middle" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" fill="#5B6167">D-13 propuesta - plazos, excepciones y documentos por validar con Legal/Contabilidad</text>
   <line x1="60" y1="88" x2="1240" y2="88" stroke="#E2DED6" stroke-width="1"/>
 
   <!-- Paso 1: Plantilla legal -->
   <rect x="60" y="114" width="240" height="120" rx="10" fill="#E6ECF5" stroke="#3C5A8A" stroke-opacity="0.35"/>
   <text x="80" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#2B4470">1 - PLANTILLA LEGAL</text>
   <text x="80" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" fill="#2B4470">Retracto - devolucion - garantia</text>
-  <text x="80" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Valores segun Ley 1480</text>
+  <text x="80" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Campos sujetos a aprobacion legal</text>
   <text x="80" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Publicada en el footer storefront</text>
   <text x="80" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#4B5F7E">Campos editables por tenant</text>
 
@@ -32,12 +32,12 @@
   <text x="340" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#5B6167">2 - SOLICITUD DEL COMPRADOR</text>
   <text x="340" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#16181A">Solicitud de retracto</text>
   <text x="340" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Entrega y reembolso total</text>
-  <text x="340" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Transporte a cargo del comprador</text>
-  <text x="340" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Reversion: 5 dias desde novedad</text>
+  <text x="340" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Costos/excepciones: politica aprobada</text>
+  <text x="340" y="206" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Plazos por validar con Legal</text>
 
   <!-- Paso 3: Aprobacion manual -->
   <rect x="580" y="114" width="240" height="120" rx="10" fill="#F4F1EB" stroke="#8A6114" stroke-opacity="0.4"/>
-  <text x="600" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">3 - APROBACION MANUAL DEL TENANT</text>
+  <text x="600" y="128" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">3 - APROBACION DEL TENANT</text>
   <text x="600" y="150" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#8A6114">Aprobacion del tenant</text>
   <text x="600" y="170" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Returns diferidos (D-05)</text>
   <text x="600" y="188" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Reembolso manual via pasarela</text>
@@ -59,8 +59,8 @@
   <text x="80" y="276" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#22483C">NOTA CREDITO ELECTRONICA DIAN</text>
   <text x="80" y="298" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Proveedor certificado (Factus, Siigo, Alegra u otro)</text>
   <text x="80" y="318" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Vinculada al CUFE de la factura original</text>
-  <text x="80" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Revierte el IVA reportado y ajusta el debito fiscal</text>
-  <text x="80" y="358" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Unico soporte valido ante la DIAN para anulacion/ajuste</text>
+  <text x="80" y="338" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Efectos fiscales se revisan con proveedor y contador</text>
+  <text x="80" y="358" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#41695B">Documento soporte requerido por confirmar antes de automatizar</text>
 
   <!-- Estado de orden y pago -->
   <rect x="670" y="248" width="570" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>
@@ -71,7 +71,7 @@
 
   <!-- Plantilla editable -->
   <rect x="60" y="402" width="590" height="118" rx="10" fill="#FAF3E6" stroke="#C08A2E" stroke-opacity="0.4"/>
-  <text x="80" y="428" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">PLANTILTA EDITABLE POR TENANT</text>
+  <text x="80" y="428" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8A6114">PLANTILLA EDITABLE POR TENANT</text>
   <text x="80" y="450" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Campos acotados: plazos, exclusiones, productos retornables</text>
   <text x="80" y="470" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Version y hash registrados (ADR-0009)</text>
   <text x="80" y="490" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#5B6167">Nota credito condicionada al proveedor DIAN de D-03</text>
@@ -79,9 +79,9 @@
   <!-- Pendiente legal -->
   <rect x="670" y="402" width="570" height="118" rx="10" fill="#F9EDEA" stroke="#B4483A" stroke-opacity="0.4"/>
   <text x="690" y="428" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2" fill="#8E3426">PENDIENTE DE REVISION LEGAL</text>
-  <text x="690" y="424" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Plantilla aprobada por legal antes de cerrar D-13</text>
-  <text x="690" y="444" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Flujo de nota credito tras refund: proveedor DIAN o manual (HANDOFF)</text>
-  <text x="690" y="464" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Relacionado con D-14 (chargebacks) y D-03 (facturacion)</text>
+  <text x="690" y="450" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Plantilla aprobada por Legal antes de cerrar D-13</text>
+  <text x="690" y="470" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Nota credito: proveedor DIAN o proceso manual</text>
+  <text x="690" y="490" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="12" fill="#8E3426">Relacionado con D-14 chargebacks y D-03 facturacion</text>
 
   <!-- Verificacion -->
   <rect x="60" y="544" width="590" height="130" rx="10" fill="#FFFFFF" stroke="#E2DED6"/>

@@ -25,7 +25,7 @@ Las decisiones de negocio ya cerradas fijan el marco:
 ### 1. Proveedor de identidad
 
 - **Supabase Auth** es el IdP.
-- **Personal del comerciante:** email + contraseña (o magic link) con Supabase Auth. Roles en `app_metadata`: `owner`, `manager`, `treasurer`, `packer`, `support`.
+- **Personal del comerciante:** email + contraseña (o magic link) con Supabase Auth. El tenant del token es un claim firmado que debe concordar con la membresía activa; los permisos efectivos salen de la membresía y la matriz del dominio, no de un rol enviado por el cliente.
 - **Comprador final:** checkout como invitado. El magic link es opcional y sirve para reclamar historial y direcciones; no hay contraseñas de comprador.
 - **Platform admin:** rol `platform_admin` con `tenant_id = null`. Solo accede a endpoints de plataforma auditados; no obtiene `BYPASSRLS`.
 
@@ -37,7 +37,8 @@ La API verifica cada token con las claves públicas de Supabase (JWKS):
 - `iss`, `aud`, `exp` y `nbf`.
 - Caché de JWKS con expiración y refresco ante `kid` desconocido.
 - Prohibido `jwt.decode(..., verify_signature=False)` y prohibido leer claims de un token sin verificar.
-- Tenant y rol se leen exclusivamente de `app_metadata.tenant_id` y `app_metadata.role`.
+- El `tenant_id` de `app_metadata` se usa como claim firmado a comparar con el host resuelto y la membresía activa. No es un selector libre de tenant.
+- El rol/autorización efectiva se obtiene de la membresía vigente y la matriz de permisos del dominio; no se confía en un rol potencialmente obsoleto del JWT.
 - Token válido sin `tenant_id` solo se acepta en rutas de plataforma.
 
 ### 3. Resolución del tenant
@@ -51,6 +52,22 @@ Host (normalizado) → domains.host → tenant_id
 - Host desconocido → `404 TENANT_NOT_FOUND`.
 - `X-Tenant-ID` es solo un hint interno entre servicios. Si llega desde internet y no coincide con el host o con el claim del JWT → `403 TENANT_MISMATCH` + evento de seguridad.
 - La resolución de `tenants` y `domains` se hace con una función `SECURITY DEFINER` acotada (`app.resolve_tenant(host)`), no con una política `USING (true)`.
+
+#### Secuencia de petición
+
+```text
+Host recibido → normalizar y resolver contra domains
+  → (si es ruta privada) verificar JWT y membership activa
+  → validar que el actor puede operar en el tenant resuelto
+  → iniciar transacción y fijar rol/contexto con SET LOCAL
+  → ejecutar repositorio con scope tenant + enforcement RLS
+  → confirmar; limpiar contexto al finalizar la transacción
+```
+
+- El borde elimina headers internos que lleguen desde Internet. El backend no considera `X-Tenant-ID` ni `X-Storefront-Host` una fuente de autoridad por sí solos; cualquier header inyectado por proxy requiere canal confiable y contrato de despliegue verificable.
+- En storefront público, el host resuelve el tenant y solo permite datos publicados. En rutas privadas, el host/tenant y la identidad/membresía deben ser compatibles; una incompatibilidad deniega la petición.
+- No usar un tenant por defecto en caso de host desconocido, JWT no verificable, membresía revocada, contexto faltante o error de resolución.
+- Las claves de caché de respuestas dependientes del tenant incluyen tenant y recurso/versión; datos privados no se sirven desde caché pública. Los jobs vuelven a establecer y validar el tenant en cada transacción, sin heredar contexto de otro trabajo.
 
 ### 4. Roles de base de datos
 
@@ -109,7 +126,9 @@ Se registran en una tabla append-only:
 - Accesos de `platform_admin`.
 - Intentos de acceso cross-tenant.
 
-Sin PII cruda en logs; se guarda `tenant_id`, actor, evento, resultado, IP y `trace_id`.
+Sin PII cruda en logs; se guarda `tenant_id`, actor seudónimo, evento, resultado y `trace_id`. Los datos de red se registran solo si la política aprobada los justifica, con minimización y retención definida.
+
+Los datos de red se minimizan conforme a la política de retención aprobada. No registrar IP completa ni asumir que una transformación no revisada es anonimización. Los eventos de seguridad no deben incluir tokens, secretos, payloads completos de pago o datos de tarjeta.
 
 ## Alternativas consideradas
 
@@ -148,7 +167,7 @@ Sin PII cruda en logs; se guarda `tenant_id`, actor, evento, resultado, IP y `tr
 - **RLS:** SELECT/INSERT/UPDATE/DELETE cross-tenant devuelven 0 filas o error; `app_rw` no puede hacer `BYPASSRLS`; sin `SET LOCAL` no se ven filas.
 - **Roles:** un `owner` del tenant A no puede mutar el tenant B; un `packer` no puede cambiar precios.
 - **Auditoría:** cada mismatch genera un evento con `trace_id`.
-- **Pen-test:** 12 vectores cross-tenant definidos en `docs/architecture/03-tenancy.md` (pendiente de escribir).
+- **Pen-test:** los 12 vectores core están definidos en `docs/architecture/03-tenancy.md`; los vectores 13–16 son controles adicionales. Se ejecutan en CI cuando el endpoint correspondiente exista.
 
 ## Enlaces
 
