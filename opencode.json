@@ -1,7 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "instructions": [".kiro/steering/*.md"],
-  "skills": [".kiro/skills"],
+  "instructions": [
+    "docs/decisiones-pendientes.md",
+    "docs/adr/0003-identidad-tenancy-rls.md"
+  ],
+  "skills": [".opencode/skills"],
   "permissions": [
     { "action": "read", "resource": "**/.env", "effect": "deny" },
     { "action": "edit", "resource": "**/.env", "effect": "deny" },
