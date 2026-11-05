@@ -5,6 +5,7 @@ from typing import Any, Protocol
 
 import boto3  # type: ignore[import-untyped]
 from botocore.config import Config  # type: ignore[import-untyped]
+from botocore.exceptions import ClientError  # type: ignore[import-untyped]
 
 from app.core.errors import AppError
 
@@ -17,8 +18,11 @@ class MediaStorage(Protocol):
         key: str,
         *,
         content_type: str,
+        content_length: int,
         expires_in: int = 900,
     ) -> str: ...
+
+    async def head_size(self, key: str) -> int: ...
 
     async def download(self, key: str, *, max_bytes: int) -> bytes: ...
 
@@ -40,7 +44,7 @@ class R2Storage:
     """Adaptador S3-compatible para Cloudflare R2.
 
     El navegador solo recibe la URL prefirmada; las credenciales viven en el
-    servidor. La validación real de MIME/tamaño ocurre en el worker.
+    servidor. La firma incluye el tamaño esperado y el worker valida el MIME real.
     """
 
     def __init__(
@@ -74,6 +78,7 @@ class R2Storage:
         key: str,
         *,
         content_type: str,
+        content_length: int,
         expires_in: int = 900,
     ) -> str:
         url = self._client.generate_presigned_url(
@@ -82,10 +87,29 @@ class R2Storage:
                 "Bucket": self._bucket,
                 "Key": key,
                 "ContentType": content_type,
+                "ContentLength": content_length,
             },
             ExpiresIn=expires_in,
         )
         return str(url)
+
+    async def head_size(self, key: str) -> int:
+        try:
+            response = await asyncio.to_thread(
+                self._client.head_object,
+                Bucket=self._bucket,
+                Key=key,
+            )
+        except ClientError as exc:
+            code = exc.response.get("Error", {}).get("Code")
+            if code in {"404", "NoSuchKey", "NotFound"}:
+                raise AppError(
+                    "MEDIA_UPLOAD_MISSING",
+                    "No se encontró el archivo subido",
+                    404,
+                ) from exc
+            raise
+        return int(response["ContentLength"])
 
     async def download(self, key: str, *, max_bytes: int) -> bytes:
         response = await asyncio.to_thread(

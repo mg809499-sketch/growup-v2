@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     environment: str = "local"
     debug: bool = False
     database_url: str = ""
+    worker_database_url: str = ""
     db_pool_min: int = 1
     db_pool_max: int = 10
     tenant_cache_ttl_seconds: int = 300

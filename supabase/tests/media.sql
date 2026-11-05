@@ -4,6 +4,8 @@ create schema if not exists extensions;
 create extension if not exists pgtap with schema extensions;
 grant usage on schema extensions to app_rw;
 grant execute on all functions in schema extensions to app_rw;
+grant usage on schema extensions to app_worker;
+grant execute on all functions in schema extensions to app_worker;
 set search_path = public, extensions;
 
 select plan(14);
@@ -180,7 +182,12 @@ values (
 )
 returning id as asset_fresh \gset
 
+reset role;
+set local role app_worker;
 select app.expire_stale_uploads(3600);
+reset role;
+set local role app_rw;
+select set_config('app.tenant_id', :'tenant_a', true);
 
 select is(
     (select status from app.media_assets where id = :'asset_stale'),
@@ -194,12 +201,15 @@ select is(
     'el upload reciente sigue uploading'
 );
 
+reset role;
+set local role app_worker;
 select throws_ok(
     'select app.expire_stale_uploads(10)',
     'P0001',
     'max_age_seconds must be at least 60',
     'la limpieza exige un TTL mínimo de 60 segundos'
 );
+reset role;
 
 select * from finish();
 rollback;

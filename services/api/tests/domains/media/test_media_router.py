@@ -92,11 +92,14 @@ class FakeMediaService:
         *,
         status: str | None,
         limit: int,
-    ) -> tuple[MediaAsset, ...]:
+        offset: int,
+    ) -> tuple[tuple[MediaAsset, ...], int]:
         if self.error is not None:
             raise self.error
-        self.listed.append({"tenant_id": tenant_id, "status": status, "limit": limit})
-        return self.assets
+        self.listed.append(
+            {"tenant_id": tenant_id, "status": status, "limit": limit, "offset": offset}
+        )
+        return self.assets[offset : offset + limit], len(self.assets)
 
     async def get_asset_detail(
         self,
@@ -254,14 +257,18 @@ def test_list_media_assets() -> None:
     app.dependency_overrides[get_media_service] = lambda: fake
     client = TestClient(app)
 
-    response = client.get("/v1/admin/media?status=ready&limit=10")
+    response = client.get("/v1/admin/media?status=ready&limit=10&offset=0")
 
     assert response.status_code == 200
     payload = response.json()
     assert len(payload["items"]) == 1
+    assert payload["total"] == 1
+    assert payload["limit"] == 10
+    assert payload["offset"] == 0
     assert payload["items"][0]["status"] == "ready"
     assert fake.listed[0]["status"] == "ready"
     assert fake.listed[0]["limit"] == 10
+    assert fake.listed[0]["offset"] == 0
 
 
 def test_get_media_asset_detail() -> None:

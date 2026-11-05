@@ -33,7 +33,8 @@ class MediaRepository(Protocol):
         *,
         status: str | None,
         limit: int,
-    ) -> tuple[MediaAsset, ...]: ...
+        offset: int,
+    ) -> tuple[tuple[MediaAsset, ...], int]: ...
 
     async def list_variants(
         self,
@@ -135,8 +136,19 @@ class PostgresMediaRepository:
         *,
         status: str | None,
         limit: int,
-    ) -> tuple[MediaAsset, ...]:
+        offset: int,
+    ) -> tuple[tuple[MediaAsset, ...], int]:
         async with self._database.tenant_transaction(tenant_id) as connection:
+            total = await connection.fetchval(
+                """
+                select count(*)
+                from app.media_assets
+                where tenant_id = $1
+                  and ($2::text is null or status = $2)
+                """,
+                tenant_id,
+                status,
+            )
             rows = await connection.fetch(
                 f"""
                 select {_ASSET_COLUMNS}
@@ -145,12 +157,14 @@ class PostgresMediaRepository:
                   and ($2::text is null or status = $2)
                 order by created_at desc, id desc
                 limit $3::int
+                offset $4::int
                 """,
                 tenant_id,
                 status,
                 limit,
+                offset,
             )
-        return tuple(_asset(row) for row in rows)
+        return tuple(_asset(row) for row in rows), int(total or 0)
 
     async def list_variants(
         self,

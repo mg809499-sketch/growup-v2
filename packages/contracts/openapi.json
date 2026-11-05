@@ -965,6 +965,18 @@
               "default": 50,
               "title": "Limit"
             }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1000000,
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
           }
         ],
         "responses": {
@@ -1940,11 +1952,26 @@
             },
             "type": "array",
             "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
           }
         },
         "type": "object",
         "required": [
-          "items"
+          "items",
+          "total",
+          "limit",
+          "offset"
         ],
         "title": "MediaAssetListResponse"
       },

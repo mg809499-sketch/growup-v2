@@ -74,6 +74,7 @@ class MediaService:
             upload_url = self._storage.presigned_put(
                 r2_key,
                 content_type=mime,
+                content_length=size_bytes,
                 expires_in=self._upload_ttl_seconds,
             )
         except Exception:
@@ -113,7 +114,14 @@ class MediaService:
                 "La cola de procesamiento no está configurada",
                 503,
             )
-
+        uploaded_size = await self._storage.head_size(asset.r2_key)
+        if uploaded_size != asset.size_bytes:
+            await self._repository.mark_failed(tenant_id, asset_id)
+            raise AppError(
+                "MEDIA_SIZE_MISMATCH",
+                "El tamaño subido no coincide con el tamaño autorizado",
+                413,
+            )
         await self._repository.set_alt(tenant_id, asset_id, clean_alt)
         try:
             await self._enqueue(tenant_id, asset_id)
@@ -134,15 +142,19 @@ class MediaService:
         *,
         status: str | None,
         limit: int,
-    ) -> tuple[MediaAsset, ...]:
+        offset: int,
+    ) -> tuple[tuple[MediaAsset, ...], int]:
         if limit < 1 or limit > 100:
             raise AppError("INVALID_LIMIT", "El límite debe estar entre 1 y 100", 422)
+        if offset < 0 or offset > 1_000_000:
+            raise AppError("INVALID_OFFSET", "El desplazamiento no es válido", 422)
         if status is not None and status not in _VALID_STATUSES:
             raise AppError("INVALID_STATUS", "Estado de media inválido", 422)
         return await self._repository.list_assets(
             tenant_id,
             status=status,
             limit=limit,
+            offset=offset,
         )
 
     async def get_asset(self, tenant_id: UUID, asset_id: UUID) -> MediaAsset:

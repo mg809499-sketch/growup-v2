@@ -71,3 +71,6 @@ class MediaAssetDetailResponse(BaseModel):
 
 class MediaAssetListResponse(BaseModel):
     items: list[MediaAssetResponse]
+    total: int
+    limit: int
+    offset: int

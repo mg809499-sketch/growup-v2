@@ -64,14 +64,15 @@ class FakeMediaRepository:
         *,
         status: str | None,
         limit: int,
-    ) -> tuple[MediaAsset, ...]:
+        offset: int,
+    ) -> tuple[tuple[MediaAsset, ...], int]:
         assets = [
             asset
             for asset in self.assets.values()
             if asset.tenant_id == tenant_id
             and (status is None or asset.status.value == status)
         ]
-        return tuple(assets[:limit])
+        return tuple(assets[offset : offset + limit]), len(assets)
 
     async def list_variants(
         self,
@@ -144,6 +145,7 @@ class FakeStorage:
         key: str,
         *,
         content_type: str,
+        content_length: int,
         expires_in: int = 900,
     ) -> str:
         if self.fail_presign:
@@ -152,10 +154,16 @@ class FakeStorage:
             {
                 "key": key,
                 "content_type": content_type,
+                "content_length": content_length,
                 "expires_in": expires_in,
             }
         )
         return f"https://r2.example/{key}?sig=1"
+
+    async def head_size(self, key: str) -> int:
+        if key not in self.objects:
+            raise AppError("MEDIA_UPLOAD_MISSING", "missing", 404)
+        return len(self.objects[key])
 
     async def download(self, key: str, *, max_bytes: int) -> bytes:
         data = self.objects[key]
@@ -233,6 +241,7 @@ async def test_create_upload_sanitizes_filename_and_prefixes_key() -> None:
     assert ticket.upload_url.startswith("https://r2.example/")
     assert repository.created[0]["original_filename"] == "camisa.jpg"
     assert storage.presigned[0]["content_type"] == "image/jpeg"
+    assert storage.presigned[0]["content_length"] == 1024
 
 
 async def test_create_upload_rejects_bad_type_and_size() -> None:
@@ -297,6 +306,7 @@ async def test_complete_upload_sets_alt_and_enqueues() -> None:
         size_bytes=10,
         original_filename="a.jpg",
     )
+    storage.objects["tenant/t/originals/a.jpg"] = b"x" * 10
     enqueued: list[tuple[UUID, UUID]] = []
 
     async def enqueue(tenant: UUID, asset: UUID) -> None:
@@ -308,6 +318,29 @@ async def test_complete_upload_sets_alt_and_enqueues() -> None:
 
     assert asset.alt == "Camisa roja"
     assert enqueued == [(tenant_id, asset_id)]
+
+
+async def test_complete_upload_rejects_mismatched_object_size() -> None:
+    repository = FakeMediaRepository()
+    storage = FakeStorage({"tenant/t/originals/a.jpg": b"x" * 11})
+    tenant_id = uuid4()
+    asset_id = await repository.create_asset(
+        tenant_id,
+        r2_key="tenant/t/originals/a.jpg",
+        mime="image/jpeg",
+        size_bytes=10,
+        original_filename="a.jpg",
+    )
+
+    async def enqueue(_tenant: UUID, _asset: UUID) -> None:
+        return None
+
+    service = MediaService(repository, storage, enqueue=enqueue)
+    with pytest.raises(AppError) as exc_info:
+        await service.complete_upload(tenant_id, asset_id, alt="Alt")
+
+    assert exc_info.value.code == "MEDIA_SIZE_MISMATCH"
+    assert repository.assets[asset_id].status is MediaStatus.FAILED
 
 
 async def test_complete_upload_is_idempotent_when_ready() -> None:
@@ -428,12 +461,16 @@ async def test_list_assets_validates_limit_and_status() -> None:
     service = MediaService(FakeMediaRepository(), FakeStorage())
 
     with pytest.raises(AppError) as limit_error:
-        await service.list_assets(uuid4(), status=None, limit=0)
+        await service.list_assets(uuid4(), status=None, limit=0, offset=0)
     assert limit_error.value.code == "INVALID_LIMIT"
 
     with pytest.raises(AppError) as status_error:
-        await service.list_assets(uuid4(), status="bogus", limit=10)
+        await service.list_assets(uuid4(), status="bogus", limit=10, offset=0)
     assert status_error.value.code == "INVALID_STATUS"
+
+    with pytest.raises(AppError) as offset_error:
+        await service.list_assets(uuid4(), status=None, limit=10, offset=-1)
+    assert offset_error.value.code == "INVALID_OFFSET"
 
 
 async def test_update_alt_sets_alt() -> None:

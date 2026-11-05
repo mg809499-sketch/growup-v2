@@ -44,6 +44,9 @@ class FakeS3Client:
             "Body": FakeBody(data),
         }
 
+    def head_object(self, *, Bucket: str, Key: str) -> dict[str, Any]:
+        return {"ContentLength": len(self.objects[Key])}
+
     def put_object(
         self,
         *,
@@ -86,6 +89,7 @@ def test_presigned_put_includes_content_type_and_expiry() -> None:
     url = storage.presigned_put(
         "tenant/t/originals/a.jpg",
         content_type="image/jpeg",
+        content_length=1024,
         expires_in=600,
     )
 
@@ -97,6 +101,7 @@ def test_presigned_put_includes_content_type_and_expiry() -> None:
                 "Bucket": "growup-catalog-test",
                 "Key": "tenant/t/originals/a.jpg",
                 "ContentType": "image/jpeg",
+                "ContentLength": 1024,
             },
             "expires_in": 600,
         }

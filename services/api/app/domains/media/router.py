@@ -107,14 +107,21 @@ async def list_media_assets(
     service: Annotated[MediaService, Depends(get_media_service)],
     status: Annotated[Literal["uploading", "ready", "failed"] | None, Query()] = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 50,
+    offset: Annotated[int, Query(ge=0, le=1_000_000)] = 0,
 ) -> MediaAssetListResponse:
     require_permission(context, Permission.CATALOG_READ)
-    assets = await service.list_assets(
+    assets, total = await service.list_assets(
         _tenant_id(context),
         status=status,
         limit=limit,
+        offset=offset,
     )
-    return MediaAssetListResponse(items=[_asset_response(asset) for asset in assets])
+    return MediaAssetListResponse(
+        items=[_asset_response(asset) for asset in assets],
+        total=total,
+        limit=limit,
+        offset=offset,
+    )
 
 
 @router.get("/{asset_id}", response_model=MediaAssetDetailResponse)

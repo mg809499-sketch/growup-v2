@@ -24,12 +24,10 @@ async def process_media(ctx: dict[str, Any], tenant_id: str, asset_id: str) -> N
 async def cleanup_uploads(ctx: dict[str, Any]) -> None:
     """Marca como `failed` los uploads que nunca se completaron.
 
-    El job es cross-tenant: la función `app.expire_stale_uploads()` es
-    SECURITY DEFINER y se llama desde una transacción pública, sin
-    `app.tenant_id`.
+    La función SECURITY DEFINER solo es ejecutable por el rol app_worker.
     """
     database: Database = ctx[_CTX_DATABASE]
-    async with database.public_transaction() as connection:
+    async with database.worker_transaction() as connection:
         await connection.fetchval(
             "select app.expire_stale_uploads($1)",
             settings.media_stale_upload_seconds,
@@ -37,8 +35,8 @@ async def cleanup_uploads(ctx: dict[str, Any]) -> None:
 
 
 async def startup(ctx: dict[str, Any]) -> None:
-    if not settings.database_url:
-        raise RuntimeError("GROWUP_DATABASE_URL es obligatoria para el worker")
+    if not settings.worker_database_url:
+        raise RuntimeError("GROWUP_WORKER_DATABASE_URL es obligatoria para el worker")
     if not (
         settings.r2_endpoint_url
         and settings.r2_access_key_id
@@ -47,7 +45,7 @@ async def startup(ctx: dict[str, Any]) -> None:
         raise RuntimeError("R2 no está configurado para el worker")
 
     database = Database(
-        settings.database_url,
+        settings.worker_database_url,
         min_size=settings.db_pool_min,
         max_size=settings.db_pool_max,
     )

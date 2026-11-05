@@ -525,6 +525,12 @@ export interface components {
         MediaAssetListResponse: {
             /** Items */
             items: components["schemas"]["MediaAssetResponse"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
         };
         /** MediaAssetResponse */
         MediaAssetResponse: {
@@ -1512,6 +1518,7 @@ export interface operations {
             query?: {
                 status?: ("uploading" | "ready" | "failed") | null;
                 limit?: number;
+                offset?: number;
             };
             header?: never;
             path?: never;
