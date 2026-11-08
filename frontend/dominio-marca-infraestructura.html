@@ -1,0 +1,780 @@
+<!DOCTYPE html><html class="" id="html-root" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_dashboard" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+        transition: background-color 0.25s ease, color 0.25s ease;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "outline-variant": "#464554",
+          "surface-container-low": "#171b26",
+          "error": "#ffb4ab",
+          "on-primary-container": "#0d0096",
+          "on-secondary": "#003824",
+          "on-primary-fixed-variant": "#2f2ebe",
+          "on-tertiary-container": "#340080",
+          "on-primary-fixed": "#07006c",
+          "error-container": "#93000a",
+          "on-secondary-fixed-variant": "#005236",
+          "surface-tint": "#c0c1ff",
+          "on-surface-variant": "#c7c4d7",
+          "surface-container-high": "#262a35",
+          "on-secondary-container": "#00311f",
+          "tertiary": "#d0bcff",
+          "secondary-fixed-dim": "#4edea3",
+          "inverse-primary": "#494bd6",
+          "surface-variant": "#313540",
+          "on-primary": "#1000a9",
+          "primary-fixed-dim": "#c0c1ff",
+          "surface-container": "#1c1f2a",
+          "secondary-container": "#00a572",
+          "on-surface": "#dfe2f1",
+          "outline": "#908fa0",
+          "surface-container-highest": "#313540",
+          "surface-bright": "#353944",
+          "secondary-fixed": "#6ffbbe",
+          "surface-container-lowest": "#0a0e18",
+          "inverse-surface": "#dfe2f1",
+          "on-tertiary-fixed-variant": "#5516be",
+          "tertiary-container": "#a078ff",
+          "on-error": "#690005",
+          "on-error-container": "#ffdad6",
+          "background": "#0f131d",
+          "primary": "#c0c1ff",
+          "primary-fixed": "#e1e0ff",
+          "secondary": "#4edea3",
+          "on-tertiary": "#3c0091",
+          "primary-container": "#8083ff",
+          "tertiary-fixed-dim": "#d0bcff",
+          "on-tertiary-fixed": "#23005c",
+          "on-secondary-fixed": "#002113",
+          "surface": "#0f131d",
+          "tertiary-fixed": "#e9ddff",
+          "on-background": "#dfe2f1",
+          "surface-dim": "#0f131d",
+          "inverse-on-surface": "#2c303b"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "space-lg": "1.5rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "2rem",
+          "gutter-mobile": "1rem",
+          "space-xl": "2rem",
+          "gutter": "1.5rem"
+        },
+        fontFamily: {
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-xl": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-lg": ["Plus Jakarta Sans"],
+          "headline-md": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "headline-xl-mobile": ["Plus Jakarta Sans"]
+        },
+        fontSize: {
+          "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+          "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+          "title-md": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+          "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+          "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+          "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+          "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+          "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+          "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+        }
+      }
+    }
+  };
+  </script>
+<style id="interactive-enhancements">
+    button, a, [role="button"] {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+    }
+    button:hover, a[href]:hover {
+      transform: translateY(-1px);
+    }
+    button:active, a[href]:active {
+      transform: translateY(0) scale(0.98);
+    }
+  </style><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;display=swap" rel="stylesheet"><style id="burbank-light-theme-override">body, #html-root, main, aside, header { background-color: #ffffff !important; color: #090d16 !important; } h1, h2, h3, .font-headline-lg, .font-headline-md, .font-title-md { font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif !important; letter-spacing: -0.01em; } .bg-surface, .bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container, .bg-surface-container-high, .bg-surface-container-highest { background-color: #ffffff !important; } .border-outline-variant\/30, .border-outline-variant\/40 { border-color: #e2e8f0 !important; } .text-on-surface { color: #090d16 !important; } .text-on-surface-variant, .text-outline { color: #475569 !important; } input, textarea { background-color: #f8fafc !important; color: #090d16 !important; border-color: #e2e8f0 !important; } .shadow-inner { box-shadow: none !important; border: 1px solid #e2e8f0 !important; } .shadow-md, .shadow-sm { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06) !important; border: 1px solid #e2e8f0 !important; } :root { --color-orange: #ea580c; --color-orange-light: #f97316; --color-violet: #7c3aed; --color-violet-light: #8b5cf6; } .text-primary, .text-primary-fixed-variant { color: #ea580c !important; } .bg-primary { background-color: #ea580c !important; color: #ffffff !important; } .bg-primary-container { background-color: #7c3aed !important; color: #ffffff !important; } .text-on-primary-container { color: #ffffff !important; } .text-secondary { color: #ea580c !important; } .bg-secondary { background-color: #ea580c !important; color: #ffffff !important; } .bg-secondary\/10, .bg-secondary\/15, .bg-secondary\/20 { background-color: rgba(234, 88, 12, 0.12) !important; color: #ea580c !important; } .border-secondary\/20 { border-color: rgba(234, 88, 12, 0.25) !important; } .border-primary { border-color: #ea580c !important; } .text-tertiary { color: #7c3aed !important; } .ring-primary\/40 { --tw-ring-color: rgba(124, 58, 237, 0.4) !important; } button#domain-check-btn { background-color: #7c3aed !important; color: #ffffff !important; } button#domain-check-btn:hover { background-color: #6d28d9 !important; }</style><style id="burbank-global-typography">*, html, body, h1, h2, h3, h4, p, span, a, button, input, label, table, th, td { font-sansansamily: 'Burbank', 'Plus Jakarta Sans', -apple-system, sans-serif !important; } .material-symbols-outlined { font-sansansamily: 'Material Symbols Outlined' !important; }</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet">
+<style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+<style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-white">
+<!-- TOP BAR -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#e2e8f0] transition-colors">
+<div class="h-16 w-full px-space-md lg:px-space-lg flex items-center justify-between gap-space-md">
+<!-- Brand / Tenant Selector -->
+<div class="flex items-center gap-space-md flex-shrink-0">
+<a class="flex items-center gap-space-sm group" data-path="landing-welcome" href="welcome-carrusel-3d.html"><span class="font-headline-md text-title-md font-sansansold tracking-tight text-on-surface">GrowUp Space</span></a>
+<div class="relative">
+<button class="flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-label-sm font-sansansemibold border border-outline-variant/40 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-secondary text-[16px]">store</span>
+<span class="">Mi Tienda Deportiva</span>
+<span class="material-symbols-outlined text-outline text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Search Bar Cmd+K -->
+<div class="hidden xl:flex items-center gap-space-sm flex-1 max-w-lg mx-space-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full bg-[#f8fafc] text-[#090d16] placeholder:text-[#64748b] pl-9 pr-14 py-2 rounded-xl text-body-md font-medium border border-[#e2e8f0] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all" placeholder="Buscar pedidos, pasarelas, dominios..." type="text">
+<kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-surface-container text-outline border border-outline-variant/40 rounded text-label-sm font-sansansemibold uppercase">âŒ˜K</kbd>
+</div>
+</div>
+<!-- Right Actions & Theme Switch -->
+<div class="flex items-center gap-space-md flex-shrink-0">
+<!-- Status Badges -->
+<div class="hidden lg:flex items-center gap-space-sm">
+
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-label-sm font-medium text-secondary">
+<span class="inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+<span class="text-on-surface-variant font-sansansody-md">Wompi Gateway:</span>
+<span class="font-sansansold text-secondary">Live</span>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex items-center gap-space-sm">
+<button aria-label="Alternar Tema Claro/Oscuro" class="relative flex items-center justify-center p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/30 transition-all shadow-sm active:scale-95 group" id="theme-toggle-btn" onclick="toggleTheme()" type="button">
+<span class="material-symbols-outlined text-[20px] hidden dark:inline-block text-tertiary-fixed transition-transform group-hover:rotate-45" id="sun-icon">light_mode</span>
+<span class="material-symbols-outlined text-[20px] inline-block dark:hidden text-primary-fixed-variant transition-transform group-hover:-rotate-12" id="moon-icon">dark_mode</span>
+</button>
+<button aria-label="Notificaciones" class="relative p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/30 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary-container ring-2 ring-surface"></span>
+</button>
+<div class="relative flex items-center pl-1">
+<img alt="Perfil Administrador" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANrUTdFYu_CnWLmDd3793SV0GU3RBGEt8Iek2CrREuY91Iwmn7Ren9hiOlGBCku0T2SwN0yZG6GNen9tIu_BoY5rkJV20n5XQWwSipM6H7wpHnTeIl7UcQskPGYOGQiCHKtyO_3L2Efe1ApzTkAQgHX2dXYIGtzdB5n-fmFWXvApW1Fi2kOBaDYgBVc7EbGbbf4xyPQDwfrsgNQPi1uILfddqLvkOk4WXKxr9Qhmq28flW4Sx9_GIg1A">
+<span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- SIDEBAR NAVIGATION -->
+<aside class="fixed left-0 top-0 bottom-0 w-64 bg-white z-40 flex flex-col pt-16 border-r border-[#e2e8f0] transition-colors">
+<div class="flex-1 overflow-y-auto px-space-md py-space-md space-y-space-md">
+<!-- Portal Público -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Portal Principal</div>
+<nav aria-label="Portal Landing" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="landing-welcome" href="welcome-carrusel-3d.html">
+<span class="">Landing &amp; Acceso</span>
+<span class="material-symbols-outlined text-[16px] text-outline">arrow_outward</span>
+</a>
+</nav>
+</div>
+<!-- Operaciones Core -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Operaciones Core</div>
+<nav aria-label="Operaciones Core" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard-central" href="dashboard-central.html">
+<span class="">Dashboard Central</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="catalogo-inventario" href="catalogo-inventario.html">
+<span class="">Catálogo &amp; Inventario</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ordenes-pedidos" href="ordenes-bold-gateway.html">
+<span class="">Órdenes &amp; Pedidos</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="store-builder" href="store-web-builder.html"><div class="flex flex-col"><span class="">Store Builder</span><span class="text-[10px] text-outline font-sansansormal">Visual HTML &amp; WordPress</span></div><span class="material-symbols-outlined text-[16px] text-tertiary">brush</span></a></nav>
+</div>
+<!-- Crecimiento & Canales -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Crecimiento &amp; Canales</div>
+<nav aria-label="Crecimiento y Canales" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="meta-ads-studio" href="ia-opencode-agentes.html">
+<span class="">Agentes IA (opencode)</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="red-aliada-afiliados" href="welcome-carrusel-3d.html">
+<span class="">Red Aliada / Afiliados</span>
+</a>
+</nav>
+</div>
+<!-- Infraestructura -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Infraestructura</div>
+<nav aria-label="Infraestructura" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="pasarelas-pagos" href="pasarelas-pagos-wompi.html">
+<span class="">Pasarelas &amp; Pagos</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-[10px] font-sansansold tracking-wide uppercase">Activo</span>
+</a>
+<a aria-current="page" class="flex items-center justify-between px-3.5 py-2 rounded-xl transition-all bg-[#f1f5f9] text-[#090d16] font-sansansold shadow-sm border-l-2 border-primary" data-path="dominio-marca" href="dominio-marca-infraestructura.html">
+<span class="">Dominio &amp; Marca</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-sansansold tracking-wide uppercase">DNS OK</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ajustes-sistema" href="ajustes-configuracion.html">
+<span class="">Ajustes</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- Pro Tier Status Box -->
+<div class="p-3.5 bg-surface-container-low border-t border-outline-variant/30">
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container border border-outline-variant/30 shadow-sm">
+<div class="flex flex-col">
+<span class="text-label-md font-sansansold text-on-surface">Plan Scale Pro</span>
+<span class="text-label-sm font-sansansemibold text-secondary">Wompi sync activo</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT SLOT -->
+<div class="pl-64">
+<main class="w-full min-h-screen pt-16 bg-surface transition-colors"><div class="flex flex-col w-full">
+<!-- AMBIENT BACKDROP GLOW (CONTAINED) -->
+<div class="relative w-full overflow-hidden px-space-md lg:px-space-xl py-space-lg space-y-space-xl">
+
+
+<!-- 1. HEADER DE SECCIÓN -->
+<div class="relative flex flex-col md:flex-row md:items-end justify-between gap-space-md pb-space-sm">
+<div class="space-y-space-xs max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Infraestructura de Red &amp; DNS</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-sansansxtrabold tracking-tight" style="letter-spacing: -0.02em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">
+          Dominio &amp; Personalización de Marca
+        </h1>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Configura el subdominio gratuito de GrowUp Store o conecta tu dominio .com propio con SSL automático administrado por Cloudflare Enterprise.</p>
+</div>
+<!-- Edge SSL Badge Card -->
+<div class="flex items-center gap-space-sm px-4 py-3 rounded-xl bg-surface-container-high shadow-md">
+<div class="w-10 h-10 rounded-lg bg-secondary/15 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: &quot;FILL&quot; 1;">lock</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Certificado SSL Edge</span>
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+</div>
+<span class="font-label-sm text-label-sm font-sansansemibold text-secondary">Activo (TLS 1.3 Seguro • HTTP/3)</span>
+</div>
+</div>
+</div>
+<!-- 2. SUBDOMINIO GRATUITO DE STORESCALE (ACTIVO) -->
+<div class="p-space-lg rounded-xl bg-surface-container shadow-md space-y-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">public</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface font-sansansold" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">Subdominio Predeterminado Gratuito</h2>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Tu tienda siempre está accesible globalmente mediante este enlace optimizado en CDN.</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/15 font-label-sm text-label-sm font-sansansold text-secondary self-start sm:self-auto">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Verificado y Transmitiendo
+        </span>
+</div>
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm pt-space-xs">
+<div class="flex-1 flex items-center rounded-lg bg-surface-container-lowest px-3 py-2 shadow-inner">
+<span class="font-label-md text-label-md text-on-surface-variant pr-1 select-none">https://</span>
+<input class="font-title-md text-title-md font-sansansold text-on-surface bg-transparent focus:outline-none p-0 w-44 tracking-tight" id="subdomain-input" type="text" value="mitiendadeportiva" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">
+<span class="font-label-md text-label-md text-primary font-sansansemibold select-none">.growupstore.app</span>
+<span class="ml-auto material-symbols-outlined text-outline text-[18px]">verified</span>
+</div>
+<div class="flex items-center gap-space-xs flex-shrink-0">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansemibold shadow-sm active:scale-95 transition-all" id="copy-subdomain-btn" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary" id="copy-subdomain-icon">content_copy</span>
+<span id="copy-subdomain-text" class="">Copiar enlace</span>
+</button>
+<a class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary-container hover:bg-primary-container/90 text-on-primary-container font-label-md text-label-md font-sansansold shadow-sm active:scale-95 transition-all" href="https://mitiendadeportiva.growupstore.app" rel="noopener noreferrer" target="_blank">
+<span class="">Abrir Tienda</span>
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+<!-- 3. COMPRAR DOMINIO PROPIO .COM (BUSCADOR EN TIEMPO REAL) -->
+<div class="p-space-lg rounded-xl bg-surface-container shadow-md space-y-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">shopping_cart_checkout</span>
+<h2 class="font-title-md text-title-md text-on-surface font-sansansold" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">Comprar Dominio Propio</h2>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+            Registra tu identidad digital en 60 segundos. Configuramos las zonas DNS, Anycast y SSL automáticamente sin pasos técnicos.
+          </p>
+</div>
+<!-- Pills de beneficios incluidos -->
+<div class="flex flex-wrap items-center gap-2 text-on-surface-variant">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-low font-label-sm text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-secondary">check</span> Renovación auto
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-low font-label-sm text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-secondary">check</span> WHOIS Privado
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-low font-label-sm text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[14px] text-secondary">check</span> DNS Anycast gratis
+          </span>
+</div>
+</div>
+<!-- Buscador -->
+<div class="relative flex flex-col sm:flex-row items-stretch gap-space-xs bg-surface-container-lowest p-1.5 rounded-xl shadow-inner">
+<div class="relative flex-1 flex items-center pl-3">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="w-full bg-transparent pl-3 pr-4 py-2 font-sansansody-md text-body-md text-on-surface placeholder:text-outline focus:outline-none" id="domain-search-input" placeholder="Buscar disponibilidad de tu nuevo dominio (ej. mitiendadeportiva.com)..." type="text" value="mitiendadeportiva">
+</div>
+<button class="flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-sansansold shadow-md hover:bg-primary-container/90 active:scale-95 transition-all" id="domain-check-btn" type="button" style="text-transform: uppercase; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">
+<span class="material-symbols-outlined text-[18px]">travel_explore</span>
+<span class="">Comprobar</span>
+</button>
+</div>
+<!-- Sugerencias de Dominio -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-xs">
+<!-- Tarjeta 1: .com -->
+<div class="relative flex flex-col justify-between p-space-md rounded-xl bg-surface-container-high hover:bg-surface-bright transition-all shadow-sm group">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-title-md font-sansansxtrabold text-on-surface tracking-tight">mitiendadeportiva<span class="text-primary">.com</span></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm text-label-sm font-sansansold">Disponible</span>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">La extensión global estándar para maximizar autoridad y confianza del consumidor.</p>
+</div>
+<div class="pt-space-md mt-space-sm flex items-end justify-between">
+<div><span class="font-headline-lg text-headline-md font-sansansxtrabold text-on-surface">$49.900</span><span class="font-label-sm text-label-sm text-outline font-medium"> COP/año</span></div>
+<button class="px-3 py-2 rounded-lg bg-secondary text-on-secondary font-label-sm text-label-sm font-sansansold shadow-sm hover:opacity-90 active:scale-95 transition-all" type="button">
+              Registrar en 1 Clic
+            </button>
+</div>
+</div>
+<!-- Tarjeta 2: .store -->
+<div class="relative flex flex-col justify-between p-space-md rounded-xl bg-surface-container-high hover:bg-surface-bright transition-all shadow-sm group">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-title-md font-sansansxtrabold text-on-surface tracking-tight">tiendadeportivaco<span class="text-tertiary">.store</span></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm text-label-sm font-sansansold">Disponible</span>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Extensión especializada en retail y comercio electrónico directo al consumidor.</p>
+</div>
+<div class="pt-space-md mt-space-sm flex items-end justify-between">
+<div><span class="font-headline-lg text-headline-md font-sansansxtrabold text-on-surface">$19.900</span><span class="font-label-sm text-label-sm text-outline font-medium"> COP/año</span></div>
+<button class="px-3 py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-sm text-label-sm font-sansansold shadow-sm active:scale-95 transition-all" type="button">
+              Registrar
+            </button>
+</div>
+</div>
+<!-- Tarjeta 3: .co (Recomendado) -->
+<div class="relative flex flex-col justify-between p-space-md rounded-xl bg-surface-container-high hover:bg-surface-bright transition-all shadow-md group">
+<div class="absolute -top-2.5 right-4 px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-sansansxtrabold shadow-sm">
+            Recomendado para Colombia
+          </div>
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-title-md font-sansansxtrabold text-on-surface tracking-tight">tiendadeportiva<span class="text-secondary">.co</span></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm text-label-sm font-sansansold" style="letter-spacing: 0.02em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">Disponible</span>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Optimizado para SEO local en pasarelas colombianas (Wompi, Wompi, PSE).</p>
+</div>
+<div class="pt-space-md mt-space-sm flex items-end justify-between">
+<div><span class="font-headline-lg text-headline-md font-sansansxtrabold text-on-surface">$69.900</span><span class="font-label-sm text-label-sm text-outline font-medium" style="letter-spacing: 0.02em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;"> COP/año</span></div>
+<button class="px-3 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-sansansold shadow-sm hover:opacity-90 active:scale-95 transition-all" type="button">
+              Registrar
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. VINCULAR DOMINIO EXISTENTE (ASISTENTE DNS & FLUJO) -->
+<div class="p-space-lg rounded-xl bg-surface-container shadow-md space-y-space-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">dns</span>
+<h2 class="font-title-md text-title-md text-on-surface font-sansansold" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">Vincular Dominio Existente</h2>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+            Si ya adquiriste un dominio en Cloudflare, GoDaddy, Namecheap o DonDominio, apunta tus registros DNS según las siguientes directivas.
+          </p>
+</div>
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansold shadow-sm active:scale-95 transition-all" id="dns-scan-btn" type="button" style="text-transform: uppercase; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">
+<span class="material-symbols-outlined text-[18px] text-secondary" id="dns-scan-icon">sync</span>
+<span id="dns-scan-label" class="">Verificar Propagación DNS Ahora</span>
+</button>
+</div>
+<!-- VISUALIZACIÓN DEL FLUJO DE TRÁFICO -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-inner">
+<span class="font-label-sm text-label-sm font-sansansold uppercase tracking-wider text-outline block pb-3">Arquitectura de Enrutamiento &amp; Seguridad Edge</span>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
+<!-- Nodo 1 -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container">
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">devices</span>
+</div>
+<div>
+<span class="font-label-md text-label-md font-sansansold text-on-surface block">1. Cliente / Comprador</span>
+<span class="font-label-sm text-label-sm text-outline">Petición HTTPS Georuta</span>
+</div>
+</div>
+<!-- Nodo 2 -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container shadow-sm">
+<div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+</div>
+<div>
+<span class="font-label-md text-label-md font-sansansold text-on-surface block">2. Cloudflare Edge (WAF)</span>
+<span class="font-label-sm text-label-sm text-secondary">Mitigación DDoS &amp; SSL TLS 1.3</span>
+</div>
+</div>
+<!-- Nodo 3 -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">storefront</span>
+</div>
+<div>
+<span class="font-label-md text-label-md font-sansansold text-on-surface block">3. GrowUp Store Tienda Virtual</span>
+<span class="font-label-sm text-label-sm text-outline" style="letter-spacing: 0.02em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">Caché Dinámica 14ms Latencia</span>
+</div>
+</div>
+</div>
+</div>
+<!-- TABLA ASISTENTE REGISTROS DNS -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-sansansody-md text-body-md">
+<thead>
+<tr class="text-label-sm font-label-sm text-outline uppercase tracking-wider bg-surface-container-low">
+<th class="p-3.5 rounded-l-lg">Tipo</th>
+<th class="p-3.5">Nombre / Host</th>
+<th class="p-3.5">Valor de Destino</th>
+<th class="p-3.5">TTL</th>
+<th class="p-3.5">Estado DNS</th>
+<th class="p-3.5 rounded-r-lg text-right">Acción</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Fila CNAME -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-3.5 font-label-md text-label-md font-sansansold text-primary">CNAME</td>
+<td class="p-3.5 font-label-md text-label-md text-on-surface font-mono">www</td>
+<td class="p-3.5 font-label-md text-label-md text-on-surface font-mono" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">cname.growupstore.co</td>
+<td class="p-3.5 font-label-sm text-label-sm text-on-surface-variant">Automático (DNS Proxy)</td>
+<td class="p-3.5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm text-label-sm font-sansansold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                  Validado
+                </span>
+</td>
+<td class="p-3.5 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-bright text-on-surface font-label-sm text-label-sm font-sansansemibold active:scale-95 transition-all" onclick="navigator.clipboard.writeText('cname.growupstore.co');" type="button">
+                  Copiar
+                </button>
+</td>
+</tr>
+<!-- Fila Apex A -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-3.5 font-label-md text-label-md font-sansansold text-tertiary">A (Apex)</td>
+<td class="p-3.5 font-label-md text-label-md text-on-surface font-mono">@ (raíz)</td>
+<td class="p-3.5 font-label-md text-label-md text-on-surface font-mono" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">172.67.198.44</td>
+<td class="p-3.5 font-label-sm text-label-sm text-on-surface-variant">Automático</td>
+<td class="p-3.5">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm text-label-sm font-sansansold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                  Propagado
+                </span>
+</td>
+<td class="p-3.5 text-right">
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-bright text-on-surface font-label-sm text-label-sm font-sansansemibold active:scale-95 transition-all" onclick="navigator.clipboard.writeText('172.67.198.44');" type="button">
+                  Copiar
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 5. PERSONALIZACIÓN VISUAL DE MARCA (BRANDING & SEO) -->
+<div class="p-space-lg rounded-xl bg-surface-container shadow-md space-y-space-lg">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">palette</span>
+<h2 class="font-title-md text-title-md text-on-surface font-sansansold" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">Personalización Visual de Marca &amp; Metadatos</h2>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+          Controla cómo se muestra tu tienda física y digital en las pestañas de navegadores, motores de búsqueda y previsualizaciones sociales.
+        </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Favicon Upload & Pestaña Simulada -->
+<div class="p-space-md rounded-xl bg-surface-container-low space-y-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Favicon de la Tienda (32x32 px)</span>
+<span class="font-label-sm text-label-sm text-outline">Formato PNG, SVG o ICO</span>
+</div>
+<!-- Vista Previa de Pestaña Simulada de Navegador -->
+<div class="rounded-lg bg-surface-container-lowest p-3 space-y-2">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider block">Vista Previa Pestaña Google Chrome</span>
+<div class="flex items-center gap-2 max-w-xs px-3 py-1.5 rounded-t-lg bg-surface-container text-on-surface shadow-sm">
+<div class="w-4 h-4 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-[10px] font-sansansold">
+                âš¡
+              </div>
+<span class="font-label-sm text-label-sm truncate font-medium text-on-surface" id="tab-preview-title">Mi Tienda Deportiva | Calzado y Ropa</span>
+<span class="material-symbols-outlined text-[12px] text-outline ml-auto">close</span>
+</div>
+</div>
+<!-- Dropzone Favicon -->
+<div class="flex items-center gap-space-md p-space-md rounded-lg bg-surface-container shadow-inner">
+<div class="w-14 h-14 rounded-xl bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px]">sports_soccer</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="font-label-md text-label-md font-sansansold text-on-surface">favicon-brand-v2.png</div>
+<div class="font-label-sm text-label-sm text-outline">32 x 32 px • 14.2 KB • PNG Transparente</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm font-sansansemibold active:scale-95 transition-all" type="button">
+              Reemplazar
+            </button>
+</div>
+</div>
+<!-- Modo Mantenimiento / Coming Soon -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col justify-between space-y-space-md shadow-sm">
+<div>
+<div class="flex items-center justify-between">
+<div class="space-y-0.5">
+<span class="font-label-md text-label-md font-sansansold text-on-surface block">Modo Mantenimiento / Coming Soon</span>
+<span class="font-sansansody-md text-body-md text-on-surface-variant">Muestra una página de captura de emails antes del lanzamiento oficial.</span>
+</div>
+<!-- Toggle Button -->
+<button aria-checked="false" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full bg-surface-container-highest transition-colors duration-200 ease-in-out focus:outline-none" id="maintenance-toggle" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-outline shadow ring-0 transition duration-200 ease-in-out translate-x-0.5 translate-y-0.5" id="maintenance-toggle-handle"></span>
+</button>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container shadow-inner space-y-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">visibility</span>
+<span class="font-label-sm text-label-sm font-sansansold text-on-surface">Estado Público de la Tienda:</span>
+<span class="font-label-sm text-label-sm font-sansansxtrabold text-secondary" id="maintenance-status-badge">En Vivo &amp; Abierta al Público</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline">Los clientes pueden navegar el catálogo completo y procesar órdenes de pago con Wompi Gateway.</p>
+</div>
+</div>
+</div>
+<!-- Metadatos SEO Básicos -->
+<div class="p-space-md rounded-xl bg-surface-container-low space-y-space-md shadow-sm">
+<span class="font-label-md text-label-md font-sansansold text-on-surface block">Metadatos de indexación SEO (Google Search Engine)</span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Nombre Legal / Comercial -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm font-sansansold text-on-surface-variant" for="seo-store-name">Nombre Comercial de la Tienda</label>
+<input class="w-full rounded-lg bg-surface-container px-3 py-2 font-sansansody-md text-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" id="seo-store-name" type="text" value="Mi Tienda Deportiva Colombia S.A.S.">
+</div>
+<!-- Meta Title -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm font-sansansold text-on-surface-variant" for="seo-meta-title">Meta Title para Buscadores</label>
+<input class="w-full rounded-lg bg-surface-container px-3 py-2 font-sansansody-md text-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" id="seo-meta-title" type="text" value="Mi Tienda Deportiva | Ropa, Zapatillas &amp; Accesorios de Alto Rendimiento">
+</div>
+</div>
+<!-- Meta Description -->
+<div class="space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm font-sansansold text-on-surface-variant" for="seo-meta-desc">Meta Descripción (Snippet)</label>
+<span class="font-label-sm text-label-sm text-outline">146 / 160 caracteres</span>
+</div>
+<textarea class="w-full rounded-lg bg-surface-container px-3 py-2 font-sansansody-md text-body-md text-on-surface focus:outline-none focus:ring-1 focus:ring-primary shadow-inner resize-none" id="seo-meta-desc" rows="2">Encuentra zapatillas de running, indumentaria deportiva y equipamiento fitness con envíos a toda Colombia y pagos 100% seguros mediante Wompi Gateway.</textarea>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-4 py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansemibold active:scale-95 transition-all" type="button">
+            Descartar Cambios
+          </button>
+<button class="px-5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-sansansold shadow-md hover:opacity-90 active:scale-95 transition-all" type="button">
+            Guardar Personalización
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERACTION SCRIPTS -->
+<script>
+    // Copy Subdomain Action
+    const copyBtn = document.getElementById('copy-subdomain-btn');
+    const copyText = document.getElementById('copy-subdomain-text');
+    const copyIcon = document.getElementById('copy-subdomain-icon');
+    const subdomainInput = document.getElementById('subdomain-input');
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const fullUrl = `https://${subdomainInput.value}.storescale.app`;
+        navigator.clipboard.writeText(fullUrl).then(() => {
+          copyText.textContent = '¡Copiado!';
+          copyIcon.textContent = 'check';
+          setTimeout(() => {
+            copyText.textContent = 'Copiar enlace';
+            copyIcon.textContent = 'content_copy';
+          }, 2000);
+        });
+      });
+    }
+
+    // Dynamic Tab Preview Update
+    const metaTitleInput = document.getElementById('seo-meta-title');
+    const tabPreviewTitle = document.getElementById('tab-preview-title');
+    if (metaTitleInput && tabPreviewTitle) {
+      metaTitleInput.addEventListener('input', (e) => {
+        tabPreviewTitle.textContent = e.target.value || 'Mi Tienda Deportiva';
+      });
+    }
+
+    // DNS Scanning Microinteraction
+    const dnsScanBtn = document.getElementById('dns-scan-btn');
+    const dnsScanIcon = document.getElementById('dns-scan-icon');
+    const dnsScanLabel = document.getElementById('dns-scan-label');
+
+    if (dnsScanBtn) {
+      dnsScanBtn.addEventListener('click', () => {
+        dnsScanIcon.classList.add('animate-spin');
+        dnsScanLabel.textContent = 'Escaneando Servidores DNS...';
+        dnsScanBtn.disabled = true;
+
+        setTimeout(() => {
+          dnsScanIcon.classList.remove('animate-spin');
+          dnsScanIcon.textContent = 'task_alt';
+          dnsScanLabel.textContent = '100% Propagado Globalmente';
+          setTimeout(() => {
+            dnsScanIcon.textContent = 'sync';
+            dnsScanLabel.textContent = 'Verificar Propagación DNS Ahora';
+            dnsScanBtn.disabled = false;
+          }, 3000);
+        }, 1600);
+      });
+    }
+
+    // Maintenance Toggle
+    const maintenanceToggle = document.getElementById('maintenance-toggle');
+    const maintenanceHandle = document.getElementById('maintenance-toggle-handle');
+    const maintenanceBadge = document.getElementById('maintenance-status-badge');
+    let isMaintenanceActive = false;
+
+    if (maintenanceToggle) {
+      maintenanceToggle.addEventListener('click', () => {
+        isMaintenanceActive = !isMaintenanceActive;
+        maintenanceToggle.setAttribute('aria-checked', isMaintenanceActive.toString());
+        if (isMaintenanceActive) {
+          maintenanceToggle.classList.remove('bg-surface-container-highest');
+          maintenanceToggle.classList.add('bg-primary-container');
+          maintenanceHandle.classList.remove('translate-x-0.5', 'bg-outline');
+          maintenanceHandle.classList.add('translate-x-5', 'bg-on-primary-container');
+          maintenanceBadge.textContent = 'Modo Mantenimiento Activo (Catálogo Oculto)';
+          maintenanceBadge.className = 'font-label-sm text-label-sm font-sansansxtrabold text-tertiary';
+        } else {
+          maintenanceToggle.classList.add('bg-surface-container-highest');
+          maintenanceToggle.classList.remove('bg-primary-container');
+          maintenanceHandle.classList.add('translate-x-0.5', 'bg-outline');
+          maintenanceHandle.classList.remove('translate-x-5', 'bg-on-primary-container');
+          maintenanceBadge.textContent = 'En Vivo & Abierta al Público';
+          maintenanceBadge.className = 'font-label-sm text-label-sm font-sansansxtrabold text-secondary';
+        }
+      });
+    }
+
+    // Real-Time Domain Check Microinteraction
+    const checkBtn = document.getElementById('domain-check-btn');
+    const domainSearchInput = document.getElementById('domain-search-input');
+    if (checkBtn && domainSearchInput) {
+      checkBtn.addEventListener('click', () => {
+        const val = domainSearchInput.value.trim();
+        if (val) {
+          checkBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>Comprobando...</span>';
+          setTimeout(() => {
+            checkBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span><span>Disponible</span>';
+            setTimeout(() => {
+              checkBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">travel_explore</span><span>Comprobar</span>';
+            }, 2500);
+          }, 900);
+        }
+      });
+    }
+  </script>
+</div></main>
+</div>
+<script>
+    function toggleTheme() {
+      const html = document.getElementById('html-root');
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.getElementById('html-root').classList.remove('dark');
+      }
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
+

@@ -1,0 +1,1118 @@
+<!DOCTYPE html><html class="" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_dashboard" name="shell-type">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Nunito:wght@400;500;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><style>h1, h2, h3, h4, .font-display, .font-sansansold, th, .text-2xl, .text-3xl { font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif !important; }</style>
+<style>
+    @layer base {
+      html, body { margin:0; padding:0; }
+      body { overscroll-behavior:none; font-sansansamily: 'Outfit', sans-serif; }
+      main > :first-child { margin-top:0!important; }
+      main > :last-child { margin-bottom:0!important; }
+    }
+    ::-webkit-scrollbar { display:none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            display: ['Nunito', 'sans-serif'],
+            mono: ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style id="palette-wompi-override">.bg-emerald-50, .bg-emerald-100, .bg-emerald-100\/70, .bg-emerald-100\/90, .bg-emerald-500, .bg-emerald-600, .bg-indigo-600, .bg-indigo-500, .bg-indigo-100, .bg-indigo-50 { background-color: #7c3aed !important; color: #ffffff !important; } .text-emerald-500, .text-emerald-600, .text-emerald-700, .text-indigo-600, .text-indigo-500 { color: #7c3aed !important; } .border-emerald-200, .border-emerald-300, .border-emerald-300\/60, .border-indigo-200 { border-color: #ddd6fe !important; } .bg-emerald-100\/90, .bg-emerald-100\/70, .bg-emerald-100, .bg-indigo-100, .bg-indigo-50 { background-color: #f5f3ff !important; color: #7c3aed !important; } .bg-emerald-500, .bg-indigo-600, .bg-indigo-500 { background-color: #7c3aed !important; color: #ffffff !important; } .shadow-indigo-600\/25, .shadow-emerald-600\/25 { box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3) !important; } .accent-orange, .badge-orange { background-color: #ffedd5 !important; color: #ea580c !important; border-color: #fed7aa !important; } .btn-orange { background-color: #ea580c !important; color: #ffffff !important; } .btn-orange:hover { background-color: #c2410c !important; } .bg-amber-100, .bg-amber-100\/90 { background-color: #ffedd5 !important; color: #ea580c !important; border-color: #fed7aa !important; } .text-amber-600, .text-amber-700 { color: #ea580c !important; } .bg-amber-400, .bg-amber-500 { background-color: #f97316 !important; }</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet">
+<style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+<style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 dark:bg-[#090d16] text-slate-800 dark:text-slate-100 transition-colors duration-200 antialiased font-sansansans selection:bg-indigo-500 selection:text-white" style="background-color: rgb(255, 255, 255) !important; color: rgb(9, 13, 22) !important;">
+<!-- TOP HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-[#0c1222]/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 shadow-xs transition-colors duration-200" style="background-color: rgb(255, 255, 255) !important; border-bottom: 1px solid rgb(226, 232, 240) !important;">
+<div class="h-16 w-full px-5 md:px-7 flex items-center justify-between gap-4">
+<!-- Brand & Store Switcher -->
+<div class="flex items-center gap-5 flex-shrink-0">
+<div class="flex items-center gap-2.5">
+
+<span class="font-display font-sansansxtrabold text-xl tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">GrowUp Space</span>
+</div>
+<div class="relative">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700/60 transition-colors text-sm font-sansansemibold" type="button">
+<span class="material-symbols-outlined text-emerald-500 text-[18px]">storefront</span>
+<span class="">Mi Tienda Deportiva</span>
+<span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Quick Search -->
+<div class="hidden xl:flex items-center gap-3 flex-1 max-w-lg mx-4">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 text-[19px]">search</span>
+<input class="w-full bg-slate-100 dark:bg-slate-900/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-10 pr-16 py-2 rounded-2xl text-sm border border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all" placeholder="Buscar pedidos, SKUs, clientes..." type="text">
+<kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg text-[11px] font-mono border border-slate-200 dark:border-slate-700 shadow-2xs uppercase">âŒ˜K</kbd>
+</div>
+</div>
+<!-- Integrations, Theme Switcher & Profile -->
+<div class="flex items-center gap-3 flex-shrink-0">
+<!-- Live Badges -->
+<div class="hidden lg:flex items-center gap-2">
+
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/50 text-xs text-indigo-700 dark:text-indigo-400 font-medium"><span class="inline-flex rounded-full h-2 w-2" style="background-color: rgb(124, 58, 237);"></span><span class="text-slate-500 dark:text-slate-400">Wompi:</span> Live</div>
+</div>
+<!-- Notification Bell -->
+<button aria-label="Notificaciones" class="relative p-2 rounded-2xl bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700/50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-indigo-600 ring-2 ring-white dark:ring-[#0c1222]"></span>
+</button>
+<!-- THEME SELECTOR BUTTON (LIGHT / DARK SWITCHER) -->
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-slate-100 dark:bg-slate-800/90 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700/60 shadow-2xs transition-all font-sansansemibold text-xs" id="themeToggleBtn" onclick="toggleTheme()" title="Cambiar tema" style="transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;"><span class="material-symbols-outlined text-[18px] text-amber-500" id="themeIcon">light_mode</span><span class="hidden sm:inline" id="themeText">Claro</span></button>
+<!-- User Profile Avatar -->
+<div class="relative flex items-center pl-1">
+<img alt="Perfil" class="w-9 h-9 rounded-2xl object-cover ring-2 ring-indigo-500/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANrUTdFYu_CnWLmDd3793SV0GU3RBGEt8Iek2CrREuY91Iwmn7Ren9hiOlGBCku0T2SwN0yZG6GNen9tIu_BoY5rkJV20n5XQWwSipM6H7wpHnTeIl7UcQskPGYOGQiCHKtyO_3L2Efe1ApzTkAQgHX2dXYIGtzdB5n-fmFWXvApW1Fi2kOBaDYgBVc7EbGbbf4xyPQDwfrsgNQPi1uILfddqLvkOk4WXKxr9Qhmq28flW4Sx9_GIg1A">
+<span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#0c1222]"></span>
+</div>
+</div>
+</div>
+</header>
+<!-- SIDEBAR NAVIGATION -->
+<aside class="fixed left-0 top-0 bottom-0 w-64 bg-white dark:bg-[#080d19] border-r border-slate-200 dark:border-slate-800/70 z-40 flex flex-col pt-16 transition-colors duration-200" style="background-color: rgb(255, 255, 255) !important; border-right: 1px solid rgb(226, 232, 240) !important;">
+<div class="flex-1 overflow-y-auto px-4 py-5 space-y-6"><div>
+<div class="px-3 pb-2 text-[11px] font-sansansold uppercase tracking-wider text-slate-400 dark:text-slate-500">Operaciones Core</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="dashboard-central.html"><span class="material-symbols-outlined text-[20px] text-slate-400">grid_view</span><span class="">Dashboard</span></a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl bg-indigo-600 text-white font-sansansemibold shadow-md shadow-indigo-600/25 transition-all text-sm" href="#"><span class="material-symbols-outlined text-[20px] text-white">receipt_long</span><span class="">Ã“rdenes &amp; Ventas</span></a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="catalogo-inventario.html"><span class="material-symbols-outlined text-[20px] text-slate-400">inventory_2</span><span class="">CatÃ¡logo &amp; Productos</span></a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="store-web-builder.html"><span class="material-symbols-outlined text-[20px] text-slate-400">brush</span><span class="">Store Builder</span></a></nav>
+</div>
+<div>
+<div class="px-3 pb-2 text-[11px] font-sansansold uppercase tracking-wider text-slate-400 dark:text-slate-500">Crecimiento &amp; Canales</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="ia-opencode-agentes.html"><span class="material-symbols-outlined text-[20px]" style="color: rgb(124, 58, 237);">smart_toy</span><span class="">Agentes IA (OpenCode)</span></a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="welcome-carrusel-3d.html"><span class="material-symbols-outlined text-[20px] text-slate-400">hub</span><span class="">Red Aliada B2B</span></a>
+</nav>
+</div>
+<div>
+<div class="px-3 pb-2 text-[11px] font-sansansold uppercase tracking-wider text-slate-400 dark:text-slate-500">Infraestructura</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="pasarelas-pagos-wompi.html"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">credit_card</span><span class="">Pasarelas (Wompi)</span></a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="dominio-marca-infraestructura.html"><span class="material-symbols-outlined text-[20px] text-slate-400">language</span><span class="">Dominios &amp; DNS</span></a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-2xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white transition-all text-sm font-sansansemibold" href="ajustes-configuracion.html"><span class="material-symbols-outlined text-[20px] text-slate-400">settings</span><span class="">Ajustes</span></a>
+</nav>
+</div></div>
+<!-- Scale Pro Badge -->
+<div class="p-3 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-800/80">
+<div class="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/60 shadow-xs">
+<div class="flex flex-col">
+<span class="text-xs font-sansansold text-slate-900 dark:text-slate-100">Plan Scale Pro</span>
+<span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full" style="background-color: rgb(234, 88, 12);"></span><span style="color: rgb(234, 88, 12);" class="">Wompi Gateway activo</span></span>
+</div>
+<span class="material-symbols-outlined text-indigo-500 text-[22px]">verified</span>
+</div>
+</div>
+</aside>
+<!-- MAIN WRAPPER -->
+<div class="pl-64">
+<main class="w-full min-h-screen pt-16 bg-slate-50 dark:bg-[#090d16] transition-colors duration-200" style="background-color: rgb(255, 255, 255) !important;">
+<div class="px-6 md:px-8 py-8 space-y-7 max-w-7xl mx-auto w-full">
+<!-- HEADER & FILTER STRIP -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1.5 flex-wrap">
+<span class="px-3 py-1 rounded-2xl text-xs font-sansansold uppercase tracking-wider flex items-center gap-1.5 border" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border-color: rgb(221, 214, 254);"><span class="inline-block w-2 h-2 rounded-full animate-pulse" style="background-color: #7c3aed;"></span>Wompi Gateway Integrado</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Latencia: 42ms Â· TLS 1.3</span>
+</div>
+<div class="flex items-baseline gap-3 flex-wrap">
+<h1 class="font-display font-sansansxtrabold text-2xl md:text-3xl tracking-tight text-slate-900 dark:text-white" style="letter-spacing: -0.02em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">Ã“rdenes y Ventas</h1>
+<span class="text-xs md:text-sm text-slate-500 dark:text-slate-400">Tienda: Mi Tienda Deportiva Â· COP ($)</span>
+</div>
+</div>
+<!-- Quick Filters & Actions -->
+<div class="flex flex-wrap items-center gap-2.5">
+<div class="flex items-center bg-white dark:bg-slate-900/90 rounded-2xl p-1 border border-slate-200 dark:border-slate-800 shadow-2xs">
+<button class="px-3 py-1.5 rounded-xl bg-slate-900 text-white dark:bg-slate-800 dark:text-slate-100 text-xs font-sansansold shadow-xs" type="button">Hoy</button>
+<button class="px-3 py-1.5 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white text-xs font-sansansemibold transition-colors" type="button">7D</button>
+<button class="px-3 py-1.5 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white text-xs font-sansansemibold transition-colors" type="button">30D</button>
+<button class="px-3 py-1.5 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white text-xs font-sansansemibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">calendar_today</span>
+<span class="">Rango</span>
+</button>
+</div>
+<button class="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-white dark:bg-slate-900/90 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs md:text-sm font-sansansemibold border border-slate-200 dark:border-slate-800 shadow-2xs transition-colors" id="exportBtn" type="button" style="transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">Exportar CSV</span>
+</button>
+<button class="flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs md:text-sm font-sansansold shadow-md shadow-indigo-600/25 transition-all" onclick="openOrderModal('SS-9801')" type="button" style="transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;"><span class="material-symbols-outlined text-[18px]">sync_alt</span><span class="">Sincronizar Wompi</span></button>
+</div>
+</div>
+<!-- 4 KPI BENTO CARDS -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+<!-- KPI 1 -->
+<div class="p-5 rounded-2xl bg-white dark:bg-[#0e1628] border border-slate-200/90 dark:border-slate-800/80 shadow-xs flex flex-col justify-between transition-all hover:border-indigo-500/30">
+<div class="flex items-center justify-between">
+<span class="text-xs font-sansansold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Total Ventas Hoy</span>
+<div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+</div>
+<div class="my-3">
+<div class="font-display font-sansanslack text-2xl lg:text-3xl text-slate-900 dark:text-white" style="letter-spacing: -0.01em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">$4.820.000</div>
+<div class="flex items-center gap-1.5 mt-1.5">
+<span class="px-2 py-0.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 text-xs font-sansansold">+18.4%</span>
+<span class="text-xs text-slate-400 dark:text-slate-400">vs. ayer ($4.070.000)</span>
+</div>
+</div>
+<!-- Mini SVG Area Sparkline -->
+<div class="w-full h-8 flex items-end" style="transition: transform 0.3s, filter 0.3s; filter: drop-shadow(rgba(16, 185, 129, 0.25) 0px 0px 6px);"><svg class="w-full h-8 overflow-visible" fill="none" viewBox="0 0 120 30" style="color: rgb(124, 58, 237);"><path d="M0 25 C20 22, 35 28, 50 14 C65 2, 80 16, 95 8 C105 2, 115 12, 120 5 L120 30 L0 30 Z" fill="currentColor" fill-opacity="0.15"></path><path d="M0 25 C20 22, 35 28, 50 14 C65 2, 80 16, 95 8 C105 2, 115 12, 120 5" stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path></svg></div>
+</div>
+<!-- KPI 2 -->
+<div class="p-5 rounded-2xl bg-white dark:bg-[#0e1628] border border-slate-200/90 dark:border-slate-800/80 shadow-xs flex flex-col justify-between transition-all hover:border-indigo-500/30">
+<div class="flex items-center justify-between">
+<span class="text-xs font-sansansold uppercase tracking-wider" style="color: rgb(124, 58, 237);">Ã“rdenes Wompi Aprobadas</span>
+<div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-1.5">
+<span class="font-display font-sansanslack text-2xl lg:text-3xl text-slate-900 dark:text-white" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">38</span>
+<span class="text-sm font-sansansemibold text-slate-400 dark:text-slate-400">/ 41 intentos</span>
+</div>
+<div class="flex items-center gap-1.5 mt-1.5"><span class="px-2 py-0.5 rounded-lg text-xs font-sansansold" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237);">92.6%</span><span class="text-xs" style="color: rgb(234, 88, 12);">ConversiÃ³n Checkout Wompi</span></div>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden flex" style="transition: 0.3s; box-shadow: rgba(16, 185, 129, 0.2) 0px 0px 10px;"><div class="h-full rounded-full" style="width: 82%; background-color: rgb(124, 58, 237);"></div><div class="h-full" style="width: 10%; background-color: rgb(234, 88, 12);"></div><div class="h-full" style="width: 8%; background-color: rgb(239, 68, 68);"></div></div>
+</div>
+<!-- KPI 3 -->
+<div class="p-5 rounded-2xl bg-white dark:bg-[#0e1628] border border-slate-200/90 dark:border-slate-800/80 shadow-xs flex flex-col justify-between transition-all hover:border-indigo-500/30">
+<div class="flex items-center justify-between">
+<span class="text-xs font-sansansold text-slate-400 dark:text-slate-400 uppercase tracking-wider">En LogÃ­stica / Ruta</span>
+<div class="w-8 h-8 rounded-xl bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</div>
+</div>
+<div class="my-3">
+<div class="font-display font-sansanslack text-2xl lg:text-3xl text-slate-900 dark:text-white">14</div>
+<div class="flex items-center gap-1.5 mt-1.5">
+<span class="text-xs font-sansansemibold text-slate-700 dark:text-slate-300">8 por despachar</span>
+<span class="text-xs text-slate-400 dark:text-slate-400">Â· 6 en camino</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-xs pt-1 text-slate-500 dark:text-slate-400">
+<span class="">Coordinadora / EnvÃ­a</span>
+<span class="text-emerald-600 dark:text-emerald-400 font-sansansold">100% integradas</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="p-5 rounded-2xl bg-white dark:bg-[#0e1628] border border-slate-200/90 dark:border-slate-800/80 shadow-xs flex flex-col justify-between transition-all hover:border-indigo-500/30">
+<div class="flex items-center justify-between">
+<span class="text-xs font-sansansold uppercase tracking-wider" style="color: rgb(234, 88, 12);">Tasa AprobaciÃ³n Wompi</span>
+<div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">credit_card</span>
+</div>
+</div>
+<div class="my-3">
+<div class="font-display font-sansanslack text-2xl lg:text-3xl" style="color: rgb(124, 58, 237); font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;">98.7%</div>
+<div class="flex items-center gap-1.5 mt-1.5">
+<span class="px-2 py-0.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 text-xs font-sansansold">Excelente</span>
+<span class="text-xs text-slate-400 dark:text-slate-400">0 contracargos</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-xs text-slate-400 dark:text-slate-400">
+<span class="">PSE: 99.1%</span>
+<span class="">Â·</span>
+<span class="">Tarjetas: 98.4%</span>
+</div>
+</div>
+</div>
+<!-- VIEW SWITCHER & SEARCH BAR -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-3 bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-xs">
+<div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-900/80 p-1 rounded-2xl self-start">
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs md:text-sm font-sansansold shadow-xs transition-all" id="tabTableBtn" onclick="switchView('table')" type="button">
+<span class="material-symbols-outlined text-[18px]">table_rows</span>
+<span class="">Vista Tabla</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-xs md:text-sm font-sansansemibold transition-all" id="tabKanbanBtn" onclick="switchView('kanban')" type="button">
+<span class="material-symbols-outlined text-[18px]">view_kanban</span>
+<span class="">Tablero Kanban</span>
+</button>
+</div>
+<div class="flex flex-1 max-w-md items-center gap-2">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+<input class="w-full bg-slate-100 dark:bg-slate-900/80 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 pl-10 pr-4 py-2 rounded-2xl text-xs md:text-sm border border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 focus:outline-none transition-all" id="orderSearchInput" onkeyup="filterOrdersTable()" placeholder="Buscar cliente, telÃ©fono o ID Wompi..." type="text">
+</div>
+<button class="p-2 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Filtros avanzados" type="button">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+</div>
+<!-- VIEW 1: DATA TABLE -->
+<div class="w-full bg-white dark:bg-[#0e1628] border border-slate-200 dark:border-slate-800/80 rounded-2xl shadow-xs overflow-hidden flex flex-col" id="tableView">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left text-xs md:text-sm border-collapse min-w-[950px]">
+<thead>
+<tr class="bg-slate-50 dark:bg-slate-900/60 text-slate-400 dark:text-slate-400 font-sansansold uppercase tracking-wider text-[11px] border-b border-slate-200 dark:border-slate-800">
+<th class="py-3.5 px-5">ID Orden</th>
+<th class="py-3.5 px-4">Fecha &amp; Hora</th>
+<th class="py-3.5 px-4">Cliente &amp; Destino</th>
+<th class="py-3.5 px-4">Canal</th>
+<th class="py-3.5 px-4 text-right">Monto Total</th>
+<th class="py-3.5 px-4 text-center">Estado Pago Wompi</th>
+<th class="py-3.5 px-4 text-center">LogÃ­stica</th>
+<th class="py-3.5 px-5 text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800/70" id="ordersTableBody">
+<!-- Row 1 (Pagado Verde) -->
+<tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group" onclick="openOrderModal('SS-9801')">
+<td class="py-4 px-5">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9801</span>
+<span class="block font-mono text-[11px] text-slate-400 dark:text-slate-400">bld_tx_893420198471</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-sansansemibold text-slate-800 dark:text-slate-200">Hoy, 14:32</span>
+<span class="block text-[11px] text-slate-400 dark:text-slate-400">14 May 2025</span>
+</td>
+<td class="py-4 px-4">
+<div class="font-sansansold text-slate-900 dark:text-white">Carlos Mendoza</div>
+<div class="text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-slate-400">location_on</span>
+<span class="">BogotÃ¡, D.C. (UsaquÃ©n)</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 font-sansansemibold text-xs text-slate-700 dark:text-slate-300">Online Web</span>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-sansansold text-slate-900 dark:text-white font-display text-sm md:text-base">$189.500 COP</span>
+<span class="block text-[11px] font-sansansemibold text-emerald-600 dark:text-emerald-400">Wompi Neto: $185.000</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl font-sansansold text-xs border" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border-color: rgb(221, 214, 254);"><span class="material-symbols-outlined text-[15px]">check_circle</span><span class="">Liquidado por Wompi</span></span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-xs font-medium">
+<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+<span class="">Por despachar</span>
+</span>
+</td>
+<td class="py-4 px-5 text-right" onclick="event.stopPropagation();">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 transition-colors" onclick="openOrderModal('SS-9801')" title="Ver Detalle" type="button" style="transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1); font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important;"><span class="material-symbols-outlined text-[18px]">sync_alt</span><span class="">Sincronizar Wompi</span></button>
+<button class="p-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-400 transition-colors" onclick="launchWhatsApp('Carlos Mendoza', 'SS-9801', '3104598211')" title="WhatsApp Directo" type="button" style="transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 (Pagado Verde) -->
+<tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group" onclick="openOrderModal('SS-9802')">
+<td class="py-4 px-5">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9802</span>
+<span class="block font-mono text-[11px] text-slate-400 dark:text-slate-400">bld_tx_492019481729</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-sansansemibold text-slate-800 dark:text-slate-200">Hoy, 13:45</span>
+<span class="block text-[11px] text-slate-400 dark:text-slate-400">14 May 2025</span>
+</td>
+<td class="py-4 px-4">
+<div class="font-sansansold text-slate-900 dark:text-white">Valentina Rios</div>
+<div class="text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-slate-400">location_on</span>
+<span class="">MedellÃ­n, ANT (Poblado)</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-xl bg-violet-100 dark:bg-violet-950/60 font-sansansemibold text-xs text-violet-700 dark:text-violet-300">Red Aliada</span>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-sansansold text-slate-900 dark:text-white font-display text-sm md:text-base">$345.000 COP</span>
+<span class="block text-[11px] font-sansansemibold text-emerald-600 dark:text-emerald-400">Wompi Neto: $336.800</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl font-sansansold text-xs border" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border-color: rgb(221, 214, 254);"><span class="material-symbols-outlined text-[15px]">check_circle</span><span class="">Liquidado por Wompi</span></span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xl bg-violet-50 dark:bg-violet-950/50 text-violet-700 dark:text-violet-300 text-xs font-sansansemibold">
+<span class="material-symbols-outlined text-[15px]">local_shipping</span>
+<span class="">En ruta</span>
+</span>
+</td>
+<td class="py-4 px-5 text-right" onclick="event.stopPropagation();">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 transition-colors" onclick="openOrderModal('SS-9802')" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-400 transition-colors" onclick="launchWhatsApp('Valentina Rios', 'SS-9802', '3187219904')" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 (Pendiente Amarillo) -->
+<tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group" onclick="openOrderModal('SS-9803')">
+<td class="py-4 px-5">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9803</span>
+<span class="block font-mono text-[11px] text-slate-400 dark:text-slate-400">bld_tx_pse_0029141</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-sansansemibold text-slate-800 dark:text-slate-200">Hoy, 13:10</span>
+<span class="block text-[11px] text-slate-400 dark:text-slate-400">14 May 2025</span>
+</td>
+<td class="py-4 px-4">
+<div class="font-sansansold text-slate-900 dark:text-white">AndrÃ©s Felipe GÃ³mez</div>
+<div class="text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-slate-400">location_on</span>
+<span class="">Cali, VAC (Granada)</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 font-sansansemibold text-xs text-slate-700 dark:text-slate-300">Online Web</span>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-sansansold text-slate-900 dark:text-white font-display text-sm md:text-base">$120.000 COP</span>
+<span class="block text-[11px] font-sansansemibold text-amber-600 dark:text-amber-400">Pendiente Banco</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl font-sansansold text-xs border" style="background-color: rgb(255, 237, 213); color: rgb(234, 88, 12); border-color: rgb(254, 215, 170);"><span class="material-symbols-outlined text-[15px]">hourglass_top</span><span class="">Pendiente Wompi PSE</span></span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 text-xs font-medium">
+<span class="w-2 h-2 rounded-full bg-amber-400"></span>
+<span class="">En espera pago</span>
+</span>
+</td>
+<td class="py-4 px-5 text-right" onclick="event.stopPropagation();">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 transition-colors" onclick="openOrderModal('SS-9803')" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-400 transition-colors" onclick="launchWhatsApp('AndrÃ©s Felipe GÃ³mez', 'SS-9803', '3005829104')" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 (Pagado Verde) -->
+<tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group" onclick="openOrderModal('SS-9804')">
+<td class="py-4 px-5">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9804</span>
+<span class="block font-mono text-[11px] text-slate-400 dark:text-slate-400">bld_tx_901192849102</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-sansansemibold text-slate-800 dark:text-slate-200">Hoy, 12:22</span>
+<span class="block text-[11px] text-slate-400 dark:text-slate-400">14 May 2025</span>
+</td>
+<td class="py-4 px-4">
+<div class="font-sansansold text-slate-900 dark:text-white">Mariana Quintero</div>
+<div class="text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-slate-400">location_on</span>
+<span class="">Barranquilla, ATL</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 font-sansansemibold text-xs text-slate-700 dark:text-slate-300">Online Web</span>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-sansansold text-slate-900 dark:text-white font-display text-sm md:text-base">$420.000 COP</span>
+<span class="block text-[11px] font-sansansemibold text-emerald-600 dark:text-emerald-400">Wompi Neto: $410.200</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl font-sansansold text-xs border" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border-color: rgb(221, 214, 254);"><span class="material-symbols-outlined text-[15px]">check_circle</span><span class="">Liquidado por Wompi</span></span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-xs font-sansansemibold">
+<span class="material-symbols-outlined text-[15px]">done_all</span>
+<span class="">Entregado</span>
+</span>
+</td>
+<td class="py-4 px-5 text-right" onclick="event.stopPropagation();">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 transition-colors" onclick="openOrderModal('SS-9804')" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-400 transition-colors" onclick="launchWhatsApp('Mariana Quintero', 'SS-9804', '3156728192')" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Fallido Rojo) -->
+<tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group" onclick="openOrderModal('SS-9805')">
+<td class="py-4 px-5">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9805</span>
+<span class="block font-mono text-[11px] text-slate-400 dark:text-slate-400">bld_tx_err_3910582</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-sansansemibold text-slate-800 dark:text-slate-200">Hoy, 11:05</span>
+<span class="block text-[11px] text-slate-400 dark:text-slate-400">14 May 2025</span>
+</td>
+<td class="py-4 px-4">
+<div class="font-sansansold text-slate-900 dark:text-white">JuliÃ¡n Restrepo</div>
+<div class="text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-slate-400">location_on</span>
+<span class="">Bucaramanga, SAN</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 font-sansansemibold text-xs text-slate-700 dark:text-slate-300">Online Web</span>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-sansansold text-slate-400 dark:text-slate-500 font-display text-sm md:text-base">$210.000 COP</span>
+<span class="block text-[11px] font-sansansemibold text-rose-600 dark:text-rose-400">Fondos Insuficientes</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl bg-rose-100/90 text-rose-700 font-sansansold text-xs border border-rose-300"><span class="material-symbols-outlined text-[15px]">cancel</span><span class="">Fallido Wompi</span></span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 text-xs font-medium">
+<span class="">Cancelado</span>
+</span>
+</td>
+<td class="py-4 px-5 text-right" onclick="event.stopPropagation();">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 transition-colors" onclick="openOrderModal('SS-9805')" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-400 transition-colors" onclick="launchWhatsApp('JuliÃ¡n Restrepo', 'SS-9805', '3124567890')" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6 (Pagado Verde) -->
+<tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group" onclick="openOrderModal('SS-9806')">
+<td class="py-4 px-5">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9806</span>
+<span class="block font-mono text-[11px] text-slate-400 dark:text-slate-400">bld_tx_998471625341</span>
+</td>
+<td class="py-4 px-4">
+<span class="font-sansansemibold text-slate-800 dark:text-slate-200">Hoy, 10:14</span>
+<span class="block text-[11px] text-slate-400 dark:text-slate-400">14 May 2025</span>
+</td>
+<td class="py-4 px-4">
+<div class="font-sansansold text-slate-900 dark:text-white">Diana Herrera</div>
+<div class="text-[11px] text-slate-400 dark:text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-slate-400">location_on</span>
+<span class="">Cartagena, BOL</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-2.5 py-1 rounded-xl bg-violet-100 dark:bg-violet-950/60 font-sansansemibold text-xs text-violet-700 dark:text-violet-300">Red Aliada</span>
+</td>
+<td class="py-4 px-4 text-right">
+<span class="font-sansansold text-slate-900 dark:text-white font-display text-sm md:text-base">$275.000 COP</span>
+<span class="block text-[11px] font-sansansemibold text-emerald-600 dark:text-emerald-400">Wompi Neto: $268.300</span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-2xl font-sansansold text-xs border" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border-color: rgb(221, 214, 254);"><span class="material-symbols-outlined text-[15px]">check_circle</span><span class="">Liquidado por Wompi</span></span>
+</td>
+<td class="py-4 px-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 text-xs font-medium">
+<span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+<span class="">Por despachar</span>
+</span>
+</td>
+<td class="py-4 px-5 text-right" onclick="event.stopPropagation();">
+<div class="flex items-center justify-end gap-1.5">
+<button class="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-600 dark:text-indigo-400 transition-colors" onclick="openOrderModal('SS-9806')" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950 hover:bg-emerald-200 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-400 transition-colors" onclick="launchWhatsApp('Diana Herrera', 'SS-9806', '3169871234')" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 bg-slate-50 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+<span class="text-slate-500 dark:text-slate-400">Mostrando 6 de 38 Ã³rdenes procesadas hoy con pasarela Wompi Gateway</span>
+<div class="flex items-center gap-1.5">
+<button class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 font-sansansemibold" type="button">Anterior</button>
+<span class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white font-sansansold">1</span>
+<button class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 font-sansansemibold" type="button">2</button>
+<button class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 font-sansansemibold" type="button">3</button>
+<button class="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-700 font-sansansemibold" type="button">Siguiente</button>
+</div>
+</div>
+</div>
+<!-- VIEW 2: KANBAN BOARD -->
+<div class="hidden grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full" id="kanbanView">
+<!-- Col 1: Pendiente PSE (Amarillo) -->
+<div class="flex flex-col bg-white dark:bg-[#0e1628] rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs">
+<div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background-color: #ea580c;"></span><span class="font-sansansold text-slate-900 dark:text-white text-sm">Pendiente Wompi PSE</span></div><span class="px-2 py-0.5 rounded-full font-sansansold text-xs" style="background-color: rgb(255, 237, 213); color: rgb(234, 88, 12);">1</span></div>
+<div class="space-y-3">
+<div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-850 dark:bg-slate-900/60 hover:border-indigo-500/50 border border-slate-200/80 dark:border-slate-800 transition-all cursor-pointer" onclick="openOrderModal('SS-9803')">
+<div class="flex justify-between items-start">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9803</span>
+<span class="font-sansansold text-slate-900 dark:text-white text-sm font-display">$120.000</span>
+</div>
+<div class="text-sm font-sansansemibold text-slate-800 dark:text-slate-200 mt-2">AndrÃ©s Felipe GÃ³mez</div>
+<div class="text-xs text-slate-400 dark:text-slate-400">Cali Â· Red PSE Banco UniÃ³n</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background-color: #ea580c;"></span><span class="font-sansansold text-slate-900 dark:text-white text-sm">Pendiente Wompi PSE</span></div><span class="px-2 py-0.5 rounded-full font-sansansold text-xs" style="background-color: rgb(255, 237, 213); color: rgb(234, 88, 12);">1</span></div>
+</div>
+</div>
+</div>
+<!-- Col 2: Pagado Wompi (Verde) -->
+<div class="flex flex-col bg-white dark:bg-[#0e1628] rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs">
+<div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background-color: #7c3aed;"></span><span class="font-sansansold text-slate-900 dark:text-white text-sm">Liquidado por Wompi</span></div><span class="px-2 py-0.5 rounded-full font-sansansold text-xs" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237);">2</span></div>
+<div class="space-y-3">
+<div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 hover:border-indigo-500/50 border border-slate-200/80 dark:border-slate-800 transition-all cursor-pointer" onclick="openOrderModal('SS-9801')">
+<div class="flex justify-between items-start">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9801</span>
+<span class="font-sansansold text-slate-900 dark:text-white text-sm font-display">$189.500</span>
+</div>
+<div class="text-sm font-sansansemibold text-slate-800 dark:text-slate-200 mt-2">Carlos Mendoza</div>
+<div class="text-xs text-slate-400 dark:text-slate-400">BogotÃ¡ Â· Visa CrÃ©dito â€¢â€¢â€¢â€¢ 4128</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-xs font-sansansemibold">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+<span class="">Liquidado por Wompi</span>
+</div>
+</div>
+<div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 hover:border-indigo-500/50 border border-slate-200/80 dark:border-slate-800 transition-all cursor-pointer" onclick="openOrderModal('SS-9806')">
+<div class="flex justify-between items-start">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9806</span>
+<span class="font-sansansold text-slate-900 dark:text-white text-sm font-display">$275.000</span>
+</div>
+<div class="text-sm font-sansansemibold text-slate-800 dark:text-slate-200 mt-2">Diana Herrera</div>
+<div class="text-xs text-slate-400 dark:text-slate-400">Cartagena Â· Mastercard DÃ©bito</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 text-xs font-sansansemibold">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+<span class="">Liquidado por Wompi</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Col 3: En LogÃ­stica / Ruta -->
+<div class="flex flex-col bg-white dark:bg-[#0e1628] rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs">
+<div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span>
+<span class="font-sansansold text-slate-900 dark:text-white text-sm">En LogÃ­stica / Ruta</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/60 font-sansansold text-xs text-violet-700 dark:text-violet-400">1</span>
+</div>
+<div class="space-y-3">
+<div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 hover:border-indigo-500/50 border border-slate-200/80 dark:border-slate-800 transition-all cursor-pointer" onclick="openOrderModal('SS-9802')">
+<div class="flex justify-between items-start">
+<span class="font-sansansold text-indigo-600 dark:text-indigo-400 font-display text-sm">#SS-9802</span>
+<span class="font-sansansold text-slate-900 dark:text-white text-sm font-display">$345.000</span>
+</div>
+<div class="text-sm font-sansansemibold text-slate-800 dark:text-slate-200 mt-2">Valentina Rios</div>
+<div class="text-xs text-slate-400 dark:text-slate-400">MedellÃ­n Â· GuÃ­a Coordinadora: 7721094</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center gap-1.5 text-violet-600 dark:text-violet-400 text-xs font-sansansemibold">
+<span class="material-symbols-outlined text-[15px]">local_shipping</span>
+<span class="">En Reparto Hoy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Col 4: Fallido Wompi (Rojo) -->
+<div class="flex flex-col bg-white dark:bg-[#0e1628] rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs">
+<div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+<span class="font-sansansold text-slate-900 dark:text-white text-sm">Fallido Wompi</span>
+</div>
+<span class="text-xs font-sansansold uppercase tracking-wider" style="color: rgb(234, 88, 12);">Tasa AprobaciÃ³n Wompi</span>
+</div>
+<div class="space-y-3">
+<div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 hover:border-indigo-500/50 border border-slate-200/80 dark:border-slate-800 transition-all cursor-pointer" onclick="openOrderModal('SS-9805')">
+<div class="flex justify-between items-start">
+<span class="font-sansansold text-rose-600 dark:text-rose-400 font-display text-sm">#SS-9805</span>
+<span class="font-sansansold text-slate-400 dark:text-slate-500 text-sm font-display">$210.000</span>
+</div>
+<div class="text-sm font-sansansemibold text-slate-800 dark:text-slate-200 mt-2">JuliÃ¡n Restrepo</div>
+<div class="text-xs text-rose-600 dark:text-rose-400">Rechazo Wompi: Saldo insuficiente</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 dark:border-slate-800 flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs font-sansansemibold">
+<span class="material-symbols-outlined text-[15px]">contact_phone</span>
+<span class="">Retargeting WhatsApp listo</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- ORDER DETAIL MODAL & BOLD LIVE LOGS -->
+<div class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm" id="orderDetailModal">
+<div class="relative w-full max-w-4xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl max-h-[92vh] flex flex-col overflow-hidden">
+<!-- Modal Header -->
+<div class="p-5 md:p-6 bg-slate-50 dark:bg-[#090d16] border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-3">
+<h2 class="font-display font-sansansxtrabold text-xl md:text-2xl text-slate-900 dark:text-white" id="modalOrderTitle">#SS-9801</h2>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-2xl bg-emerald-100/90 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-sansansold text-xs border border-emerald-300 dark:border-emerald-800" id="modalPaymentBadge">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span class="">Pagado - Wompi API</span>
+</span>
+</div>
+<span class="text-xs text-slate-500 dark:text-slate-400">Realizada el 14 May 2025, 14:32 COT Â· Pasarela: Wompi Gateway Colombia</span>
+</div>
+<button class="p-2 rounded-2xl bg-white dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white border border-slate-200 dark:border-slate-700 transition-colors" onclick="closeOrderModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="flex-1 overflow-y-auto p-5 md:p-6 space-y-6">
+<!-- BOLD INTEGRATION LOGS -->
+<div class="p-4 rounded-2xl bg-slate-50 dark:bg-[#080d19] border border-slate-200 dark:border-slate-800/90 space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span>
+</div>
+<div>
+<span class="text-sm font-sansansold text-slate-900 dark:text-white">TransacciÃ³n Wompi Gateway (Logs en Vivo)</span>
+<span class="block text-[11px] text-slate-500 dark:text-slate-400">Token de Seguridad &amp; CertificaciÃ³n Webhook</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-2xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 text-xs font-sansansold font-mono">HTTP 200 OK</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+<div class="p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/60">
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-1">Wompi Payment ID</span>
+<span class="font-mono text-indigo-600 dark:text-indigo-400 font-sansansold" id="modalBoldId">bld_tx_893420198471</span>
+</div>
+<div class="p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/60">
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-1">Franquicia / MÃ©todo</span>
+<span class="text-slate-800 dark:text-slate-200 font-sansansemibold" id="modalFranquicia">Visa CrÃ©dito (â€¢â€¢â€¢â€¢ 4128)</span>
+</div>
+<div class="p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/60">
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-1">Referencia Tienda</span>
+<span class="font-mono text-slate-800 dark:text-slate-200 font-sansansemibold" id="modalStoreRef">REF-GROWUP-9801</span>
+</div>
+<div class="p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/60">
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-1">Timestamp de Webhook</span>
+<span class="text-slate-800 dark:text-slate-200 font-mono">2025-05-14 14:32:18 COT</span>
+</div>
+<div class="p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/60">
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-1">ComisiÃ³n Pasarela Wompi</span>
+<span class="text-rose-600 dark:text-rose-400 font-sansansemibold">-$4.500 COP (2.3% + IVA)</span>
+</div>
+<div class="p-3 rounded-xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/60">
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-1">Neto Abonado a Cuenta</span>
+<span class="text-emerald-600 dark:text-emerald-400 font-sansansold" id="modalNeto">$185.000 COP</span>
+</div>
+</div>
+</div>
+<!-- 2 COLUMNS: PRODUCTS & CUSTOMER DATA -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Col 1: Products -->
+<div class="lg:col-span-7 space-y-4">
+<h3 class="font-sansansold text-slate-900 dark:text-white text-sm md:text-base">Productos en la Orden (2)</h3>
+<div class="space-y-2.5">
+<div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<img alt="Zapatillas" class="w-13 h-13 rounded-xl object-cover bg-slate-200 dark:bg-slate-800" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz0vzNnnE_5i1r6TMl6YtesIMUAsRHhxirds6WGxtziZqAjT2rwVTenleB9Pl1dZrv8ivima7LjPIhk2s46SpY2dEAH9Rm8QwYWJQXfqX6GaDvkcUH30b0D2adYmbVJs9htiXWoQh2IWZjMEwJ0GmINN8RrcJ0T4rlE1e4stSk4mtvQlw3HALFmnjGSRHBPmOcTm088ukQ4bhNJ5l_cKKFqI2ji1Jwd8TCUy50frzXeDm6LlKtt0wjig">
+<div>
+<h4 class="font-sansansold text-slate-900 dark:text-white text-xs md:text-sm">Zapatillas HyperPulse Pro</h4>
+<span class="text-[11px] text-slate-500 dark:text-slate-400">Talla: 41 Â· Color: Negro Mate Â· Cant: 1</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-display font-sansansold text-slate-900 dark:text-white text-sm md:text-base">$149.500</span>
+<span class="block text-[11px] text-slate-400">COP</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+<div class="flex items-center gap-3">
+<img alt="Botella TÃ©rmica" class="w-13 h-13 rounded-xl object-cover bg-slate-200 dark:bg-slate-800" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQTGHQURdWpEwJ1FoTwLG2lUUV-p9-4QsymfQHbGX2DDk-V1j9n_TE3WQn8OlTWni3ytzgRkQxAUzE1JIN_MmSWn9EAZlq8f3Ko30KVTdClUaRgGO7PTiqTfF72HidLrjIWw3HtO-D98LRs4SJq7r2Nso8rFeCt7F2V1vnpdFXhRQh3A0rwFW0FochU6XkSlNtd_uRPNPIJLHwrC7sWaQAkZKEZqRkKiWT_nh85N-FovAHRH8zHDRjVw">
+<div>
+<h4 class="font-sansansold text-slate-900 dark:text-white text-xs md:text-sm">Botella TÃ©rmica HydroShield</h4>
+<span class="text-[11px] text-slate-500 dark:text-slate-400">Capacidad: 750ml Â· Color: Negro Â· Cant: 1</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-display font-sansansold text-slate-900 dark:text-white text-sm md:text-base">$40.000</span>
+<span class="block text-[11px] text-slate-400">COP</span>
+</div>
+</div>
+</div>
+<!-- Totals -->
+<div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs space-y-1.5" style="transition: transform 0.3s, filter 0.3s; filter: drop-shadow(rgba(16, 185, 129, 0.25) 0px 0px 6px);">
+<div class="flex justify-between text-slate-500 dark:text-slate-400">
+<span class="">Subtotal Productos</span>
+<span class="text-slate-900 dark:text-white font-sansansemibold">$189.500 COP</span>
+</div>
+<div class="flex justify-between text-slate-500 dark:text-slate-400">
+<span class="">EnvÃ­o Nacional (BogotÃ¡ D.C.)</span>
+<span class="text-emerald-600 dark:text-emerald-400 font-sansansold">GRATIS</span>
+</div>
+<div class="flex justify-between font-sansansold text-slate-900 dark:text-white pt-2 border-t border-slate-200 dark:border-slate-800 text-sm">
+<span class="">Total Cobrado en Wompi</span>
+<span class="text-indigo-600 dark:text-indigo-400 font-display text-base" id="modalTotalPaid">$189.500 COP</span>
+</div>
+</div>
+</div>
+<!-- Col 2: Customer Data & WhatsApp Preview -->
+<div class="lg:col-span-5 space-y-4">
+<h3 class="font-sansansold text-slate-900 dark:text-white text-sm md:text-base">Datos de Entrega</h3>
+<div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3 text-xs">
+<div>
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-0.5">Nombre Completo</span>
+<span class="font-sansansold text-slate-900 dark:text-white text-sm" id="modalCustomerName">Carlos Mendoza</span>
+</div>
+<div>
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-0.5">WhatsApp / Celular</span>
+<div class="flex items-center justify-between">
+<span class="text-xs font-sansansold uppercase tracking-wider" style="color: rgb(124, 58, 237);">Ã“rdenes Wompi Aprobadas</span>
+<span class="text-xs font-sansansold uppercase tracking-wider" style="color: rgb(124, 58, 237);">Ã“rdenes Wompi Aprobadas</span>
+</div>
+</div>
+<div>
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-0.5">DirecciÃ³n de Entrega</span>
+<span class="text-slate-700 dark:text-slate-300" id="modalCustomerAddress">Calle 127 # 14-45, Apto 502, Torre 3</span>
+</div>
+<div>
+<span class="text-[11px] font-sansansold text-slate-400 uppercase block mb-0.5">Ciudad y Departamento</span>
+<span class="text-slate-700 dark:text-slate-300" id="modalCustomerCity">BogotÃ¡, D.C. - Cundinamarca</span>
+</div>
+</div>
+<!-- WhatsApp Message Preview -->
+<div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/50 space-y-1.5" style="transition: 0.3s; box-shadow: rgba(16, 185, 129, 0.2) 0px 0px 10px;">
+<div class="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 text-xs font-sansansold">
+<span class="material-symbols-outlined text-[16px]">mark_chat_unread</span>
+<span class="">Plantilla AutomÃ¡tica WhatsApp</span>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic">
+                "Â¡Hola <span class="font-sansansold" id="waCustomerNameSnippet">Carlos</span>! Confirmamos tu pago de <span class="font-sansansold" id="waOrderPriceSnippet">$189.500 COP</span> vÃ­a Wompi para la orden <span class="font-sansansold" id="waOrderNumberSnippet">#SS-9801</span>. Tu paquete estÃ¡ siendo empacado..."
+              </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="p-4 md:p-5 bg-slate-50 dark:bg-[#090d16] border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-sansansemibold border border-slate-200 dark:border-slate-700 transition-colors" onclick="printShippingLabel()" type="button">
+<span class="material-symbols-outlined text-[17px]">print</span>
+<span class="">Imprimir GuÃ­a</span>
+</button>
+<button class="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-sansansemibold border border-slate-200 dark:border-slate-700 transition-colors" onclick="copyBoldLog()" type="button">
+<span class="material-symbols-outlined text-[17px]">content_copy</span>
+<span class="">Copiar Hash Wompi</span>
+</button>
+</div>
+<div class="flex items-center gap-2.5">
+<button class="px-4 py-2 rounded-2xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-sansansemibold transition-colors" onclick="closeOrderModal()" type="button">
+            Cerrar
+          </button>
+<button class="flex items-center gap-1.5 px-5 py-2 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs md:text-sm font-sansansold shadow-md shadow-emerald-600/25 transition-all" id="modalWhatsAppActionBtn" onclick="sendWhatsAppModal()" type="button" style="background-color: rgb(124, 58, 237) !important; color: rgb(255, 255, 255) !important; box-shadow: rgba(124, 58, 237, 0.35) 0px 4px 14px !important;">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span class="">Notificar por WhatsApp</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- TOAST FEEDBACK -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-200 pointer-events-none flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xl border border-slate-700 dark:border-slate-200" id="toastNotification">
+<span class="material-symbols-outlined text-emerald-400 dark:text-emerald-600 text-[20px]" id="toastIcon">check_circle</span>
+<span class="text-xs md:text-sm font-sansansemibold" id="toastMessage">OperaciÃ³n exitosa</span>
+</div>
+<!-- JAVASCRIPT: THEME TOGGLE, VIEWS, MODAL & ACTIONS -->
+<script>
+    // 1. Interactive Light / Dark Theme Switcher
+    function toggleTheme() {
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        themeIcon.innerText = 'light_mode';
+        themeIcon.className = 'material-symbols-outlined text-[18px] text-amber-500';
+        themeText.innerText = 'Claro';
+        showToast('Modo Claro activado');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.innerText = 'dark_mode';
+        themeIcon.className = 'material-symbols-outlined text-[18px] text-indigo-400';
+        themeText.innerText = 'Oscuro';
+        showToast('Modo Oscuro activado');
+      }
+    }
+
+    // Initialize Theme
+    (function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+
+      if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+        if (themeIcon) {
+          themeIcon.innerText = 'light_mode';
+          themeIcon.className = 'material-symbols-outlined text-[18px] text-amber-500';
+        }
+        if (themeText) themeText.innerText = 'Claro';
+      } else {
+        document.documentElement.classList.add('dark');
+        if (themeIcon) {
+          themeIcon.innerText = 'dark_mode';
+          themeIcon.className = 'material-symbols-outlined text-[18px] text-indigo-400';
+        }
+        if (themeText) themeText.innerText = 'Oscuro';
+      }
+    })();
+
+    // 2. Mock Order Data
+    let currentActiveOrderId = 'SS-9801';
+    let currentActiveCustomerPhone = '3104598211';
+    let currentActiveCustomerName = 'Carlos Mendoza';
+
+    const orderMockData = {
+      'SS-9801': {
+        id: '#SS-9801',
+        customer: 'Carlos Mendoza',
+        phone: '3104598211',
+        formattedPhone: '+57 310 459 8211',
+        address: 'Calle 127 # 14-45, Apto 502, Torre 3',
+        city: 'BogotÃ¡, D.C. - Cundinamarca',
+        boldId: 'bld_tx_893420198471',
+        franquicia: 'Visa CrÃ©dito (â€¢â€¢â€¢â€¢ 4128)',
+        ref: 'REF-STORESCALE-9801',
+        total: '$189.500 COP',
+        neto: '$185.000 COP',
+        status: 'Pagado - Wompi API',
+        statusType: 'paid'
+      },
+      'SS-9802': {
+        id: '#SS-9802',
+        customer: 'Valentina Rios',
+        phone: '3187219904',
+        formattedPhone: '+57 318 721 9904',
+        address: 'Carrera 43A # 1Sur-220, Edificio Zenith 1201',
+        city: 'MedellÃ­n, Antioquia',
+        boldId: 'bld_tx_492019481729',
+        franquicia: 'Mastercard DÃ©bito (â€¢â€¢â€¢â€¢ 8901)',
+        ref: 'REF-STORESCALE-9802',
+        total: '$345.000 COP',
+        neto: '$336.800 COP',
+        status: 'Pagado - Wompi API',
+        statusType: 'paid'
+      },
+      'SS-9803': {
+        id: '#SS-9803',
+        customer: 'AndrÃ©s Felipe GÃ³mez',
+        phone: '3005829104',
+        formattedPhone: '+57 300 582 9104',
+        address: 'Avenida 6N # 26N-40, Barrio Granada',
+        city: 'Cali, Valle del Cauca',
+        boldId: 'bld_tx_pse_0029141',
+        franquicia: 'PSE - Banco UniÃ³n Colombia',
+        ref: 'REF-STORESCALE-9803',
+        total: '$120.000 COP',
+        neto: '$116.500 COP',
+        status: 'Pendiente PSE',
+        statusType: 'pending'
+      },
+      'SS-9804': {
+        id: '#SS-9804',
+        customer: 'Mariana Quintero',
+        phone: '3156728192',
+        formattedPhone: '+57 315 672 8192',
+        address: 'Calle 84 # 51B-32, Alto Prado',
+        city: 'Barranquilla, AtlÃ¡ntico',
+        boldId: 'bld_tx_901192849102',
+        franquicia: 'Visa DÃ©bito (â€¢â€¢â€¢â€¢ 9920)',
+        ref: 'REF-STORESCALE-9804',
+        total: '$420.000 COP',
+        neto: '$410.200 COP',
+        status: 'Pagado - Wompi API',
+        statusType: 'paid'
+      },
+      'SS-9805': {
+        id: '#SS-9805',
+        customer: 'JuliÃ¡n Restrepo',
+        phone: '3124567890',
+        formattedPhone: '+57 312 456 7890',
+        address: 'Carrera 33 # 48-12, Cabecera del Llano',
+        city: 'Bucaramanga, Santander',
+        boldId: 'bld_tx_err_3910582',
+        franquicia: 'Tarjeta de CrÃ©dito Rechazada',
+        ref: 'REF-STORESCALE-9805',
+        total: '$210.000 COP',
+        neto: '$0 COP (Rechazado)',
+        status: 'Fallido Wompi',
+        statusType: 'failed'
+      },
+      'SS-9806': {
+        id: '#SS-9806',
+        customer: 'Diana Herrera',
+        phone: '3169871234',
+        formattedPhone: '+57 316 987 1234',
+        address: 'Bocagrande, Cra 3 # 8-40, Edif Portovento',
+        city: 'Cartagena, BolÃ­var',
+        boldId: 'bld_tx_998471625341',
+        franquicia: 'Mastercard DÃ©bito (â€¢â€¢â€¢â€¢ 3319)',
+        ref: 'REF-STORESCALE-9806',
+        total: '$275.000 COP',
+        neto: '$268.300 COP',
+        status: 'Pagado - Wompi API',
+        statusType: 'paid'
+      }
+    };
+
+    // 3. Switch Table / Kanban Views
+    function switchView(viewName) {
+      const tableView = document.getElementById('tableView');
+      const kanbanView = document.getElementById('kanbanView');
+      const tabTableBtn = document.getElementById('tabTableBtn');
+      const tabKanbanBtn = document.getElementById('tabKanbanBtn');
+
+      if (viewName === 'table') {
+        tableView.classList.remove('hidden');
+        kanbanView.classList.add('hidden');
+        tabTableBtn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs md:text-sm font-sansansold shadow-xs transition-all';
+        tabKanbanBtn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-xs md:text-sm font-sansansemibold transition-all';
+      } else {
+        tableView.classList.add('hidden');
+        kanbanView.classList.remove('hidden');
+        tabKanbanBtn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-xs md:text-sm font-sansansold shadow-xs transition-all';
+        tabTableBtn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-xs md:text-sm font-sansansemibold transition-all';
+      }
+    }
+
+    // 4. Search Filter
+    function filterOrdersTable() {
+      const input = document.getElementById('orderSearchInput').value.toLowerCase();
+      const rows = document.querySelectorAll('#ordersTableBody tr');
+
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? '' : 'none';
+      });
+    }
+
+    // 5. Open Order Details Modal
+    function openOrderModal(orderKey) {
+      const data = orderMockData[orderKey];
+      if (!data) return;
+
+      currentActiveOrderId = data.id;
+      currentActiveCustomerName = data.customer;
+      currentActiveCustomerPhone = data.phone;
+
+      document.getElementById('modalOrderTitle').innerText = data.id;
+      document.getElementById('modalCustomerName').innerText = data.customer;
+      document.getElementById('modalCustomerPhone').innerText = data.formattedPhone;
+      document.getElementById('modalCustomerAddress').innerText = data.address;
+      document.getElementById('modalCustomerCity').innerText = data.city;
+      document.getElementById('modalBoldId').innerText = data.boldId;
+      document.getElementById('modalFranquicia').innerText = data.franquicia;
+      document.getElementById('modalStoreRef').innerText = data.ref;
+      document.getElementById('modalTotalPaid').innerText = data.total;
+      document.getElementById('modalNeto').innerText = data.neto;
+
+      // WhatsApp Snippets
+      document.getElementById('waCustomerNameSnippet').innerText = data.customer.split(' ')[0];
+      document.getElementById('waOrderPriceSnippet').innerText = data.total;
+      document.getElementById('waOrderNumberSnippet').innerText = data.id;
+
+      // Badges
+      const badgeEl = document.getElementById('modalPaymentBadge');
+      badgeEl.innerHTML = '';
+      if (data.statusType === 'paid') {
+        badgeEl.className = 'inline-flex items-center gap-1 px-3 py-1 rounded-2xl bg-emerald-100/90 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-sansansold text-xs border border-emerald-300 dark:border-emerald-800';
+        badgeEl.innerHTML = '<span class="material-symbols-outlined text-[15px]">check_circle</span><span>Pagado - Wompi API</span>';
+      } else if (data.statusType === 'pending') {
+        badgeEl.className = 'inline-flex items-center gap-1 px-3 py-1 rounded-2xl bg-amber-100/90 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 font-sansansold text-xs border border-amber-300 dark:border-amber-800';
+        badgeEl.innerHTML = '<span class="material-symbols-outlined text-[15px]">hourglass_top</span><span>Pendiente PSE</span>';
+      } else {
+        badgeEl.className = 'inline-flex items-center gap-1 px-3 py-1 rounded-2xl bg-rose-100/90 dark:bg-rose-950/60 text-rose-700 dark:text-rose-400 font-sansansold text-xs border border-rose-300 dark:border-rose-800';
+        badgeEl.innerHTML = '<span class="material-symbols-outlined text-[15px]">cancel</span><span>Fallido Wompi</span>';
+      }
+
+      document.getElementById('orderDetailModal').classList.remove('hidden');
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderDetailModal').classList.add('hidden');
+    }
+
+    // 6. Direct WhatsApp Launch
+    function launchWhatsApp(name, orderId, phone) {
+      const text = encodeURIComponent(`Hola ${name}, te escribimos de Mi Tienda Deportiva sobre tu orden ${orderId}. Â¡Tu transacciÃ³n vÃ­a Wompi estÃ¡ confirmada y preparamos tu despacho!`);
+      showToast(`Abriendo chat de WhatsApp para ${name}...`);
+      window.open(`https://api.whatsapp.com/send?phone=57${phone}&text=${text}`, '_blank');
+    }
+
+    function sendWhatsAppModal() {
+      launchWhatsApp(currentActiveCustomerName, currentActiveOrderId, currentActiveCustomerPhone);
+    }
+
+    function copyBoldLog() {
+      const hash = document.getElementById('modalBoldId').innerText;
+      navigator.clipboard.writeText(hash);
+      showToast(`ID Wompi copiado al portapapeles: ${hash}`);
+    }
+
+    function printShippingLabel() {
+      showToast(`Generando guÃ­a logÃ­stica PDF para orden ${currentActiveOrderId}...`);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.innerText = message;
+      toast.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
+      }, 3000);
+    }
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      showToast('Exportando 38 transacciones Wompi a CSV...');
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeOrderModal();
+      }
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

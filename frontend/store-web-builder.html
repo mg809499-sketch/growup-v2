@@ -1,0 +1,919 @@
+<!DOCTYPE html><html class="" id="html-root" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_dashboard" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+        transition: background-color 0.25s ease, color 0.25s ease;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "outline-variant": "#464554",
+          "surface-container-low": "#171b26",
+          "error": "#ffb4ab",
+          "on-primary-container": "#0d0096",
+          "on-secondary": "#003824",
+          "on-primary-fixed-variant": "#2f2ebe",
+          "on-tertiary-container": "#340080",
+          "on-primary-fixed": "#07006c",
+          "error-container": "#93000a",
+          "on-secondary-fixed-variant": "#005236",
+          "surface-tint": "#c0c1ff",
+          "on-surface-variant": "#c7c4d7",
+          "surface-container-high": "#262a35",
+          "on-secondary-container": "#00311f",
+          "tertiary": "#d0bcff",
+          "secondary-fixed-dim": "#4edea3",
+          "inverse-primary": "#494bd6",
+          "surface-variant": "#313540",
+          "on-primary": "#1000a9",
+          "primary-fixed-dim": "#c0c1ff",
+          "surface-container": "#1c1f2a",
+          "secondary-container": "#00a572",
+          "on-surface": "#dfe2f1",
+          "outline": "#908fa0",
+          "surface-container-highest": "#313540",
+          "surface-bright": "#353944",
+          "secondary-fixed": "#6ffbbe",
+          "surface-container-lowest": "#0a0e18",
+          "inverse-surface": "#dfe2f1",
+          "on-tertiary-fixed-variant": "#5516be",
+          "tertiary-container": "#a078ff",
+          "on-error": "#690005",
+          "on-error-container": "#ffdad6",
+          "background": "#0f131d",
+          "primary": "#c0c1ff",
+          "primary-fixed": "#e1e0ff",
+          "secondary": "#4edea3",
+          "on-tertiary": "#3c0091",
+          "primary-container": "#8083ff",
+          "tertiary-fixed-dim": "#d0bcff",
+          "on-tertiary-fixed": "#23005c",
+          "on-secondary-fixed": "#002113",
+          "surface": "#0f131d",
+          "tertiary-fixed": "#e9ddff",
+          "on-background": "#dfe2f1",
+          "surface-dim": "#0f131d",
+          "inverse-on-surface": "#2c303b"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "space-lg": "1.5rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "2rem",
+          "gutter-mobile": "1rem",
+          "space-xl": "2rem",
+          "gutter": "1.5rem"
+        },
+        fontFamily: {
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-xl": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-lg": ["Plus Jakarta Sans"],
+          "headline-md": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "headline-xl-mobile": ["Plus Jakarta Sans"]
+        },
+        fontSize: {
+          "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+          "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+          "title-md": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+          "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+          "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+          "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+          "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+          "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+          "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+        }
+      }
+    }
+  };
+  </script>
+<style id="interactive-enhancements">
+    button, a, [role="button"] {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+    }
+    button:hover, a[href]:hover {
+      transform: translateY(-1px);
+    }
+    button:active, a[href]:active {
+      transform: translateY(0) scale(0.98);
+    }
+  </style><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style id="burbank-light-theme-override">body, #html-root, main, aside, header { background-color: #ffffff !important; color: #090d16 !important; } h1, h2, h3, .font-headline-lg, .font-headline-md, .font-title-md { font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif !important; letter-spacing: -0.01em; } .bg-surface, .bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container, .bg-surface-container-high, .bg-surface-container-highest { background-color: #ffffff !important; } .border-outline-variant\/30, .border-outline-variant\/40 { border-color: #e2e8f0 !important; } .text-on-surface { color: #090d16 !important; } .text-on-surface-variant, .text-outline { color: #475569 !important; } input, textarea { background-color: #f8fafc !important; color: #090d16 !important; border-color: #e2e8f0 !important; } .shadow-inner { box-shadow: none !important; border: 1px solid #e2e8f0 !important; } .shadow-md, .shadow-sm { box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06) !important; border: 1px solid #e2e8f0 !important; } :root { --color-orange: #ea580c; --color-orange-light: #f97316; --color-violet: #7c3aed; --color-violet-light: #8b5cf6; } .text-primary, .text-primary-fixed-variant { color: #ea580c !important; } .bg-primary { background-color: #ea580c !important; color: #ffffff !important; } .bg-primary-container { background-color: #7c3aed !important; color: #ffffff !important; } .text-on-primary-container { color: #ffffff !important; } .text-secondary { color: #ea580c !important; } .bg-secondary { background-color: #ea580c !important; color: #ffffff !important; } .bg-secondary\/10, .bg-secondary\/15, .bg-secondary\/20 { background-color: rgba(234, 88, 12, 0.12) !important; color: #ea580c !important; } .border-secondary\/20 { border-color: rgba(234, 88, 12, 0.25) !important; } .border-primary { border-color: #ea580c !important; } .text-tertiary { color: #7c3aed !important; } .ring-primary\/40 { --tw-ring-color: rgba(124, 58, 237, 0.4) !important; } button#domain-check-btn { background-color: #7c3aed !important; color: #ffffff !important; } button#domain-check-btn:hover { background-color: #6d28d9 !important; }</style><style id="burbank-global-typography">*, html, body, h1, h2, h3, h4, p, span, a, button, input, label, table, th, td { font-sansansamily: 'Burbank', 'Plus Jakarta Sans', -apple-system, sans-serif !important; } .material-symbols-outlined { font-sansansamily: 'Material Symbols Outlined' !important; }</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet">
+<style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+<style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-white">
+<!-- TOP BAR -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#e2e8f0] transition-colors">
+<div class="h-16 w-full px-space-md lg:px-space-lg flex items-center justify-between gap-space-md">
+<!-- Brand / Tenant Selector -->
+<div class="flex items-center gap-space-md flex-shrink-0">
+<a class="flex items-center gap-space-sm group" data-path="landing-welcome" href="welcome-carrusel-3d.html"><span class="font-headline-md text-title-md font-sansansold tracking-tight text-on-surface">GrowUp Space</span></a>
+<div class="relative">
+<button class="flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-label-sm font-sansansemibold border border-outline-variant/40 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-secondary text-[16px]">store</span>
+<span class="">Mi Tienda Deportiva</span>
+<span class="material-symbols-outlined text-outline text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Search Bar Cmd+K -->
+<div class="hidden xl:flex items-center gap-space-sm flex-1 max-w-lg mx-space-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full bg-[#f8fafc] text-[#090d16] placeholder:text-[#64748b] pl-9 pr-14 py-2 rounded-xl text-body-md font-medium border border-[#e2e8f0] focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all" placeholder="Buscar pedidos, pasarelas, dominios..." type="text">
+<kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-surface-container text-outline border border-outline-variant/40 rounded text-label-sm font-sansansemibold uppercase">âŒ˜K</kbd>
+</div>
+</div>
+<!-- Right Actions & Theme Switch -->
+<div class="flex items-center gap-space-md flex-shrink-0">
+<!-- Status Badges -->
+<div class="hidden lg:flex items-center gap-space-sm">
+
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-label-sm font-medium text-secondary">
+<span class="inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+<span class="text-on-surface-variant font-sansansody-md">Wompi&nbsp;&nbsp;Gateway:</span>
+<span class="font-sansansold text-secondary">Live</span>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex items-center gap-space-sm">
+<button aria-label="Alternar Tema Claro/Oscuro" class="relative flex items-center justify-center p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/30 transition-all shadow-sm active:scale-95 group" id="theme-toggle-btn" onclick="toggleTheme()" type="button">
+<span class="material-symbols-outlined text-[20px] hidden dark:inline-block text-tertiary-fixed transition-transform group-hover:rotate-45" id="sun-icon">light_mode</span>
+<span class="material-symbols-outlined text-[20px] inline-block dark:hidden text-primary-fixed-variant transition-transform group-hover:-rotate-12" id="moon-icon">dark_mode</span>
+</button>
+<button aria-label="Notificaciones" class="relative p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/30 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary-container ring-2 ring-surface"></span>
+</button>
+<div class="relative flex items-center pl-1">
+<img alt="Perfil Administrador" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANrUTdFYu_CnWLmDd3793SV0GU3RBGEt8Iek2CrREuY91Iwmn7Ren9hiOlGBCku0T2SwN0yZG6GNen9tIu_BoY5rkJV20n5XQWwSipM6H7wpHnTeIl7UcQskPGYOGQiCHKtyO_3L2Efe1ApzTkAQgHX2dXYIGtzdB5n-fmFWXvApW1Fi2kOBaDYgBVc7EbGbbf4xyPQDwfrsgNQPi1uILfddqLvkOk4WXKxr9Qhmq28flW4Sx9_GIg1A">
+<span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- SIDEBAR NAVIGATION -->
+<aside class="fixed left-0 top-0 bottom-0 w-64 bg-white z-40 flex flex-col pt-16 border-r border-[#e2e8f0] transition-colors">
+<div class="flex-1 overflow-y-auto px-space-md py-space-md space-y-space-md">
+<!-- Portal Público -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Portal Principal</div>
+<nav aria-label="Portal Landing" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="landing-welcome" href="welcome-carrusel-3d.html">
+<span class="">Landing &amp; Acceso</span>
+<span class="material-symbols-outlined text-[16px] text-outline">arrow_outward</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-sansansold bg-purple-50 text-purple-700 shadow-sm border-l-2 border-purple-600 transition-all group" data-path="store-builder" href="store-web-builder.html"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-purple-600 group-hover:scale-105 transition-transform">storefront</span><span class="">Store Builder</span></div><span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 text-[10px] font-sansansold tracking-wide uppercase">Activo</span></a></nav>
+</div>
+<!-- Operaciones Core -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Operaciones Core</div>
+<nav aria-label="Operaciones Core" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard-central" href="dashboard-central.html">
+<span class="">Dashboard Central</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="catalogo-inventario" href="catalogo-inventario.html">
+<span class="">Catálogo &amp; Inventario</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ordenes-pedidos" href="ordenes-bold-gateway.html">
+<span class="">Órdenes &amp; Pedidos</span>
+</a>
+</nav>
+</div>
+<!-- Crecimiento & Canales -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Crecimiento &amp; Canales</div>
+<nav aria-label="Crecimiento y Canales" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="meta-ads-studio" href="ia-opencode-agentes.html">
+<span class="">Agentes IA (opencode)</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="red-aliada-afiliados" href="welcome-carrusel-3d.html">
+<span class="">Red Aliada / Afiliados</span>
+</a>
+</nav>
+</div>
+<!-- Infraestructura -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Infraestructura</div>
+<nav aria-label="Infraestructura" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="pasarelas-pagos" href="pasarelas-pagos-wompi.html">
+<span class="">Pasarelas &amp; Pagos</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-[10px] font-sansansold tracking-wide uppercase">Activo</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dominio-marca" href="dominio-marca-infraestructura.html">
+<span class="">Dominio &amp; Marca</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-sansansold tracking-wide uppercase">DNS OK</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ajustes-sistema" href="ajustes-configuracion.html">
+<span class="">Ajustes</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- Pro Tier Status Box -->
+<div class="p-3.5 bg-surface-container-low border-t border-outline-variant/30">
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container border border-outline-variant/30 shadow-sm">
+<div class="flex flex-col">
+<span class="text-label-md font-sansansold text-on-surface">Plan Scale Pro</span>
+<span class="text-label-sm font-sansansemibold text-secondary">Wompi sync activo</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT SLOT -->
+<div class="pl-64">
+<main class="w-full min-h-screen pt-16 bg-surface transition-colors"><div class="flex flex-col w-full bg-white text-slate-900 pb-12 font-sansansody-md">
+<!-- BUILDER TOP WORKBAR -->
+<header class="bg-white px-space-lg py-space-md shadow-sm sticky top-16 z-30 flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<!-- Title & Engine Meta -->
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-11 h-11 rounded-xl bg-orange-600/10 flex items-center justify-center text-orange-600 flex-shrink-0">
+<span class="material-symbols-outlined text-[26px]">view_quilt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-md text-headline-md font-sansansold tracking-tight text-slate-900">Store &amp; Web Builder v3.0</h1>
+<span class="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700 text-label-sm font-sansansold uppercase tracking-wider">
+              Visual HTML + WordPress Engine
+            </span>
+<span class="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-label-sm font-sansansemibold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              WooCommerce v8.2 Sync
+            </span>
+</div>
+<p class="font-sansansody-md text-slate-600 text-label-md truncate max-w-2xl">
+            Diseña, edita y despliega tu tienda con selector visual de bloques, código HTML en vivo y enlace headless en tiempo real.
+          </p>
+</div>
+</div>
+<!-- Main Action Buttons -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center bg-slate-100 p-1 rounded-xl shadow-inner">
+<button class="p-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-all" id="undo-btn" title="Deshacer (Cmd+Z)">
+<span class="material-symbols-outlined text-[18px]">undo</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-white transition-all" id="redo-btn" title="Rehacer (Cmd+Shift+Z)">
+<span class="material-symbols-outlined text-[18px]">redo</span>
+</button>
+</div>
+<button class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-label-md text-label-md font-sansansemibold transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-purple-700">visibility</span>
+<span class="">Vista Previa</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-orange-600 to-purple-600 hover:from-orange-500 hover:to-purple-500 text-white font-label-md text-label-md font-sansansold transition-all shadow-md active:scale-95" id="publish-btn">
+<span class="">Publicar Tienda</span>
+</button>
+</div>
+</div>
+<!-- Secondary Toolbar: Viewports, Modes & Status -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<!-- Mode toggles -->
+<div class="flex items-center gap-space-sm">
+<div class="inline-flex p-1 bg-slate-100 rounded-xl">
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white text-orange-600 font-label-sm text-label-sm font-sansansold shadow-sm transition-all" id="btn-mode-visual">
+<span class="material-symbols-outlined text-[16px]">draw</span>
+<span class="">Modo Visual (Drag &amp; Drop)</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-lg text-slate-600 hover:text-slate-900 font-label-sm text-label-sm font-sansansemibold transition-all" id="btn-mode-code">
+<span class="material-symbols-outlined text-[16px]">code</span>
+<span class="">Modo Código HTML/Tailwind</span>
+</button>
+</div>
+<!-- Viewport Switches -->
+<div class="flex items-center bg-slate-100 p-1 rounded-xl">
+<button class="p-1.5 rounded-lg bg-white text-purple-700 shadow-sm" id="vp-desktop" title="Desktop 1440px">
+<span class="material-symbols-outlined text-[18px]">desktop_windows</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900" id="vp-tablet" title="Tablet 768px">
+<span class="material-symbols-outlined text-[18px]">tablet_mac</span>
+</button>
+<button class="p-1.5 rounded-lg text-slate-600 hover:text-slate-900" id="vp-mobile" title="Móvil 375px">
+<span class="material-symbols-outlined text-[18px]">smartphone</span>
+</button>
+<span class="text-slate-500 text-label-sm font-label-sm px-2 font-mono">1440px (100%)</span>
+</div>
+</div>
+<!-- Sync Status & Domain Meta -->
+<div class="flex items-center gap-space-md text-label-sm font-label-sm">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
+<span class="material-symbols-outlined text-purple-600 text-[16px]">sync_saved_locally</span>
+<span class="">Auto-guardado en Edge activo</span>
+</div>
+<div class="flex items-center gap-1 text-slate-600">
+<span class="material-symbols-outlined text-orange-600 text-[16px]">dns</span>
+<span class="font-mono text-slate-800 font-sansansemibold">mitiendadeportiva.growupstore.app</span>
+</div>
+</div>
+</div>
+</header>
+<!-- 3-COLUMN WORKBENCH AREA -->
+<div class="w-full px-space-md lg:px-space-lg py-space-md flex-1">
+<div class="grid grid-cols-12 gap-space-md items-start">
+<!-- LEFT COLUMN: BLOCK & COMPONENT LIBRARY (3 COLS) -->
+<aside class="col-span-12 xl:col-span-3 flex flex-col gap-space-md bg-white rounded-2xl p-space-md shadow-md">
+<!-- Tab selector -->
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded-lg bg-orange-600 text-white font-label-sm text-label-sm font-sansansold shadow-sm">
+              E-commerce
+            </button>
+<button class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100 font-label-sm text-label-sm font-sansansemibold transition-colors">
+              HTML UI
+            </button>
+<button class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100 font-label-sm text-label-sm font-sansansemibold transition-colors">
+              WordPress
+            </button>
+</div>
+<span class="text-slate-400 material-symbols-outlined text-[18px]">filter_list</span>
+</div>
+<!-- WordPress Live Feed Pill -->
+<div class="p-2.5 rounded-xl bg-purple-50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-purple-600"></span>
+<span class="font-label-sm text-label-sm font-sansansold text-purple-900">WooCommerce Rest API</span>
+</div>
+<span class="font-label-sm text-label-sm font-mono text-purple-700 font-sansansemibold">48 SKUs OK</span>
+</div>
+<!-- Search Blocks -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+<input class="w-full bg-slate-50 text-slate-900 placeholder:text-slate-400 pl-9 pr-3 py-1.5 rounded-xl text-label-md font-medium shadow-inner focus:outline-none focus:bg-white" placeholder="Buscar bloques visuales..." type="text">
+</div>
+<!-- Draggable Block Cards -->
+<div class="flex flex-col gap-space-sm max-h-[620px] overflow-y-auto pr-1">
+<!-- Item 1: Mascota Hero 3D -->
+<div class="group p-3 rounded-xl bg-slate-50 hover:bg-orange-50/70 cursor-grab active:cursor-grabbing transition-all shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900 group-hover:text-orange-700">Hero Mascota 3D</span>
+<span class="font-sansansody-md text-label-sm text-slate-500">Banner Burbank + Mascota Flotante</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-orange-600 text-[18px]">drag_indicator</span>
+</div>
+<!-- Item 2: Cuadricula Productos -->
+<div class="group p-3 rounded-xl bg-slate-50 hover:bg-purple-50/70 cursor-grab active:cursor-grabbing transition-all shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-700 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900 group-hover:text-purple-700">Catálogo Dinámico</span>
+<span class="font-sansansody-md text-label-sm text-slate-500">Sync WooCommerce Categorías</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-purple-600 text-[18px]">drag_indicator</span>
+</div>
+<!-- Item 3: Checkout Wompi Directo -->
+<div class="group p-3 rounded-xl bg-slate-50 hover:bg-emerald-50/70 cursor-grab active:cursor-grabbing transition-all shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">shopping_cart_checkout</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900 group-hover:text-emerald-700">Checkout Express Wompi</span>
+<span class="font-sansansody-md text-label-sm text-slate-500">Botón 1-Click PSE &amp; Tarjetas</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-emerald-600 text-[18px]">drag_indicator</span>
+</div>
+<!-- Item 4: Selector de Variantes & Stock -->
+<div class="group p-3 rounded-xl bg-slate-50 hover:bg-orange-50/70 cursor-grab active:cursor-grabbing transition-all shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900 group-hover:text-orange-700">Selector de Variantes</span>
+<span class="font-sansansody-md text-label-sm text-slate-500">Talla, Color + Inventario Real</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-orange-600 text-[18px]">drag_indicator</span>
+</div>
+<!-- Item 5: Anuncio Urgencia / Ofertas -->
+<div class="group p-3 rounded-xl bg-slate-50 hover:bg-purple-50/70 cursor-grab active:cursor-grabbing transition-all shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-700 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900 group-hover:text-purple-700">Barra de Urgencia</span>
+<span class="font-sansansody-md text-label-sm text-slate-500">Envío Gratis &amp; Contador Regresivo</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 group-hover:text-purple-600 text-[18px]">drag_indicator</span>
+</div>
+<!-- Item 6: Shortcode WordPress -->
+<div class="group p-3 rounded-xl bg-slate-50 hover:bg-slate-100 cursor-grab active:cursor-grabbing transition-all shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-slate-200 text-slate-700 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">data_object</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900">[wp_woocommerce_cart]</span>
+<span class="font-sansansody-md text-label-sm text-slate-500">Bloque Shortcode Embebido</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-[18px]">drag_indicator</span>
+</div>
+</div>
+<!-- WordPress Quick Status Box -->
+<div class="p-3 rounded-xl bg-slate-100 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-sansansold text-slate-700 uppercase">WordPress Endpoints</span>
+<span class="text-emerald-700 text-label-sm font-sansansold">200 OK</span>
+</div>
+<div class="text-label-sm text-slate-500 font-mono text-[11px] truncate">POST /wp-json/wc/v3/products/sync</div>
+<div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+<div class="bg-purple-600 h-full w-[94%]"></div>
+</div>
+<span class="text-label-sm text-slate-500 text-[11px]">94% bloques optimizados para Edge</span>
+</div>
+</aside>
+<!-- CENTER COLUMN: INTERACTIVE CANVAS (6 COLS) -->
+<section class="col-span-12 xl:col-span-6 flex flex-col gap-space-sm">
+<!-- Browser Shell / Frame Header -->
+<div class="bg-slate-100 rounded-t-2xl px-4 py-2.5 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-rose-400 inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+<span class="ml-2 text-slate-500 text-label-sm font-mono text-[12px] flex items-center gap-1">
+<span class="material-symbols-outlined text-emerald-600 text-[14px]">lock</span>
+              https://mitiendadeportiva.growupstore.app
+            </span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded-md text-slate-500 hover:text-slate-900" title="Recargar Canvas">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+</button>
+<span class="px-2 py-0.5 rounded bg-white text-slate-700 text-label-sm font-mono font-sansansold">CANVAS ACTIVO</span>
+</div>
+</div>
+<!-- CANVAS MAIN CONTAINER -->
+<div class="bg-white rounded-b-2xl p-space-md lg:p-space-lg shadow-xl relative min-h-[700px] flex flex-col gap-space-lg" id="canvas-container">
+<!-- FLOATING EDIT BAR FOR SELECTED HERO COMPONENT -->
+<div class="sticky top-2 z-20 self-center flex items-center gap-1 bg-purple-900 text-white px-3 py-1.5 rounded-full shadow-2xl animate-bounce text-label-sm font-label-sm font-sansansold">
+<span class="material-symbols-outlined text-orange-400 text-[16px]">auto_fix_high</span>
+<span class="">Hero Block Seleccionado: #hero-mascota-promo</span>
+<span class="text-purple-300">|</span>
+<button class="px-2 py-0.5 rounded bg-purple-700 hover:bg-purple-600 transition-colors">Editar Burbank</button>
+<button class="px-2 py-0.5 rounded bg-purple-700 hover:bg-purple-600 transition-colors">Vincular SKU</button>
+<button class="px-2 py-0.5 rounded bg-purple-700 hover:bg-purple-600 transition-colors">Padding</button>
+</div>
+<!-- TOP ANNOUNCEMENT BAR (EDITABLE BLOCK) -->
+<div class="w-full bg-gradient-to-r from-purple-700 via-purple-600 to-orange-600 text-white py-2 px-4 rounded-xl flex items-center justify-between text-label-sm font-label-sm shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span>
+<span class="font-sansansold">¡ENVÍO GRATIS A TODA COLOMBIA EN PEDIDOS MAYORES A $150.000!</span>
+</div>
+<span class="bg-white/20 px-2 py-0.5 rounded-full text-[11px] font-mono">CÓDIGO: GROWUP2025</span>
+</div>
+<!-- MAIN HERO BANNER COMPONENT (WITH MASCOT INSPIRATION) -->
+<div class="w-full bg-gradient-to-br from-orange-50/80 via-white to-purple-50/90 rounded-2xl p-space-lg relative overflow-hidden shadow-md">
+<!-- Selection Highlight Outline overlay -->
+<div class="absolute inset-0 pointer-events-none rounded-2xl ring-2 ring-purple-600 ring-offset-2 ring-offset-white"></div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center relative z-10">
+<!-- Left Hero Copy & Buy Actions -->
+<div class="md:col-span-7 flex flex-col gap-space-sm">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-600/10 text-orange-600 text-label-sm font-sansansold w-fit uppercase">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="">Colección Oficial 2025</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-sansansold text-slate-900 tracking-tight leading-tight">
+                  COLECCIÓN DEPORTIVA DE ALTO RENDIMIENTO
+                </h2>
+<p class="font-sansansody-md text-slate-600 text-body-md">
+                  Potencia tus entrenamientos con materiales ultraligeros, transpirabilidad máxima y soporte ergonómico diseñado para superar cualquier récord.
+                </p>
+<!-- Dynamic WooCommerce Price & Live Stock -->
+<div class="flex items-baseline gap-space-sm pt-1">
+<span class="text-3xl font-sansansxtrabold text-slate-900 tracking-tight">$189.900 COP</span>
+<span class="text-slate-400 line-through text-label-md">$249.900 COP</span>
+<span class="px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 font-sansansold text-label-sm">
+                    Ahorras 24%
+                  </span>
+</div>
+<!-- Product Variant Selectors (Talla / Color) -->
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between text-label-sm">
+<span class="font-sansansold text-slate-800">Seleccionar Talla (Sync WordPress):</span>
+<span class="text-orange-600 font-sansansemibold cursor-pointer">Guía de medidas</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 rounded-lg bg-purple-700 text-white font-sansansold text-label-md shadow-sm">S</button>
+<button class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-sansansemibold text-label-md">M</button>
+<button class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-sansansemibold text-label-md">L</button>
+<button class="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-sansansemibold text-label-md">XL</button>
+<span class="text-slate-500 text-label-sm ml-2 flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                      14 unidades disponibles
+                    </span>
+</div>
+</div>
+<!-- Call to Action Buttons: Wompi Gateway -->
+<div class="flex flex-wrap items-center gap-space-sm pt-space-sm">
+<button class="flex items-center gap-2 px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-title-md text-title-md font-sansansold shadow-lg transition-transform active:scale-95">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span class="">Comprar Ahora con Wompi</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-3 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-800 font-label-md text-label-md font-sansansold transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_shopping_cart</span>
+<span class="">Agregar al Carrito</span>
+</button>
+</div>
+<!-- Gateway logos pill -->
+<div class="flex items-center gap-2 pt-2 text-slate-500 text-label-sm">
+<span class="material-symbols-outlined text-purple-600 text-[16px]">verified_user</span>
+<span class="">Pagos seguros procesados con Wompi PSE, Bancolombia, Nequi y Tarjetas.</span>
+</div>
+</div>
+<!-- Right: Mascota 3D Render & Floating Badge -->
+<div class="md:col-span-5 flex flex-col items-center justify-center relative">
+<!-- Circular Glow backdrop -->
+<div class="absolute w-56 h-56 rounded-full bg-gradient-to-tr from-orange-400/20 to-purple-500/20 blur-2xl"></div>
+<!-- Mascota 3D Image (Stylized furry purple & orange monster waving friendly) -->
+<div class="relative group">
+
+<!-- Floating Badge Tag on Mascot -->
+
+</div>
+</div>
+</div>
+</div>
+<!-- DYNAMIC PRODUCT SHOWCASE GRID (WIDGET ON CANVAS) -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-title-md text-title-md font-sansansold text-slate-900">Productos Sincronizados de WooCommerce</h3>
+<p class="text-label-sm text-slate-500">Categoría: Ropa de Compresión &amp; Calzado</p>
+</div>
+<button class="text-label-sm font-sansansold text-purple-700 hover:text-purple-900 flex items-center gap-1">
+<span class="">Ver todos en WordPress</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Product Cards Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card 1 -->
+<div class="bg-white rounded-xl p-3 shadow-md flex flex-col gap-2 group hover:shadow-lg transition-all">
+<div class="relative w-full h-40 rounded-lg overflow-hidden bg-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="High tech lightweight running sneakers orange and purple gradient accents athletic gear photorealistic studio lighting product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRf3tWRYZD8lY4HdiF9S8x0vOnenCZ6OZEWYWxmdn49MUr669OwOzRJlMpH3kKudDVYRxy5bkYIM0tJDnf1GiJTCWLECqhexGqkkKNV78mrwTqRcr2DRL4GKz5QdI5ude_o4G-wuMVZ6y0wxCDAideNUkRXNnY31f3T_rdP4oiWFpuchKufqWLG6eGRthUdT_M9MROHz-Qa_BZBVM_Mvhxt-TANW_p-bLsZLBdG9az">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-purple-700 text-white font-sansansold text-label-sm">SKU: SHOE-809</span>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded bg-white/90 text-emerald-700 font-sansansold text-label-sm">In Stock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900">Zapatillas Sprint Aero 4</span>
+<div class="flex items-center justify-between pt-1">
+<span class="font-sansansold text-orange-600 text-label-md">$320.000 COP</span>
+<button class="p-1.5 rounded-lg bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white transition-colors" title="Editar en Builder">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white rounded-xl p-3 shadow-md flex flex-col gap-2 group hover:shadow-lg transition-all">
+<div class="relative w-full h-40 rounded-lg overflow-hidden bg-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Black and violet thermal compression shirt for workout sports apparel high tech fiber sleek studio shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG7Rq1ZP5C2CP1T8rT9MOeyDhkGjhLq3s3rhzkEVnmMDKpIWdSY6fK-k96Lf9HA1VWrLCsmmzKvuBSNY0xrL3wJAxwJheMkTyK0SfXxTlrHqhVwFdpdzXLG2KPfPJxIrWDGPDgrev2Dufbd3HjUptBBY5qfdMRHz3xKNhcRyQWXaI-yYcOKRzR279JcFmPr61uvjLYJjCHbD7V5wOuhvKLs-04CaLeAqJw9W3eoGDU">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-purple-700 text-white font-sansansold text-label-sm">SKU: SHIRT-102</span>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded bg-white/90 text-emerald-700 font-sansansold text-label-sm">In Stock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900">Camiseta Compresión Ultra</span>
+<div class="flex items-center justify-between pt-1">
+<span class="font-sansansold text-orange-600 text-label-md">$115.000 COP</span>
+<button class="p-1.5 rounded-lg bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white transition-colors" title="Editar en Builder">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white rounded-xl p-3 shadow-md flex flex-col gap-2 group hover:shadow-lg transition-all">
+<div class="relative w-full h-40 rounded-lg overflow-hidden bg-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="Orange high capacity insulated sports gym bottle matte finish clean minimalist aesthetic product mockup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoVIIhHzx8iOmQJj1GVZDs-hcmwF1knInlXT4hoX0n_5j-qbvLP3gLINcaKxixano19L-JGU7mT3I-6mh6uFELsSjIMI8n9WvFUuNs2E3j1JRgyCfPVlruAHJV6jfgmddcTOf8XYwZyRczXPtx6scauwsQahvDyqISl4ChF93V19DhvpYc86E2Iu9bU2POI5j68RuwbSSYDiqXzRUuAfKCPO_DKWqIXOhXp-hBRm4g">
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-purple-700 text-white font-sansansold text-label-sm">SKU: ACC-330</span>
+<span class="absolute top-2 right-2 px-2 py-0.5 rounded bg-white/90 text-emerald-700 font-sansansold text-label-sm">In Stock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-label-md font-sansansold text-slate-900">Termo Hidratación 1.2L Pro</span>
+<div class="flex items-center justify-between pt-1">
+<span class="font-sansansold text-orange-600 text-label-md">$65.000 COP</span>
+<button class="p-1.5 rounded-lg bg-purple-50 text-purple-700 hover:bg-purple-600 hover:text-white transition-colors" title="Editar en Builder">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ADD BLOCK DROPZONE -->
+<div class="w-full p-6 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-300 hover:border-purple-500 hover:bg-purple-50/30 transition-all flex flex-col items-center justify-center gap-2 cursor-pointer text-center">
+<div class="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-purple-700">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</div>
+<span class="font-title-md text-label-md font-sansansold text-slate-800">Arrastra aquí un nuevo bloque visual o shortcode</span>
+<span class="text-label-sm text-slate-500 font-sansansody-md">Compatible con componentes Tailwind y bloques Gutenberg / WooCommerce</span>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: PROPERTY INSPECTOR & CODE EDITOR (3 COLS) -->
+<aside class="col-span-12 xl:col-span-3 flex flex-col gap-space-md bg-white rounded-2xl p-space-md shadow-md">
+<!-- Inspector Tabs -->
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded-lg bg-purple-700 text-white font-label-sm text-label-sm font-sansansold shadow-sm" id="tab-styles">
+              Estilos Visuales
+            </button>
+<button class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100 font-label-sm text-label-sm font-sansansemibold transition-colors" id="tab-wp-data">
+              WordPress
+            </button>
+<button class="px-2.5 py-1 rounded-lg text-slate-600 hover:bg-slate-100 font-label-sm text-label-sm font-sansansemibold transition-colors" id="tab-code">
+              HTML Snippet
+            </button>
+</div>
+</div>
+<!-- Section: Selected Element Context -->
+<div class="p-3 rounded-xl bg-orange-50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-600 text-[18px]">format_shapes</span>
+<div class="flex flex-col">
+<span class="text-label-sm font-sansansold text-orange-950 font-title-md">Hero Title (#hero-h2)</span>
+<span class="text-[11px] text-orange-700 font-mono">tag: &lt;h2.font-headline-lg&gt;</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-white text-orange-700 font-mono text-[10px] font-sansansold shadow-sm">Burbank</span>
+</div>
+<!-- Visual Style Controls -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm font-sansansold text-slate-700 uppercase tracking-wider">Tipografía &amp; Textos</span>
+<!-- Font Family Selector -->
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-slate-600 font-sansansemibold">Fuente Principal</label>
+<div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 shadow-inner">
+<span class="font-sansansold text-slate-900 text-label-md">Burbank Big Condensed</span>
+<span class="material-symbols-outlined text-slate-400 text-[18px]">lock</span>
+</div>
+</div>
+<!-- Font Size & Weight Grid -->
+<div class="grid grid-cols-2 gap-2">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-slate-600 font-sansansemibold">Tamaño</label>
+<div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 shadow-inner">
+<span class="text-label-md text-slate-800 font-mono">28px (headline-lg)</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-slate-600 font-sansansemibold">Grosor</label>
+<div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 shadow-inner">
+<span class="text-label-md text-slate-800 font-sansansemibold">700 (Wompi)</span>
+</div>
+</div>
+</div>
+<!-- Color Tokens Picker -->
+<div class="flex flex-col gap-1 pt-1">
+<label class="text-label-sm text-slate-600 font-sansansemibold">Color de Acento Corporativo</label>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-lg bg-orange-600 ring-2 ring-orange-600 ring-offset-2 shadow-sm" title="Naranja Corporativo (#ea580c)"></button>
+<button class="w-8 h-8 rounded-lg bg-purple-700 shadow-sm" title="Violeta Corporativo (#7c3aed)"></button>
+<button class="w-8 h-8 rounded-lg bg-slate-900 shadow-sm" title="Negro Burbank (#0f172a)"></button>
+<button class="w-8 h-8 rounded-lg bg-white shadow-md" title="Blanco Puro (#ffffff)"></button>
+<button class="w-8 h-8 rounded-lg bg-emerald-600 shadow-sm" title="Verde Conversión (#10b981)"></button>
+</div>
+</div>
+<!-- Spacing & Layout controls -->
+<div class="flex flex-col gap-1 pt-2">
+<span class="font-label-sm text-label-sm font-sansansold text-slate-700 uppercase tracking-wider">Espaciado &amp; Bordes</span>
+<div class="grid grid-cols-2 gap-2">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-slate-600 font-sansansemibold">Padding Interno</label>
+<div class="p-2 rounded-xl bg-slate-50 text-slate-800 font-mono text-label-sm shadow-inner">
+                  24px (space-lg)
+                </div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm text-slate-600 font-sansansemibold">Borde Redondeado</label>
+<div class="p-2 rounded-xl bg-slate-50 text-slate-800 font-mono text-label-sm shadow-inner">
+                  16px (rounded-2xl)
+                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- WordPress Data Mapping Panel -->
+<div class="flex flex-col gap-space-sm pt-2">
+<span class="font-label-sm text-label-sm font-sansansold text-purple-900 uppercase tracking-wider flex items-center justify-between">
+<span class="">Mapeo WordPress ACF</span>
+<span class="material-symbols-outlined text-purple-700 text-[16px]">link</span>
+</span>
+<div class="p-3 rounded-xl bg-slate-50 flex flex-col gap-2">
+<div class="flex items-center justify-between text-label-sm">
+<span class="text-slate-600">Post Type:</span>
+<span class="font-sansansold text-purple-800 font-mono">product (WooCommerce)</span>
+</div>
+<div class="flex items-center justify-between text-label-sm">
+<span class="text-slate-600">Campo Vinculado:</span>
+<span class="font-sansansold text-slate-800 font-mono">post_title &amp; _price</span>
+</div>
+<div class="flex items-center justify-between text-label-sm">
+<span class="text-slate-600">Pasarela Activa:</span>
+<span class="font-sansansold text-emerald-700">Wompi Colombia (Live)</span>
+</div>
+</div>
+</div>
+<!-- Live HTML & Tailwind Code Snippet with Copy -->
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-sansansold text-slate-700 uppercase tracking-wider">Código HTML Directo</span>
+<button class="flex items-center gap-1 text-[11px] font-sansansold text-purple-700 hover:text-purple-900" id="copy-code-btn">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span class="">Copiar Snippet</span>
+</button>
+</div>
+<div class="bg-slate-900 text-slate-200 p-3 rounded-xl font-mono text-[11px] leading-relaxed overflow-x-auto max-h-48 shadow-inner">
+<span class="text-orange-400">&lt;div</span> <span class="text-purple-400">class</span>=<span class="text-emerald-300">"w-full bg-gradient-to-br from-orange-50 to-purple-50 rounded-2xl p-6"</span><span class="text-orange-400">&gt;</span><br>
+            &nbsp;&nbsp;<span class="text-orange-400">&lt;h2</span> <span class="text-purple-400">class</span>=<span class="text-emerald-300">"font-headline-lg font-sansansold text-slate-900"</span><span class="text-orange-400">&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;COLECCIÓN DEPORTIVA...<br>
+            &nbsp;&nbsp;<span class="text-orange-400">&lt;/h2&gt;</span><br>
+            &nbsp;&nbsp;<span class="text-orange-400">&lt;button</span> <span class="text-purple-400">data-gateway</span>=<span class="text-emerald-300">"wompi"</span> <span class="text-purple-400">class</span>=<span class="text-emerald-300">"bg-orange-600 text-white"</span><span class="text-orange-400">&gt;</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Comprar Ahora<br>
+            &nbsp;&nbsp;<span class="text-orange-400">&lt;/button&gt;</span><br>
+<span class="text-orange-400">&lt;/div&gt;</span>
+</div>
+</div>
+<!-- Instant Actions inside Inspector -->
+<div class="pt-2 flex flex-col gap-2">
+<button class="w-full py-2 px-3 rounded-xl bg-purple-700 hover:bg-purple-800 text-white font-label-md text-label-md font-sansansold transition-all shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+<span class="">Sincronizar Cambios con WordPress</span>
+</button>
+<button class="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-label-md text-label-md font-sansansemibold transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="">Revertir a Versión Anterior</span>
+</button>
+</div>
+</aside>
+</div>
+</div>
+<!-- BOTTOM STATUS & EDGE TELEMETRY BAR -->
+<footer class="w-full bg-white px-space-lg py-3 mt-auto shadow-sm flex flex-wrap items-center justify-between gap-space-md text-label-sm font-label-sm text-slate-600">
+<div class="flex items-center gap-space-lg flex-wrap">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+<span class="font-sansansold text-slate-900">Servidor Edge Cloudflare:</span>
+<span class="text-emerald-700 font-sansansemibold">Activo (12ms latencia)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-purple-700 text-[16px]">receipt_long</span>
+<span class="font-sansansold text-slate-900">DIAN Facturación Electrónica:</span>
+<span class="text-emerald-700 font-sansansemibold">Lista y Habilitada</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-orange-600 text-[16px]">drive_file_rename</span>
+<span class="font-sansansold text-slate-900">Headless Engine:</span>
+<span class="text-slate-700 font-mono">WooCommerce v8.2.1 • WP Rest API v2</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="text-slate-400 font-mono text-[11px]">GrowUp Builder Engine v3.0.4-prod</span>
+<span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 text-[10px] font-sansansold uppercase">SSL TLS 1.3</span>
+</div>
+</footer>
+</div>
+<!-- Client-side Interaction Script -->
+<script>
+  (function() {
+    // Viewport switcher simulation
+    const btnDesk = document.getElementById('vp-desktop');
+    const btnTab = document.getElementById('vp-tablet');
+    const btnMob = document.getElementById('vp-mobile');
+    const canvas = document.getElementById('canvas-container');
+
+    if (btnDesk && canvas) {
+      btnDesk.addEventListener('click', function() {
+        canvas.style.maxWidth = '100%';
+        btnDesk.className = 'p-1.5 rounded-lg bg-white text-purple-700 shadow-sm';
+        btnTab.className = 'p-1.5 rounded-lg text-slate-600 hover:text-slate-900';
+        btnMob.className = 'p-1.5 rounded-lg text-slate-600 hover:text-slate-900';
+      });
+    }
+
+    if (btnTab && canvas) {
+      btnTab.addEventListener('click', function() {
+        canvas.style.maxWidth = '768px';
+        canvas.style.margin = '0 auto';
+        btnTab.className = 'p-1.5 rounded-lg bg-white text-purple-700 shadow-sm';
+        btnDesk.className = 'p-1.5 rounded-lg text-slate-600 hover:text-slate-900';
+        btnMob.className = 'p-1.5 rounded-lg text-slate-600 hover:text-slate-900';
+      });
+    }
+
+    if (btnMob && canvas) {
+      btnMob.addEventListener('click', function() {
+        canvas.style.maxWidth = '375px';
+        canvas.style.margin = '0 auto';
+        btnMob.className = 'p-1.5 rounded-lg bg-white text-purple-700 shadow-sm';
+        btnDesk.className = 'p-1.5 rounded-lg text-slate-600 hover:text-slate-900';
+        btnTab.className = 'p-1.5 rounded-lg text-slate-600 hover:text-slate-900';
+      });
+    }
+
+    // Copy Code Snippet Interaction
+    const copyBtn = document.getElementById('copy-code-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function() {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<span class="material-symbols-outlined text-[14px]">done</span><span>¡Copiado!</span>';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+        }, 2000);
+      });
+    }
+
+    // Publish action button microinteraction
+    const pubBtn = document.getElementById('publish-btn');
+    if (pubBtn) {
+      pubBtn.addEventListener('click', function() {
+        pubBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">sync</span><span>Publicando en Edge...</span>';
+        setTimeout(() => {
+          pubBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span><span>¡En Producción!</span>';
+          setTimeout(() => {
+            pubBtn.innerHTML = '<span>Publicar Tienda</span>';
+          }, 2500);
+        }, 1200);
+      });
+    }
+  })();
+</script></main>
+</div>
+<script>
+    function toggleTheme() {
+      const html = document.getElementById('html-root');
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.getElementById('html-root').classList.remove('dark');
+      }
+    })();
+  </script>
+
+
+</body></html>
+

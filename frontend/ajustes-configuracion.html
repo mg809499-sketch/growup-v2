@@ -1,0 +1,1222 @@
+<!DOCTYPE html><html class="" id="html-root" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_dashboard" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+        transition: background-color 0.25s ease, color 0.25s ease;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "outline-variant": "#464554",
+          "surface-container-low": "#171b26",
+          "error": "#ffb4ab",
+          "on-primary-container": "#0d0096",
+          "on-secondary": "#003824",
+          "on-primary-fixed-variant": "#2f2ebe",
+          "on-tertiary-container": "#340080",
+          "on-primary-fixed": "#07006c",
+          "error-container": "#93000a",
+          "on-secondary-fixed-variant": "#005236",
+          "surface-tint": "#c0c1ff",
+          "on-surface-variant": "#c7c4d7",
+          "surface-container-high": "#262a35",
+          "on-secondary-container": "#00311f",
+          "tertiary": "#d0bcff",
+          "secondary-fixed-dim": "#4edea3",
+          "inverse-primary": "#494bd6",
+          "surface-variant": "#313540",
+          "on-primary": "#1000a9",
+          "primary-fixed-dim": "#c0c1ff",
+          "surface-container": "#1c1f2a",
+          "secondary-container": "#00a572",
+          "on-surface": "#dfe2f1",
+          "outline": "#908fa0",
+          "surface-container-highest": "#313540",
+          "surface-bright": "#353944",
+          "secondary-fixed": "#6ffbbe",
+          "surface-container-lowest": "#0a0e18",
+          "inverse-surface": "#dfe2f1",
+          "on-tertiary-fixed-variant": "#5516be",
+          "tertiary-container": "#a078ff",
+          "on-error": "#690005",
+          "on-error-container": "#ffdad6",
+          "background": "#0f131d",
+          "primary": "#c0c1ff",
+          "primary-fixed": "#e1e0ff",
+          "secondary": "#4edea3",
+          "on-tertiary": "#3c0091",
+          "primary-container": "#8083ff",
+          "tertiary-fixed-dim": "#d0bcff",
+          "on-tertiary-fixed": "#23005c",
+          "on-secondary-fixed": "#002113",
+          "surface": "#0f131d",
+          "tertiary-fixed": "#e9ddff",
+          "on-background": "#dfe2f1",
+          "surface-dim": "#0f131d",
+          "inverse-on-surface": "#2c303b"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "space-lg": "1.5rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "2rem",
+          "gutter-mobile": "1rem",
+          "space-xl": "2rem",
+          "gutter": "1.5rem"
+        },
+        fontFamily: {
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-xl": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-lg": ["Plus Jakarta Sans"],
+          "headline-md": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "headline-xl-mobile": ["Plus Jakarta Sans"]
+        },
+        fontSize: {
+          "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+          "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+          "title-md": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+          "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+          "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+          "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+          "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+          "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+          "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+        }
+      }
+    }
+  };
+  </script>
+<style id="interactive-enhancements">
+    button, a, [role="button"] {
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+    }
+    button:hover, a[href]:hover {
+      transform: translateY(-1px);
+    }
+    button:active, a[href]:active {
+      transform: translateY(0) scale(0.98);
+    }
+  </style><style id="burbank-theme-light">h1, h2, h3, h4, h5, h6, .font-headline-lg, .font-headline-md, .font-display-lg, .font-title-md { font-sansansamily: 'Burbank', 'Arial Black', sans-serif !important; font-weight: 900 !important; letter-spacing: -0.01em; color: #0f172a !important; } .tab-btn { font-sansansamily: 'Burbank', 'Arial Black', sans-serif !important; font-weight: 900 !important; background-color: #f8fafc !important; color: #475569 !important; border: 1px solid #e2e8f0 !important; } .tab-btn.active-tab { background-color: #7c3aed !important; color: #ffffff !important; border-color: #7c3aed !important; } .tab-btn.active-tab span { color: #ffffff !important; } #btn-save { font-sansansamily: 'Burbank', 'Arial Black', sans-serif !important; font-weight: 900 !important; background-color: #7c3aed !important; color: #ffffff !important; } #btn-save:hover { background-color: #6d28d9 !important; } body, html { background-color: #ffffff !important; color: #0f172a !important; font-sansansamily: 'Plus Jakarta Sans', sans-serif; } .bg-surface, .bg-surface-container-lowest, .bg-surface-container-low, .bg-surface-container, .bg-surface-container-high, .bg-surface-container-highest { background-color: #ffffff !important; } .text-on-surface { color: #0f172a !important; } .text-on-surface-variant { color: #475569 !important; } .text-outline { color: #64748b !important; } input, select { background-color: #ffffff !important; color: #0f172a !important; border: 1px solid #cbd5e1 !important; } .border-outline-variant/30, .border-outline-variant/40, .border-outline-variant { border-color: #e2e8f0 !important; } .shadow-sm, .shadow-md, .shadow-xl { border: 1px solid #e2e8f0 !important; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important; } td, th { color: #0f172a !important; border-bottom: 1px solid #f1f5f9; } .bg-primary-container { background-color: #7c3aed !important; color: #ffffff !important; } .bg-primary { background-color: #8b5cf6 !important; } .text-primary { color: #7c3aed !important; } .text-secondary { color: #ea580c !important; } .bg-secondary { background-color: #f97316 !important; } .border-secondary\/20 { border-color: rgba(249, 115, 22, 0.25) !important; } .bg-secondary\/10 { background-color: rgba(249, 115, 22, 0.1) !important; } .bg-secondary\/15 { background-color: rgba(249, 115, 22, 0.15) !important; } .bg-primary\/10 { background-color: rgba(124, 58, 237, 0.1) !important; } .bg-primary\/20 { background-color: rgba(124, 58, 237, 0.2) !important; } .border-primary { border-color: #7c3aed !important; } .focus\:border-primary:focus { border-color: #7c3aed !important; } .focus\:ring-primary\/20:focus { --tw-ring-color: rgba(124, 58, 237, 0.2) !important; } .focus\:ring-primary\/40:focus { --tw-ring-color: rgba(124, 58, 237, 0.4) !important; } .from-primary { --tw-gradient-from: #7c3aed !important; } .to-secondary { --tw-gradient-to: #f97316 !important; }</style><style id="burbank-global-typography">*, html, body, h1, h2, h3, h4, p, span, a, button, input, label, table, th, td { font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif !important; } .material-symbols-outlined { font-sansansamily: 'Material Symbols Outlined' !important; }</style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet">
+<style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+<style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-white" style="background-color: rgb(255, 255, 255) !important; color: rgb(15, 23, 42) !important;">
+<!-- TOP BAR -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container/90 backdrop-blur-xl border-b border-outline-variant/30 transition-colors" style="background-color: rgb(255, 255, 255) !important; border-color: rgb(226, 232, 240) !important;">
+<div class="h-16 w-full px-space-md lg:px-space-lg flex items-center justify-between gap-space-md">
+<!-- Brand / Tenant Selector -->
+<div class="flex items-center gap-space-md flex-shrink-0">
+<a class="flex items-center gap-space-sm group" data-path="landing-welcome" href="welcome-carrusel-3d.html"><span class="font-headline-md text-title-md font-sansansold tracking-tight text-on-surface">GrowUp Space</span></a>
+<div class="relative">
+<button class="flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-label-sm font-sansansemibold border border-outline-variant/40 transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-secondary text-[16px]">store</span>
+<span class="">Mi Tienda Deportiva</span>
+<span class="material-symbols-outlined text-outline text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Search Bar Cmd+K -->
+<div class="hidden xl:flex items-center gap-space-sm flex-1 max-w-lg mx-space-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline pl-9 pr-14 py-2 rounded-xl text-body-md font-medium border border-outline-variant/30 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all" placeholder="Buscar pedidos, pasarelas, dominios..." type="text">
+<kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-surface-container text-outline border border-outline-variant/40 rounded text-label-sm font-sansansemibold uppercase">âŒ˜K</kbd>
+</div>
+</div>
+<!-- Right Actions & Theme Switch -->
+<div class="flex items-center gap-space-md flex-shrink-0">
+<!-- Status Badges -->
+<div class="hidden lg:flex items-center gap-space-sm"><div class="flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-medium" style="background-color: rgb(245, 243, 255) !important; border: 1px solid rgba(124, 58, 237, 0.3) !important; color: rgb(124, 58, 237) !important;"><span class="inline-flex rounded-full h-2 w-2" style="background-color: #7c3aed;"></span><span class="text-on-surface-variant font-sansansody-md">Wompi&nbsp; Gateway:</span><span class="font-sansansold" style="color: rgb(124, 58, 237) !important;">Live</span></div></div>
+<!-- Controls -->
+<div class="flex items-center gap-space-sm">
+<button aria-label="Alternar Tema Claro/Oscuro" class="relative flex items-center justify-center p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/30 transition-all shadow-sm active:scale-95 group" id="theme-toggle-btn" onclick="toggleTheme()" type="button">
+<span class="material-symbols-outlined text-[20px] hidden dark:inline-block text-tertiary-fixed transition-transform group-hover:rotate-45" id="sun-icon">light_mode</span>
+<span class="material-symbols-outlined text-[20px] inline-block dark:hidden text-primary-fixed-variant transition-transform group-hover:-rotate-12" id="moon-icon">dark_mode</span>
+</button>
+<button aria-label="Notificaciones" class="relative p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface border border-outline-variant/30 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-primary-container ring-2 ring-surface"></span>
+</button>
+<div class="relative flex items-center pl-1">
+<img alt="Perfil Administrador" class="w-9 h-9 rounded-full object-cover ring-2 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANrUTdFYu_CnWLmDd3793SV0GU3RBGEt8Iek2CrREuY91Iwmn7Ren9hiOlGBCku0T2SwN0yZG6GNen9tIu_BoY5rkJV20n5XQWwSipM6H7wpHnTeIl7UcQskPGYOGQiCHKtyO_3L2Efe1ApzTkAQgHX2dXYIGtzdB5n-fmFWXvApW1Fi2kOBaDYgBVc7EbGbbf4xyPQDwfrsgNQPi1uILfddqLvkOk4WXKxr9Qhmq28flW4Sx9_GIg1A">
+<span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-secondary ring-2 ring-surface"></span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- SIDEBAR NAVIGATION -->
+<aside class="fixed left-0 top-0 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col pt-16 border-r border-outline-variant/30 transition-colors" style="background-color: rgb(255, 255, 255) !important; border-color: rgb(226, 232, 240) !important;">
+<div class="flex-1 overflow-y-auto px-space-md py-space-md space-y-space-md">
+<!-- Portal Público -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Portal Principal</div>
+<nav aria-label="Portal Landing" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="landing-welcome" href="welcome-carrusel-3d.html">
+<span class="">Landing &amp; Acceso</span>
+<span class="material-symbols-outlined text-[16px] text-outline">arrow_outward</span>
+</a>
+</nav>
+</div>
+<!-- Operaciones Core -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Operaciones Core</div>
+<nav aria-label="Operaciones Core" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard-central" href="dashboard-central.html">
+<span class="">Dashboard Central</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="catalogo-inventario" href="catalogo-inventario.html">
+<span class="">Catálogo &amp; Inventario</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ordenes-pedidos" href="ordenes-bold-gateway.html">
+<span class="">Órdenes &amp; Pedidos</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="store-builder" href="store-web-builder.html"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-primary" style="color: rgb(124, 58, 237) !important;">dashboard_customize</span><span class="">Store Builder</span></div><span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-[10px] font-sansansold tracking-wide uppercase" style="color: rgb(234, 88, 12) !important;">Visual</span></a></nav>
+</div>
+<!-- Crecimiento & Canales -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Crecimiento &amp; Canales</div>
+<nav aria-label="Crecimiento y Canales" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="meta-ads-studio" href="ia-opencode-agentes.html">
+<span class="">Agentes IA (opencode)</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="red-aliada-afiliados" href="welcome-carrusel-3d.html">
+<span class="">Red Aliada / Afiliados</span>
+</a>
+</nav>
+</div>
+<!-- Infraestructura -->
+<div>
+<div class="px-3 pb-1 text-label-sm font-sansansold uppercase tracking-wider text-outline">Infraestructura</div>
+<nav aria-label="Infraestructura" class="space-y-1" data-active-classes="bg-surface-container-high text-on-surface font-sansansemibold shadow-sm border-l-2 border-primary">
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="pasarelas-pagos" href="pasarelas-pagos-wompi.html">
+<span class="">Pasarelas &amp; Pagos</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-[10px] font-sansansold tracking-wide uppercase" style="color: rgb(234, 88, 12) !important;">Activo</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dominio-marca" href="dominio-marca-infraestructura.html">
+<span class="">Dominio &amp; Marca</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-sansansold tracking-wide uppercase" style="color: rgb(124, 58, 237) !important;">DNS OK</span>
+</a>
+<a class="flex items-center justify-between px-3.5 py-2 rounded-xl text-label-md font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ajustes-sistema" href="ajustes-configuracion.html">
+<span class="">Ajustes</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- Pro Tier Status Box -->
+<div class="p-3.5 bg-surface-container-low border-t border-outline-variant/30">
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container border border-outline-variant/30 shadow-sm">
+<div class="flex flex-col">
+<span class="text-label-md font-sansansold text-on-surface">Plan Scale Pro</span>
+<span class="text-label-sm font-sansansemibold text-secondary" style="color: rgb(234, 88, 12) !important;">Wompi sync activo</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]" style="color: rgb(124, 58, 237) !important;">verified</span>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT SLOT -->
+<div class="pl-64">
+<main class="w-full min-h-screen pt-16 bg-surface transition-colors" style="background-color: rgb(255, 255, 255) !important;"><div class="flex flex-col w-full">
+<!-- Dynamic Settings Layout Container -->
+<div class="px-space-md lg:px-space-xl py-space-lg w-full max-w-[1440px] mx-auto flex flex-col gap-space-lg">
+<!-- Header Breadcrumb & Global Save Action -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-sm relative overflow-hidden">
+<div class="flex flex-col gap-space-xs z-10">
+<div class="flex items-center gap-space-xs text-label-sm font-sansansemibold uppercase tracking-wider text-outline">
+<span class="">Configuración</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-sansansold" style="color: rgb(124, 58, 237) !important;">GrowUp Store SaaS</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-sansansold text-on-surface tracking-tight" style="letter-spacing: -0.01em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important; color: rgb(15, 23, 42) !important;">Ajustes Generales</h1>
+<p class="font-sansansody-md text-body-md text-on-surface-variant max-w-xl">
+          Administra la identidad fiscal de tu tienda deportiva, control de accesos multifactor, suscripción Scale Pro y llaves de conexión con pasarelas.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm z-10 flex-wrap sm:flex-nowrap">
+<button class="px-4 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansemibold transition-all shadow-sm" id="btn-discard" onclick="handleDiscard()" type="button">
+          Descartar
+        </button>
+<button class="flex items-center gap-space-xs px-5 py-2.5 rounded-lg bg-primary-container text-on-primary-container hover:brightness-110 font-label-md text-label-md font-sansansold transition-all shadow-md shadow-primary-container/20" id="btn-save" onclick="handleSave()" type="button" style="letter-spacing: 0.02em; font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif !important; font-weight: 900 !important; background-color: rgb(124, 58, 237) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined text-[18px]" id="save-icon">check_circle</span>
+<span id="save-text" class="">Guardar Cambios</span>
+</button>
+</div>
+<!-- Ambient Glow Decor -->
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute right-40 -bottom-20 w-48 h-48 bg-secondary/10 rounded-full blur-2xl pointer-events-none"></div>
+</div>
+<!-- Notification Banner for Save State -->
+<div class="hidden items-center justify-between px-space-md py-3 rounded-lg bg-secondary-container/20 text-secondary font-label-md text-label-md shadow-sm transition-all duration-300" id="toast-success">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+<span class="font-sansansold">¡Cambios actualizados exitosamente en GrowUp Store Cloud!</span>
+</div>
+<button class="text-secondary hover:text-white transition-colors" onclick="dismissToast()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Navigation Tabs Panel -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 bg-surface-container-low p-1.5 rounded-xl">
+<button class="tab-btn flex items-center gap-space-xs px-4 py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md font-sansansold shadow-sm transition-all whitespace-nowrap active-tab" onclick="switchTab('tab-general', this)">
+<span class="material-symbols-outlined text-[18px] text-primary" style="color: rgb(124, 58, 237) !important;">storefront</span>
+<span class="">General &amp; Negocio</span>
+</button>
+<button class="tab-btn flex items-center gap-space-xs px-4 py-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-sansansemibold transition-all whitespace-nowrap" onclick="switchTab('tab-equipo', this)">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="">Equipo &amp; Roles</span>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-highest text-[10px] font-sansansold text-outline">3</span>
+</button>
+<button class="tab-btn flex items-center gap-space-xs px-4 py-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-sansansemibold transition-all whitespace-nowrap" onclick="switchTab('tab-facturacion', this)">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span class="">Facturación &amp; Plan</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-[10px] font-sansansold" style="background-color: rgb(255, 237, 213) !important; color: rgb(234, 88, 12) !important;">Pro</span>
+</button>
+<button class="tab-btn flex items-center gap-space-xs px-4 py-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-sansansemibold transition-all whitespace-nowrap" onclick="switchTab('tab-seguridad', this)">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span class="">Seguridad &amp; Sesiones</span>
+</button>
+<button class="tab-btn flex items-center gap-space-xs px-4 py-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md font-sansansemibold transition-all whitespace-nowrap" onclick="switchTab('tab-webhooks', this)">
+<span class="material-symbols-outlined text-[18px]">webhook</span>
+<span class="">Notificaciones &amp; Webhooks</span>
+</button>
+</div>
+<!-- TAB 1: GENERAL & NEGOCIO -->
+<div class="tab-content flex flex-col gap-space-lg" id="tab-general">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left: Brand Identity & Visual Asset -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Identidad Gráfica</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-label-sm font-sansansold uppercase" style="background-color: rgb(237, 233, 254) !important; color: rgb(124, 58, 237) !important;">Pública</span>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+              Este logo aparece en tu checkout optimizado de GrowUp Store, órdenes por correo y enlaces de pago Wompi.
+            </p>
+<div class="flex flex-col items-center justify-center p-6 rounded-xl bg-surface-container text-center gap-3">
+<div class="relative group">
+<div class="w-28 h-28 rounded-2xl overflow-hidden shadow-lg bg-surface-container-high flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A clean, bold geometric minimalist athletic sneaker store vector emblem logo in vivid indigo, emerald, and charcoal on a sleek dark surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4nwsy03Lqu_HFORNpO2WExhZ6PkHlLQHZ2B2VBewgYjCKFWy1r9Fag8wAnkaeqyx9fWPeaEm3Ds-LLpHAyUMWV_QEoRgfI8s6-yGFoirTCR9S-0974Z0PC21JyXBrxpuckt3m9dCDwR-LErkT3X1BZwzZMuuXIwZ3J0M5_HxgFLD4joXvgFCBn1fpEgvvpozwHy_CEQ99vmC0AYwOqCc0YH0-civYNc7RiszsxVpJ08iMj0KRRLigPg">
+</div>
+<button class="absolute bottom-1 right-1 w-8 h-8 rounded-full bg-primary-container text-on-primary-container shadow-md flex items-center justify-center hover:scale-110 transition-transform" type="button" style="background-color: rgb(124, 58, 237) !important; color: rgb(255, 255, 255) !important;">
+<span class="material-symbols-outlined text-[16px]">photo_camera</span>
+</button>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Logo_Tienda_Deportiva_v2.svg</span>
+<span class="font-label-sm text-label-sm text-outline">SVG, PNG de máx 4MB (512x512px recomendado)</span>
+</div>
+<div class="flex items-center gap-space-xs mt-1">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm font-sansansemibold transition-all" type="button">
+                  Cambiar Logo
+                </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-highest hover:bg-error-container hover:text-on-error font-label-sm text-label-sm font-sansansemibold text-outline transition-all" type="button">
+                  Remover
+                </button>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex justify-between items-center text-label-sm font-sansansold text-outline">
+<span class="">ESTADO DEL PERFIL</span>
+<span class="text-secondary" style="color: rgb(234, 88, 12) !important;">94% COMPLETADO</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full w-[94%]" style="background: linear-gradient(to right, rgb(124, 58, 237), rgb(249, 115, 22)) !important;"></div>
+</div>
+</div>
+</div>
+<!-- Storefront Quick Insight Card -->
+<div class="p-space-lg rounded-xl shadow-sm flex flex-col gap-3 border" style="background-color: rgb(255, 255, 255) !important; border-color: rgb(226, 232, 240) !important;"><div class="flex items-center gap-space-sm"><span class="p-2 rounded-lg material-symbols-outlined text-[20px]" style="background-color: rgb(255, 247, 237) !important; color: rgb(234, 88, 12) !important;">bolt</span><div><h4 class="font-title-md text-title-md font-sansansold" style="color: rgb(15, 23, 42) !important;">Checkout Acelerado</h4><p class="font-label-sm text-label-sm font-sansansemibold" style="color: rgb(234, 88, 12) !important;">Pasarela 1-Click Wompi lista</p></div></div><p class="font-sansansody-md text-body-md" style="color: rgb(71, 85, 105) !important;">Tu tienda está enlazada con tokenización bancaria para transacciones directas en Colombia e internacionales.</p></div>
+</div>
+<!-- Right: Business Identification & Regional Form -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-lg">
+<div>
+<h2 class="font-title-md text-title-md font-sansansold text-on-surface">Datos Fiscales y Comerciales</h2>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+                Información emitida en la facturación electrónica DIAN y contratos de afiliación comercial.
+              </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Razón Social -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface flex items-center justify-between">
+<span class="">Razón Social / Nombre Comercial</span>
+<span class="text-primary font-label-sm text-label-sm" style="color: rgb(124, 58, 237) !important;">Requerido</span>
+</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">domain</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md shadow-inner focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all" type="text" value="Mi Tienda Deportiva S.A.S.">
+</div>
+</div>
+<!-- NIT / Identificación -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface flex items-center justify-between">
+<span class="">NIT / ID Tributaria</span>
+<span class="text-secondary font-label-sm text-label-sm" style="color: rgb(234, 88, 12) !important;">Verificado DIAN</span>
+</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">badge</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md shadow-inner focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all" type="text" value="901.482.193-4">
+</div>
+</div>
+<!-- Moneda Principal -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface">Moneda Base de Transacción</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">payments</span>
+<select class="w-full h-10 pl-9 pr-8 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all cursor-pointer">
+<option selected="" value="COP">COP - Peso Colombiano ($)</option>
+<option value="USD">USD - Dólar Estadounidense ($)</option>
+<option value="EUR">EUR - Euro (â‚¬)</option>
+<option value="MXN">MXN - Peso Mexicano ($)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Zona Horaria -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface">Zona Horaria Operativa</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">schedule</span>
+<select class="w-full h-10 pl-9 pr-8 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all cursor-pointer">
+<option selected="" value="America/Bogota">America/Bogota (GMT -05:00 Colombia / Perú)</option>
+<option value="America/Mexico_City">America/Mexico_City (GMT -06:00)</option>
+<option value="America/New_York">America/New_York (GMT -04:00 EDT)</option>
+<option value="America/Santiago">America/Santiago (GMT -04:00)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Dirección Física -->
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface">Dirección Comercial / Sede Principal</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">location_on</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md shadow-inner focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all" type="text" value="Carrera 43A # 1Sur - 220, Edificio Almacén Central">
+</div>
+</div>
+<!-- Ciudad y País -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface">Ciudad &amp; País</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">map</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md shadow-inner focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all" type="text" value="Medellín, Colombia">
+</div>
+</div>
+<!-- Teléfono de Soporte Comercial -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface">Teléfono / WhatsApp Soporte Clientes</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">call</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md shadow-inner focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all" type="tel" value="+57 300 482 9102">
+</div>
+</div>
+</div>
+<!-- Operational Checkboxes -->
+<div class="pt-space-sm flex flex-col gap-space-sm bg-surface-container p-space-md rounded-xl">
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<input checked="" class="mt-1 w-4 h-4 rounded bg-surface-container-high text-primary-container focus:ring-0 focus:outline-none cursor-pointer" type="checkbox">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Cálculo de impuestos automático (IVA 19% Colombia)</span>
+<span class="font-sansansody-md text-body-md text-outline">Aplica discriminación tributaria por ítem según el estatuto nacional en el checkout.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<input checked="" class="mt-1 w-4 h-4 rounded bg-surface-container-high text-primary-container focus:ring-0 focus:outline-none cursor-pointer" type="checkbox">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Sincronización multi-bodega en tiempo real con Wompi &amp; Servientrega</span>
+<span class="font-sansansody-md text-body-md text-outline">Bloquea ítems sin stock antes de solicitar el token bancario del comprador.</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: EQUIPO & ROLES -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="tab-equipo">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-sm">
+<div>
+<h2 class="font-title-md text-title-md font-sansansold text-on-surface">Miembros del Equipo &amp; Privilegios</h2>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+            Administra quién puede publicar catálogo, disparar campañas de Meta Ads o extraer métricas de transacciones.
+          </p>
+</div>
+<button class="flex items-center gap-space-xs px-4 py-2 rounded-lg bg-primary-container text-on-primary-container hover:brightness-110 font-label-md text-label-md font-sansansold shadow-sm transition-all whitespace-nowrap" onclick="toggleInviteModal(true)" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span class="">+ Invitar Miembro del Equipo</span>
+</button>
+</div>
+<!-- Users Grid / List -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- User 1: Carlos Mendoza -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col justify-between gap-space-md relative overflow-hidden group">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Close up professional portrait photo of a confident Hispanic man founder with subtle rim light, dark studio background, wearing a minimalist black athletic collar shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRF8-BPSW2aX32_N24_6tPhGGr4g3KJyn0sJbY4e8NGqMgjgCFmN2zN7-8E1IrndJFt8mtkvxICSzmGP2qZpcFPawLxco9o7SSOOLP_7dONgkxLzMetH9rvzx7UZxZ2Ob1cVmPtISo2a-BiJhF-zk3Ywn2kimo0MJpl_wPM9UwD5lEFXrygnZDKUN45zR7GFErmcU_LNvKG5Uc51vxQHwAHkQaegtP0b0M4o7guhvobo4C3ZnONIKDtw">
+<span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-secondary shadow-sm"></span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Carlos Mendoza</span>
+<span class="px-1.5 py-0.2 rounded bg-primary/20 text-primary font-label-sm text-label-sm font-sansansold">Tú</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">carlos@mitiendadeportiva.com</span>
+</div>
+</div>
+<span class="p-1.5 rounded-lg bg-surface-container text-outline hover:text-on-surface cursor-pointer material-symbols-outlined text-[18px]">more_vert</span>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase font-sansansemibold">Rol Asignado</span>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-container/20 text-primary font-label-sm text-label-sm font-sansansold">Super Admin / Owner</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container text-body-md font-sansansody-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">verified_user</span>
+<span class="">Control Absoluto: Facturación, API Keys, Borrado</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 text-label-sm font-label-sm text-outline">
+<span class="">Último acceso: Hace 4 min</span>
+<span class="text-secondary font-sansansold">Sesión Activa</span>
+</div>
+</div>
+<!-- User 2: Valentina Ríos -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col justify-between gap-space-md relative overflow-hidden group">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Portrait photo of a professional young Colombian woman marketing strategist with glasses, soft emerald studio accent lighting, high quality confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRtH4EHzmihEH3WIRaShT3IVHyAymfS2hQmhGxMm9oOOI9lyNohIOkWvnxDUXStck2hR8aQiUxW7eM_FevpaKViVkp0Lrl7U9PbV_wy00eFVNyrDY_le8r2XDgKgePbZqvhsFZlETnVBKSYtkzqc1wI92uX80sGHf9bjq1QaOe43WA6hgJNYhRezuXSbqnxmwUMhLBR4Eu7EGuaw63ucpgImyVzKoZx5iidTNjuqqxrS4qLQCbN0YdOg">
+<span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-secondary shadow-sm"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Valentina Ríos</span>
+<span class="font-label-sm text-label-sm text-outline">valentina@mitiendadeportiva.com</span>
+</div>
+</div>
+<span class="p-1.5 rounded-lg bg-surface-container text-outline hover:text-on-surface cursor-pointer material-symbols-outlined text-[18px]">more_vert</span>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase font-sansansemibold">Rol Asignado</span>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm text-label-sm font-sansansold">Head of Growth &amp; Ads</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container text-body-md font-sansansody-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">campaign</span>
+<span class="">Acceso: Meta Ads Studio &amp; Métricas Órdenes</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 text-label-sm font-label-sm text-outline">
+<span class="">Último acceso: Hoy 10:14 AM</span>
+<button class="text-primary hover:underline font-sansansold" type="button">Editar Permisos</button>
+</div>
+</div>
+<!-- User 3: Andrés Felipe Gómez -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col justify-between gap-space-md relative overflow-hidden group">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<img class="w-12 h-12 rounded-xl object-cover" data-alt="Portrait of an approachable Latin American warehouse and logistics director in dark polo shirt with soft ambient indoor warehouse lights blurred in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW0ZykgGWfdTEGRmHTyM-yNl9loC0X0D2gDXEOCpC-EXMwIdP7tdmU5pX_eWlDZgblCIwdxiqpxBFVAvyrw8v0zXra4KJ9wYDZFDpfxi6DqNjixfXROkHWaumf3n47yHUoefxlFGKxsLfEkfSpuEYds93wt8ka5Mm6sgFdivMgg5MX7uTz6uW6PCKuEEt8G-S3ya_0jMG-p4ndUY0mzC-fiQFg0b9Z0qYRvUiRoX7zu9kITYRYZQkYSA">
+<span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-outline shadow-sm"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Andrés Felipe Gómez</span>
+<span class="font-label-sm text-label-sm text-outline">andres@mitiendadeportiva.com</span>
+</div>
+</div>
+<span class="p-1.5 rounded-lg bg-surface-container text-outline hover:text-on-surface cursor-pointer material-symbols-outlined text-[18px]">more_vert</span>
+</div>
+<div class="flex flex-col gap-2 pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase font-sansansemibold">Rol Asignado</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-highest text-on-surface font-label-sm text-label-sm font-sansansold">Operaciones &amp; Logística</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-container text-body-md font-sansansody-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-outline">inventory_2</span>
+<span class="">Acceso: Catálogo, Stock &amp; Envíos</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 text-label-sm font-label-sm text-outline">
+<span class="">Último acceso: Ayer 6:40 PM</span>
+<button class="text-primary hover:underline font-sansansold" type="button">Editar Permisos</button>
+</div>
+</div>
+</div>
+<!-- Roles Granular Policy Matrix -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Matriz de Seguridad de Roles (RBAC)</span>
+<span class="font-sansansody-md text-body-md text-on-surface-variant">Los cambios en políticas se aplican en la próxima sincronización de token JWT.</span>
+</div>
+<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-label-sm font-sansansold">Políticas v3.2 En Vigor</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-label-sm font-sansansold uppercase text-outline bg-surface-container">
+<th class="py-3 px-4 rounded-l-lg">Módulo</th>
+<th class="py-3 px-4">Super Admin</th>
+<th class="py-3 px-4">Growth &amp; Ads</th>
+<th class="py-3 px-4 rounded-r-lg">Operaciones</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-body-md font-sansansody-md text-on-surface">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-sansansemibold">Catálogo, SKUs e Inventario</td>
+<td class="py-3 px-4 text-secondary font-sansansold">Lectura &amp; Escritura</td>
+<td class="py-3 px-4 text-outline">Solo Lectura</td>
+<td class="py-3 px-4 text-secondary font-sansansold">Lectura &amp; Escritura</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-sansansemibold">Meta Ads Studio &amp; Creativos</td>
+<td class="py-3 px-4 text-secondary font-sansansold">Lectura &amp; Escritura</td>
+<td class="py-3 px-4 text-secondary font-sansansold">Lectura &amp; Escritura</td>
+<td class="py-3 px-4 text-outline">Sin Acceso</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-sansansemibold">Pasarelas de Pago Wompi &amp; Retiros</td>
+<td class="py-3 px-4 text-secondary font-sansansold">Lectura &amp; Escritura</td>
+<td class="py-3 px-4 text-outline">Sin Acceso</td>
+<td class="py-3 px-4 text-outline">Sin Acceso</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-sansansemibold">Facturación del Plan SaaS</td>
+<td class="py-3 px-4 text-secondary font-sansansold">Lectura &amp; Escritura</td>
+<td class="py-3 px-4 text-outline">Sin Acceso</td>
+<td class="py-3 px-4 text-outline">Sin Acceso</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- TAB 3: FACTURACIÓN & PLAN (SCALE PRO) -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="tab-facturacion">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left 7 cols: Current Plan Highlight Card & Limits -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="p-space-lg rounded-xl bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low shadow-lg flex flex-col gap-space-lg relative overflow-hidden">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md z-10">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-sansansold uppercase tracking-wide">Plan Actual</span>
+<span class="flex items-center gap-1 text-secondary font-label-sm text-label-sm font-sansansold">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                    Activo
+                  </span>
+</div>
+<h3 class="font-headline-lg text-headline-lg font-sansansold text-on-surface mt-1">Scale Pro Tier</h3>
+<span class="font-sansansody-md text-body-md text-outline">Próxima renovación automática el 14 de Junio, 2025</span>
+</div>
+<div class="flex flex-col items-start sm:items-end">
+<div class="flex items-baseline gap-1">
+<span class="font-display-lg text-headline-xl font-sansansold text-on-surface">$79</span>
+<span class="font-sansansody-md text-body-md text-on-surface-variant">USD / mes</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-sansansemibold">Descuento anual aplicado (20% OFF)</span>
+</div>
+</div>
+<!-- Metrics Usage Sliders / Badges -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md z-10">
+<div class="p-3.5 rounded-xl bg-surface-container-low/80 backdrop-blur-sm flex flex-col gap-2 shadow-sm">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span class="">Productos Activos</span>
+<span class="text-on-surface font-sansansold">148 / âˆž</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[25%]"></div>
+</div>
+<span class="text-[10px] font-sansansold text-secondary uppercase">Capacidad Ilimitada</span>
+</div>
+<div class="p-3.5 rounded-xl bg-surface-container-low/80 backdrop-blur-sm flex flex-col gap-2 shadow-sm">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span class="">Campañas Meta Ads</span>
+<span class="text-on-surface font-sansansold">4 Activas</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full w-[40%]"></div>
+</div>
+<span class="text-[10px] font-sansansold text-primary uppercase">Pixel &amp; CAPI Sincronizados</span>
+</div>
+<div class="p-3.5 rounded-xl bg-surface-container-low/80 backdrop-blur-sm flex flex-col gap-2 shadow-sm">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span class="">Wompi Gateway v2</span>
+<span class="text-secondary font-sansansold">0% Comisión extra</span>
+</div>
+<div class="w-full h-1.5 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full w-full"></div>
+</div>
+<span class="text-[10px] font-sansansold text-secondary uppercase">Liquidación Directa</span>
+</div>
+</div>
+<!-- Action Buttons for Plan -->
+<div class="flex flex-wrap items-center gap-space-sm pt-2 z-10">
+<button class="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-sansansold shadow-md hover:brightness-105 transition-all" type="button">
+                Cambiar Plan / Upgrade Enterprise
+              </button>
+<button class="px-4 py-2.5 rounded-lg bg-surface-container hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansemibold transition-all" type="button">
+                Gestionar Método de Pago
+              </button>
+<button class="px-3 py-2.5 rounded-lg text-outline hover:text-error text-label-sm font-sansansemibold ml-auto transition-colors" type="button">
+                Cancelar Suscripción
+              </button>
+</div>
+<!-- Background subtle vector lines -->
+<div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+<svg fill="none" height="240" viewBox="0 0 240 240" width="240">
+<circle class="text-primary" cx="120" cy="120" r="110" stroke="currentColor" stroke-width="20"></circle>
+<path class="text-secondary" d="M50 120L100 170L190 70" stroke="currentColor" stroke-linecap="round" stroke-width="20"></path>
+</svg>
+</div>
+</div>
+<!-- Billing Invoices History -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-title-md text-title-md font-sansansold text-on-surface">Historial de Facturas</h4>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Descarga los comprobantes tributarios para contabilidad.</p>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-bright text-primary font-label-sm text-label-sm font-sansansold flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span class="">Exportar Todo</span>
+</button>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Invoice Row 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-lg bg-secondary/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Factura #GUS-2025-0514</span>
+<span class="font-label-sm text-label-sm text-outline">14 de Mayo, 2025 • Visa terminada en 4912</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="text-right">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">$79.00 USD</span>
+<span class="block text-[11px] font-sansansold text-secondary uppercase">Pagada</span>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="Descargar PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<!-- Invoice Row 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-lg bg-secondary/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Factura #GUS-2025-0414</span>
+<span class="font-label-sm text-label-sm text-outline">14 de Abril, 2025 • Visa terminada en 4912</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="text-right">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">$79.00 USD</span>
+<span class="block text-[11px] font-sansansold text-secondary uppercase">Pagada</span>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="Descargar PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<!-- Invoice Row 3 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-lg bg-secondary/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Factura #GUS-2025-0314</span>
+<span class="font-label-sm text-label-sm text-outline">14 de Marzo, 2025 • Visa terminada en 4912</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="text-right">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">$79.00 USD</span>
+<span class="block text-[11px] font-sansansold text-secondary uppercase">Pagada</span>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-high text-outline hover:text-on-surface transition-colors" title="Descargar PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right 5 cols: Payment Card & Tax Entity Details -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Credit Card Visual -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Método de Pago Guardado</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary text-label-sm font-sansansold">Principal</span>
+</div>
+<!-- Stylized Credit Card Mockup -->
+<div class="w-full h-48 rounded-2xl bg-gradient-to-tr from-[#1b1f3b] via-[#242b54] to-primary-container p-5 text-white flex flex-col justify-between shadow-xl relative overflow-hidden">
+<div class="flex items-center justify-between z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[26px]">contactless</span>
+<span class="font-title-md text-title-md font-sansansold tracking-wider">GrowUp Business</span>
+</div>
+<span class="font-display-lg text-title-md font-sansanslack tracking-widest italic">VISA</span>
+</div>
+<div class="flex flex-col gap-1 z-10">
+<span class="font-headline-md text-title-md tracking-widest font-mono">•••• •••• •••• 4912</span>
+<div class="flex items-center justify-between text-label-sm">
+<span class="uppercase tracking-wider opacity-80">CARLOS MENDOZA</span>
+<span class="opacity-80">EXP 08/28</span>
+</div>
+</div>
+<!-- Decorative circle backdrop on card -->
+<div class="absolute -right-8 -bottom-8 w-36 h-36 rounded-full bg-white/10 blur-xl pointer-events-none"></div>
+</div>
+<div class="flex items-center gap-space-sm pt-1">
+<button class="flex-1 py-2 rounded-lg bg-surface-container hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansemibold transition-all" type="button">
+                Actualizar Tarjeta
+              </button>
+<button class="px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-bright text-outline hover:text-on-surface transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">credit_card</span>
+</button>
+</div>
+</div>
+<!-- Tax Receipt Details -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Dirección de Facturación SaaS</span>
+<div class="p-3 rounded-lg bg-surface-container flex flex-col gap-1">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Mi Tienda Deportiva S.A.S.</span>
+<span class="font-sansansody-md text-body-md text-outline">NIT 901.482.193-4</span>
+<span class="font-sansansody-md text-body-md text-outline">Medellín, Antioquia, Colombia</span>
+<span class="font-sansansody-md text-body-md text-primary pt-1">facturacion@mitiendadeportiva.com</span>
+</div>
+<button class="text-left font-label-md text-label-md text-primary font-sansansold hover:underline" type="button">
+              Editar Datos Tributarios de Factura
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 4: SEGURIDAD & SESIONES -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="tab-seguridad">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left 6 cols: Two-Factor Authentication & Password -->
+<div class="lg:col-span-6 flex flex-col gap-space-lg">
+<!-- 2FA Box -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">Autenticación en Dos Pasos (2FA)</span>
+<span class="font-label-sm text-label-sm text-outline">TOTP (Google Authenticator / 1Password)</span>
+</div>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary/20 text-secondary font-label-sm text-label-sm font-sansansold">Activado</span>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+              Tu cuenta requiere un código de 6 dígitos cada vez que inicias sesión desde un navegador o IP no reconocida.
+            </p>
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">smartphone</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">Dispositivo TOTP Vinculado</span>
+<span class="font-label-sm text-label-sm text-outline">Configurado el 02 de Febrero, 2025</span>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm font-sansansemibold transition-all" type="button">
+                Reconfigurar
+              </button>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-md text-label-md text-on-surface font-sansansemibold">Códigos de Recuperación de Emergencia</span>
+<button class="text-primary hover:underline font-label-md text-label-md font-sansansold" type="button">Ver Códigos (8 restantes)</button>
+</div>
+</div>
+<!-- Change Password Box -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div>
+<h3 class="font-title-md text-title-md font-sansansold text-on-surface">Actualizar Contraseña de Acceso</h3>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Recomendamos usar al menos 14 caracteres con símbolos y números.</p>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-sansansemibold text-outline">Contraseña Actual</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" type="password" value="••••••••••••••••">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm font-sansansemibold text-outline">Nueva Contraseña</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container text-on-surface font-sansansody-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" placeholder="Ingresa tu nueva clave robusta" type="password">
+</div>
+</div>
+<button class="px-4 py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansemibold self-start transition-all mt-1" type="button">
+              Guardar Nueva Clave
+            </button>
+</div>
+</div>
+<!-- Right 6 cols: Active Sessions & Audit Trail -->
+<div class="lg:col-span-6 flex flex-col gap-space-lg">
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-title-md text-title-md font-sansansold text-on-surface">Sesiones de Navegador Activas</h3>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Dispositivos conectados en este instante a GrowUp Store.</p>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-error/10 hover:bg-error/20 text-error font-label-sm text-label-sm font-sansansold transition-all" type="button">
+                Cerrar Otras Sesiones
+              </button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Current Session -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-start justify-between">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-secondary/15 text-secondary flex items-center justify-center mt-0.5">
+<span class="material-symbols-outlined text-[20px]">laptop_mac</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">MacBook Pro (macOS Sequoia)</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-sansansold">Esta Sesión</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Chrome 125.0 • Medellín, Colombia (IP: 181.134.92.11)</span>
+<span class="text-[11px] text-secondary font-sansansemibold mt-0.5">Activa ahora mismo</span>
+</div>
+</div>
+</div>
+<!-- Session 2: iPhone -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-start justify-between">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest text-outline flex items-center justify-center mt-0.5">
+<span class="material-symbols-outlined text-[20px]">phone_iphone</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">iPhone 15 Pro (iOS 18)</span>
+<span class="font-label-sm text-label-sm text-outline">Safari Mobile • Medellín, Colombia (IP: 181.134.92.11)</span>
+<span class="text-[11px] text-outline font-sansansemibold mt-0.5">Última actividad: Hace 2 horas</span>
+</div>
+</div>
+<button class="p-1.5 rounded-lg hover:bg-surface-container-highest text-outline hover:text-error transition-colors" title="Cerrar esta sesión" type="button">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+</button>
+</div>
+<!-- Session 3: Windows Office -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-start justify-between">
+<div class="flex items-start gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest text-outline flex items-center justify-center mt-0.5">
+<span class="material-symbols-outlined text-[20px]">desktop_windows</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">PC Despacho Bodega (Windows 11)</span>
+<span class="font-label-sm text-label-sm text-outline">Edge 124 • Envigado, Colombia (IP: 190.158.42.8)</span>
+<span class="text-[11px] text-outline font-sansansemibold mt-0.5">Última actividad: Ayer a las 17:30</span>
+</div>
+</div>
+<button class="p-1.5 rounded-lg hover:bg-surface-container-highest text-outline hover:text-error transition-colors" title="Cerrar esta sesión" type="button">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+</button>
+</div>
+</div>
+</div>
+<!-- API Access Token Quick Reference -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md font-sansansold text-on-surface">API Key de Producción (StoreScale SDK)</span>
+<span class="px-2 py-0.5 rounded-full bg-primary/20 text-primary font-label-sm font-sansansold">Activo</span>
+</div>
+<div class="flex items-center gap-space-sm p-2 rounded-lg bg-surface-container">
+<span class="material-symbols-outlined text-outline text-[18px]">key</span>
+<input class="bg-transparent border-0 font-mono text-label-md text-on-surface flex-1 focus:ring-0 focus:outline-none" readonly="" type="password" value="gus_live_sk_94829302830198402849104">
+<button class="px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-primary font-label-sm font-sansansold" onclick="copyApiKey()" type="button">
+                Copiar
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 5: NOTIFICACIONES & WEBHOOKS -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="tab-webhooks">
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-title-md text-title-md font-sansansold text-on-surface">Webhooks de Eventos de Tienda</h3>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">Notificaciones HTTP POST automáticas hacia tu ERP, Wompi o CRM.</p>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-sansansold shadow-sm" type="button">
+            + Nuevo Endpoint
+          </button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-lg bg-secondary/15 text-secondary flex items-center justify-center font-sansansold text-label-sm">
+                POST
+              </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">https://api.mitiendadeportiva.com/webhooks/bold-payment</span>
+<span class="font-label-sm text-label-sm text-outline">Eventos: order.paid, order.canceled, refund.issued</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm font-sansansold">200 OK</span>
+<button class="text-outline hover:text-on-surface material-symbols-outlined text-[18px]" type="button">settings</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container">
+<div class="flex items-center gap-space-md">
+<div class="w-8 h-8 rounded-lg bg-primary/15 text-primary flex items-center justify-center font-sansansold text-label-sm">
+                POST
+              </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-sansansold text-on-surface">https://integrations.meta-capi.mitiendadeportiva.com/events</span>
+<span class="font-label-sm text-label-sm text-outline">Eventos: checkout.initiated, purchase.completed</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="px-2 py-0.5 rounded-full bg-secondary/15 text-secondary font-label-sm font-sansansold">200 OK</span>
+<button class="text-outline hover:text-on-surface material-symbols-outlined text-[18px]" type="button">settings</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL: INVITAR MIEMBRO DEL EQUIPO (Client-side toggleable) -->
+<div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4" id="modal-invite">
+<div class="w-full max-w-lg rounded-2xl bg-surface-container-high p-space-lg shadow-2xl flex flex-col gap-space-md animate-in fade-in zoom-in-95 duration-200">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+</div>
+<h3 class="font-title-md text-title-md font-sansansold text-on-surface">Invitar a Mi Tienda Deportiva</h3>
+</div>
+<button class="p-1 rounded-lg text-outline hover:text-on-surface transition-colors" onclick="toggleInviteModal(false)">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-sansansody-md text-body-md text-on-surface-variant">
+        El colaborador recibirá un correo de acceso directo con SSO o clave provisional.
+      </p>
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface">Correo Electrónico Corporativo</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface text-on-surface font-sansansody-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40" placeholder="colaborador@mitiendadeportiva.com" type="email">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md font-sansansemibold text-on-surface">Asignar Rol Inicial</label>
+<select class="w-full h-10 px-3 rounded-lg bg-surface text-on-surface font-sansansody-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/40 cursor-pointer">
+<option value="growth">Head of Growth &amp; Ads (Meta CAPI &amp; Órdenes)</option>
+<option value="ops">Operaciones &amp; Bodega (Catálogo &amp; Envíos)</option>
+<option value="finance">Finanzas &amp; Facturación Wompi</option>
+<option value="admin">Administrador General</option>
+</select>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-2">
+<button class="px-4 py-2 rounded-lg bg-surface hover:bg-surface-bright text-on-surface font-label-md text-label-md font-sansansemibold transition-all" onclick="toggleInviteModal(false)" type="button">
+          Cancelar
+        </button>
+<button class="px-5 py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md font-sansansold hover:brightness-110 shadow-md transition-all" onclick="confirmInvite()" type="button">
+          Enviar Invitación
+        </button>
+</div>
+</div>
+</div>
+<!-- Interactive Logic Script -->
+<script>
+    function switchTab(tabId, element) {
+      // Hide all contents
+      const contents = document.querySelectorAll('.tab-content');
+      contents.forEach(content => content.classList.add('hidden'));
+
+      // Remove active classes on buttons
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-surface-container-high', 'text-on-surface', 'font-sansansold', 'active-tab');
+        btn.classList.add('text-on-surface-variant', 'font-sansansemibold');
+      });
+
+      // Show selected tab content
+      const targetContent = document.getElementById(tabId);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+      }
+
+      // Mark clicked tab as active
+      if (element) {
+        element.classList.add('bg-surface-container-high', 'text-on-surface', 'font-sansansold', 'active-tab');
+        element.classList.remove('text-on-surface-variant', 'font-sansansemibold');
+      }
+    }
+
+    function handleSave() {
+      const btn = document.getElementById('btn-save');
+      const text = document.getElementById('save-text');
+      const icon = document.getElementById('save-icon');
+      const toast = document.getElementById('toast-success');
+
+      text.textContent = 'Guardando...';
+      icon.textContent = 'sync';
+      icon.classList.add('animate-spin');
+
+      setTimeout(() => {
+        text.textContent = 'Guardado';
+        icon.textContent = 'done_all';
+        icon.classList.remove('animate-spin');
+
+        // Show toast
+        if (toast) {
+          toast.classList.remove('hidden');
+          toast.classList.add('flex');
+        }
+
+        setTimeout(() => {
+          text.textContent = 'Guardar Cambios';
+          icon.textContent = 'check_circle';
+        }, 3000);
+      }, 700);
+    }
+
+    function handleDiscard() {
+      const toast = document.getElementById('toast-success');
+      if (toast) toast.classList.add('hidden');
+      // Visual feedback on discard button
+      const discardBtn = document.getElementById('btn-discard');
+      discardBtn.textContent = 'Descartado';
+      setTimeout(() => {
+        discardBtn.textContent = 'Descartar';
+      }, 1500);
+    }
+
+    function dismissToast() {
+      const toast = document.getElementById('toast-success');
+      if (toast) toast.classList.add('hidden');
+    }
+
+    function toggleInviteModal(show) {
+      const modal = document.getElementById('modal-invite');
+      if (!modal) return;
+      if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function confirmInvite() {
+      toggleInviteModal(false);
+      const toast = document.getElementById('toast-success');
+      if (toast) {
+        toast.querySelector('span.font-sansansold').textContent = '¡Invitación de equipo enviada con éxito!';
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+      }
+    }
+
+    function copyApiKey() {
+      navigator.clipboard?.writeText('gus_live_sk_94829302830198402849104');
+      const toast = document.getElementById('toast-success');
+      if (toast) {
+        toast.querySelector('span.font-sansansold').textContent = 'API Key copiada al portapapeles';
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+      }
+    }
+  </script>
+</div></main>
+</div>
+<script>
+    function toggleTheme() {
+      const html = document.getElementById('html-root');
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.getElementById('html-root').classList.remove('dark');
+      }
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
+

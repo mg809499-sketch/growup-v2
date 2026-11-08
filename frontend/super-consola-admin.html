@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrowUp Space â€” Super Consola Super Admin All-in-One</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @font-sansansace {
+      font-sansansamily: 'Burbank';
+      src: local('Burbank Big Condensed Black'), local('Burbank'), local('Plus Jakarta Sans ExtraBold');
+      font-weight: 800 900;
+    }
+    * {
+      font-sansansamily: 'Burbank', 'Plus Jakarta Sans', -apple-system, sans-serif !important;
+      letter-spacing: -0.015em;
+    }
+    .material-symbols-outlined {
+      font-sansansamily: 'Material Symbols Outlined' !important;
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Smooth custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet">
+<style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+<style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+</head>
+<body class="bg-white text-slate-900 antialiased min-h-screen flex flex-col selection:bg-orange-100 selection:text-orange-700">
+
+  <!-- TOP HEADER / SUPER ADMIN APP SHELL -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl font-sansanslack tracking-tight text-slate-950 uppercase">GrowUp Space</span>
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-sansanslack uppercase tracking-wider bg-violet-100 text-violet-700 border border-violet-200">
+          Super Admin Console
+        </span>
+        <span class="flex items-center gap-1.5 text-xs text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full font-sansansold border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Sistema 100% Operativo
+        </span>
+      </div>
+
+      <!-- Quick Platform Switcher / Breadcrumbs -->
+      <div class="hidden lg:flex items-center gap-2 text-xs text-slate-400 font-sansansemibold pl-4 border-l border-slate-200">
+        <span class="text-slate-500">Multitienda Cloudflare Edge</span>
+        <span>â€¢</span>
+        <span class="text-slate-500">Pasarelas Wompi Activas</span>
+        <span>â€¢</span>
+        <span class="text-violet-600 font-sansanslack">OpenCode Engine v2.5</span>
+      </div>
+    </div>
+
+    <!-- Quick Global Actions & Admin Profile -->
+    <div class="flex items-center gap-3">
+      <div class="relative hidden sm:block">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+        <input type="text" placeholder="Buscar cliente, NIT, tienda o SKU..." 
+               class="pl-9 pr-4 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-full w-64 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white text-slate-800 transition">
+      </div>
+
+      <button onclick="openModal('modal-nuevo-cliente')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-violet-600 to-orange-500 text-white text-xs font-sansanslack uppercase tracking-wide hover:shadow-lg hover:shadow-orange-500/20 active:scale-95 transition">
+        <span class="material-symbols-outlined text-base">add</span>
+        Nuevo Cliente
+      </button>
+
+      <button onclick="openModal('modal-anuncio')" class="flex items-center gap-1 px-3 py-1.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-sansansold transition">
+        <span class="material-symbols-outlined text-base text-orange-500">campaign</span>
+        Emitir Anuncio
+      </button>
+
+      <div class="h-6 w-px bg-slate-200 mx-1"></div>
+
+      <div class="flex items-center gap-2 pl-1">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-violet-600 to-orange-500 text-white flex items-center justify-center font-sansanslack text-xs shadow-sm">
+          SA
+        </div>
+        <div class="hidden md:block text-left text-xs leading-tight">
+          <p class="font-sansanslack text-slate-900">Admin Principal</p>
+          <p class="text-[10px] text-slate-400 font-sansansemibold">master@growup.space</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB-NAV / MAIN TABS FOR THE SUPER CONSOLE -->
+  <nav class="bg-white border-b border-slate-200 px-6 py-2 sticky top-[57px] z-40 flex items-center justify-between overflow-x-auto gap-4">
+    <div class="flex items-center gap-2" id="console-tabs">
+      <button onclick="switchTab('dashboard')" id="tab-btn-dashboard" class="tab-button active flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sansanslack uppercase tracking-wider transition bg-slate-900 text-white shadow-sm">
+        <span class="material-symbols-outlined text-base">space_dashboard</span>
+        1. Dashboard Mando Global
+      </button>
+      <button onclick="switchTab('clientes')" id="tab-btn-clientes" class="tab-button flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sansanslack uppercase tracking-wider transition text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+        <span class="material-symbols-outlined text-base">storefront</span>
+        2. Clientes & Tiendas (+184)
+      </button>
+      <button onclick="switchTab('ventas')" id="tab-btn-ventas" class="tab-button flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sansanslack uppercase tracking-wider transition text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+        <span class="material-symbols-outlined text-base">receipt_long</span>
+        3. Ventas & Planes SaaS
+      </button>
+      <button onclick="switchTab('editor-planes')" id="tab-btn-editor-planes" class="tab-button flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sansanslack uppercase tracking-wider transition text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+        <span class="material-symbols-outlined text-base">view_carousel</span>
+        4. Editor Tarjetas Planes 3D
+      </button>
+      <button onclick="switchTab('gateways-wompi')" id="tab-btn-gateways-wompi" class="tab-button flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sansanslack uppercase tracking-wider transition text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+        <span class="material-symbols-outlined text-base">account_balance_wallet</span>
+        5. Gateways Wompi Colombia
+      </button>
+      <button onclick="switchTab('agentes-opencode')" id="tab-btn-agentes-opencode" class="tab-button flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sansanslack uppercase tracking-wider transition text-slate-600 hover:text-slate-900 hover:bg-slate-100">
+        <span class="material-symbols-outlined text-base">smart_toy</span>
+        6. Agentes OpenCode IA
+      </button>
+    </div>
+
+    <!-- Live indicator -->
+    <div class="hidden xl:flex items-center gap-3 shrink-0 text-xs">
+      <span class="text-slate-400 font-sansansemibold">Wompi Gateway SLA:</span>
+      <span class="font-sansanslack text-slate-800">99.8% AprobaciÃ³n</span>
+      <span class="h-3 w-px bg-slate-200"></span>
+      <span class="text-slate-400 font-sansansemibold">CAPI OpenCode:</span>
+      <span class="font-sansanslack text-violet-600">0ms Latencia</span>
+    </div>
+  </nav>
+
+  <!-- MAIN DYNAMIC CONTENT CONTAINER -->
+  <main class="flex-1 p-6 lg:p-8 max-w-[1680px] w-full mx-auto space-y-8 bg-white">
+
+    <!-- ========================================================================= -->
+    <!-- TAB 1: DASHBOARD CENTRAL SUPER ADMIN (MANDO GLOBAL DEL NEGOCIO) -->
+    <!-- ========================================================================= -->
+    <section id="section-dashboard" class="tab-content space-y-8">
+      
+      <!-- Top Title & Quick Actions Row -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-3xl font-sansanslack text-slate-950 uppercase tracking-tight">Mando Global del Negocio</h1>
+            <span class="px-2 py-0.5 rounded text-[11px] font-sansanslack uppercase bg-orange-100 text-orange-700">Tiempo Real</span>
+          </div>
+          <p class="text-sm text-slate-500 font-medium">Consola centralizada de mÃ©tricas macro, GMV transaccional de tiendas, facturaciÃ³n SaaS y salud de infraestructura.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="openModal('modal-nuevo-cliente')" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm">person_add</span> Crear Cliente
+          </button>
+          <button onclick="openModal('modal-pausar-tienda')" class="px-4 py-2 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm">pause_circle</span> Pausar Tienda
+          </button>
+          <button onclick="openModal('modal-anuncio')" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm text-orange-500">broadcast_on_personal</span> Emitir Anuncio
+          </button>
+          <button onclick="switchTab('clientes')" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm">verified_user</span> AuditorÃ­a
+          </button>
+        </div>
+      </div>
+
+      <!-- METRICAS MACRO DE LA PLATAFORMA (5 KPI CARDS) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        
+        <!-- MRR Total -->
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-violet-300 hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-sansanslack uppercase tracking-wider text-slate-500">MRR Total SaaS</span>
+            <span class="material-symbols-outlined text-violet-600">payments</span>
+          </div>
+          <div class="text-2xl lg:text-3xl font-sansanslack text-slate-950">$38,450 <span class="text-xs font-sansansold text-slate-400">USD</span></div>
+          <p class="text-xs font-sansansold text-slate-500 mt-1">~$153.800.000 COP / mes</p>
+          <div class="mt-3 flex items-center gap-1.5 text-xs font-sansanslack text-emerald-600">
+            <span class="material-symbols-outlined text-sm">trending_up</span> +18.4% vs mes anterior
+          </div>
+        </div>
+
+        <!-- ARR Proyectado -->
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-orange-300 hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-sansanslack uppercase tracking-wider text-slate-500">ARR Proyectado</span>
+            <span class="material-symbols-outlined text-orange-500">finance</span>
+          </div>
+          <div class="text-2xl lg:text-3xl font-sansanslack text-slate-950">$461,400 <span class="text-xs font-sansansold text-slate-400">USD</span></div>
+          <p class="text-xs font-sansansold text-slate-500 mt-1">Con base en 184 tiendas activas</p>
+          <div class="mt-3 flex items-center gap-1.5 text-xs font-sansanslack text-emerald-600">
+            <span class="material-symbols-outlined text-sm">trending_up</span> +22.1% en Q1 2025
+          </div>
+        </div>
+
+        <!-- GMV Procesado Global en Pasarelas Wompi -->
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-violet-300 hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-sansanslack uppercase tracking-wider text-slate-500">GMV Global Wompi</span>
+            <span class="material-symbols-outlined text-violet-600">account_balance</span>
+          </div>
+          <div class="text-2xl lg:text-3xl font-sansanslack text-slate-950">$1,842,900 <span class="text-xs font-sansansold text-slate-400">USD</span></div>
+          <p class="text-xs font-sansansold text-slate-500 mt-1">98.7% Tasa AprobaciÃ³n Wompi</p>
+          <div class="mt-3 flex items-center gap-1.5 text-xs font-sansanslack text-violet-600">
+            <span class="material-symbols-outlined text-sm">verified</span> 0% comisiones ocultas
+          </div>
+        </div>
+
+        <!-- Total Tiendas Activas -->
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-orange-300 hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-sansanslack uppercase tracking-wider text-slate-500">Tiendas Activas</span>
+            <span class="material-symbols-outlined text-orange-500">store</span>
+          </div>
+          <div class="text-2xl lg:text-3xl font-sansanslack text-slate-950">184 <span class="text-xs font-sansansold text-slate-400">Marcas</span></div>
+          <p class="text-xs font-sansansold text-slate-500 mt-1">17 en periodo de prueba (14d)</p>
+          <div class="mt-3 flex items-center gap-1.5 text-xs font-sansanslack text-emerald-600">
+            <span class="material-symbols-outlined text-sm">add_circle</span> +12 nuevas esta semana
+          </div>
+        </div>
+
+        <!-- Llamadas Agentes OpenCode en Vivo -->
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm hover:border-violet-300 hover:shadow-md transition">
+          <div class="flex items-center justify-between text-slate-400 mb-2">
+            <span class="text-xs font-sansanslack uppercase tracking-wider text-slate-500">Llamadas OpenCode</span>
+            <span class="material-symbols-outlined text-violet-600">neurology</span>
+          </div>
+          <div class="text-2xl lg:text-3xl font-sansanslack text-slate-950">1,489,210 <span class="text-xs font-sansansold text-slate-400">Hits</span></div>
+          <p class="text-xs font-sansansold text-slate-500 mt-1">94.6% resoluciÃ³n autÃ³noma IA</p>
+          <div class="mt-3 flex items-center gap-1.5 text-xs font-sansanslack text-violet-600">
+            <span class="material-symbols-outlined text-sm">bolt</span> CAPI Server-side 0ms
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GRAFICO INGRESOS SAAS VS GMV TIENDAS + FEED DE EVENTOS EN VIVO -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Grafico Comparativo (8 Cols) -->
+        <div class="lg:col-span-8 p-6 rounded-3xl border border-slate-200 bg-white shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h2 class="text-xl font-sansanslack text-slate-950 uppercase">Ingresos SaaS (Planes) vs GMV Transaccional Tiendas</h2>
+              <p class="text-xs text-slate-500 font-sansansemibold">Comparativa semestral de facturaciÃ³n recurrente vs flujo transaccional de pagos Wompi.</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-sansansold">
+              <span class="flex items-center gap-1.5 text-violet-700">
+                <span class="w-3 h-3 rounded-full bg-violet-600"></span> Suscripciones SaaS ($38.4K)
+              </span>
+              <span class="flex items-center gap-1.5 text-orange-600">
+                <span class="w-3 h-3 rounded-full bg-orange-500"></span> GMV Wompi ($1.84M)
+              </span>
+            </div>
+          </div>
+
+          <!-- Synthetic High-Fidelity SVG Chart -->
+          <div class="h-64 w-full relative">
+            <svg class="w-full h-full" viewBox="0 0 700 240" fill="none" preserveAspectRatio="none">
+              <!-- Grid Lines -->
+              <line x1="0" y1="40" x2="700" y2="40" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="0" y1="100" x2="700" y2="100" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="0" y1="160" x2="700" y2="100" stroke="#f1f5f9" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="0" y1="210" x2="700" y2="210" stroke="#e2e8f0" stroke-width="2" />
+
+              <!-- GMV Orange Area & Curve -->
+              <path d="M0,190 C100,170 180,140 280,120 C380,100 480,70 580,50 C640,40 680,25 700,20 L700,210 L0,210 Z" fill="url(#orange-grad)" opacity="0.15" />
+              <path d="M0,190 C100,170 180,140 280,120 C380,100 480,70 580,50 C640,40 680,25 700,20" stroke="#ea580c" stroke-width="3.5" stroke-linecap="round" />
+
+              <!-- SaaS Violet Area & Curve -->
+              <path d="M0,200 C100,195 180,185 280,170 C380,155 480,135 580,115 C640,105 680,95 700,85 L700,210 L0,210 Z" fill="url(#violet-grad)" opacity="0.2" />
+              <path d="M0,200 C100,195 180,185 280,170 C380,155 480,135 580,115 C640,105 680,95 700,85" stroke="#7c3aed" stroke-width="3.5" stroke-linecap="round" />
+
+              <!-- Highlighting Nodes -->
+              <circle cx="280" cy="120" r="5" fill="#ea580c" stroke="#ffffff" stroke-width="2" />
+              <circle cx="580" cy="50" r="5" fill="#ea580c" stroke="#ffffff" stroke-width="2" />
+              <circle cx="280" cy="170" r="5" fill="#7c3aed" stroke="#ffffff" stroke-width="2" />
+              <circle cx="580" cy="115" r="5" fill="#7c3aed" stroke="#ffffff" stroke-width="2" />
+
+              <defs>
+                <linearGradient id="orange-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ea580c" />
+                  <stop offset="100%" stop-color="#ea580c" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="violet-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7c3aed" />
+                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <!-- Bottom Month Labels & Summary -->
+          <div class="flex justify-between text-xs font-sansansold text-slate-400 mt-2 px-2 border-t border-slate-100 pt-2">
+            <span>Octubre 2024</span>
+            <span>Noviembre 2024</span>
+            <span>Diciembre 2024</span>
+            <span>Enero 2025</span>
+            <span>Febrero 2025</span>
+            <span class="text-violet-600 font-sansanslack">Marzo 2025 (En Curso)</span>
+          </div>
+
+          <!-- Footer Stat Badges inside chart card -->
+          <div class="grid grid-cols-3 gap-4 mt-6 pt-4 border-t border-slate-100 text-center">
+            <div class="p-2 rounded-xl bg-slate-50">
+              <span class="text-[11px] font-sansansold text-slate-400 uppercase">Ticket Promedio Plan</span>
+              <p class="text-base font-sansanslack text-slate-900">$84.50 USD / mes</p>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-50">
+              <span class="text-[11px] font-sansansold text-slate-400 uppercase">ComisiÃ³n Pasarela</span>
+              <p class="text-base font-sansanslack text-slate-900">0% Oculto (Neto Wompi)</p>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-50">
+              <span class="text-[11px] font-sansansold text-slate-400 uppercase">LTV Promedio Cliente</span>
+              <p class="text-base font-sansanslack text-violet-700">$1,890 USD</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feed de Eventos Globales en Vivo (4 Cols) -->
+        <div class="lg:col-span-4 p-6 rounded-3xl border border-slate-200 bg-white shadow-sm flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <h2 class="text-base font-sansanslack text-slate-950 uppercase">Feed de Eventos en Vivo</h2>
+            </div>
+            <span class="text-[11px] font-sansansold text-slate-400">Stream WebSocket</span>
+          </div>
+
+          <p class="text-xs text-slate-500 font-sansansemibold mb-4">Registro continuo de cobros Wompi, tiendas desplegadas, alertas y agentes OpenCode.</p>
+
+          <div class="space-y-3.5 flex-1 overflow-y-auto max-h-[380px] pr-1">
+            
+            <!-- Event 1: Pago Wompi -->
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">verified</span>
+              </div>
+              <div class="text-xs flex-1">
+                <p class="font-sansanslack text-slate-900">SuscripciÃ³n Pagada â€” Aura Activewear</p>
+                <p class="text-slate-500 text-[11px]">Plan Scale Pro ($319.000 COP) procesado con Ã©xito vÃ­a Wompi PSE Bancolombia.</p>
+                <span class="text-[10px] text-slate-400 font-sansansemibold">Hace 2 minutos â€¢ Ref: WMP-99412</span>
+              </div>
+            </div>
+
+            <!-- Event 2: Nueva Tienda Creada -->
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">add_business</span>
+              </div>
+              <div class="text-xs flex-1">
+                <p class="font-sansanslack text-slate-900">Nueva Tienda Desplegada</p>
+                <p class="text-slate-500 text-[11px]">Kora Studio DTC activÃ³ <span class="font-sansansold text-slate-700">korastudio.growupstore.app</span> con SSL Cloudflare.</p>
+                <span class="text-[10px] text-slate-400 font-sansansemibold">Hace 14 minutos â€¢ Trial 14 dÃ­as</span>
+              </div>
+            </div>
+
+            <!-- Event 3: Agente OpenCode WhatsApp -->
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">smart_toy</span>
+              </div>
+              <div class="text-xs flex-1">
+                <p class="font-sansanslack text-slate-900">Agente OpenCode CerrÃ³ Pedido</p>
+                <p class="text-slate-500 text-[11px]">Bot de WhatsApp de BotÃ¡nica Urbana recuperÃ³ carrito abandonado por $184.000 COP.</p>
+                <span class="text-[10px] text-slate-400 font-sansansemibold">Hace 27 minutos â€¢ 0ms CAPI</span>
+              </div>
+            </div>
+
+            <!-- Event 4: Alerta de Pasarela -->
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-base">warning</span>
+              </div>
+              <div class="text-xs flex-1">
+                <p class="font-sansanslack text-slate-900">Webhook Wompi Reintentado</p>
+                <p class="text-slate-500 text-[11px]">Tienda UrbanVibe reintentÃ³ firma HMAC 3DS 2.0. TransacciÃ³n aprobada en segundo intento.</p>
+                <span class="text-[10px] text-slate-400 font-sansansemibold">Hace 45 minutos â€¢ Auto-resuelto</span>
+              </div>
+            </div>
+
+          </div>
+
+          <button onclick="switchTab('clientes')" class="w-full mt-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 text-xs font-sansanslack uppercase tracking-wider transition">
+            Ver Todos los Logs de AuditorÃ­a
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 2: GESTIÃ“N DE CLIENTES & TIENDAS (MULTI-TENANT DIRECTORY) -->
+    <!-- ========================================================================= -->
+    <section id="section-clientes" class="tab-content hidden space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-3xl font-sansanslack text-slate-950 uppercase tracking-tight">Directorio Multi-Tenant de Clientes & Tiendas</h1>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-sansanslack bg-violet-100 text-violet-700">184 Activas</span>
+          </div>
+          <p class="text-sm text-slate-500 font-medium">Control unificado de razones sociales, NIT, dominios en Cloudflare Edge, planes vigentes y switches maestros de pausa.</p>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <button onclick="openModal('modal-nuevo-cliente')" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm">add</span> Crear Nuevo Cliente
+          </button>
+          <button class="px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-sansansold transition flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">file_download</span> Exportar CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2 flex-1 min-w-[280px]">
+          <span class="material-symbols-outlined text-slate-400">search</span>
+          <input type="text" placeholder="Buscar por RazÃ³n Social, NIT, dominio o contacto..." 
+                 class="w-full bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-500">
+        </div>
+        <div class="flex items-center gap-2">
+          <select class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-sansansold text-slate-700 focus:outline-none">
+            <option>Todos los Planes (184)</option>
+            <option>Enterprise DTC Suite (28)</option>
+            <option>Scale Pro (94)</option>
+            <option>Starter Wompi (45)</option>
+            <option>En Periodo Trial 14d (17)</option>
+          </select>
+          <select class="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-sansansold text-slate-700 focus:outline-none">
+            <option>Estado: Todas las Tiendas</option>
+            <option>Activa / Operando (179)</option>
+            <option>Pausada por Super Admin (3)</option>
+            <option>Alerta FacturaciÃ³n DIAN (2)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Multi-Tenant Table -->
+      <div class="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-sansanslack tracking-wider text-[11px]">
+            <tr>
+              <th class="py-3.5 px-4">Cliente / RazÃ³n Social</th>
+              <th class="py-3.5 px-4">NIT & Contacto</th>
+              <th class="py-3.5 px-4">Dominio Cloudflare</th>
+              <th class="py-3.5 px-4">Plan Activo</th>
+              <th class="py-3.5 px-4">Volumen Mensual</th>
+              <th class="py-3.5 px-4">Wompi Gateway</th>
+              <th class="py-3.5 px-4">Estado / Switch</th>
+              <th class="py-3.5 px-4 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 font-medium">
+            
+            <!-- Row 1: Aura Activewear -->
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-4 font-sansanslack text-slate-900">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-orange-100 text-orange-700 font-sansanslack flex items-center justify-center text-xs">AA</div>
+                  <div>
+                    <p class="text-sm font-sansanslack text-slate-950">Aura Activewear S.A.S.</p>
+                    <p class="text-[11px] text-slate-400">Moda deportiva DTC</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansansold text-slate-800">NIT 901.482.903-1</p>
+                <p class="text-slate-500 text-[11px]">valentina@auraactive.co</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansansold text-violet-700">auraactive.co</span>
+                <p class="text-[11px] text-slate-400">aura.growupstore.app</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-sansanslack uppercase bg-violet-100 text-violet-700">Scale Pro ($79/mo)</span>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansanslack text-slate-900">$128,400 USD</p>
+                <p class="text-[11px] text-emerald-600 font-sansansold">1,420 Ã³rdenes</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-emerald-600 font-sansansold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Conectado (99.4%)
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                  <span class="ml-2 text-[11px] font-sansanslack text-emerald-700">Activa</span>
+                </label>
+              </td>
+              <td class="py-4 px-4 text-right">
+                <button onclick="openModal('modal-inspeccion-tienda')" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-sansansold text-xs transition">
+                  Inspeccionar
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 2: Kora Studio -->
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-4 font-sansanslack text-slate-900">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-violet-100 text-violet-700 font-sansanslack flex items-center justify-center text-xs">KS</div>
+                  <div>
+                    <p class="text-sm font-sansanslack text-slate-950">Kora Studio DTC</p>
+                    <p class="text-[11px] text-slate-400">CosmÃ©tica botÃ¡nica</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansansold text-slate-800">NIT 900.812.339-8</p>
+                <p class="text-slate-500 text-[11px]">mariana@korastudio.com</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansansold text-violet-700">korastudio.com</span>
+                <p class="text-[11px] text-slate-400">kora.growupstore.app</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-sansanslack uppercase bg-orange-100 text-orange-700">Enterprise ($199/mo)</span>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansanslack text-slate-900">$215,800 USD</p>
+                <p class="text-[11px] text-emerald-600 font-sansansold">2,890 Ã³rdenes</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-emerald-600 font-sansansold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Conectado (99.8%)
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                  <span class="ml-2 text-[11px] font-sansanslack text-emerald-700">Activa</span>
+                </label>
+              </td>
+              <td class="py-4 px-4 text-right">
+                <button onclick="openModal('modal-inspeccion-tienda')" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-sansansold text-xs transition">
+                  Inspeccionar
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 3: UrbanVibe Store -->
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-4 font-sansanslack text-slate-900">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 font-sansanslack flex items-center justify-center text-xs">UV</div>
+                  <div>
+                    <p class="text-sm font-sansanslack text-slate-950">UrbanVibe Streetwear</p>
+                    <p class="text-[11px] text-slate-400">Sneakers y accesorios</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansansold text-slate-800">NIT 901.320.114-5</p>
+                <p class="text-slate-500 text-[11px]">carlos@urbanvibe.co</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansansold text-slate-600">urbanvibe.growupstore.app</span>
+                <p class="text-[11px] text-orange-500">Dominio propio pendiente</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-sansanslack uppercase bg-slate-100 text-slate-700">Starter ($29/mo)</span>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansanslack text-slate-900">$34,100 USD</p>
+                <p class="text-[11px] text-slate-500 font-sansansold">410 Ã³rdenes</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-emerald-600 font-sansansold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Conectado (97.9%)
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                  <span class="ml-2 text-[11px] font-sansanslack text-emerald-700">Activa</span>
+                </label>
+              </td>
+              <td class="py-4 px-4 text-right">
+                <button onclick="openModal('modal-inspeccion-tienda')" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-sansansold text-xs transition">
+                  Inspeccionar
+                </button>
+              </td>
+            </tr>
+
+            <!-- Row 4: Nordic Wood Home (Pausada) -->
+            <tr class="hover:bg-slate-50/80 transition bg-rose-50/30">
+              <td class="py-4 px-4 font-sansanslack text-slate-900">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-700 font-sansanslack flex items-center justify-center text-xs">NW</div>
+                  <div>
+                    <p class="text-sm font-sansanslack text-slate-950">Nordic Wood Muebles</p>
+                    <p class="text-[11px] text-slate-400">DecoraciÃ³n y hogar</p>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansansold text-slate-800">NIT 900.551.782-0</p>
+                <p class="text-slate-500 text-[11px]">admin@nordicwood.co</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansansold text-slate-400">nordicwood.co</span>
+                <p class="text-[11px] text-rose-600 font-sansansold">DNS pausado por Admin</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="px-2.5 py-1 rounded-full text-[10px] font-sansanslack uppercase bg-violet-100 text-violet-700">Scale Pro</span>
+              </td>
+              <td class="py-4 px-4">
+                <p class="font-sansanslack text-slate-400">$18,200 USD</p>
+                <p class="text-[11px] text-rose-600 font-sansansold">Cobro vencido 4d</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center gap-1 text-rose-600 font-sansansold text-[11px]">
+                  <span class="w-2 h-2 rounded-full bg-rose-500"></span> Desconectado
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" class="sr-only peer">
+                  <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+                  <span class="ml-2 text-[11px] font-sansanslack text-rose-700">Pausada</span>
+                </label>
+              </td>
+              <td class="py-4 px-4 text-right">
+                <button onclick="openModal('modal-inspeccion-tienda')" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-700 font-sansansold text-xs transition">
+                  Inspeccionar
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 3: VENTAS, SUSCRIPCIONES & PEDIDOS DE PLANES -->
+    <!-- ========================================================================= -->
+    <section id="section-ventas" class="tab-content hidden space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-100">
+        <div>
+          <h1 class="text-3xl font-sansanslack text-slate-950 uppercase tracking-tight">Ventas, Suscripciones & Pedidos de Planes</h1>
+          <p class="text-sm text-slate-500 font-medium">FacturaciÃ³n electrÃ³nica DIAN a clientes de GrowUp Space, pagos periÃ³dicos con Wompi Token y funnel de pruebas gratis.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm">receipt</span> Generar Factura DIAN
+          </button>
+          <button class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-sansansold transition flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm text-orange-500">refresh</span> Sincronizar Wompi
+          </button>
+        </div>
+      </div>
+
+      <!-- Funnel de ConversiÃ³n de Pruebas 14d a Planes de Pago -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-5 rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div class="p-3">
+          <span class="text-[11px] font-sansanslack uppercase text-slate-400">1. Pruebas Iniciadas (Mes)</span>
+          <p class="text-2xl font-sansanslack text-slate-900 mt-1">48 Tiendas</p>
+          <p class="text-xs text-slate-500">Registro sin tarjeta obligatorio</p>
+        </div>
+        <div class="p-3 border-l border-slate-100">
+          <span class="text-[11px] font-sansanslack uppercase text-slate-400">2. Wompi Conectado en Trial</span>
+          <p class="text-2xl font-sansanslack text-violet-700 mt-1">39 Tiendas (81.2%)</p>
+          <p class="text-xs text-slate-500">Llaves de API ingresadas</p>
+        </div>
+        <div class="p-3 border-l border-slate-100">
+          <span class="text-[11px] font-sansanslack uppercase text-slate-400">3. ConversiÃ³n a Pago</span>
+          <p class="text-2xl font-sansanslack text-emerald-600 mt-1">31 Tiendas (64.5%)</p>
+          <p class="text-xs text-slate-500">Seleccionaron Scale Pro / Ent.</p>
+        </div>
+        <div class="p-3 border-l border-slate-100">
+          <span class="text-[11px] font-sansanslack uppercase text-slate-400">4. Churn Mensual</span>
+          <p class="text-2xl font-sansanslack text-slate-900 mt-1">1.2% Global</p>
+          <p class="text-xs text-emerald-600 font-sansansold">RetenciÃ³n lÃ­der en SaaS DTC</p>
+        </div>
+      </div>
+
+      <!-- Tabla de Cobros y FacturaciÃ³n DIAN -->
+      <div class="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-sansanslack tracking-wider text-[11px]">
+            <tr>
+              <th class="py-3.5 px-4">Ref / Factura DIAN</th>
+              <th class="py-3.5 px-4">Cliente SaaS</th>
+              <th class="py-3.5 px-4">Plan / Concepto</th>
+              <th class="py-3.5 px-4">Monto (COP / USD)</th>
+              <th class="py-3.5 px-4">Pasarela / MÃ©todo</th>
+              <th class="py-3.5 px-4">Estado</th>
+              <th class="py-3.5 px-4 text-right">AcciÃ³n</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 font-medium">
+            
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                <span>FAC-2025-0891</span>
+                <p class="text-[10px] text-slate-400">CUFE: a4f8...b129</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansanslack text-slate-900">Aura Activewear S.A.S.</span>
+                <p class="text-[11px] text-slate-400">NIT 901.482.903-1</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansansold text-violet-700">Scale Pro Mensual</span>
+                <p class="text-[11px] text-slate-400">+ Add-on 2 Agentes OpenCode</p>
+              </td>
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                $319.000 COP <span class="text-slate-400 text-[10px]">($79 USD)</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansansold text-slate-700">Wompi Recurrente (Token)</span>
+                <p class="text-[11px] text-slate-400">Bancolombia â€¢â€¢â€¢â€¢ 4091</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-sansanslack uppercase bg-emerald-100 text-emerald-700">
+                  Pagado â€¢ DIAN Emitida
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button class="text-violet-600 hover:text-violet-800 font-sansanslack text-xs">PDF Factura</button>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                <span>FAC-2025-0890</span>
+                <p class="text-[10px] text-slate-400">CUFE: c91e...90aa</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansanslack text-slate-900">Kora Studio DTC</span>
+                <p class="text-[11px] text-slate-400">NIT 900.812.339-8</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansansold text-orange-600">Enterprise Multi-Store</span>
+                <p class="text-[11px] text-slate-400">5 tiendas + SLA Dedicado</p>
+              </td>
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                $799.000 COP <span class="text-slate-400 text-[10px]">($199 USD)</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansansold text-slate-700">Wompi Gateway PSE</span>
+                <p class="text-[11px] text-slate-400">Davivienda Ahorros</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-sansanslack uppercase bg-emerald-100 text-emerald-700">
+                  Pagado â€¢ DIAN Emitida
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button class="text-violet-600 hover:text-violet-800 font-sansanslack text-xs">PDF Factura</button>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/80 transition bg-amber-50/30">
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                <span>FAC-2025-0889</span>
+                <p class="text-[10px] text-slate-400">Pendiente conciliaciÃ³n</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansanslack text-slate-900">Moda & Calzado Boreal</span>
+                <p class="text-[11px] text-slate-400">NIT 901.774.200-4</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansansold text-slate-800">Starter Wompi</span>
+                <p class="text-[11px] text-slate-400">RenovaciÃ³n mensual</p>
+              </td>
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                $119.000 COP <span class="text-slate-400 text-[10px]">($29 USD)</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="font-sansansold text-amber-700">Wompi PSE en Proceso</span>
+                <p class="text-[11px] text-slate-400">Nequi sin confirmar</p>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-sansanslack uppercase bg-amber-100 text-amber-800">
+                  Pendiente PSE
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button class="text-orange-600 hover:text-orange-800 font-sansanslack text-xs">Reintentar</button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 4: EDITOR VISUAL DE TARJETAS & CATÃLOGO DE PLANES (CARRUSEL 3D) -->
+    <!-- ========================================================================= -->
+    <section id="section-editor-planes" class="tab-content hidden space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-100">
+        <div>
+          <h1 class="text-3xl font-sansanslack text-slate-950 uppercase tracking-tight">Editor Visual WYSIWYG de Tarjetas & Planes 3D</h1>
+          <p class="text-sm text-slate-500 font-medium">Modifica en caliente los textos, precios, badges y gradientes que se renderizan dentro del carrusel Three.js y modal de compra.</p>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <button onclick="deployPlanes()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition">
+            Desplegar en ProducciÃ³n
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Controls Column (7 Cols) -->
+        <div class="lg:col-span-7 p-6 rounded-3xl border border-slate-200 bg-white shadow-sm space-y-5">
+          
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <h2 class="text-base font-sansanslack text-slate-900 uppercase">ConfiguraciÃ³n de Tarjeta Activa</h2>
+            <div class="flex items-center gap-1">
+              <span class="text-xs font-sansansold text-slate-500 mr-2">Editar Plan:</span>
+              <button onclick="selectPlanEdit(0)" class="plan-selector-btn px-2.5 py-1 rounded-lg text-xs font-sansansold border border-slate-200 hover:bg-slate-50">01</button>
+              <button onclick="selectPlanEdit(1)" class="plan-selector-btn active px-2.5 py-1 rounded-lg text-xs font-sansanslack bg-violet-600 text-white">02</button>
+              <button onclick="selectPlanEdit(2)" class="plan-selector-btn px-2.5 py-1 rounded-lg text-xs font-sansansold border border-slate-200 hover:bg-slate-50">03</button>
+              <button onclick="selectPlanEdit(3)" class="plan-selector-btn px-2.5 py-1 rounded-lg text-xs font-sansansold border border-slate-200 hover:bg-slate-50">04</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1">Nombre del Plan</label>
+              <input type="text" id="edit-plan-title" value="Meta Ads Studio Express" oninput="updatePlanLivePreview()"
+                     class="w-full text-xs font-sansansold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 focus:bg-white focus:ring-2 focus:ring-violet-500">
+            </div>
+            <div>
+              <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1">Badge de Tarjeta</label>
+              <input type="text" id="edit-plan-badge" value="MÃS POPULAR â€¢ ADTECH" oninput="updatePlanLivePreview()"
+                     class="w-full text-xs font-sansansold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 focus:bg-white focus:ring-2 focus:ring-violet-500">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1">Precio USD</label>
+              <input type="text" id="edit-plan-price-usd" value="$79" oninput="updatePlanLivePreview()"
+                     class="w-full text-xs font-sansansold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 focus:bg-white focus:ring-2 focus:ring-violet-500">
+            </div>
+            <div>
+              <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1">Precio COP</label>
+              <input type="text" id="edit-plan-price-cop" value="$319.000 COP" oninput="updatePlanLivePreview()"
+                     class="w-full text-xs font-sansansold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 focus:bg-white focus:ring-2 focus:ring-violet-500">
+            </div>
+            <div>
+              <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1">Periodo</label>
+              <input type="text" id="edit-plan-sub" value="/ mes" oninput="updatePlanLivePreview()"
+                     class="w-full text-xs font-sansansold bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 focus:bg-white focus:ring-2 focus:ring-violet-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1">DescripciÃ³n Corta (Tarjeta 3D)</label>
+            <textarea id="edit-plan-desc" rows="2" oninput="updatePlanLivePreview()"
+                      class="w-full text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 focus:bg-white focus:ring-2 focus:ring-violet-500">Lanzamiento de campaÃ±as en 3 clics con CAPI server-side, sincronizaciÃ³n de catÃ¡logo y ROAS 5.2x promedio.</textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1">Features Incluidos (Separados por lÃ­nea)</label>
+            <textarea id="edit-plan-features" rows="4" oninput="updatePlanLivePreview()"
+                      class="w-full text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-900 focus:bg-white focus:ring-2 focus:ring-violet-500">Meta Conversions API (CAPI) server-side con 0ms pÃ©rdida de cookies
+Generador de copys y creativos con IA especializada en e-commerce
+SincronizaciÃ³n en tiempo real con Instagram Shopping y Facebook Feed
+Panel predictivo de ROAS y mÃ©tricas de atribuciÃ³n verificadas</textarea>
+          </div>
+
+          <!-- Color & Visual Theme Selector for 3D Shader Texture -->
+          <div>
+            <label class="block text-xs font-sansanslack uppercase text-slate-600 mb-1.5">Tema Visual de Tarjeta (Gradiente & Anillo)</label>
+            <div class="flex items-center gap-3">
+              <label class="flex items-center gap-2 cursor-pointer p-2 rounded-xl border border-violet-300 bg-violet-50/50">
+                <input type="radio" name="plan-theme" value="violet" checked class="text-violet-600 focus:ring-violet-500">
+                <span class="text-xs font-sansansold text-slate-800">Violeta Profundo (#7c3aed)</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer p-2 rounded-xl border border-slate-200 hover:bg-slate-50">
+                <input type="radio" name="plan-theme" value="orange" class="text-orange-500 focus:ring-orange-500">
+                <span class="text-xs font-sansansold text-slate-800">Naranja EnergÃ©tico (#ea580c)</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer p-2 rounded-xl border border-slate-200 hover:bg-slate-50">
+                <input type="radio" name="plan-theme" value="dark" class="text-slate-800 focus:ring-slate-800">
+                <span class="text-xs font-sansansold text-slate-800">Obsidiana SaaS (#0f172a)</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Live Card Preview (5 Cols) -->
+        <div class="lg:col-span-5 p-6 rounded-3xl border border-slate-200 bg-slate-50 shadow-sm flex flex-col items-center">
+          <div class="w-full flex items-center justify-between mb-4">
+            <span class="text-xs font-sansanslack text-slate-400 uppercase tracking-wider">PrevisualizaciÃ³n en Vivo de Tarjeta 3D</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-sansanslack uppercase bg-violet-100 text-violet-700">WYSIWYG</span>
+          </div>
+
+          <!-- Simulated 3D Card Object -->
+          <div class="w-full max-w-[340px] aspect-[1/1.3] rounded-3xl p-6 relative overflow-hidden shadow-2xl flex flex-col justify-between text-white transition-all transform hover:scale-[1.02]"
+               style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0a0e1a 100%); border: 3px solid rgba(124, 58, 237, 0.8);">
+            
+            <!-- Glow spot -->
+            <div class="absolute -top-12 -right-12 w-48 h-48 bg-violet-600/30 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Top Header -->
+            <div class="relative z-10">
+              <span id="preview-plan-badge" class="text-[11px] font-sansanslack uppercase tracking-wider text-violet-300">
+                â— MÃS POPULAR â€¢ ADTECH
+              </span>
+              <h3 id="preview-plan-title" class="text-2xl font-sansanslack mt-1 leading-tight text-white">
+                Meta Ads Studio Express
+              </h3>
+            </div>
+
+            <!-- Center Ring Graphic -->
+            <div class="relative z-10 my-auto flex flex-col items-center justify-center">
+              <div class="w-24 h-24 rounded-full border-4 border-violet-500/80 border-t-transparent flex items-center justify-center relative">
+                <span class="text-3xl font-sansanslack text-white">02</span>
+              </div>
+              <span class="mt-3 px-3 py-1 rounded-full bg-violet-500/20 border border-violet-400/40 text-[10px] font-sansansold text-violet-200">
+                âš¡ Clic abre modal con Wompi/Wompi
+              </span>
+            </div>
+
+            <!-- Bottom Pricing & Detail -->
+            <div class="relative z-10">
+              <div class="flex items-baseline gap-1.5">
+                <span id="preview-plan-price" class="text-4xl font-sansanslack text-white">$79</span>
+                <span id="preview-plan-sub" class="text-xs text-white/70 font-sansansold uppercase">/ mes</span>
+                <span id="preview-plan-cop" class="ml-auto text-[11px] font-sansansold text-emerald-300">($319.000 COP)</span>
+              </div>
+              <p id="preview-plan-desc" class="text-[11px] text-white/80 mt-1 line-clamp-2 leading-relaxed">
+                Lanzamiento de campaÃ±as en 3 clics con CAPI server-side, sincronizaciÃ³n de catÃ¡logo y ROAS 5.2x promedio.
+              </p>
+            </div>
+
+          </div>
+
+          <p class="text-xs text-slate-400 text-center mt-4">
+            Al hacer clic en <strong class="text-slate-700">Â«Desplegar en ProducciÃ³nÂ»</strong>, la textura del Three.js Canvas se regenera con estos parÃ¡metros en 1 clic.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 5: MANEJO CENTRALIZADO DE GATEWAYS WOMPI POR CLIENTE -->
+    <!-- ========================================================================= -->
+    <section id="section-gateways-wompi" class="tab-content hidden space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-3xl font-sansanslack text-slate-950 uppercase tracking-tight">Centro de OrquestaciÃ³n Wompi Gateway Colombia</h1>
+            <span class="px-2 py-0.5 rounded text-[11px] font-sansanslack uppercase bg-emerald-100 text-emerald-700">PSE â€¢ Nequi â€¢ Tarjetas</span>
+          </div>
+          <p class="text-sm text-slate-500 font-medium">Monitoreo de llaves criptogrÃ¡ficas (Public/Private), firmas HMAC SHA-256, estado de webhooks y probador de pagos en vivo.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="openModal('modal-test-webhook')" class="px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm">network_check</span> Probar Webhook Wompi
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <span class="text-xs font-sansanslack uppercase text-slate-500">Tasa de AprobaciÃ³n Global</span>
+          <p class="text-2xl font-sansanslack text-slate-950 mt-1">98.7% <span class="text-emerald-600 text-sm font-sansansold">â–² +0.4%</span></p>
+          <p class="text-xs text-slate-500 mt-1">182 tiendas con aprobaciÃ³n &gt;95%</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <span class="text-xs font-sansanslack uppercase text-slate-500">Webhooks Entregados (24h)</span>
+          <p class="text-2xl font-sansanslack text-slate-950 mt-1">42,890 <span class="text-violet-600 text-sm font-sansansold">100% SLA</span></p>
+          <p class="text-xs text-slate-500 mt-1">Latencia media de entrega: 42ms</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <span class="text-xs font-sansanslack uppercase text-slate-500">LiquidaciÃ³n en Bancos</span>
+          <p class="text-2xl font-sansanslack text-slate-950 mt-1">$412.5M COP <span class="text-xs text-slate-400 font-sansansold">Hoy</span></p>
+          <p class="text-xs text-slate-500 mt-1">Cuentas Bancolombia / Davivienda</p>
+        </div>
+      </div>
+
+      <!-- Tiendas Gateway Table with Key Status & Webhook Health -->
+      <div class="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-sansanslack tracking-wider text-[11px]">
+            <tr>
+              <th class="py-3.5 px-4">Tienda / Cliente</th>
+              <th class="py-3.5 px-4">Llave PÃºblica (pub_prod_)</th>
+              <th class="py-3.5 px-4">Firma HMAC Eventos</th>
+              <th class="py-3.5 px-4">URL Webhook NotificaciÃ³n</th>
+              <th class="py-3.5 px-4">Tasa AprobaciÃ³n</th>
+              <th class="py-3.5 px-4">Estado Wompi</th>
+              <th class="py-3.5 px-4 text-right">DiagnÃ³stico</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 font-medium">
+            
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                Aura Activewear
+                <p class="text-[11px] text-slate-400">ID Wompi: WMP_MERCH_0911</p>
+              </td>
+              <td class="py-3.5 px-4 font-mono text-[11px] text-slate-700">
+                pub_prod_48f9***7712
+              </td>
+              <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700 font-sansansold">
+                âœ“ Activa (SHA-256)
+              </td>
+              <td class="py-3.5 px-4 text-slate-600 truncate max-w-[200px]">
+                https://aura.growupstore.app/api/webhooks/wompi
+              </td>
+              <td class="py-3.5 px-4 font-sansanslack text-emerald-600">
+                99.4% (1,420 transacciones)
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-sansanslack uppercase bg-emerald-100 text-emerald-700">
+                  Operando Normal
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="testStoreWebhook('Aura Activewear')" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 font-sansansold text-slate-700 text-xs">
+                  Ping 200 OK
+                </button>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                Kora Studio DTC
+                <p class="text-[11px] text-slate-400">ID Wompi: WMP_MERCH_1024</p>
+              </td>
+              <td class="py-3.5 px-4 font-mono text-[11px] text-slate-700">
+                pub_prod_99aa***1184
+              </td>
+              <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700 font-sansansold">
+                âœ“ Activa (SHA-256)
+              </td>
+              <td class="py-3.5 px-4 text-slate-600 truncate max-w-[200px]">
+                https://korastudio.com/api/wompi-listen
+              </td>
+              <td class="py-3.5 px-4 font-sansanslack text-emerald-600">
+                99.8% (2,890 transacciones)
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-sansanslack uppercase bg-emerald-100 text-emerald-700">
+                  Operando Normal
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="testStoreWebhook('Kora Studio DTC')" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 font-sansansold text-slate-700 text-xs">
+                  Ping 200 OK
+                </button>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/80 transition bg-amber-50/20">
+              <td class="py-3.5 px-4 font-sansanslack text-slate-900">
+                UrbanVibe Store
+                <p class="text-[11px] text-slate-400">ID Wompi: WMP_MERCH_0488</p>
+              </td>
+              <td class="py-3.5 px-4 font-mono text-[11px] text-slate-700">
+                pub_prod_33bc***9921
+              </td>
+              <td class="py-3.5 px-4 font-mono text-[11px] text-amber-700 font-sansansold">
+                âš ï¸ HMAC Desincronizada
+              </td>
+              <td class="py-3.5 px-4 text-slate-600 truncate max-w-[200px]">
+                https://urbanvibe.growupstore.app/wompi-call
+              </td>
+              <td class="py-3.5 px-4 font-sansanslack text-amber-600">
+                91.2% (Alerta &lt;95%)
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-sansanslack uppercase bg-amber-100 text-amber-800">
+                  Alerta Firma HMAC
+                </span>
+              </td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="testStoreWebhook('UrbanVibe Store')" class="px-2.5 py-1 rounded-lg bg-orange-500 text-white font-sansanslack text-xs hover:bg-orange-600">
+                  Auto-Reparar
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- TAB 6: GESTIÃ“N & ORQUESTACIÃ“N DE AGENTES OPENCODE IA -->
+    <!-- ========================================================================= -->
+    <section id="section-agentes-opencode" class="tab-content hidden space-y-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-100">
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-3xl font-sansanslack text-slate-950 uppercase tracking-tight">Monitor Global & Orquestador de Agentes OpenCode</h1>
+            <span class="px-2 py-0.5 rounded text-[11px] font-sansanslack uppercase bg-violet-100 text-violet-700">OpenCode v2.5 Turbo</span>
+          </div>
+          <p class="text-sm text-slate-500 font-medium">Control de consumo de tokens, agentes activos (+420), latencia CAPI server-side y lÃ­mites de inferencia por cliente.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button class="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-sansanslack uppercase tracking-wider flex items-center gap-1.5 transition">
+            <span class="material-symbols-outlined text-sm">smart_toy</span> Desplegar Agente Flota
+          </button>
+          <button class="px-3.5 py-2 rounded-xl border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-sansanslack uppercase tracking-wider transition">
+            Parada de Emergencia IA
+          </button>
+        </div>
+      </div>
+
+      <!-- Macro AI KPIs -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <span class="text-xs font-sansanslack uppercase text-slate-500">Agentes Activos en Clientes</span>
+          <p class="text-2xl font-sansanslack text-slate-950 mt-1">428 Agentes</p>
+          <p class="text-xs text-emerald-600 font-sansansold mt-1">+34 aÃ±adidos esta semana</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <span class="text-xs font-sansanslack uppercase text-slate-500">Consumo Tokens / Mes</span>
+          <p class="text-2xl font-sansanslack text-violet-700 mt-1">842.1M Tokens</p>
+          <p class="text-xs text-slate-500 mt-1">Costo medio inferencia: $0.0004/orden</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <span class="text-xs font-sansanslack uppercase text-slate-500">ResoluciÃ³n AutÃ³noma</span>
+          <p class="text-2xl font-sansanslack text-emerald-600 mt-1">94.6% Promedio</p>
+          <p class="text-xs text-slate-500 mt-1">Sin escalamiento a humanos</p>
+        </div>
+        <div class="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <span class="text-xs font-sansanslack uppercase text-slate-500">Latencia CAPI Server-Side</span>
+          <p class="text-2xl font-sansanslack text-slate-950 mt-1">0ms Cookie Loss</p>
+          <p class="text-xs text-violet-600 font-sansansold mt-1">SincronizaciÃ³n directa Meta & Wompi</p>
+        </div>
+      </div>
+
+      <!-- Desglose de Agentes por Cliente & Tienda -->
+      <div class="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase font-sansanslack tracking-wider text-[11px]">
+            <tr>
+              <th class="py-3.5 px-4">Tienda / Marca</th>
+              <th class="py-3.5 px-4">Agentes Desplegados</th>
+              <th class="py-3.5 px-4">Canales Conectados</th>
+              <th class="py-3.5 px-4">Modelo IA</th>
+              <th class="py-3.5 px-4">ResoluciÃ³n AutÃ³noma</th>
+              <th class="py-3.5 px-4">Cuota Tokens / Mes</th>
+              <th class="py-3.5 px-4 text-right">Controles</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 font-medium">
+            
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-4 font-sansanslack text-slate-900">
+                Aura Activewear
+                <p class="text-[11px] text-slate-400">Scale Pro Plan</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansansold text-slate-800">3 Agentes</span>
+                <p class="text-[11px] text-slate-500">Ventas, Carritos & Soporte</p>
+              </td>
+              <td class="py-4 px-4">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-sansansold text-[10px]">WhatsApp API</span>
+                  <span class="px-2 py-0.5 rounded bg-violet-100 text-violet-800 font-sansansold text-[10px]">Web Chat 3D</span>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansanslack text-violet-700">OpenCode v2.5 Turbo</span>
+              </td>
+              <td class="py-4 px-4 font-sansanslack text-emerald-600">
+                96.2% autÃ³nomo
+              </td>
+              <td class="py-4 px-4">
+                <div class="w-32 bg-slate-100 rounded-full h-2 overflow-hidden mb-1">
+                  <div class="bg-violet-600 h-2 rounded-full" style="width: 64%"></div>
+                </div>
+                <span class="text-[10px] text-slate-500">6.4M / 10.0M Tokens</span>
+              </td>
+              <td class="py-4 px-4 text-right">
+                <button class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 font-sansansold text-slate-700 text-xs">Ajustar Cuota</button>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50/80 transition">
+              <td class="py-4 px-4 font-sansanslack text-slate-900">
+                Kora Studio DTC
+                <p class="text-[11px] text-slate-400">Enterprise Suite</p>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansansold text-slate-800">5 Agentes</span>
+                <p class="text-[11px] text-slate-500">Recomendador Skincare, Carritos, Wompi</p>
+              </td>
+              <td class="py-4 px-4">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-sansansold text-[10px]">WhatsApp API</span>
+                  <span class="px-2 py-0.5 rounded bg-violet-100 text-violet-800 font-sansansold text-[10px]">Web Chat</span>
+                  <span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 font-sansansold text-[10px]">Instagram DM</span>
+                </div>
+              </td>
+              <td class="py-4 px-4">
+                <span class="font-sansanslack text-orange-600">OpenCode Dedicated GPU</span>
+              </td>
+              <td class="py-4 px-4 font-sansanslack text-emerald-600">
+                98.1% autÃ³nomo
+              </td>
+              <td class="py-4 px-4">
+                <div class="w-32 bg-slate-100 rounded-full h-2 overflow-hidden mb-1">
+                  <div class="bg-orange-500 h-2 rounded-full" style="width: 42%"></div>
+                </div>
+                <span class="text-[10px] text-slate-500">21M / Ilimitado Enterprise</span>
+              </td>
+              <td class="py-4 px-4 text-right">
+                <button class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 font-sansansold text-slate-700 text-xs">Ajustar Cuota</button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODALES INTERACTIVOS (NUEVO CLIENTE, INSPECCIÃ“N, ANUNCIOS & TEST WEBHOOK) -->
+  <!-- ========================================================================= -->
+
+  <!-- MODAL: CREAR NUEVO CLIENTE -->
+  <div id="modal-nuevo-cliente" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 shadow-2xl rounded-3xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-lg font-sansanslack text-slate-950 uppercase">Dar de Alta Nuevo Cliente & Tienda</h3>
+        <button onclick="closeModal('modal-nuevo-cliente')" class="p-1 rounded-full hover:bg-slate-100 text-slate-400">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-sansanslack text-slate-700 uppercase mb-1">RazÃ³n Social / Marca</label>
+          <input type="text" placeholder="Ej: Moda Nova Colombia S.A.S." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-sansanslack text-slate-700 uppercase mb-1">NIT / IdentificaciÃ³n</label>
+            <input type="text" placeholder="901.888.777-1" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800">
+          </div>
+          <div>
+            <label class="block font-sansanslack text-slate-700 uppercase mb-1">Correo Administrador</label>
+            <input type="email" placeholder="ceo@modanova.co" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800">
+          </div>
+        </div>
+        <div>
+          <label class="block font-sansanslack text-slate-700 uppercase mb-1">Subdominio GrowUp Store</label>
+          <div class="flex items-center">
+            <input type="text" placeholder="modanova" class="w-full bg-slate-50 border border-slate-200 rounded-l-xl px-3 py-2 text-slate-800">
+            <span class="bg-slate-100 border border-l-0 border-slate-200 px-3 py-2 text-slate-500 rounded-r-xl font-sansansold">.growupstore.app</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-sansanslack text-slate-700 uppercase mb-1">Plan Inicial</label>
+            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-sansansold">
+              <option>Trial Gratuito (14 DÃ­as)</option>
+              <option>Scale Pro ($79 USD)</option>
+              <option>Enterprise ($199 USD)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-sansanslack text-slate-700 uppercase mb-1">Pasarela Predeterminada</label>
+            <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-sansansold">
+              <option>Wompi Gateway Colombia</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex gap-2 justify-end">
+        <button onclick="closeModal('modal-nuevo-cliente')" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-sansansold">Cancelar</button>
+        <button onclick="closeModal('modal-nuevo-cliente'); alert('Â¡Cliente y tienda aprovisionados exitosamente en Cloudflare Edge!')" 
+                class="px-5 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-sansanslack uppercase">
+          Aprovisionar Tienda
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: INSPECCIÃ“N DE CUENTA -->
+  <div id="modal-inspeccion-tienda" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 shadow-2xl rounded-3xl max-w-lg w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <h3 class="text-lg font-sansanslack text-slate-950 uppercase">InspecciÃ³n de Tienda</h3>
+          <p class="text-xs text-slate-400">Aura Activewear S.A.S. â€¢ aura.growupstore.app</p>
+        </div>
+        <button onclick="closeModal('modal-inspeccion-tienda')" class="p-1 rounded-full hover:bg-slate-100 text-slate-400">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-3 p-3 bg-slate-50 rounded-2xl">
+          <div>
+            <span class="text-slate-400 uppercase text-[10px] font-sansansold">Plan Vigente</span>
+            <p class="font-sansanslack text-violet-700 text-sm">Scale Pro ($79/mo)</p>
+          </div>
+          <div>
+            <span class="text-slate-400 uppercase text-[10px] font-sansansold">PrÃ³ximo Cobro Wompi</span>
+            <p class="font-sansanslack text-slate-900 text-sm">28 Marzo 2025</p>
+          </div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-2xl space-y-1">
+          <span class="text-slate-400 uppercase text-[10px] font-sansansold">Credenciales Wompi</span>
+          <p class="font-mono text-[11px] text-slate-700">pub_prod_48f9***7712 (Verificada)</p>
+          <p class="text-emerald-600 font-sansansold text-[11px]">Tasa de aprobaciÃ³n: 99.4% â€¢ 0 devoluciones</p>
+        </div>
+
+        <div class="flex gap-2">
+          <button class="flex-1 py-2 rounded-xl bg-slate-900 text-white font-sansanslack text-xs uppercase">Clonar Entorno Staging</button>
+          <button class="flex-1 py-2 rounded-xl border border-rose-200 text-rose-700 bg-rose-50 font-sansanslack text-xs uppercase">Pausar Temporalmente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: EMITIR ANUNCIO GLOBAL -->
+  <div id="modal-anuncio" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 shadow-2xl rounded-3xl max-w-md w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-lg font-sansanslack text-slate-950 uppercase">Emitir Anuncio en Toda la Red</h3>
+        <button onclick="closeModal('modal-anuncio')" class="p-1 rounded-full hover:bg-slate-100 text-slate-400">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-sansanslack text-slate-700 uppercase mb-1">TÃ­tulo del Banner</label>
+          <input type="text" value="Mantenimiento programado Wompi 02:00 AM" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800">
+        </div>
+        <div>
+          <label class="block font-sansanslack text-slate-700 uppercase mb-1">Destinatarios</label>
+          <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800 font-sansansold">
+            <option>Todas las 184 tiendas activas</option>
+            <option>Solo tiendas con Wompi activo</option>
+            <option>Solo usuarios en periodo Trial</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-sansanslack text-slate-700 uppercase mb-1">Mensaje en Banner</label>
+          <textarea rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-800">Se realizarÃ¡ una actualizaciÃ³n sin tiempo de caÃ­da para optimizar la tokenizaciÃ³n de tarjetas.</textarea>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-100 flex gap-2 justify-end">
+        <button onclick="closeModal('modal-anuncio')" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-sansansold">Cancelar</button>
+        <button onclick="closeModal('modal-anuncio'); alert('Â¡Anuncio transmitido en vivo a todas las tiendas de GrowUp Space!')" 
+                class="px-5 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-xs font-sansanslack uppercase">
+          Publicar Anuncio
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PAUSAR TIENDA -->
+  <div id="modal-pausar-tienda" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 shadow-2xl rounded-3xl max-w-md w-full p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-lg font-sansanslack text-rose-700 uppercase">Pausar Tienda Inmediatamente</h3>
+        <button onclick="closeModal('modal-pausar-tienda')" class="p-1 rounded-full hover:bg-slate-100 text-slate-400">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <p class="text-xs text-slate-500">Esta acciÃ³n desvÃ­a el trÃ¡fico en Cloudflare Edge hacia una pÃ¡gina de mantenimiento y suspende las llamadas del agente OpenCode.</p>
+      <div>
+        <label class="block font-sansanslack text-slate-700 uppercase text-xs mb-1">Seleccionar Tienda</label>
+        <select class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-sansansold">
+          <option>Nordic Wood Muebles (nordicwood.co)</option>
+          <option>UrbanVibe Streetwear (urbanvibe.co)</option>
+          <option>Moda Boreal (boreal.growupstore.app)</option>
+        </select>
+      </div>
+      <div class="pt-3 border-t border-slate-100 flex gap-2 justify-end">
+        <button onclick="closeModal('modal-pausar-tienda')" class="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-sansansold">Cancelar</button>
+        <button onclick="closeModal('modal-pausar-tienda'); alert('La tienda seleccionada ha sido puesta en pausa preventiva.')" 
+                class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-sansanslack uppercase">
+          Confirmar Pausa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER SUPER ADMIN -->
+  <footer class="mt-auto border-t border-slate-200 bg-white px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
+    <div class="flex items-center gap-4">
+      <span class="font-sansanslack text-slate-900 uppercase">GrowUp Space</span>
+      <span>â€¢</span>
+      <span>Super Consola Multi-Tenant v3.0</span>
+      <span>â€¢</span>
+      <span>Wompi Gateway Partner Oficial Colombia</span>
+    </div>
+    <div class="flex items-center gap-4 font-sansansold text-slate-600">
+      <span class="text-emerald-600">â— 184 Tiendas en Cloudflare</span>
+      <span>SLA 99.99%</span>
+      <span>DIAN Certificada</span>
+    </div>
+  </footer>
+
+  <!-- SCRIPT ENGINE PARA ALTERNANCIA DINÃMICA DE TABS Y WYSIWYG -->
+  <script>
+    // Tab switching controller
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(section => {
+        section.classList.add('hidden');
+      });
+      const activeSection = document.getElementById('section-' + tabId);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+      }
+
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active', 'bg-slate-900', 'text-white', 'shadow-sm');
+        btn.classList.add('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100');
+      });
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-slate-900', 'text-white', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-600', 'hover:text-slate-900', 'hover:bg-slate-100');
+      }
+    }
+
+    // Modal helpers
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('hidden');
+    }
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // WYSIWYG Live updates
+    function updatePlanLivePreview() {
+      const title = document.getElementById('edit-plan-title').value;
+      const badge = document.getElementById('edit-plan-badge').value;
+      const priceUsd = document.getElementById('edit-plan-price-usd').value;
+      const priceCop = document.getElementById('edit-plan-price-cop').value;
+      const sub = document.getElementById('edit-plan-sub').value;
+      const desc = document.getElementById('edit-plan-desc').value;
+
+      document.getElementById('preview-plan-title').textContent = title;
+      document.getElementById('preview-plan-badge').textContent = 'â— ' + badge;
+      document.getElementById('preview-plan-price').textContent = priceUsd;
+      document.getElementById('preview-plan-sub').textContent = sub;
+      document.getElementById('preview-plan-cop').textContent = '(' + priceCop + ')';
+      document.getElementById('preview-plan-desc').textContent = desc;
+    }
+
+    function selectPlanEdit(idx) {
+      const plans = [
+        {
+          title: 'Wompi Gateway Nativo',
+          badge: 'PASARELA & CHECKOUT',
+          usd: '$29',
+          cop: '$119.000 COP',
+          desc: '0% comisiones ocultas â€¢ PSE, Nequi y Tarjetas 3DS 2.0 con 98.7% aprobaciÃ³n.'
+        },
+        {
+          title: 'Meta Ads Studio Express',
+          badge: 'MÃS POPULAR â€¢ ADTECH',
+          usd: '$79',
+          cop: '$319.000 COP',
+          desc: 'Lanzamiento de campaÃ±as en 3 clics con CAPI server-side y ROAS 5.2x promedio.'
+        },
+        {
+          title: 'Red Aliada & Cross-Sell',
+          badge: 'ECOSISTEMA B2B DTC',
+          usd: '$99',
+          cop: '$399.000 COP',
+          desc: 'Multiplica catÃ¡logo sin stock propio con +140 marcas aliadas verificadas.'
+        },
+        {
+          title: 'Cloudflare Edge & SSL',
+          badge: 'INFRAESTRUCTURA EDGE',
+          usd: '$49',
+          cop: '$199.000 COP',
+          desc: '300+ PoPs con latencia global <480ms y protecciÃ³n anti-DDoS SLA 99.99%.'
+        }
+      ];
+      const p = plans[idx];
+      if (!p) return;
+
+      document.getElementById('edit-plan-title').value = p.title;
+      document.getElementById('edit-plan-badge').value = p.badge;
+      document.getElementById('edit-plan-price-usd').value = p.usd;
+      document.getElementById('edit-plan-price-cop').value = p.cop;
+      document.getElementById('edit-plan-desc').value = p.desc;
+      updatePlanLivePreview();
+
+      document.querySelectorAll('.plan-selector-btn').forEach((b, i) => {
+        if (i === idx) {
+          b.className = 'plan-selector-btn active px-2.5 py-1 rounded-lg text-xs font-sansanslack bg-violet-600 text-white';
+        } else {
+          b.className = 'plan-selector-btn px-2.5 py-1 rounded-lg text-xs font-sansansold border border-slate-200 hover:bg-slate-50';
+        }
+      });
+    }
+
+    function deployPlanes() {
+      alert('Â¡CatÃ¡logo de planes actualizado exitosamente en el carrusel 3D de producciÃ³n!');
+    }
+
+    function testStoreWebhook(storeName) {
+      alert('Simulando evento Wompi en ' + storeName + '...\nRespuesta: HTTP 200 OK en 38ms con firma HMAC vÃ¡lida.');
+    }
+  </script>
+</body>
+</html>
+

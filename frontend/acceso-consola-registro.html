@@ -1,0 +1,687 @@
+<!DOCTYPE html><html class="" id="html-root" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+        transition: background-color 0.25s ease, color 0.25s ease;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "outline-variant": "#464554",
+          "surface-container-low": "#171b26",
+          "error": "#ffb4ab",
+          "on-primary-container": "#0d0096",
+          "on-secondary": "#003824",
+          "on-primary-fixed-variant": "#2f2ebe",
+          "on-tertiary-container": "#340080",
+          "on-primary-fixed": "#07006c",
+          "error-container": "#93000a",
+          "on-secondary-fixed-variant": "#005236",
+          "surface-tint": "#c0c1ff",
+          "on-surface-variant": "#c7c4d7",
+          "surface-container-high": "#262a35",
+          "on-secondary-container": "#00311f",
+          "tertiary": "#d0bcff",
+          "secondary-fixed-dim": "#4edea3",
+          "inverse-primary": "#494bd6",
+          "surface-variant": "#313540",
+          "on-primary": "#1000a9",
+          "primary-fixed-dim": "#c0c1ff",
+          "surface-container": "#1c1f2a",
+          "secondary-container": "#00a572",
+          "on-surface": "#dfe2f1",
+          "outline": "#908fa0",
+          "surface-container-highest": "#313540",
+          "surface-bright": "#353944",
+          "secondary-fixed": "#6ffbbe",
+          "surface-container-lowest": "#0a0e18",
+          "inverse-surface": "#dfe2f1",
+          "on-tertiary-fixed-variant": "#5516be",
+          "tertiary-container": "#a078ff",
+          "on-error": "#690005",
+          "on-error-container": "#ffdad6",
+          "background": "#0f131d",
+          "primary": "#c0c1ff",
+          "primary-fixed": "#e1e0ff",
+          "secondary": "#4edea3",
+          "on-tertiary": "#3c0091",
+          "primary-container": "#8083ff",
+          "tertiary-fixed-dim": "#d0bcff",
+          "on-tertiary-fixed": "#23005c",
+          "on-secondary-fixed": "#002113",
+          "surface": "#0f131d",
+          "tertiary-fixed": "#e9ddff",
+          "on-background": "#dfe2f1",
+          "surface-dim": "#0f131d",
+          "inverse-on-surface": "#2c303b"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "space-lg": "1.5rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "2rem",
+          "gutter-mobile": "1rem",
+          "space-xl": "2rem",
+          "gutter": "1.5rem"
+        },
+        fontFamily: {
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-xl": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-lg": ["Plus Jakarta Sans"],
+          "headline-md": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "headline-xl-mobile": ["Plus Jakarta Sans"]
+        },
+        fontSize: {
+          "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+          "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+          "title-md": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+          "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+          "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+          "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+          "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+          "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+          "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+        }
+      }
+    }
+  };
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+<style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-white">
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container/90 backdrop-blur-xl border-b border-outline-variant/30 transition-colors" style="background-color: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgb(226, 232, 240); color: rgb(9, 13, 22);">
+<div class="h-16 max-w-7xl mx-auto px-space-md lg:px-space-lg flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-sm"><span class="font-headline-md text-title-md font-sansansold tracking-tight text-on-surface">GrowUp Space</span></div>
+</div>
+<nav aria-label="Navegación Landing" class="flex items-center gap-space-md" data-active-classes="text-primary font-sansansold">
+<a class="text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="landing-welcome" href="welcome-carrusel-3d.html" style="color: rgb(124, 58, 237) !important;">Inicio</a>
+<a class="text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard-central" href="dashboard-central.html">Dashboard</a>
+<a class="text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="pasarelas-pagos" href="pasarelas-pagos-wompi.html">Pasarelas</a>
+<a class="text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="dominio-marca" href="dominio-marca-infraestructura.html">Dominios</a>
+</nav>
+<div class="flex items-center gap-space-sm"></div>
+</div>
+</header>
+<main class="w-full min-h-screen pt-16 bg-surface transition-colors"><div class="flex flex-col w-full">
+<div class="w-full bg-white text-slate-900 selection:bg-purple-100 selection:text-purple-700 py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto flex items-center justify-between pb-6 border-b border-slate-100 mb-8">
+<div class="flex items-center gap-3">
+<span class="font-headline-lg text-headline-lg font-sansanslack tracking-tight text-slate-950">GrowUp Space</span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-sansansemibold bg-orange-50 text-orange-600 border border-orange-200">
+          v2.4 Live
+        </span>
+</div>
+<div class="flex items-center gap-6 text-label-md font-medium text-slate-600">
+<a class="hover:text-purple-600 transition-colors flex items-center gap-1.5" href="pasarelas-wompi-informacion-checkout.html">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="">Soporte Wompi 24/7</span>
+</a>
+<a class="text-purple-600 hover:text-purple-700 font-sansansemibold transition-colors flex items-center gap-1" href="welcome-carrusel-3d.html">
+<span class="">Ver Planes</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+<div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 shadow-xl shadow-slate-100/80 border border-slate-200/90 relative">
+<div class="flex items-center p-1.5 bg-slate-100/90 border border-slate-200/80 rounded-2xl mb-8 max-w-md shadow-inner"><button class="flex-1 py-2.5 px-5 rounded-xl text-label-md font-sansansold text-white bg-purple-600 shadow-sm transition-all duration-200 flex items-center justify-center gap-2" id="tab-login-btn" type="button"><span class="material-symbols-outlined text-[18px] leading-none">login</span><span class="leading-none">Iniciar Sesión</span></button><button class="flex-1 py-2.5 px-5 rounded-xl text-label-md font-sansansemibold text-slate-600 hover:text-slate-900 transition-all duration-200 flex items-center justify-center gap-2" id="tab-register-btn" type="button"><span class="material-symbols-outlined text-[18px] leading-none">person_add</span><span class="leading-none">Crear Cuenta</span></button></div>
+<div class="transition-opacity duration-300" id="login-panel">
+<div class="mb-6">
+<h2 class="font-headline-lg text-headline-lg text-slate-950 font-sansanslack">Bienvenido de vuelta</h2>
+<p class="font-sansansody-md text-body-md text-slate-500 mt-1">Ingresa tus credenciales para administrar tus pasarelas Wompi y agentes IA.</p>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-6"><button class="w-full py-2.5 px-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-sansansemibold text-label-md flex items-center justify-center gap-2.5 transition-all shadow-sm hover:shadow-md hover:border-slate-300" type="button"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path></svg><span class="leading-none">Google SSO</span></button><button class="w-full py-2.5 px-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-sansansemibold text-label-md flex items-center justify-center gap-2.5 transition-all shadow-sm hover:shadow-md hover:border-slate-300" type="button"><svg class="w-4 h-4 fill-slate-900 flex-shrink-0" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg><span class="leading-none">GitHub</span></button></div>
+<div class="relative flex items-center justify-center mb-6">
+<div class="border-t border-slate-200 w-full"></div>
+<span class="bg-white px-3 font-label-sm text-label-sm text-slate-400 uppercase tracking-widest absolute">o con correo</span>
+</div>
+<form class="space-y-4" id="login-form">
+<div>
+<label class="block font-label-md text-label-md font-sansansold text-slate-700 mb-1.5" for="login-email">Correo Electrónico Empresarial</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-2.5 text-slate-400 text-[20px]">mail</span>
+<input class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-100 text-body-md text-slate-900 placeholder:text-slate-400 outline-none transition-all" id="login-email" placeholder="ceo@mitienda.com" required="" type="email">
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="block font-label-md text-label-md font-sansansold text-slate-700" for="login-password">Contraseña de Seguridad</label>
+<a class="text-label-md font-sansansemibold text-orange-600 hover:text-orange-700 transition-colors" href="#">¿Olvidaste tu clave?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-2.5 text-slate-400 text-[20px]">lock</span>
+<input class="w-full pl-11 pr-11 py-2.5 rounded-xl border border-slate-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-100 text-body-md text-slate-900 placeholder:text-slate-400 outline-none transition-all" id="login-password" placeholder="••••••••••••" required="" type="password">
+<button class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 transition-colors" id="toggle-login-pass" type="button">
+<span class="material-symbols-outlined text-[20px]" id="toggle-login-pass-icon">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2 cursor-pointer">
+<input class="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 border-slate-300" type="checkbox">
+<span class="text-label-md text-slate-600">Mantener sesión iniciada 30 días</span>
+</label>
+</div>
+<button class="w-full mt-4 py-3.5 px-6 rounded-2xl font-sansansold text-title-md text-white bg-gradient-to-r from-purple-600 via-purple-700 to-orange-500 hover:from-purple-700 hover:to-orange-600 active:scale-[0.99] transition-all duration-200 shadow-lg shadow-purple-500/25 flex items-center justify-center gap-2 border border-white/20 cursor-pointer" id="login-submit-btn" type="submit"><span id="login-btn-text" class="font-sansansold leading-normal tracking-wide">Acceder a la Consola</span><span class="hidden material-symbols-outlined animate-spin text-[20px]" id="login-btn-spinner">progress_activity</span></button>
+</form>
+</div>
+<div class="hidden transition-opacity duration-300" id="register-panel">
+<div class="mb-6">
+<h2 class="font-headline-lg text-headline-lg text-slate-950 font-sansanslack">Crea tu tienda en 60 segundos</h2>
+<p class="font-sansansody-md text-body-md text-slate-500 mt-1">Prueba gratis 14 días con pasarela Wompi integrada y sin comisiones ocultas.</p>
+</div>
+<form class="space-y-4" id="register-form">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md font-sansansold text-slate-700 mb-1.5" for="reg-name">Nombre Completo</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-100 text-body-md text-slate-900 placeholder:text-slate-400 outline-none transition-all" id="reg-name" placeholder="Carlos Mendoza" required="" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md font-sansansold text-slate-700 mb-1.5" for="reg-email">Correo Corporativo</label>
+<input class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-100 text-body-md text-slate-900 placeholder:text-slate-400 outline-none transition-all" id="reg-email" placeholder="carlos@marca.co" required="" type="email">
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-sansansold text-slate-700 mb-1.5" for="reg-store">Subdominio de tu Tienda</label>
+<div class="flex items-center rounded-xl border border-slate-200 focus-within:border-purple-600 focus-within:ring-2 focus-within:ring-purple-100 bg-white overflow-hidden transition-all">
+<input class="flex-1 px-4 py-2.5 text-body-md text-slate-900 placeholder:text-slate-400 outline-none" id="reg-store" placeholder="mimarca" required="" type="text">
+<span class="px-4 py-2.5 bg-slate-50 text-slate-500 font-label-md border-l border-slate-200">.growup.space</span>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-sansansold text-slate-700 mb-1.5" for="reg-password">Contraseña Maestra</label>
+<div class="relative">
+<input class="w-full pl-4 pr-11 py-2.5 rounded-xl border border-slate-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-100 text-body-md text-slate-900 placeholder:text-slate-400 outline-none transition-all" id="reg-password" placeholder="Crea una contraseña segura" required="" type="password">
+<button class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 transition-colors" id="toggle-reg-pass" type="button">
+<span class="material-symbols-outlined text-[20px]" id="toggle-reg-pass-icon">visibility</span>
+</button>
+</div>
+<div class="mt-2 space-y-1">
+<div class="flex gap-1.5 h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full w-1/3 bg-slate-200 rounded-full transition-colors" id="pwd-bar-1"></div>
+<div class="h-full w-1/3 bg-slate-200 rounded-full transition-colors" id="pwd-bar-2"></div>
+<div class="h-full w-1/3 bg-slate-200 rounded-full transition-colors" id="pwd-bar-3"></div>
+</div>
+<span class="text-[11px] font-sansansemibold text-slate-400" id="pwd-strength-text">Introduce al menos 8 caracteres</span>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md font-sansansold text-slate-700 mb-2">Propósito Inicial de Crecimiento</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<label class="relative flex flex-col p-3 rounded-xl border-2 border-purple-600 bg-purple-50/40 cursor-pointer transition-all purpose-option">
+<input checked="" class="sr-only" name="purpose" type="radio" value="wompi">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-purple-600 text-[18px]">payments</span>
+<span class="font-label-md font-sansansold text-slate-900">Vender con Wompi</span>
+</div>
+<span class="text-[12px] text-slate-500">Checkout nativo PSE, Nequi y Tarjetas.</span>
+</label>
+<label class="relative flex flex-col p-3 rounded-xl border-2 border-slate-200 hover:border-slate-300 bg-white cursor-pointer transition-all purpose-option">
+<input class="sr-only" name="purpose" type="radio" value="opencode">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-orange-600 text-[18px]">smart_toy</span>
+<span class="font-label-md font-sansansold text-slate-900">Agentes OpenCode</span>
+</div>
+<span class="text-[12px] text-slate-500">Automatización con Inteligencia Artificial.</span>
+</label>
+</div>
+</div>
+<div class="pt-1">
+<label class="flex items-start gap-2.5 cursor-pointer">
+<input class="mt-0.5 w-4 h-4 rounded text-purple-600 focus:ring-purple-500 border-slate-300" required="" type="checkbox">
+<span class="text-label-sm text-slate-600 leading-tight">
+                    Acepto los <a class="text-purple-600 underline font-sansansemibold" href="#">Términos del Servicio</a> y la política de tratamiento de datos seguros.
+                  </span>
+</label>
+</div>
+<button class="w-full mt-2 py-3.5 px-6 rounded-xl font-headline-md text-title-md text-white bg-gradient-to-r from-purple-600 to-orange-500 hover:from-purple-700 hover:to-orange-600 active:scale-[0.99] transition-all duration-200 shadow-md shadow-orange-500/20 flex items-center justify-center gap-2" id="register-submit-btn" type="submit">
+<span id="reg-btn-text" class="">Crear Tienda Gratis (14 Días)</span>
+<span class="hidden material-symbols-outlined animate-spin text-[20px]" id="reg-btn-spinner">progress_activity</span>
+</button>
+</form>
+</div>
+<div class="hidden mt-4 p-4 rounded-xl text-label-md font-sansansemibold flex items-center gap-3 transition-all duration-300" id="status-toast">
+<span class="material-symbols-outlined text-[22px]" id="toast-icon">info</span>
+<span id="toast-message" class="">Notificación</span>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-6">
+<div class="bg-gradient-to-b from-purple-50 via-white to-orange-50/40 rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm relative overflow-hidden">
+<div class="flex items-center justify-center mb-6">
+<div class="relative w-48 h-48 sm:w-56 sm:h-56">
+<img alt="Mascota oficial GrowUp Space" class="w-full h-full object-contain filter drop-shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs1DpdHbe3_fBDmbBxe641wu88JtRl6pUEYmCGNOWR61P1wWwNDmT02gmPMWBm2cddyz6RRIF9eQdmGukTa0Yu7a_ImD10hVf2q7gff2CIVat4jlsKIpoN0VdNnGlb0QSpjh-nLO5_wPnfiWBCypB5Sui-JAAcs0I9oFOzkjIUCQMhpM2Xh1pJ23l8xNEZR31JRoM6Smic_LhIfPyYw9WbMXLNonOKmWUlyZiuMOOJcqQPkZ_fLm6nfQ" style="mix-blend-mode: multiply;">
+<div class="absolute -bottom-2 right-4 bg-white/95 backdrop-blur border border-purple-200 rounded-full px-3 py-1 flex items-center gap-1.5 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-[11px] font-sansansold text-slate-800">IA Activa 24/7</span>
+</div>
+</div>
+</div>
+<div class="space-y-3.5"><div class="flex items-start gap-4 p-4 bg-white rounded-2xl border border-slate-200/80 shadow-sm transition-all hover:shadow-md"><div class="w-11 h-11 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0 shadow-sm"><span class="material-symbols-outlined text-[24px]">credit_card</span></div><div class="flex-1 min-w-0"><h4 class="font-sansansold text-title-md text-slate-900 leading-snug">Pasarela Wompi Nativa</h4><p class="font-sansansody-md text-body-md text-slate-500 text-xs mt-0.5 leading-relaxed">Liquidación automática en cuentas Bancolombia, Davivienda y Nequi sin demoras.</p></div></div><div class="flex items-start gap-4 p-4 bg-white rounded-2xl border border-slate-200/80 shadow-sm transition-all hover:shadow-md"><div class="w-11 h-11 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 flex-shrink-0 shadow-sm"><span class="material-symbols-outlined text-[24px]">smart_toy</span></div><div class="flex-1 min-w-0"><h4 class="font-sansansold text-title-md text-slate-900 leading-snug">Agentes IA OpenCode</h4><p class="font-sansansody-md text-body-md text-slate-500 text-xs mt-0.5 leading-relaxed">Atención a clientes y recuperación de carritos por WhatsApp en 3 clics.</p></div></div><div class="flex items-start gap-4 p-4 bg-white rounded-2xl border border-slate-200/80 shadow-sm transition-all hover:shadow-md"><div class="w-11 h-11 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0 shadow-sm"><span class="material-symbols-outlined text-[24px]">price_check</span></div><div class="flex-1 min-w-0"><h4 class="font-sansansold text-title-md text-slate-900 leading-snug">Cero Comisiones Ocultas</h4><p class="font-sansansody-md text-body-md text-slate-500 text-xs mt-0.5 leading-relaxed">Tarifas transparentes desde el día uno. Retiene el 100% de tu margen neto.</p></div></div></div>
+</div>
+<div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-1 text-orange-500">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+</div>
+<span class="text-[12px] font-sansansold text-slate-400">Verificado</span>
+</div>
+<p class="font-sansansody-md text-body-md text-slate-700 italic">
+              "Migramos a GrowUp Space hace 3 meses. La integración con Wompi redujo los rechazos de pago al 0.2% y nuestro ROAS creció 3.8x."
+            </p>
+<div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+<div>
+<span class="block font-label-md text-label-md font-sansansold text-slate-900">Mariana Velásquez</span>
+<span class="block text-[11px] text-slate-500">Fundadora, Kora Studio DTC</span>
+</div>
+<div class="text-right">
+<span class="block font-headline-md text-headline-md font-sansanslack text-purple-600">+500K</span>
+<span class="block text-[10px] text-slate-400 font-sansansemibold uppercase">Transacciones</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const tabLoginBtn = document.getElementById('tab-login-btn');
+    const tabRegisterBtn = document.getElementById('tab-register-btn');
+    const loginPanel = document.getElementById('login-panel');
+    const registerPanel = document.getElementById('register-panel');
+    const toast = document.getElementById('status-toast');
+    const toastIcon = document.getElementById('toast-icon');
+    const toastMsg = document.getElementById('toast-message');
+
+    function showToast(message, type = 'success') {
+      toast.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-800', 'border-emerald-200', 'bg-red-50', 'text-red-800', 'border-red-200', 'bg-purple-50', 'text-purple-800', 'border-purple-200');
+      toast.classList.add('border');
+      
+      if (type === 'success') {
+        toast.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
+        toastIcon.textContent = 'check_circle';
+      } else if (type === 'error') {
+        toast.classList.add('bg-red-50', 'text-red-800', 'border-red-200');
+        toastIcon.textContent = 'error';
+      } else {
+        toast.classList.add('bg-purple-50', 'text-purple-800', 'border-purple-200');
+        toastIcon.textContent = 'info';
+      }
+
+      toastMsg.textContent = message;
+      toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    tabLoginBtn.addEventListener('click', () => {
+      tabLoginBtn.classList.remove('text-slate-600', 'bg-transparent');
+      tabLoginBtn.classList.add('text-white', 'bg-purple-600', 'shadow-sm');
+      tabRegisterBtn.classList.remove('text-white', 'bg-purple-600', 'shadow-sm');
+      tabRegisterBtn.classList.add('text-slate-600');
+
+      loginPanel.classList.remove('hidden');
+      registerPanel.classList.add('hidden');
+      toast.classList.add('hidden');
+    });
+
+    tabRegisterBtn.addEventListener('click', () => {
+      tabRegisterBtn.classList.remove('text-slate-600');
+      tabRegisterBtn.classList.add('text-white', 'bg-purple-600', 'shadow-sm');
+      tabLoginBtn.classList.remove('text-white', 'bg-purple-600', 'shadow-sm');
+      tabLoginBtn.classList.add('text-slate-600');
+
+      registerPanel.classList.remove('hidden');
+      loginPanel.classList.add('hidden');
+      toast.classList.add('hidden');
+    });
+
+    const toggleLoginPass = document.getElementById('toggle-login-pass');
+    const loginPass = document.getElementById('login-password');
+    const loginPassIcon = document.getElementById('toggle-login-pass-icon');
+
+    toggleLoginPass.addEventListener('click', () => {
+      const isPass = loginPass.type === 'password';
+      loginPass.type = isPass ? 'text' : 'password';
+      loginPassIcon.textContent = isPass ? 'visibility_off' : 'visibility';
+    });
+
+    const toggleRegPass = document.getElementById('toggle-reg-pass');
+    const regPass = document.getElementById('reg-password');
+    const regPassIcon = document.getElementById('toggle-reg-pass-icon');
+
+    toggleRegPass.addEventListener('click', () => {
+      const isPass = regPass.type === 'password';
+      regPass.type = isPass ? 'text' : 'password';
+      regPassIcon.textContent = isPass ? 'visibility_off' : 'visibility';
+    });
+
+    const pwdBar1 = document.getElementById('pwd-bar-1');
+    const pwdBar2 = document.getElementById('pwd-bar-2');
+    const pwdBar3 = document.getElementById('pwd-bar-3');
+    const pwdStrengthText = document.getElementById('pwd-strength-text');
+
+    regPass.addEventListener('input', () => {
+      const val = regPass.value;
+      let score = 0;
+      if (val.length >= 6) score++;
+      if (val.length >= 8 && /[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+      if (val.length >= 10 && /[^A-Za-z0-9]/.test(val)) score++;
+
+      pwdBar1.className = 'h-full w-1/3 rounded-full transition-colors bg-slate-200';
+      pwdBar2.className = 'h-full w-1/3 rounded-full transition-colors bg-slate-200';
+      pwdBar3.className = 'h-full w-1/3 rounded-full transition-colors bg-slate-200';
+
+      if (val.length === 0) {
+        pwdStrengthText.textContent = 'Introduce al menos 8 caracteres';
+        pwdStrengthText.className = 'text-[11px] font-sansansemibold text-slate-400';
+      } else if (score === 0 || score === 1) {
+        pwdBar1.className = 'h-full w-1/3 rounded-full transition-colors bg-orange-500';
+        pwdStrengthText.textContent = 'Contraseña débil';
+        pwdStrengthText.className = 'text-[11px] font-sansansemibold text-orange-500';
+      } else if (score === 2) {
+        pwdBar1.className = 'h-full w-1/3 rounded-full transition-colors bg-yellow-500';
+        pwdBar2.className = 'h-full w-1/3 rounded-full transition-colors bg-yellow-500';
+        pwdStrengthText.textContent = 'Contraseña media';
+        pwdStrengthText.className = 'text-[11px] font-sansansemibold text-yellow-600';
+      } else {
+        pwdBar1.className = 'h-full w-1/3 rounded-full transition-colors bg-emerald-500';
+        pwdBar2.className = 'h-full w-1/3 rounded-full transition-colors bg-emerald-500';
+        pwdBar3.className = 'h-full w-1/3 rounded-full transition-colors bg-emerald-500';
+        pwdStrengthText.textContent = 'Contraseña fuerte y segura';
+        pwdStrengthText.className = 'text-[11px] font-sansansemibold text-emerald-600';
+      }
+    });
+
+    const purposeOptions = document.querySelectorAll('.purpose-option');
+    purposeOptions.forEach(card => {
+      card.addEventListener('click', () => {
+        purposeOptions.forEach(c => {
+          c.classList.remove('border-purple-600', 'bg-purple-50/40');
+          c.classList.add('border-slate-200', 'bg-white');
+        });
+        card.classList.add('border-purple-600', 'bg-purple-50/40');
+        card.classList.remove('border-slate-200', 'bg-white');
+        const radio = card.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+      });
+    });
+
+    const loginForm = document.getElementById('login-form');
+    const loginBtnText = document.getElementById('login-btn-text');
+    const loginSpinner = document.getElementById('login-btn-spinner');
+    const loginSubmitBtn = document.getElementById('login-submit-btn');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      loginBtnText.textContent = 'Conectando a la Consola...';
+      loginSpinner.classList.remove('hidden');
+      loginSubmitBtn.disabled = true;
+
+      setTimeout(() => {
+        loginBtnText.textContent = 'Acceder a la Consola';
+        loginSpinner.classList.add('hidden');
+        loginSubmitBtn.disabled = false;
+        showToast('¡Autenticación exitosa! Bienvenido a GrowUp Space. Redirigiendo...', 'success');
+      }, 1200);
+    });
+
+    const regForm = document.getElementById('register-form');
+    const regBtnText = document.getElementById('reg-btn-text');
+    const regSpinner = document.getElementById('reg-btn-spinner');
+    const regSubmitBtn = document.getElementById('register-submit-btn');
+    const regStore = document.getElementById('reg-store');
+
+    regForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      regBtnText.textContent = 'Aprovisionando Tienda...';
+      regSpinner.classList.remove('hidden');
+      regSubmitBtn.disabled = true;
+
+      setTimeout(() => {
+        regBtnText.textContent = 'Crear Tienda Gratis (14 Días)';
+        regSpinner.classList.add('hidden');
+        regSubmitBtn.disabled = false;
+        const storeDomain = (regStore.value || 'tienda').trim().toLowerCase();
+        showToast(`¡Tienda creada con éxito! Entorno https://${storeDomain}.growup.space listo con pasarela Wompi.`, 'success');
+      }, 1500);
+    });
+  })();
+</script></main>
+<footer class="border-t border-outline-variant/30 bg-surface-container-lowest py-8 px-space-md text-center text-label-sm text-outline" style="background-color: rgb(255, 255, 255); border-top: 1px solid rgb(226, 232, 240); color: rgb(100, 116, 139);">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+<span class="">© 2025 GrowUp Store SaaS - Infraestructura E-commerce de Alto Rendimiento</span>
+<div class="flex items-center gap-6">
+<a class="hover:text-on-surface transition-colors" data-path="pasarelas-pagos" href="pasarelas-pagos-wompi.html">Integraciones Wompi</a>
+<a class="hover:text-on-surface transition-colors" data-path="dominio-marca" href="dominio-marca-infraestructura.html">SSL &amp; DNS</a>
+</div>
+</div>
+</footer><script>
+  window.openPlanDetailModal = function(index) {
+    const plans = window.GROWUP_PLANS || [
+      {
+        id: '01',
+        tag: 'PASARELA OFICIAL BOLD',
+        title: 'Wompi Gateway Nativo',
+        price: '$29',
+        sub: '/ mes',
+        copPrice: '$119.000 COP / mes',
+        detail: '0% comisiones ocultas • PSE, Nequi y Tarjetas 3DS 2.0 con 98.7% aprobación.',
+        features: [
+          'Liquidación inmediata de fondos en cuentas bancarias colombianas',
+          'Soporte nativo PSE, Nequi, Daviplata y Tarjetas de Crédito / Débito',
+          'Tokenización bancaria segura y prevención de fraudes 3DS 2.0',
+          'Facturación electrónica automática DIAN para Colombia'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($119.000 COP)'
+      },
+      {
+        id: '02',
+        tag: 'MÁS POPULAR • ADTECH',
+        title: 'Meta Ads Studio Express',
+        price: '$79',
+        sub: '/ mes',
+        copPrice: '$319.000 COP / mes',
+        detail: 'Lanzamiento de campañas en 3 clics con CAPI server-side y ROAS 5.2x promedio.',
+        features: [
+          'Meta Conversions API (CAPI) server-side con 0ms de pérdida de cookies',
+          'Generador de copys y creativos con IA especializada en e-commerce',
+          'Sincronización de catálogo en tiempo real con Instagram Shopping y Facebook Feed',
+          'Panel predictivo de ROAS y métricas de atribución verificadas'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($319.000 COP)'
+      },
+      {
+        id: '03',
+        tag: 'ECOSISTEMA B2B DTC',
+        title: 'Red Aliada & Cross-Sell',
+        price: '$99',
+        sub: '/ mes',
+        copPrice: '$399.000 COP / mes',
+        detail: 'Multiplica catálogo sin stock propio con +140 marcas aliadas verificadas.',
+        features: [
+          'Acceso directo al catálogo mayorista de +140 marcas aliadas',
+          'Cross-selling post-compra sin inversión en bodega previa',
+          'División de ingresos instantánea y transferencias bancarias automáticas',
+          'Gestión logística integrada con Servientrega, Envía y Coordinadora'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($399.000 COP)'
+      },
+      {
+        id: '04',
+        tag: 'INFRAESTRUCTURA EDGE',
+        title: 'Cloudflare Edge & SSL',
+        price: '$49',
+        sub: '/ mes',
+        copPrice: '$199.000 COP / mes',
+        detail: '300+ PoPs con latencia global <480ms y protección anti-DDoS SLA 99.99%.',
+        features: [
+          'Red CDN global de 300+ puntos de presencia en todo el mundo',
+          'Certificados SSL automáticos TLS 1.3 con renovación transparente',
+          'Mitigación ilimitada de ataques de denegación de servicio (DDoS)',
+          'Puntuación Core Web Vitals 99/100 garantizada en desktop y móvil'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($199.000 COP)'
+      },
+      {
+        id: '05',
+        tag: 'COBROS RECURRENTES',
+        title: 'Suscripciones & Token Wompi',
+        price: '$129',
+        sub: '/ mes',
+        copPrice: '$519.000 COP / mes',
+        detail: 'Tokenización bancaria segura y cobros periódicos para modelos recurrentes.',
+        features: [
+          'Motor de cobros periódicos automáticos para membresías y cajas mensuales',
+          'Recuperación inteligente de tarjetas vencidas o fondos insuficientes',
+          'Portal de autogestión de suscripciones para tus clientes finales',
+          'Tokens bancarios encriptados con estándar PCI-DSS Nivel 1'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($519.000 COP)'
+      },
+      {
+        id: '06',
+        tag: 'ESCALA CORPORATIVA',
+        title: 'Enterprise Multi-Store',
+        price: '$199',
+        sub: '/ mes',
+        copPrice: '$799.000 COP / mes',
+        detail: 'Multi-tenant hasta 5 tiendas, facturación DIAN, multi-bodega y CAPI dedicado.',
+        features: [
+          'Arquitectura multi-tenant para administrar hasta 5 marcas independientes',
+          'Gerente de cuenta AdTech y especialista en infraestructura asignado',
+          'Servidor dedicado privado con latencia de 0ms para API de pedidos',
+          'SLA 99.99% garantizado bajo contrato corporativo'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($799.000 COP)'
+      }
+    ];
+
+    const plan = plans[index] || plans[0];
+    const modal = document.getElementById('plan-detail-modal');
+    if (!modal) return;
+
+    document.getElementById('modal-plan-tag').textContent = plan.tag;
+    document.getElementById('modal-plan-title').textContent = plan.title;
+    document.getElementById('modal-plan-detail').textContent = plan.detail;
+    document.getElementById('modal-plan-price').textContent = plan.price;
+    document.getElementById('modal-plan-sub').textContent = plan.sub;
+    document.getElementById('modal-plan-cop').textContent = plan.copPrice;
+    document.getElementById('modal-bold-btn-text').textContent = plan.boldCta;
+
+    const featList = document.getElementById('modal-plan-features');
+    featList.innerHTML = plan.features.map(f => `
+      <li class="flex items-start gap-3">
+        <span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0 mt-0.5" style="color: #10b981;">check_circle</span>
+        <span class="font-sansansody-md text-body-md text-on-surface" style="color: #090d16;">${f}</span>
+      </li>
+    `).join('');
+
+    modal.style.display = 'flex';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  };
+
+  const closePlanBtn = document.getElementById('close-plan-detail-modal');
+  const planModal = document.getElementById('plan-detail-modal');
+  if (closePlanBtn && planModal) {
+    closePlanBtn.addEventListener('click', () => {
+      planModal.style.display = 'none';
+      planModal.classList.add('hidden');
+      planModal.classList.remove('flex');
+    });
+  }
+  if (planModal) {
+    planModal.addEventListener('click', (e) => {
+      if (e.target === planModal) {
+        planModal.style.display = 'none';
+        planModal.classList.add('hidden');
+        planModal.classList.remove('flex');
+      }
+    });
+  }
+  const tryFreeBtn = document.getElementById('modal-try-free-btn');
+  if (tryFreeBtn && planModal) {
+    tryFreeBtn.addEventListener('click', () => {
+      alert('¡Iniciando tu prueba gratuita de 14 días sin costo!');
+      planModal.style.display = 'none';
+    });
+  }
+  const boldCtaBtn = document.getElementById('modal-bold-cta-btn');
+  if (boldCtaBtn && planModal) {
+    boldCtaBtn.addEventListener('click', () => {
+      alert('Redirigiendo a Pasarela Oficial Wompi Checkout encriptada con 0% comisiones.');
+    });
+  }
+</script>
+<script>
+    function toggleTheme() {
+      const html = document.getElementById('html-root');
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.getElementById('html-root').classList.remove('dark');
+      }
+    })();
+  </script>
+
+
+
+
+</body></html>
+

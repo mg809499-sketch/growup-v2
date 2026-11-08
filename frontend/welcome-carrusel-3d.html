@@ -1,0 +1,520 @@
+<!DOCTYPE html><html class="" id="html-root" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_standard" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+      }
+      body {
+        overscroll-behavior: none;
+        transition: background-color 0.25s ease, color 0.25s ease;
+      }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "outline-variant": "#94a3b8",
+          "surface-container-low": "#f8fafc",
+          "error": "#ffb4ab",
+          "on-primary-container": "#0d0096",
+          "on-secondary": "#003824",
+          "on-primary-fixed-variant": "#2f2ebe",
+          "on-tertiary-container": "#340080",
+          "on-primary-fixed": "#07006c",
+          "error-container": "#93000a",
+          "on-secondary-fixed-variant": "#005236",
+          "surface-tint": "#c0c1ff",
+          "on-surface-variant": "#475569",
+          "surface-container-high": "#f1f5f9",
+          "on-secondary-container": "#00311f",
+          "tertiary": "#d0bcff",
+          "secondary-fixed-dim": "#4edea3",
+          "inverse-primary": "#494bd6",
+          "surface-variant": "#cbd5e1",
+          "on-primary": "#1000a9",
+          "primary-fixed-dim": "#c0c1ff",
+          "surface-container": "#ffffff",
+          "secondary-container": "#00a572",
+          "on-surface": "#000000",
+          "outline": "#908fa0",
+          "surface-container-highest": "#e2e8f0",
+          "surface-bright": "#f8fafc",
+          "secondary-fixed": "#6ffbbe",
+          "surface-container-lowest": "#ffffff",
+          "inverse-surface": "#dfe2f1",
+          "on-tertiary-fixed-variant": "#5516be",
+          "tertiary-container": "#a078ff",
+          "on-error": "#690005",
+          "on-error-container": "#ffdad6",
+          "background": "#ffffff",
+          "primary": "#c0c1ff",
+          "primary-fixed": "#e1e0ff",
+          "secondary": "#4edea3",
+          "on-tertiary": "#3c0091",
+          "primary-container": "#8083ff",
+          "tertiary-fixed-dim": "#d0bcff",
+          "on-tertiary-fixed": "#23005c",
+          "on-secondary-fixed": "#002113",
+          "surface": "#ffffff",
+          "tertiary-fixed": "#e9ddff",
+          "on-background": "#000000",
+          "surface-dim": "#ffffff",
+          "inverse-on-surface": "#2c303b"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "space-lg": "1.5rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "2rem",
+          "gutter-mobile": "1rem",
+          "space-xl": "2rem",
+          "gutter": "1.5rem"
+        },
+        fontFamily: {
+          "body-md": ["Plus Jakarta Sans"],
+          "headline-xl": ["Plus Jakarta Sans"],
+          "title-md": ["Plus Jakarta Sans"],
+          "label-md": ["Plus Jakarta Sans"],
+          "headline-lg": ["Plus Jakarta Sans"],
+          "body-lg": ["Plus Jakarta Sans"],
+          "display-lg": ["Plus Jakarta Sans"],
+          "headline-md": ["Plus Jakarta Sans"],
+          "label-lg": ["Plus Jakarta Sans"],
+          "label-sm": ["Plus Jakarta Sans"],
+          "display-lg-mobile": ["Plus Jakarta Sans"],
+          "headline-xl-mobile": ["Plus Jakarta Sans"]
+        },
+        fontSize: {
+          "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }],
+          "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+          "title-md": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+          "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+          "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+          "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+          "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+          "headline-md": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+          "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+          "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+          "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+          "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+        }
+      }
+    }
+  };
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet"><style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style><style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style></head>
+<body class="bg-white text-black antialiased min-h-screen selection:bg-primary-container selection:text-white">
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container/90 backdrop-blur-xl border-b border-outline-variant/30 transition-colors" style="background-color: rgba(255, 255, 255, 0.95); border-bottom: 1px solid rgb(226, 232, 240); color: rgb(9, 13, 22);">
+<div class="h-16 max-w-7xl mx-auto px-space-md lg:px-space-lg flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-sm"><span class="font-headline-md text-title-md font-sansansold tracking-tight text-on-surface">GrowUp Space</span></div>
+</div>
+<nav aria-label="Navegación Landing" class="flex items-center gap-space-md" data-active-classes="text-primary font-sansansold">
+<a aria-current="page" class="transition-colors text-primary font-sansansold" data-path="landing-welcome" href="welcome-carrusel-3d.html" style="color: rgb(124, 58, 237) !important;">Inicio</a>
+<a class="text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="dashboard-central" href="dashboard-central-demo.html">Dashboard</a>
+<a class="text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="pasarelas-pagos" href="pasarelas-wompi-informacion-checkout.html">Pasarelas</a>
+<a class="text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-colors" data-path="dominio-marca" href="dominios-cloudflare-edge.html">Dominios</a>
+</nav>
+<div class="flex items-center gap-space-sm"><a href="dashboard-central.html" data-path="dashboard-central" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-white font-label-md text-label-md font-sansansold shadow-md hover:scale-105 active:scale-95 transition-all" style="background: linear-gradient(135deg, rgb(124, 58, 237) 0%, rgb(234, 88, 12) 100%); box-shadow: rgba(124, 58, 237, 0.3) 0px 4px 14px;"><span class="material-symbols-outlined text-[18px]">login</span><span class="">Acceder a la Consola</span></a></div>
+</div>
+</header>
+<main class="w-full min-h-screen pt-16 bg-surface transition-colors"><div class="flex flex-col w-full overflow-hidden">
+<!-- AMBIENT GLOW SYSTEM -->
+<div class="relative w-full">
+<div class="absolute top-12 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-primary-container/20 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div class="absolute top-80 right-10 w-[500px] h-[320px] bg-secondary-container/15 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="absolute top-[1400px] left-[-100px] w-[600px] h-[400px] bg-tertiary-container/15 rounded-full blur-[150px] pointer-events-none -z-10"></div>
+</div>
+<!-- HERO SECTION FUTURISTA -->
+<section class="relative w-full max-w-7xl mx-auto px-space-md lg:px-space-lg pt-12 lg:pt-20 pb-20 flex flex-col items-center text-center"><!-- HERO 2-COLUMN GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full mb-14 text-left"><!-- LEFT COLUMN: BADGE, HEADLINE, SUBTITLE, CTAS -->
+  <div class="lg:col-span-7 flex flex-col items-start text-left">
+    <!-- PILL BADGE -->
+    <div class="inline-flex items-center gap-space-xs px-4 py-1.5 rounded-full bg-surface-container-high shadow-md shadow-primary-container/10 mb-6 cursor-default group transition-all duration-300 hover:bg-surface-container-highest" style="background-color: rgb(248, 250, 252); border: 1px solid rgb(226, 232, 240); color: rgb(9, 13, 22);"><span class="inline-block w-2 h-2 rounded-full bg-secondary animate-pulse" style="background-color: rgb(234, 88, 12) !important;"></span><span class="font-label-sm text-label-sm tracking-widest uppercase font-sansansold" style="color: rgb(234, 88, 12) !important;">GrowUp Store&nbsp;</span><span class="text-outline font-label-sm mx-1">|</span><span class="font-label-md text-label-md text-on-surface-variant group-hover:text-on-surface transition-colors">E-commerce + Agentes OpenCode + Pasarelas Wompi</span><span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-1" style="color: rgb(124, 58, 237) !important;">arrow_forward</span></div>
+    <!-- MAIN HEADLINE -->
+    <h1 class="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface tracking-tight leading-tight mb-6 text-left" style="color: rgb(9, 13, 22); font-sansansamily: Burbank, &quot;Plus Jakarta Sans&quot;, sans-serif !important; font-weight: 900 !important; letter-spacing: -0.035em !important;">Crea tu Negocio y <span class="bg-clip-text text-transparent" style="background-image: linear-gradient(to right, rgb(124, 58, 237), rgb(234, 88, 12)); background-clip: text;">Escala Hoy Mismo</span> con Inteligencia</h1>
+    <!-- SUBTITLE -->
+    <p class="font-sansansody-lg text-body-lg text-on-surface-variant mb-8 leading-relaxed text-left max-w-2xl" style="color: rgb(51, 65, 85);">Crea tu tienda de alta conversión con liquidación instantánea vía <span class="text-on-surface font-sansansemibold">Wompi Gateway</span>, sincronización de <span class="text-on-surface font-sansansemibold">Agentes IA OpenCode</span> en 3 clics y cross-selling automático en la <span class="font-sansansemibold" style="color: rgb(124, 58, 237);">Red Aliada</span> de marcas DTC.</p>
+    <!-- CTAS -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md w-full sm:w-auto"><button class="w-full sm:w-auto px-8 py-4 rounded-xl text-white font-label-lg text-label-lg shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-space-sm group" style="background: linear-gradient(135deg, rgb(124, 58, 237) 0%, rgb(234, 88, 12) 100%); box-shadow: rgba(124, 58, 237, 0.4) 0px 10px 25px -5px;"><span class="">Lanzar mi Tienda Gratis</span></button><button class="w-full sm:w-auto px-6 py-4 rounded-xl text-on-surface font-label-lg text-label-lg transition-all flex items-center justify-center gap-space-sm shadow-md" id="open-demo-modal" style="background-color: rgb(248, 250, 252); border: 1px solid rgb(203, 213, 225); color: rgb(9, 13, 22);"><span class="material-symbols-outlined text-[22px]" style="font-variation-settings: &quot;FILL&quot; 1; color: rgb(234, 88, 12) !important;">play_circle</span><span class="">Ver Demo en Vivo (3 min)</span></button></div>
+  </div>
+  <!-- RIGHT COLUMN: 3D MASCOT IMAGE -->
+  <div class="lg:col-span-5 flex items-center justify-center relative">
+    <div class="relative w-full max-w-[420px] flex items-center justify-center">
+      <img class="w-full h-auto object-contain mx-auto transition-transform duration-300 hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg_HbCYCurLLkep-n5NDtU9JpcEt3dOOkj6rihCAPy9xgBMI4oEj5CJqUIb026jlTRfJ28JVSCJ82CBqqLPuem4uNIL1booPQEokQvswBoF3P9emuVM5MsHHt8c5zMfE_UcSOB9vmctL1qxBv62e1Nv-XqKJnA1gSpNyJtz5f9wHyMpvn8zmUgOOgZlAQLqzcHVKgOdFlq_EHhPEj4AVPTIg69jSUFD6WQVNLDRJl2VUERK2j8AfYyqQ" alt="Mascota GrowUp Space" style="mix-blend-mode: multiply; filter: contrast(1.05); background: transparent;">
+    </div>
+  </div></div>
+<!-- TRUST STATS STRIP -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl pt-4 pb-12 mx-auto" style="--card-bg: #ffffff;"><div class="bg-surface-container-low/80 backdrop-blur-md rounded-2xl p-space-md flex flex-col items-center" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 6px -1px;"><span class="font-headline-lg text-headline-lg font-sansansxtrabold" style="color: rgb(124, 58, 237) !important;">+500K</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider mt-1">Pedidos Procesados</span></div><div class="bg-surface-container-low/80 backdrop-blur-md rounded-2xl p-space-md flex flex-col items-center" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 6px -1px;"><span class="font-headline-lg text-headline-lg font-sansansxtrabold" style="color: rgb(234, 88, 12) !important;">99.8%</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider mt-1">Aprobación Wompi</span></div><div class="bg-surface-container-low/80 backdrop-blur-md rounded-2xl p-space-md flex flex-col items-center" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 6px -1px;"><span class="font-headline-lg text-headline-lg font-sansansxtrabold" style="color: rgb(147, 51, 234) !important;">5.2x</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider mt-1">ROAS Promedio OpenCode</span></div><div class="bg-surface-container-low/80 backdrop-blur-md rounded-2xl p-space-md flex flex-col items-center" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 6px -1px;"><span class="font-headline-lg text-headline-lg font-sansansxtrabold" style="color: rgb(249, 115, 22) !important;">&lt;480ms</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider mt-1">Latencia Global Edge</span></div></div>
+<!-- FUTURISTIC 3D PERSPECTIVE DASHBOARD MOCKUP -->
+<div class="w-full max-w-6xl mt-4 relative mx-auto">
+  <!-- Glow Underlay -->
+  <div class="absolute -inset-1 bg-gradient-to-r from-primary-container via-secondary-container to-tertiary-container rounded-3xl blur-2xl opacity-30"></div>
+</div></section>
+<!-- SECCIÓN CAPACIDADES CORE (4 HIGH-PERFORMANCE CARDS) -->
+<section class="w-full max-w-7xl mx-auto px-space-md lg:px-space-lg py-20">
+<div class="w-full max-w-5xl mx-auto mb-16 flex flex-col md:flex-row items-center justify-center gap-6 lg:gap-8"><div class="flex-shrink-0 flex items-center justify-center relative" style="background: transparent;"><img class="h-44 lg:h-56 w-auto object-contain transition-transform duration-300 hover:scale-105 pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtoM8PKpbqeT2IkfmPpiHlrWBjRnuZz-SP_OTeC4k2bvgwwM0E9CBkSE4UAmdIk819NY64y5KUidHfeBZfuFvqBIoXvoswFzQpUPoSqfEj5ecCA_KL6xHTX3ZkZQDIncxDj1FPpgnmRoYoKFah3QkkTtXgpHw-00JW5H0grmF4BYHt8cx96C1pOD9p3pceZm4l_7ktAjvJoSXcIXw33s0a0cTKzKdYQ13q0wfjzq7BcCrdHrz7-QScRQ" alt="Mascota GrowUp Infraestructura" style="mix-blend-mode: multiply; filter: contrast(1.05); background: transparent;"></div><div class="flex-1 flex flex-col items-center md:items-start text-center md:text-left"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm mb-4" style="background-color: rgb(250, 245, 255); color: rgb(124, 58, 237); border: 1px solid rgb(233, 213, 255);"><span class="material-symbols-outlined text-[16px]">layers</span>INFRAESTRUCTURA DE SEXTA GENERACIÓN</div><h2 class="font-headline-xl text-headline-xl-mobile lg:text-headline-xl text-on-surface font-sansansxtrabold tracking-tight">Todo lo que necesitas para escalar de $1K a $100K/mes sin fricción</h2><p class="font-sansansody-md text-body-md text-on-surface-variant mt-4 max-w-2xl">Eliminamos las 15 herramientas fragmentadas: unificamos pasarela de cobro, motor publicitario autónomo y alianzas de catálogo en un solo núcleo.</p></div></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg"><!-- TARJETA 1: Wompi Gateway Integrado --><div class="group relative bg-surface-container-low rounded-3xl p-space-lg lg:p-8 hover:bg-surface-container transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-2xl" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 25px -5px;"><div class="absolute top-0 right-0 w-44 h-44 rounded-full blur-3xl pointer-events-none transition-all" style="background-color: rgba(234, 88, 12, 0.1);"></div><div class=""><div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" style="background-color: rgba(234, 88, 12, 0.15); color: #ea580c;"><span class="material-symbols-outlined text-[32px]">credit_card</span></div><span class="font-label-sm text-label-sm uppercase tracking-widest font-sansansold" style="color: rgb(234, 88, 12);">Pasarela Oficial Wompi</span><h3 class="font-headline-md text-headline-md text-on-surface font-sansansold mt-2 mb-4">Wompi Gateway Integrado al 100%</h3><p class="font-sansansody-md text-body-md text-on-surface-variant leading-relaxed">Acepta cobros directos sin redirecciones lentas con tarjetas nacionales e internacionales, PSE con liquidación casi instantánea y transferencias Bancolombia / Nequi en 1 solo paso con tasa de aprobación del <span class="font-sansansemibold" style="color: rgb(234, 88, 12);">98.7%</span>.</p></div><div class="mt-8 pt-6 -mx-space-lg -mb-space-lg lg:-mx-8 lg:-mb-8 p-6 flex items-center justify-between" style="background-color: rgb(248, 250, 252); border-top: 1px solid rgb(226, 232, 240);"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[22px]" style="color: rgb(234, 88, 12);">verified</span><span class="font-label-md text-label-md text-on-surface">Cero comisiones ocultas • Depósito directo</span></div><span class="font-label-sm text-label-sm text-outline">Checkout Nativo</span></div></div><!-- TARJETA 2: Meta Ads Studio AI --><div class="group relative bg-surface-container-low rounded-3xl p-space-lg lg:p-8 hover:bg-surface-container transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-2xl" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 25px -5px;"><div class="absolute top-0 right-0 w-44 h-44 rounded-full blur-3xl pointer-events-none transition-all" style="background-color: rgba(124, 58, 237, 0.1);"></div><div class=""><div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" style="background-color: rgba(124, 58, 237, 0.15); color: #7c3aed;"><span class="material-symbols-outlined text-[32px]">smart_toy</span></div><span class="font-label-sm text-label-sm uppercase tracking-widest font-sansansold" style="color: rgb(124, 58, 237);">OpenCode Engine v2.5</span><h3 class="font-headline-md text-headline-md text-on-surface font-sansansold mt-2 mb-4">Agentes IA con OpenCode</h3><p class="font-sansansody-md text-body-md text-on-surface-variant leading-relaxed">Crea y orquesta agentes de IA conversacionales con OpenCode en 3 clics. Entrénalos con tu catálogo de productos, automatiza ventas por WhatsApp y cierra transacciones nativas con Wompi Gateway.</p></div><div class="mt-8 pt-6 -mx-space-lg -mb-space-lg lg:-mx-8 lg:-mb-8 p-6 flex items-center justify-between" style="background-color: rgb(248, 250, 252); border-top: 1px solid rgb(226, 232, 240);"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[22px]" style="color: rgb(124, 58, 237);">auto_awesome</span><span class="font-label-md text-label-md text-on-surface">Resolución 94% autónoma</span></div><span class="font-label-sm text-label-sm text-outline">OpenCode Suite</span></div></div><!-- TARJETA 3: Red Aliada & Cross-Selling --><div class="group relative bg-surface-container-low rounded-3xl p-space-lg lg:p-8 hover:bg-surface-container transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-2xl" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 25px -5px;"><div class="absolute top-0 right-0 w-44 h-44 rounded-full blur-3xl pointer-events-none transition-all" style="background-color: rgba(234, 88, 12, 0.1);"></div><div><div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" style="background-color: rgba(234, 88, 12, 0.15); color: #ea580c;"><span class="material-symbols-outlined text-[32px]">hub</span></div><span class="font-label-sm text-label-sm uppercase tracking-widest font-sansansold" style="color: rgb(234, 88, 12);">Alianzas DTC B2B</span><h3 class="font-headline-md text-headline-md text-on-surface font-sansansold mt-2 mb-4">Red Aliada &amp; Cross-Selling B2B</h3><p class="font-sansansody-md text-body-md text-on-surface-variant leading-relaxed">Multiplica tu catálogo sin comprar stock. Conéctate con marcas aliadas en la red GrowUp Store, ofrece sus productos como complementarios en tu post-compra y gana comisiones automáticas sin tocar la logística de envío.</p></div><div class="mt-8 pt-6 -mx-space-lg -mb-space-lg lg:-mx-8 lg:-mb-8 p-6 flex items-center justify-between" style="background-color: rgb(248, 250, 252); border-top: 1px solid rgb(226, 232, 240);"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[22px]" style="color: rgb(234, 88, 12);">handshake</span><span class="font-label-md text-label-md text-on-surface">División de ingresos instantánea</span></div><span class="font-label-sm text-label-sm text-outline">+140 Marcas</span></div></div><!-- TARJETA 4: Infraestructura Cloudflare Edge --><div class="group relative bg-surface-container-low rounded-3xl p-space-lg lg:p-8 hover:bg-surface-container transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-lg hover:shadow-2xl" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 25px -5px;"><div class="absolute top-0 right-0 w-44 h-44 rounded-full blur-3xl pointer-events-none transition-all" style="background-color: rgba(124, 58, 237, 0.1);"></div><div><div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" style="background-color: rgba(124, 58, 237, 0.15); color: #7c3aed;"><span class="material-symbols-outlined text-[32px]">dns</span></div><span class="font-label-sm text-label-sm uppercase tracking-widest font-sansansold" style="color: rgb(124, 58, 237);">Infraestructura Global</span><h3 class="font-headline-md text-headline-md text-on-surface font-sansansold mt-2 mb-4">Cloudflare Edge &amp; Dominios .com</h3><p class="font-sansansody-md text-body-md text-on-surface-variant leading-relaxed">Velocidad sub-500ms servida desde más de 300 puntos de presencia mundial. Conecta tu propio dominio .com con SSL automático nivel militar, protección anti-DDoS y redundancia del 99.99% garantizada por SLA.</p></div><div class="mt-8 pt-6 -mx-space-lg -mb-space-lg lg:-mx-8 lg:-mb-8 p-6 flex items-center justify-between" style="background-color: rgb(248, 250, 252); border-top: 1px solid rgb(226, 232, 240);"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[22px]" style="color: rgb(234, 88, 12);">speed</span><span class="font-label-md text-label-md text-on-surface">Google Core Web Vitals 99/100</span></div><span class="font-label-sm text-label-sm text-outline">SSL Gratuito</span></div></div></div>
+</section>
+<!-- SECCIÓN INTERACTIVA DE PRECIOS TRANSPARENTES -->
+<section class="w-full max-w-7xl mx-auto px-space-md lg:px-space-lg py-20">
+<div class="text-center max-w-3xl mx-auto mb-14"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full font-label-sm text-label-sm mb-4" style="background-color: rgb(255, 247, 237); color: rgb(234, 88, 12); border: 1px solid rgb(255, 237, 213);"><span class="material-symbols-outlined text-[16px]">sell</span>PLANES SIN LETRA PEQUEÑA</div><h2 class="font-headline-xl text-headline-xl-mobile lg:text-headline-xl text-on-surface font-sansansxtrabold tracking-tight">Escala a tu propio ritmo con inversión predecible</h2><p class="font-sansansody-md text-body-md text-on-surface-variant mt-4">Prueba gratis por 14 días. Sin tarjeta de crédito obligatoria para iniciar.</p><!-- TOGGLE FACTURACIÓN --><div class="mt-8 inline-flex items-center p-1.5 rounded-2xl shadow-inner" style="background-color: rgb(241, 245, 249); border: 1px solid rgb(226, 232, 240);"><button class="px-5 py-2 rounded-xl text-label-md font-label-md transition-all font-sansansold" id="btn-billing-monthly" style="background-color: rgb(255, 255, 255); color: rgb(9, 13, 22); box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px;">Facturación Mensual</button><button class="px-5 py-2 rounded-xl text-label-md font-label-md transition-all font-sansansold text-on-surface-variant hover:text-on-surface flex items-center gap-2" id="btn-billing-annual"><span class="">Facturación Anual</span><span class="text-label-sm font-label-sm px-2 py-0.5 rounded-full" style="background-color: rgb(255, 237, 213); color: rgb(234, 88, 12); font-weight: 700;">Ahorra 25% + 2m Gratis</span></button></div></div>
+<!-- TARJETAS DE PRECIOS GRID -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg items-stretch relative">
+<!-- PLAN 1: Starter -->
+<div class="bg-surface-container-low rounded-3xl p-space-lg flex flex-col justify-between shadow-md hover:shadow-xl transition-all relative" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 25px -5px;"><div class=""><div class="flex items-center justify-between mb-4"><span class="font-title-md text-title-md font-sansansold text-on-surface">Starter</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Emergentes</span></div><p class="font-sansansody-md text-body-md text-on-surface-variant mb-6">Para tiendas que están lanzando su primer catálogo digital validado.</p><div class="flex flex-col mb-8"><div class="flex items-baseline gap-2"><span class="font-display-lg text-display-lg text-on-surface font-sansanslack plan-price-val" data-annual="89.000" data-annual-usd="21" data-monthly="119.000" data-monthly-usd="29" style="font-sansansamily: Burbank, &quot;Burbank Big Condensed&quot;, Fredoka, sans-serif;">$119.000</span><span class="font-label-md text-label-md text-outline font-sansansold uppercase tracking-wider">COP / mes</span></div><div class="flex items-center gap-1.5 mt-1"><span class="inline-flex items-center px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-sansansemibold plan-usd-equivalent" style="border: 1px solid rgb(226, 232, 240);">~$29 USD / mes</span><span class="text-label-sm text-secondary font-sansansemibold">Liquidación Wompi PSE</span></div></div><div class="space-y-4"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Hasta 100 productos activos</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Wompi Gateway nativo (Tarjetas, PSE, Nequi)</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Panel de métricas y ventas básicas</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">SSL y hosting ilimitado</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-outline text-[20px]">remove</span><span class="font-sansansody-md text-body-md text-outline line-through">Agentes IA OpenCode</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-outline text-[20px]">remove</span><span class="font-sansansody-md text-body-md text-outline line-through">Red Aliada de marcas</span></div></div></div><div class="mt-10"><button class="w-full py-3.5 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-lg text-label-lg font-sansansold transition-all" style="background-color: rgb(248, 250, 252); border: 1px solid rgb(203, 213, 225); color: rgb(9, 13, 22);" onclick="openPlanDetailModal(0)">Comenzar con Starter</button></div></div>
+<!-- PLAN 2: Scale Pro (DESTACADO) -->
+<div class="relative bg-surface-container rounded-3xl p-space-lg flex flex-col justify-between shadow-2xl lg:-translate-y-4" style="background-color: rgb(255, 255, 255); border: 2px solid rgb(124, 58, 237); box-shadow: rgba(124, 58, 237, 0.25) 0px 20px 35px -5px;"><div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-white font-label-sm text-label-sm uppercase font-sansansxtrabold tracking-wider shadow-lg" style="background: linear-gradient(90deg, rgb(124, 58, 237), rgb(234, 88, 12));">MÁS POPULAR - RECOMENDADO</div><div class=""><div class="flex items-center justify-between mb-4 mt-2"><span class="font-title-md text-title-md font-sansansold" style="color: rgb(124, 58, 237);">Scale Pro</span><span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full font-sansansold" style="background-color: rgb(243, 232, 255); color: rgb(124, 58, 237);">Top Ventas</span></div><p class="font-sansansody-md text-body-md text-on-surface-variant mb-6">Para marcas DTC en aceleración que automatizan con Agentes IA.</p><div class="flex flex-col mb-8"><div class="flex items-baseline gap-2"><span class="font-display-lg text-display-lg font-sansanslack plan-price-val" data-annual="239.000" data-annual-usd="59" data-monthly="319.000" data-monthly-usd="79" style="font-sansansamily: Burbank, Fredoka, sans-serif; color: rgb(124, 58, 237);">$319.000</span><span class="font-label-md text-label-md text-outline font-sansansold uppercase tracking-wider">COP / mes</span></div><div class="flex items-center gap-1.5 mt-1"><span class="inline-flex items-center px-2 py-0.5 rounded-md font-label-sm text-label-sm font-sansansemibold plan-usd-equivalent" style="background-color: rgb(250, 245, 255); color: rgb(124, 58, 237); border: 1px solid rgb(233, 213, 255);">~$79 USD / mes</span><span class="text-label-sm font-sansansemibold" style="color: rgb(234, 88, 12);">Ahorro 25% facturado anual</span></div></div><div class="space-y-4"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface font-sansansemibold">Productos ilimitados</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Agentes IA OpenCode (3 Clics Deploy)</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Acceso completo a Red Aliada de Cross-Sell</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Wompi Gateway + Dominio .com gratis</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Webhooks avanzados y API de inventario</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Soporte prioritario WhatsApp 24/7</span></div></div></div><div class="mt-10"><button class="w-full py-4 rounded-xl text-white font-label-lg text-label-lg font-sansansold shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2" onclick="openPlanDetailModal(1)" style="background: linear-gradient(135deg, rgb(124, 58, 237) 0%, rgb(234, 88, 12) 100%); box-shadow: rgba(124, 58, 237, 0.4) 0px 10px 25px -5px;"><span class="">Iniciar 14 Días Gratis de Pro</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span></button></div></div>
+<!-- PLAN 3: Enterprise DTC -->
+<div class="bg-surface-container-low rounded-3xl p-space-lg flex flex-col justify-between shadow-md hover:shadow-xl transition-all relative" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 25px -5px;"><div class=""><div class="flex items-center justify-between mb-4"><span class="font-title-md text-title-md font-sansansold text-on-surface">Enterprise DTC</span><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Alto Volumen</span></div><p class="font-sansansody-md text-body-md text-on-surface-variant mb-6">Para grupos multimarca y operaciones de comercio de escala nacional.</p><div class="flex flex-col mb-8"><div class="flex items-baseline gap-2"><span class="font-display-lg text-display-lg text-on-surface font-sansanslack plan-price-val" data-annual="599.000" data-annual-usd="149" data-monthly="799.000" data-monthly-usd="199" style="font-sansansamily: Burbank, &quot;Burbank Big Condensed&quot;, Fredoka, sans-serif;">$799.000</span><span class="font-label-md text-label-md text-outline font-sansansold uppercase tracking-wider">COP / mes</span></div><div class="flex items-center gap-1.5 mt-1"><span class="inline-flex items-center px-2 py-0.5 rounded-md bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-sansansemibold plan-usd-equivalent" style="border: 1px solid rgb(226, 232, 240);">~$199 USD / mes</span><span class="text-label-sm text-secondary font-sansansemibold">Facturación DIAN Colombia</span></div></div><div class="space-y-4"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Múltiples tiendas (Multi-tenant hasta 5)</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Agentes IA OpenCode dedicados con servidor privado</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Gerente de cuenta IA &amp; Wompi asignado</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">Tasas preferenciales de procesamiento Wompi</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">API personalizada e integración ERP directa</span></div><div class="flex items-center gap-3"><span class="material-symbols-outlined text-[20px]" style="color: rgb(234, 88, 12);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface">SLA 99.99% con contrato empresarial</span></div></div></div><div class="mt-10"><button class="w-full py-3.5 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-lg text-label-lg font-sansansold transition-all" style="background-color: rgb(248, 250, 252); border: 1px solid rgb(203, 213, 225); color: rgb(9, 13, 22);" onclick="openPlanDetailModal(5)">Hablar con Especialista</button></div></div>
+</div>
+</section>
+<!-- TESTIMONIOS Y CASOS DE ÉXITO DE MARCAS REALES -->
+<section class="w-full max-w-7xl mx-auto px-space-md lg:px-space-lg py-20">
+<div class="bg-surface-container-low rounded-3xl p-space-lg lg:p-14 shadow-xl relative overflow-hidden" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 15px 30px -5px;"><div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full blur-3xl pointer-events-none" style="background-color: rgba(234, 88, 12, 0.12);"></div><div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center"><!-- Quote y Métricas --><div class="lg:col-span-8 flex flex-col justify-between"><div class="inline-flex items-center gap-2 font-label-sm text-label-sm uppercase tracking-widest font-sansansold mb-4" style="color: rgb(234, 88, 12);"><span class="material-symbols-outlined text-[18px]">verified</span> CASO DE ÉXITO DTC VERIFICADO</div><blockquote class="font-headline-lg text-headline-xl-mobile lg:text-headline-lg text-on-surface font-sansansemibold leading-snug mb-8">“Duplicamos nuestro ROAS a <span class="font-sansansold" style="color: rgb(234, 88, 12);">5.2x</span> en el primer mes de sincronización de catálogo con Agentes IA OpenCode. Lo que antes nos tomaba 4 días entre atender chats y conciliar pagos con Wompi, hoy se ejecuta automáticamente en minutos."</blockquote><div class="flex items-center gap-4"><div class="w-14 h-14 rounded-2xl overflow-hidden bg-surface-container-high flex-shrink-0"><img class="w-full h-full object-cover" data-alt="Close up professional portrait of a confident Latin American female DTC brand founder wearing modern casual blazer in a bright warm studio office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASzz2khlf6jPWxmJqRnaLPEmzbY65Y1lW2m6HDEXzvHzXPLejXg3jSnvUoa5w9Z2Rj-cdpeVNNvA8BBFXACTd0kmF8QoVePGbd0-k4nywIcPuJYqHQ0nUrp7CFEtIMnB_iKZ0WqmpfCjv11w1JjKjHJikLS1r6LsPsSa9CdNStimWAPGwJesrspLPbCl5hzuLIzjoLi_BsA6yxK-9rE-I6y-Vz0qYy1_0t4-Ew4uM0piBBtkokFvAzbw"></div><div><p class="font-title-md text-title-md font-sansansold text-on-surface">Valentina Restrepo</p><p class="font-label-md text-label-md text-outline">Founder &amp; CMO, <span class="font-sansansemibold" style="color: rgb(124, 58, 237);">Aura Activewear</span> (+$120k USD/mes)</p></div></div></div><!-- Metric Highlight Callout --><div class="lg:col-span-4 bg-surface-container-lowest p-space-lg rounded-2xl flex flex-col gap-space-md shadow-sm" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(226, 232, 240);"><div class="p-4 rounded-xl shadow-sm" style="background-color: #ffffff; border: 1px solid #e2e8f0;"><span class="font-label-sm text-label-sm" style="color: rgb(100, 116, 139);">Incremento en Conversión</span><div class="flex items-baseline justify-between mt-1"><span class="font-headline-md text-headline-md font-sansanslack" style="color: rgb(234, 88, 12);">+142%</span><span class="font-label-sm text-label-sm font-sansansemibold" style="color: rgb(234, 88, 12);">Checkout sin fricción</span></div></div><div class="p-4 rounded-xl shadow-sm" style="background-color: #ffffff; border: 1px solid #e2e8f0;"><span class="font-label-sm text-label-sm" style="color: rgb(100, 116, 139);">Aprobación Wompi PSE</span><div class="flex items-baseline justify-between mt-1"><span class="font-headline-md text-headline-md font-sansanslack" style="color: rgb(124, 58, 237);">99.4%</span><span class="font-label-sm text-label-sm font-sansansemibold" style="color: rgb(124, 58, 237);">Cero carritos caídos</span></div></div><div class="p-4 rounded-xl shadow-sm" style="background-color: #ffffff; border: 1px solid #e2e8f0;"><span class="font-label-sm text-label-sm" style="color: rgb(100, 116, 139);">Ventas Cruzadas Red Aliada</span><div class="flex items-baseline justify-between mt-1"><span class="font-headline-md text-headline-md font-sansanslack" style="color: rgb(234, 88, 12);">+$18,400</span><span class="font-label-sm text-label-sm font-sansansemibold" style="color: rgb(234, 88, 12);">Ganancia pura</span></div></div></div></div></div>
+</section>
+<!-- BANNER CTA FINAL -->
+<section class="w-full max-w-7xl mx-auto px-space-md lg:px-space-lg pb-20">
+<div class="relative bg-surface rounded-3xl p-space-lg lg:p-16 text-center overflow-hidden shadow-xl border border-outline-variant/30" style="border: 1px solid rgb(226, 232, 240); box-shadow: rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.03) 0px 8px 10px -6px; background-color: rgb(255, 255, 255) !important;"><div class="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full blur-[100px] pointer-events-none" style="background-color: rgba(124, 58, 237, 0.15);"></div><h2 class="font-headline-xl text-headline-xl-mobile lg:text-headline-xl text-on-surface font-sansanslack max-w-3xl mx-auto mb-4 tracking-tight" style="color: rgb(15, 23, 42) !important;">¿Listo para construir la infraestructura comercial del futuro?</h2><p class="font-sansansody-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto mb-10" style="color: rgb(71, 85, 105) !important;">Empieza tu prueba de 14 días hoy mismo. Conecta tu cuenta Wompi en 2 minutos y lanza tu primer anuncio en Meta antes de que termine el día.</p><div class="flex flex-col sm:flex-row items-center justify-center gap-4"><button class="px-8 py-4 rounded-xl text-white font-label-lg text-label-lg font-sansansold shadow-xl hover:scale-105 active:scale-95 transition-all" style="background: linear-gradient(135deg, rgb(124, 58, 237) 0%, rgb(234, 88, 12) 100%); box-shadow: rgba(124, 58, 237, 0.4) 0px 10px 25px -5px;">Crear Tienda Gratis Ahora</button><button class="px-8 py-4 rounded-xl bg-surface-container-lowest text-on-surface font-label-lg text-label-lg font-sansansold hover:bg-surface-bright transition-all" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(203, 213, 225); color: rgb(30, 41, 59);">Agendar Sesión con un Ingeniero</button></div><div class="mt-8 flex items-center justify-center gap-6 text-label-sm font-label-sm" style="color: rgb(71, 85, 105) !important;"><span class="flex items-center gap-1.5" style="color: rgb(71, 85, 105);"><span class="material-symbols-outlined text-[16px]" style="color: rgb(234, 88, 12);">check</span> Sin tarjeta requerida</span><span class="flex items-center gap-1.5" style="color: rgb(71, 85, 105);"><span class="material-symbols-outlined text-[16px]" style="color: rgb(234, 88, 12);">check</span> Migración de catálogo gratis</span><span class="flex items-center gap-1.5" style="color: rgb(71, 85, 105);"><span class="material-symbols-outlined text-[16px]" style="color: rgb(234, 88, 12);">check</span> Cancelación en 1 clic</span></div></div>
+</section>
+<!-- MODAL DE DEMO EN VIVO (MICROINTERACCIÓN) -->
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-md hidden items-center justify-center p-4" id="demo-modal">
+<div class="bg-surface-container rounded-3xl max-w-3xl w-full p-6 shadow-2xl relative">
+<div class="flex items-center justify-between pb-4 border-b border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">smart_display</span>
+<span class="font-title-md text-title-md font-sansansold text-on-surface">GrowUp Store Interactive Tour</span>
+</div>
+<button class="p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface" id="close-demo-modal">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="mt-4 rounded-2xl bg-surface-container-lowest overflow-hidden aspect-video flex flex-col items-center justify-center p-8 text-center relative group">
+<div class="w-16 h-16 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: &quot;FILL&quot; 1;">play_arrow</span>
+</div>
+<p class="font-title-md text-title-md font-sansansemibold text-on-surface mt-4">Paseo guiado por el motor de ventas y Ads AI</p>
+<p class="font-label-sm text-label-sm text-outline mt-1">Conoce cómo se sincroniza Wompi, Agentes IA OpenCode y la Red Aliada en 180 segundos</p>
+</div>
+<div class="mt-4 flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Servidores operativos al 100%
+        </span>
+<button class="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-sansansold">
+          Probar en mi cuenta
+        </button>
+</div>
+</div>
+</div><div class="fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-md hidden items-center justify-center p-4" id="plan-detail-modal" style="background-color: rgba(9, 13, 22, 0.65); backdrop-filter: blur(8px); display: none;"><div class="bg-surface-container rounded-3xl max-w-2xl w-full p-6 lg:p-8 shadow-2xl relative transform transition-all duration-300" style="background-color: #ffffff; border: 1px solid #e2e8f0; color: #090d16; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);"><div class="flex items-start justify-between pb-4 border-b border-outline-variant/20" style="border-bottom: 1px solid #e2e8f0;"><div><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/15 text-primary-fixed-variant font-label-sm text-label-sm font-sansansold mb-2" id="modal-plan-tag" style="background-color: rgb(250, 245, 255); color: rgb(124, 58, 237); border: 1px solid rgb(233, 213, 255);">PASARELA OFICIAL WOMPI</div><h3 class="font-headline-lg text-headline-lg font-sansansold tracking-tight text-on-surface" id="modal-plan-title" style="color: rgb(9, 13, 22); font-sansansamily: Burbank, &quot;Burbank Big Condensed&quot;, Fredoka, sans-serif;">Wompi Gateway Nativo</h3><p class="font-sansansody-md text-body-md text-on-surface-variant mt-1" id="modal-plan-detail" style="color: rgb(71, 85, 105);">0% comisiones ocultas • PSE, Nequi y Tarjetas 3DS 2.0</p></div><button class="p-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface transition-all" id="close-plan-detail-modal" type="button" style="background-color: rgb(241, 245, 249); border: 1px solid rgb(226, 232, 240); color: rgb(9, 13, 22);"><span class="material-symbols-outlined text-[20px]">close</span></button></div><div class="py-5"><div class="flex items-baseline gap-2"><span class="font-display-lg text-display-lg font-sansansxtrabold text-on-surface" id="modal-plan-price" style="color: rgb(9, 13, 22); font-sansansamily: Burbank, &quot;Burbank Big Condensed&quot;, Fredoka, sans-serif;">$29</span><span class="font-title-md text-title-md text-outline" id="modal-plan-sub" style="color: rgb(100, 116, 139);">/ mes</span><span class="ml-4 px-3 py-1 rounded-lg bg-secondary-container/15 text-secondary font-label-md font-sansansold text-label-md" id="modal-plan-cop" style="background-color: rgb(255, 247, 237); color: rgb(234, 88, 12); border: 1px solid rgb(255, 237, 213);">$119.000 COP / mes</span></div><div class="mt-5"><h4 class="font-label-md text-label-md font-sansansold uppercase tracking-wider text-outline mb-3" style="color: rgb(100, 116, 139);">Capacidades y Beneficios Incluidos:</h4><ul class="space-y-3" id="modal-plan-features"><li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0 mt-0.5" style="color: rgb(16, 185, 129);">check_circle</span><span class="font-sansansody-md text-body-md text-on-surface" style="color: rgb(9, 13, 22);">Liquidación inmediata de fondos en cuentas bancarias colombianas</span></li></ul></div></div><div class="pt-4 border-t border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-3" style="border-top: 1px solid #e2e8f0;"><div class="flex items-center gap-2 text-label-sm text-secondary font-sansansemibold"><span class="material-symbols-outlined text-[18px] text-secondary">lock</span><span class="">Checkout Seguro Wompi PCI-DSS Nivel 1</span></div><div class="flex items-center gap-3 w-full sm:w-auto"><button class="w-full sm:w-auto px-5 py-3 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md font-sansansold transition-all" id="modal-try-free-btn" type="button" style="background-color: rgb(248, 250, 252); border: 1px solid rgb(203, 213, 225); color: rgb(9, 13, 22);">Prueba 14 Días Gratis</button><button class="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-primary-container to-secondary-container text-white font-label-md font-sansansold shadow-lg shadow-primary-container/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="modal-bold-cta-btn" type="button" style="background: linear-gradient(to right, rgb(124, 58, 237), rgb(234, 88, 12)); color: rgb(255, 255, 255); box-shadow: rgba(124, 58, 237, 0.35) 0px 10px 20px -5px;"><span class="material-symbols-outlined text-[20px]">payment</span><span id="modal-bold-btn-text" class="">Pagar con Wompi Checkout</span></button></div></div></div></div>
+<!-- INTERACTION SCRIPT FOR PRICING & MODAL -->
+<script>
+    // Modal Interaction
+    const openDemoBtn = document.getElementById('open-demo-modal');
+    const closeDemoBtn = document.getElementById('close-demo-modal');
+    const demoModal = document.getElementById('demo-modal');
+
+    if (openDemoBtn && demoModal) {
+      openDemoBtn.addEventListener('click', () => {
+        demoModal.classList.remove('hidden');
+        demoModal.classList.add('flex');
+      });
+    }
+
+    if (closeDemoBtn && demoModal) {
+      closeDemoBtn.addEventListener('click', () => {
+        demoModal.classList.add('hidden');
+        demoModal.classList.remove('flex');
+      });
+    }
+
+    if (demoModal) {
+      demoModal.addEventListener('click', (e) => {
+        if (e.target === demoModal) {
+          demoModal.classList.add('hidden');
+          demoModal.classList.remove('flex');
+        }
+      });
+    }
+
+    // Billing Toggle Interaction
+    const btnMonthly = document.getElementById('btn-billing-monthly');
+    const btnAnnual = document.getElementById('btn-billing-annual');
+    const priceElements = document.querySelectorAll('.plan-price-val');
+
+    if (btnMonthly && btnAnnual) {
+      btnMonthly.addEventListener('click', () => {
+        btnMonthly.classList.add('bg-surface-container', 'text-on-surface');
+        btnMonthly.classList.remove('text-on-surface-variant');
+        btnAnnual.classList.remove('bg-surface-container', 'text-on-surface');
+        btnAnnual.classList.add('text-on-surface-variant');
+
+        priceElements.forEach(el => {
+          const val = el.getAttribute('data-monthly');
+          el.textContent = '$' + val;
+        });
+      });
+
+      btnAnnual.addEventListener('click', () => {
+        btnAnnual.classList.add('bg-surface-container', 'text-on-surface');
+        btnAnnual.classList.remove('text-on-surface-variant');
+        btnMonthly.classList.remove('bg-surface-container', 'text-on-surface');
+        btnMonthly.classList.add('text-on-surface-variant');
+
+        priceElements.forEach(el => {
+          const val = el.getAttribute('data-annual');
+          el.textContent = '$' + val;
+        });
+      });
+    }
+  </script>
+</div></main>
+<footer class="border-t border-outline-variant/30 bg-surface-container-lowest py-8 px-space-md text-center text-label-sm text-outline" style="background-color: rgb(255, 255, 255); border-top: 1px solid rgb(226, 232, 240); color: rgb(100, 116, 139);">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+<span class="">© 2025 GrowUp Store SaaS - Infraestructura E-commerce de Alto Rendimiento</span>
+<div class="flex items-center gap-6">
+<a class="hover:text-on-surface transition-colors" data-path="pasarelas-pagos" href="pasarelas-pagos-wompi.html">Integraciones Wompi</a>
+<a class="hover:text-on-surface transition-colors" data-path="dominio-marca" href="dominio-marca-infraestructura.html">SSL &amp; DNS</a>
+</div>
+</div>
+</footer><script>
+  window.openPlanDetailModal = function(index) {
+    const plans = window.GROWUP_PLANS || [
+      {
+        id: '01',
+        tag: 'PASARELA OFICIAL BOLD',
+        title: 'Wompi Gateway Nativo',
+        price: '$29',
+        sub: '/ mes',
+        copPrice: '$119.000 COP / mes',
+        detail: '0% comisiones ocultas • PSE, Nequi y Tarjetas 3DS 2.0 con 98.7% aprobación.',
+        features: [
+          'Liquidación inmediata de fondos en cuentas bancarias colombianas',
+          'Soporte nativo PSE, Nequi, Daviplata y Tarjetas de Crédito / Débito',
+          'Tokenización bancaria segura y prevención de fraudes 3DS 2.0',
+          'Facturación electrónica automática DIAN para Colombia'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($119.000 COP)'
+      },
+      {
+        id: '02',
+        tag: 'MÁS POPULAR • ADTECH',
+        title: 'Meta Ads Studio Express',
+        price: '$79',
+        sub: '/ mes',
+        copPrice: '$319.000 COP / mes',
+        detail: 'Lanzamiento de campañas en 3 clics con CAPI server-side y ROAS 5.2x promedio.',
+        features: [
+          'Meta Conversions API (CAPI) server-side con 0ms de pérdida de cookies',
+          'Generador de copys y creativos con IA especializada en e-commerce',
+          'Sincronización de catálogo en tiempo real con Instagram Shopping y Facebook Feed',
+          'Panel predictivo de ROAS y métricas de atribución verificadas'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($319.000 COP)'
+      },
+      {
+        id: '03',
+        tag: 'ECOSISTEMA B2B DTC',
+        title: 'Red Aliada & Cross-Sell',
+        price: '$99',
+        sub: '/ mes',
+        copPrice: '$399.000 COP / mes',
+        detail: 'Multiplica catálogo sin stock propio con +140 marcas aliadas verificadas.',
+        features: [
+          'Acceso directo al catálogo mayorista de +140 marcas aliadas',
+          'Cross-selling post-compra sin inversión en bodega previa',
+          'División de ingresos instantánea y transferencias bancarias automáticas',
+          'Gestión logística integrada con Servientrega, Envía y Coordinadora'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($399.000 COP)'
+      },
+      {
+        id: '04',
+        tag: 'INFRAESTRUCTURA EDGE',
+        title: 'Cloudflare Edge & SSL',
+        price: '$49',
+        sub: '/ mes',
+        copPrice: '$199.000 COP / mes',
+        detail: '300+ PoPs con latencia global <480ms y protección anti-DDoS SLA 99.99%.',
+        features: [
+          'Red CDN global de 300+ puntos de presencia en todo el mundo',
+          'Certificados SSL automáticos TLS 1.3 con renovación transparente',
+          'Mitigación ilimitada de ataques de denegación de servicio (DDoS)',
+          'Puntuación Core Web Vitals 99/100 garantizada en desktop y móvil'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($199.000 COP)'
+      },
+      {
+        id: '05',
+        tag: 'COBROS RECURRENTES',
+        title: 'Suscripciones & Token Wompi',
+        price: '$129',
+        sub: '/ mes',
+        copPrice: '$519.000 COP / mes',
+        detail: 'Tokenización bancaria segura y cobros periódicos para modelos recurrentes.',
+        features: [
+          'Motor de cobros periódicos automáticos para membresías y cajas mensuales',
+          'Recuperación inteligente de tarjetas vencidas o fondos insuficientes',
+          'Portal de autogestión de suscripciones para tus clientes finales',
+          'Tokens bancarios encriptados con estándar PCI-DSS Nivel 1'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($519.000 COP)'
+      },
+      {
+        id: '06',
+        tag: 'ESCALA CORPORATIVA',
+        title: 'Enterprise Multi-Store',
+        price: '$199',
+        sub: '/ mes',
+        copPrice: '$799.000 COP / mes',
+        detail: 'Multi-tenant hasta 5 tiendas, facturación DIAN, multi-bodega y CAPI dedicado.',
+        features: [
+          'Arquitectura multi-tenant para administrar hasta 5 marcas independientes',
+          'Gerente de cuenta AdTech y especialista en infraestructura asignado',
+          'Servidor dedicado privado con latencia de 0ms para API de pedidos',
+          'SLA 99.99% garantizado bajo contrato corporativo'
+        ],
+        boldCta: 'Pagar con Wompi Checkout ($799.000 COP)'
+      }
+    ];
+
+    const plan = plans[index] || plans[0];
+    const modal = document.getElementById('plan-detail-modal');
+    if (!modal) return;
+
+    document.getElementById('modal-plan-tag').textContent = plan.tag;
+    document.getElementById('modal-plan-title').textContent = plan.title;
+    document.getElementById('modal-plan-detail').textContent = plan.detail;
+    document.getElementById('modal-plan-price').textContent = plan.price;
+    document.getElementById('modal-plan-sub').textContent = plan.sub;
+    document.getElementById('modal-plan-cop').textContent = plan.copPrice;
+    document.getElementById('modal-bold-btn-text').textContent = plan.boldCta;
+
+    const featList = document.getElementById('modal-plan-features');
+    featList.innerHTML = plan.features.map(f => `
+      <li class="flex items-start gap-3">
+        <span class="material-symbols-outlined text-secondary text-[20px] flex-shrink-0 mt-0.5" style="color: #10b981;">check_circle</span>
+        <span class="font-sansansody-md text-body-md text-on-surface" style="color: #090d16;">${f}</span>
+      </li>
+    `).join('');
+
+    modal.style.display = 'flex';
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  };
+
+  const closePlanBtn = document.getElementById('close-plan-detail-modal');
+  const planModal = document.getElementById('plan-detail-modal');
+  if (closePlanBtn && planModal) {
+    closePlanBtn.addEventListener('click', () => {
+      planModal.style.display = 'none';
+      planModal.classList.add('hidden');
+      planModal.classList.remove('flex');
+    });
+  }
+  if (planModal) {
+    planModal.addEventListener('click', (e) => {
+      if (e.target === planModal) {
+        planModal.style.display = 'none';
+        planModal.classList.add('hidden');
+        planModal.classList.remove('flex');
+      }
+    });
+  }
+  const tryFreeBtn = document.getElementById('modal-try-free-btn');
+  if (tryFreeBtn && planModal) {
+    tryFreeBtn.addEventListener('click', () => {
+      alert('¡Iniciando tu prueba gratuita de 14 días sin costo!');
+      planModal.style.display = 'none';
+    });
+  }
+  const boldCtaBtn = document.getElementById('modal-bold-cta-btn');
+  if (boldCtaBtn && planModal) {
+    boldCtaBtn.addEventListener('click', () => {
+      alert('Redirigiendo a Pasarela Oficial Wompi Checkout encriptada con 0% comisiones.');
+    });
+  }
+</script>
+<script>
+    function toggleTheme() {
+      const html = document.getElementById('html-root');
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    (function() {
+      const html = document.getElementById('html-root');
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        html.classList.add('dark');
+      } else {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
+

@@ -1,0 +1,793 @@
+<!DOCTYPE html><html class="" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;font-sansansamily:'Outfit', sans-serif;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-surface-variant":"#94a3b8","on-tertiary-fixed":"#23005c","on-secondary":"#003824","surface":"#0f172a","background":"#0b1326","secondary-fixed-dim":"#4edea3","on-secondary-fixed-variant":"#005236","on-tertiary-fixed-variant":"#5516be","on-secondary-fixed":"#002113","on-surface":"#f1f5f9","surface-tint":"#818cf8","primary":"#6366f1","on-error":"#690005","inverse-primary":"#494bd6","on-tertiary-container":"#340080","tertiary-container":"#a078ff","on-error-container":"#ffdad6","error":"#f87171","secondary":"#10b981","on-tertiary":"#3c0091","on-primary-container":"#0d0096","on-primary-fixed":"#07006c","secondary-container":"#059669","surface-container-highest":"#334155","primary-fixed":"#e1e0ff","on-primary-fixed-variant":"#2f2ebe","error-container":"#7f1d1d","on-background":"#f1f5f9","outline-variant":"#475569","on-primary":"#ffffff","inverse-surface":"#f8fafc","surface-variant":"#1e293b","inverse-on-surface":"#1e293b","surface-container-low":"#141e33","surface-container-high":"#1e293b","surface-dim":"#0b1326","on-secondary-container":"#00311f","secondary-fixed":"#6ee7b7","outline":"#64748b","tertiary-fixed":"#e9ddff","surface-container-lowest":"#090f1d","surface-bright":"#334155","primary-fixed-dim":"#a5b4fc","tertiary":"#c084fc","tertiary-fixed-dim":"#d0bcff","surface-container":"#18233a","primary-container":"#4f46e5"},"borderRadius":{"DEFAULT":"0.5rem","lg":"0.75rem","xl":"1rem","2xl":"1.25rem","3xl":"1.75rem","full":"9999px"},"fontFamily":{"sans":["Outfit","Plus Jakarta Sans","sans-serif"],"body-md":["Outfit","sans-serif"],"headline-xl":["Outfit","sans-serif"],"headline-md":["Outfit","sans-serif"],"metric-numeral-lg":["Outfit","sans-serif"],"metric-numeral-md":["Outfit","sans-serif"]}}}}</script><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><style>@font-sansansace { font-sansansamily: 'Burbank'; src: local('Burbank Big Condensed Bold'), local('Burbank'), local('Fredoka-Wompi'), local('Fredoka'); font-weight: 400 800; } h1, h2, h3, .category-btn, th, label, .badge-burbank, [data-burbank] { font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif !important; } html, body, main, header, aside, .bg-pure-white { background-color: #ffffff !important; } .dark { background-color: #ffffff !important; color: #090d16 !important; }</style><style id="theme-palette-override">.bg-indigo-600, #btnOpenProductModal, .pagination-active { background-color: #7c3aed !important; } .hover\:bg-indigo-500:hover, #btnOpenProductModal:hover { background-color: #6d28d9 !important; } .text-indigo-600 { color: #7c3aed !important; } .text-indigo-500 { color: #8b5cf6 !important; } .bg-indigo-50 { background-color: #f5f3ff !important; } .border-indigo-100 { border-color: #ede9fe !important; } .shadow-indigo-600\/25, .shadow-indigo-600\/30 { box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.3) !important; } .bg-emerald-500 { background-color: #ea580c !important; } .text-emerald-600, .text-emerald-700, .text-emerald-800 { color: #ea580c !important; } .text-emerald-500 { color: #f97316 !important; } .bg-emerald-50 { background-color: #fff7ed !important; } .bg-emerald-100 { background-color: #ffedd5 !important; } .border-emerald-100, .border-emerald-200 { border-color: #fed7aa !important; } .category-btn.bg-slate-900, .category-btn.bg-indigo-600 { background-color: #7c3aed !important; color: #ffffff !important; } .badge-publicado { background-color: #f5f3ff !important; color: #7c3aed !important; border: 1px solid #ddd6fe !important; } .badge-stock-orange { background-color: #ffedd5 !important; color: #ea580c !important; border-color: #fed7aa !important; }</style><style id="global-font-sansansurbank">*, html, body, h1, h2, h3, h4, p, span, a, button, input, label, table, th, td, select, textarea, kbd { font-sansansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif !important; } .material-symbols-outlined { font-sansansamily: 'Material Symbols Outlined' !important; }</style><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;900&amp;family=Paytone+One&amp;display=swap" rel="stylesheet">
+<style id="growup-burbank-typography">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+<style class="">html, body { font-sansamily: 'Plus Jakarta Sans', 'Outfit', sans-serif; }</style>
+</head><body class="bg-white text-slate-900 transition-colors duration-300 font-sansansans antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200 shadow-sm transition-colors duration-300"><div class="h-16 w-full px-6 flex items-center justify-between gap-4"><div class="flex items-center gap-5 flex-shrink-0"><div class="flex items-center gap-2.5"><span class="font-sansansold text-lg tracking-tight text-slate-900 dark:text-white">GrowUp Space</span></div><div class="relative"><button class="flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-white hover:bg-slate-100 transition-colors text-slate-900 text-sm font-sansansemibold border border-slate-200 shadow-xs" type="button"><span class="material-symbols-outlined text-emerald-500 text-[18px]">store</span><span class="font-sansansemibold">Mi Tienda Deportiva</span><span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span></button></div></div><div class="hidden xl:flex items-center gap-4 flex-1 max-w-xl mx-4"><div class="relative w-full"><span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span><input class="w-full bg-white text-slate-900 placeholder:text-slate-400 pl-10 pr-16 py-2 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 transition-all" placeholder="Buscar pedidos, SKUs, campaÃ±as..." type="text"><kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-white dark:bg-slate-800 text-slate-400 rounded-lg text-[10px] font-sansansemibold uppercase tracking-wider border border-slate-200 dark:border-slate-700 shadow-xs">Cmd + K</kbd></div></div><div class="flex items-center gap-3 flex-shrink-0"><div class="hidden lg:flex items-center gap-2"><div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-xs text-slate-700 border border-slate-200"><span class="inline-flex rounded-full h-2 w-2 bg-emerald-500"></span><span class="text-slate-500 font-medium">Wompi&nbsp; Gateway:</span><span class="text-emerald-600 font-sansansemibold">Live</span></div></div><div class="flex items-center gap-2"><!-- Theme Toggle Button (Sol / Luna) --><button aria-label="Cambiar Tema" class="flex items-center justify-center p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-amber-300 transition-all shadow-xs border border-slate-200/60 dark:border-slate-700/60" id="themeToggleBtn" title="Cambiar tema claro/oscuro" type="button" style="transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;"><span class="material-symbols-outlined text-[20px]" id="themeToggleIcon">light_mode</span></button><button aria-label="Notificaciones" class="relative p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200/60 dark:border-slate-700/60" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-indigo-500 ring-2 ring-white dark:ring-slate-900"></span></button><div class="relative flex items-center pl-1"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-indigo-500/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANrUTdFYu_CnWLmDd3793SV0GU3RBGEt8Iek2CrREuY91Iwmn7Ren9hiOlGBCku0T2SwN0yZG6GNen9tIu_BoY5rkJV20n5XQWwSipM6H7wpHnTeIl7UcQskPGYOGQiCHKtyO_3L2Efe1ApzTkAQgHX2dXYIGtzdB5n-fmFWXvApW1Fi2kOBaDYgBVc7EbGbbf4xyPQDwfrsgNQPi1uILfddqLvkOk4WXKxr9Qhmq28flW4Sx9_GIg1A"><span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#141e33]"></span></div></div></div></div></header><aside class="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-slate-200 z-40 flex flex-col pt-16 transition-colors duration-300"><div class="flex-1 overflow-y-auto px-4 py-5 space-y-4"><div class="px-3 text-xs uppercase tracking-wider text-slate-400 dark:text-slate-500 font-sansansold">Operaciones Core</div><nav class="space-y-1"><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="">Dashboard</span></a><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl bg-indigo-50 dark:bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 font-sansansemibold text-sm transition-all" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="">CatÃ¡logo &amp; Inventario</span></a><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">receipt_long</span><span class="">Ã“rdenes &amp; Pedidos</span></a></nav><div class="pt-2 px-3 text-xs uppercase tracking-wider text-slate-400 dark:text-slate-500 font-sansansold">Crecimiento &amp; Canales</div><nav class="space-y-1"><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">campaign</span><span class="">Agentes IA (opencode)</span></a><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">hub</span><span class="">Red Aliada / Afiliados</span></a><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">web</span><span class="flex flex-col"><span class="font-sansansold">Store Builder</span><span class="text-[10px] text-slate-400 font-sansansans">Visual HTML &amp; WordPress</span></span></a></nav><div class="pt-2 px-3 text-xs uppercase tracking-wider text-slate-400 dark:text-slate-500 font-sansansold">Infraestructura</div><nav class="space-y-1"><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">account_balance_wallet</span><span class="">Pasarelas &amp; Pagos</span></a><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">language</span><span class="">Dominio &amp; Marca</span></a><a class="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-white transition-all font-medium text-sm" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="">Ajustes</span></a></nav></div><div class="p-3 bg-white border-t border-slate-200"><div class="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/50 shadow-xs"><div class="flex flex-col"><span class="text-xs text-slate-900 dark:text-white font-sansansold">Plan Scale Pro</span><span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">Wompi sync activo</span></div><span class="material-symbols-outlined text-indigo-500 text-[20px]">verified</span></div></div></aside><div class="pl-64"><main class="w-full min-h-screen pt-16 bg-white transition-colors duration-300"><div class="flex flex-col w-full">
+<div class="w-full px-8 py-7 flex flex-col gap-6">
+<!-- Top KPI & Meta Section -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2.5 mb-2">
+<span class="px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs uppercase tracking-wider font-sansansold flex items-center gap-1.5 border border-orange-200" style="background-color: rgb(255, 237, 213); color: rgb(194, 65, 12); border-color: rgb(254, 215, 170);"><span class="w-2 h-2 rounded-full animate-pulse" style="background-color: #ea580c;"></span>Sync Wompi &amp; Meta Live</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 font-medium">SKU Inventory Manager v2.4</span>
+</div>
+<h1 class="text-3xl lg:text-4xl text-[#090d16] tracking-tight font-sansansxtrabold" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900; letter-spacing: -0.02em;">CatÃ¡logo de Productos &amp; Inventario</h1>
+<p class="text-sm text-slate-600 mt-1 font-medium">Control unificado de stock fÃ­sico, sincronizaciÃ³n omnicanal y distribuciÃ³n en Red Aliada DTC.</p>
+</div>
+<!-- Action Cluster -->
+<div class="flex flex-wrap items-center gap-3">
+<button class="group flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white hover:bg-slate-50 transition-all text-slate-900 font-sansansemibold text-sm shadow-xs border border-slate-200" id="btnOpenStockModal" type="button" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900; transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;">
+<span class="material-symbols-outlined text-[19px] text-indigo-500 dark:text-indigo-400 group-hover:rotate-180 transition-transform" style="color: rgb(124, 58, 237);">tune</span>
+<span class="">Ajuste RÃ¡pido de Stock</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-500 transition-all font-sansansold text-sm shadow-lg shadow-indigo-600/25 hover:scale-[1.02] active:scale-95" id="btnOpenProductModal" type="button" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900; transition: 0.2s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; background-color: rgb(124, 58, 237); box-shadow: rgba(124, 58, 237, 0.35) 0px 10px 15px -3px;">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span class="">+ Crear Producto</span>
+</button>
+</div>
+</div>
+<!-- Metric Counter Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"><div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between transition-colors duration-300"><div class="flex flex-col"><span class="text-xs uppercase tracking-wider text-slate-500" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;">Productos Activos</span><span class="text-3xl text-[#090d16] mt-1" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;">148</span><span class="text-xs text-emerald-600 mt-1 flex items-center gap-1 font-sansansemibold" style="color: rgb(234, 88, 12);"><span class="material-symbols-outlined text-[15px]">arrow_upward</span> +6 este mes</span></div><div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600" style="background-color: rgb(245, 243, 255); border-color: rgb(221, 214, 254); color: rgb(124, 58, 237);"><span class="material-symbols-outlined text-[26px]">inventory_2</span></div></div><div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between transition-colors duration-300"><div class="flex flex-col"><span class="text-xs uppercase tracking-wider text-slate-500" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;">En Red Aliada</span><span class="text-3xl mt-1" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900; color: rgb(124, 58, 237);">12</span><span class="text-xs mt-1 flex items-center gap-1 font-sansansemibold" style="color: rgb(234, 88, 12);"><span class="material-symbols-outlined text-[15px]">share</span> +15.2% ventas afiliadas</span></div><div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background-color: #f5f3ff; border: 1px solid #ddd6fe; color: #7c3aed;"><span class="material-symbols-outlined text-[26px]">hub</span></div></div><div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between transition-colors duration-300"><div class="flex flex-col"><span class="text-xs uppercase tracking-wider text-slate-500" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;">Alerta Stock Bajo</span><span class="text-3xl text-rose-500 mt-1" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;">3</span><span class="text-xs text-rose-500 mt-1 flex items-center gap-1 font-sansansemibold"><span class="material-symbols-outlined text-[15px]">warning</span> Reabastecimiento urgente</span></div><div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-500"><span class="material-symbols-outlined text-[26px]">fmd_bad</span></div></div><div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-center justify-between transition-colors duration-300"><div class="flex flex-col"><span class="text-xs uppercase tracking-wider text-slate-500" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;">ValoraciÃ³n Total</span><span class="text-3xl mt-1" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900; color: rgb(234, 88, 12);">$ 48.2M</span><span class="text-xs text-slate-500 mt-1 font-medium">COP en almacÃ©n</span></div><div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background-color: #ffedd5; border: 1px solid #fed7aa; color: #ea580c;"><span class="material-symbols-outlined text-[26px]">payments</span></div></div></div>
+<!-- Filter Bar & Search Utility -->
+<div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 transition-colors duration-300">
+<!-- Category Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0" id="categoryFilterContainer"><button class="category-btn px-4 py-2 rounded-2xl bg-slate-900 text-white text-sm whitespace-nowrap shadow-xs transition-all" data-filter="all" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900; background-color: rgb(124, 58, 237); color: rgb(255, 255, 255);" type="button">Todos (148)</button><button class="category-btn px-4 py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 text-sm whitespace-nowrap border border-slate-200 transition-colors" data-filter="calzado" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;" type="button">Calzado (42)</button><button class="category-btn px-4 py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 text-sm whitespace-nowrap border border-slate-200 transition-colors" data-filter="ropa" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;" type="button">Ropa Deportiva (64)</button><button class="category-btn px-4 py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 text-sm whitespace-nowrap border border-slate-200 transition-colors" data-filter="accesorios" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;" type="button">Accesorios (28)</button><button class="category-btn px-4 py-2 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 text-sm whitespace-nowrap border border-slate-200 transition-colors" data-filter="suplementos" style="font-sansansamily: Burbank, &quot;Arial Black&quot;, sans-serif; font-weight: 900;" type="button">Suplementos (14)</button></div>
+<!-- Search & Status Select -->
+<div class="flex items-center gap-3 flex-shrink-0">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">search</span>
+<input class="w-full bg-white text-slate-900 placeholder:text-slate-400 pl-10 pr-3 py-2 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200" id="productSearchInput" placeholder="Filtrar por SKU o nombre..." type="text">
+</div>
+<div class="relative">
+<select class="bg-white hover:bg-slate-50 text-slate-800 font-sansansemibold text-sm py-2 pl-3.5 pr-9 rounded-2xl appearance-none cursor-pointer focus:outline-none border border-slate-200 shadow-xs" id="stockStatusFilter">
+<option value="all">Stock: Todos</option>
+<option value="in_stock">En Existencia (&gt;10)</option>
+<option value="low_stock">Stock CrÃ­tico (&lt;10)</option>
+<option value="out_stock">Agotado (0)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-[18px]">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Product Matrix Table -->
+<div class="w-full rounded-2xl bg-white border border-slate-200 shadow-xs overflow-hidden flex flex-col transition-colors duration-300">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider font-sansansold select-none border-b border-slate-200">
+<th class="w-12 px-5 py-3.5 text-center">
+<input class="w-4 h-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-indigo-600 focus:ring-0 cursor-pointer border-slate-300 dark:border-slate-700" id="selectAllCheckbox" type="checkbox">
+</th>
+<th class="px-5 py-3.5">Producto &amp; SKU</th>
+<th class="px-5 py-3.5">CategorÃ­a</th>
+<th class="px-5 py-3.5 text-right">Precio Regular</th>
+<th class="px-5 py-3.5 text-right">Precio Oferta</th>
+<th class="px-5 py-3.5 text-center">Stock Actual</th>
+<th class="px-5 py-3.5 text-center">Estado</th>
+<th class="px-5 py-3.5 text-center">Red Aliada</th>
+<th class="px-5 py-3.5 text-right pr-6">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 text-sm font-medium" id="productTableBody">
+<!-- Row 1 -->
+<tr class="product-row hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group">
+<td class="w-12 px-5 py-4 text-center">
+<input class="product-check w-4 h-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-indigo-600 focus:ring-0 cursor-pointer border-slate-300 dark:border-slate-700" type="checkbox">
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-xs border border-slate-200/60 dark:border-slate-700/50">
+<img class="w-full h-full object-cover" data-alt="High quality athletic black running sneaker with vibrant neon nitro foam sole isolated on studio dark backdrop product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUeZjv78x13P83FMSAnPwuuiSsr2XZF4-RUtf11wDMQq-AAfi8G6wRtmZ8tGhIbHzn8ExhrhDxEd4V5L4_MAiqxLc1xHQhl8YI2_C8P7QeCDTg6h9iVNKbHwJaJ6PSaRy09z-qpGmoERV7iyKpxdLdJkJI2VsONMUjcnL7-PVPzPUKDfq9JJNOrFwNh4ovhXeBtLOpdXNgR87LqDs1qgy8d7tU0jJbmx5swihB9Mar1aojE9mOuL7huQ">
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-base text-slate-900 dark:text-white font-sansansold truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Zapatillas Pro Runner Nitro</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 font-mono">SKU-RUN-8821-42</span>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-sansansemibold">Calzado</span>
+</td>
+<td class="px-5 py-4 text-right text-base text-slate-800 dark:text-slate-100 font-sansansold tabular-nums">
+                $ 389.000
+              </td>
+<td class="px-5 py-4 text-right text-base font-sansansxtrabold tabular-nums" style="color: rgb(234, 88, 12);">$ 329.000</td>
+<td class="px-5 py-4 text-center"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sansansold" style="background-color: rgb(255, 237, 213); color: rgb(234, 88, 12); border: 1px solid rgb(254, 215, 170);"><span class="w-2 h-2 rounded-full" style="background-color: #f97316;"></span> 34 unid.</span></td>
+<td class="px-5 py-4 text-center"><span class="inline-block px-2.5 py-1 rounded-xl text-xs font-sansansold uppercase tracking-wider" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border: 1px solid rgb(221, 214, 254);">Publicado</span></td>
+<td class="px-5 py-4 text-center"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-sansansold" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border: 1px solid rgb(221, 214, 254);"><span class="material-symbols-outlined text-[15px]">handshake</span> Aliado 15%</span></td>
+<td class="px-5 py-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1.5">
+<button class="action-edit p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Editar Producto" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="action-adjust-stock p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 transition-colors" data-product="Zapatillas Pro Runner Nitro" data-stock="34" title="Ajuste RÃ¡pido de Stock" type="button">
+<span class="material-symbols-outlined text-[18px]">exposure</span>
+</button>
+<button class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Ver en Tienda Online" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="product-row hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group">
+<td class="w-12 px-5 py-4 text-center">
+<input class="product-check w-4 h-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-indigo-600 focus:ring-0 cursor-pointer border-slate-300 dark:border-slate-700" type="checkbox">
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-xs border border-slate-200/60 dark:border-slate-700/50">
+<img class="w-full h-full object-cover" data-alt="Technical moisture wicking compression sports t-shirt athletic athletic dark gray charcoal fitness apparel mockup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhunQQAVgtfcBgaMPci2QwnMDMmjdfz2wW6BJopW4ok2hW3Y7NeaePBTEGSZjNsTHO5x84YAD-zjQujMfH8IRT9j_7d1AV7cOUJpzRR9mqu3ek4avAqnPB8ljaggvvyeeOJeE-6SHcft05Zi-Hb7YRAfJMOO9PYtBR1WhzCG5Af1msowgJdgXTrjdtN4X2YV2DH8uL30Oqd8TOQV8aTBaKdCg9ayPtUH3nVyI85QUeGRwz4QNBVFrltw">
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-base text-slate-900 dark:text-white font-sansansold truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Camiseta CompresiÃ³n Elite</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 font-mono">SKU-CMP-1049-M</span>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-sansansemibold">Ropa Deportiva</span>
+</td>
+<td class="px-5 py-4 text-right text-base text-slate-800 dark:text-slate-100 font-sansansold tabular-nums">
+                $ 125.000
+              </td>
+<td class="px-5 py-4 text-right text-base text-slate-400 font-medium tabular-nums">
+                â€”
+              </td>
+<td class="px-5 py-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400 text-xs font-sansansold border border-rose-200 dark:border-rose-800/40 animate-pulse">
+<span class="w-2 h-2 rounded-full bg-rose-500"></span> 4 unid.
+                </span>
+</td>
+<td class="px-5 py-4 text-center"><span class="inline-block px-2.5 py-1 rounded-xl text-xs font-sansansold uppercase tracking-wider" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border: 1px solid rgb(221, 214, 254);">Publicado</span></td>
+<td class="px-5 py-4 text-center">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 text-xs font-medium">
+                  No compartido
+                </span>
+</td>
+<td class="px-5 py-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1.5">
+<button class="action-edit p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Editar Producto" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="action-adjust-stock p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 transition-colors" data-product="Camiseta CompresiÃ³n Elite" data-stock="4" title="Ajuste RÃ¡pido de Stock" type="button">
+<span class="material-symbols-outlined text-[18px]">exposure</span>
+</button>
+<button class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Ver en Tienda Online" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="product-row hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group">
+<td class="w-12 px-5 py-4 text-center">
+<input class="product-check w-4 h-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-indigo-600 focus:ring-0 cursor-pointer border-slate-300 dark:border-slate-700" type="checkbox">
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-xs border border-slate-200/60 dark:border-slate-700/50">
+<img class="w-full h-full object-cover" data-alt="Cast iron black rubber hexagonal 15kg dumbbell gym equipment gym lifestyle gear dark lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYUMBiWxw8IazuQbb0mNGOaM_yEolczj6iN0njzchx1axNt4DF5JDak0276xZ7AeAj13RHA79g78F2_DM0sDtf_gXRtUgxiufxGEXyhTrOB0t_8IMLD-UWZofls0LrTJt9insGI96qIHZP6KYGBh97kRChfgd69ZId3U4O9n6a8HNIRibX8EBFrH-WNFYoM2WKqiQaj7tCeIHph_ylddMIK6WTmw_Te4fGwvUIzxo6jXjdGO0qZYpMTw">
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-base text-slate-900 dark:text-white font-sansansold truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Mancuerna Hexagonal 15kg</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 font-mono">SKU-FIT-9015-EA</span>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-sansansemibold">Accesorios</span>
+</td>
+<td class="px-5 py-4 text-right text-base text-slate-800 dark:text-slate-100 font-sansansold tabular-nums">
+                $ 195.000
+              </td>
+<td class="px-5 py-4 text-right text-base font-sansansxtrabold tabular-nums" style="color: rgb(234, 88, 12);">$ 175.000</td>
+<td class="px-5 py-4 text-center"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sansansold" style="background-color: rgb(255, 237, 213); color: rgb(234, 88, 12); border: 1px solid rgb(254, 215, 170);"><span class="w-2 h-2 rounded-full" style="background-color: #f97316;"></span> 18 unid.</span></td>
+<td class="px-5 py-4 text-center"><span class="inline-block px-2.5 py-1 rounded-xl text-xs font-sansansold uppercase tracking-wider" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border: 1px solid rgb(221, 214, 254);">Publicado</span></td>
+<td class="px-5 py-4 text-center"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-sansansold" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border: 1px solid rgb(221, 214, 254);"><span class="material-symbols-outlined text-[15px]">handshake</span> Aliado 12%</span></td>
+<td class="px-5 py-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1.5">
+<button class="action-edit p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Editar Producto" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="action-adjust-stock p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 transition-colors" data-product="Mancuerna Hexagonal 15kg" data-stock="18" title="Ajuste RÃ¡pido de Stock" type="button">
+<span class="material-symbols-outlined text-[18px]">exposure</span>
+</button>
+<button class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Ver en Tienda Online" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="product-row hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group">
+<td class="w-12 px-5 py-4 text-center">
+<input class="product-check w-4 h-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-indigo-600 focus:ring-0 cursor-pointer border-slate-300 dark:border-slate-700" type="checkbox">
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-xs border border-slate-200/60 dark:border-slate-700/50">
+<img class="w-full h-full object-cover" data-alt="Whey isolate clean protein powder container packaging matte black container modern fitness nutrition label" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYGN0QRYtX-Bf8L6Pi2eAoFEKprW9Q9eT0OA7g2lUI7aRjT9dS3kCLzVHJxvbSHTdhhuMyXUZMSqYIdVeGlTylNi5okX5KmaZOIlY3Nq8ON5jkC3Kh-_Atk3htM27tgN6awq9VWUDDTnHa14bWesSdYrK1TldpN9CP7OaQY25KqPrTYnG9RyheBh0RIw9ddkFVLmMRk6eto4cETNJYTtRBrCYdxEuX0BITJhh1vPmsqY9VWYHNxwF6AQ">
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-base text-slate-900 dark:text-white font-sansansold truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">ProteÃ­na IsoClean 2lb Vainilla</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 font-mono">SKU-NUT-3022-VN</span>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-sansansemibold">Suplementos</span>
+</td>
+<td class="px-5 py-4 text-right text-base text-slate-800 dark:text-slate-100 font-sansansold tabular-nums">
+                $ 240.000
+              </td>
+<td class="px-5 py-4 text-right text-base font-sansansxtrabold tabular-nums" style="color: rgb(234, 88, 12);">$ 219.000</td>
+<td class="px-5 py-4 text-center"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-sansansold" style="background-color: rgb(255, 237, 213); color: rgb(234, 88, 12); border: 1px solid rgb(254, 215, 170);"><span class="w-2 h-2 rounded-full" style="background-color: #f97316;"></span> 52 unid.</span></td>
+<td class="px-5 py-4 text-center"><span class="inline-block px-2.5 py-1 rounded-xl text-xs font-sansansold uppercase tracking-wider" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border: 1px solid rgb(221, 214, 254);">Publicado</span></td>
+<td class="px-5 py-4 text-center"><span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-sansansold" style="background-color: rgb(245, 243, 255); color: rgb(124, 58, 237); border: 1px solid rgb(221, 214, 254);"><span class="material-symbols-outlined text-[15px]">handshake</span> Aliado 18%</span></td>
+<td class="px-5 py-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1.5">
+<button class="action-edit p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Editar Producto" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="action-adjust-stock p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 transition-colors" data-product="ProteÃ­na IsoClean 2lb Vainilla" data-stock="52" title="Ajuste RÃ¡pido de Stock" type="button">
+<span class="material-symbols-outlined text-[18px]">exposure</span>
+</button>
+<button class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Ver en Tienda Online" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 (Draft & Low Stock) -->
+<tr class="product-row hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors group">
+<td class="w-12 px-5 py-4 text-center">
+<input class="product-check w-4 h-4 rounded-lg bg-slate-100 dark:bg-slate-800 text-indigo-600 focus:ring-0 cursor-pointer border-slate-300 dark:border-slate-700" type="checkbox">
+</td>
+<td class="px-5 py-4">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center shadow-xs border border-slate-200/60 dark:border-slate-700/50">
+<img class="w-full h-full object-cover" data-alt="High quality athletic sports strap gym wrist wraps tactical fitness training gear matte finish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjoU_kOqEe_ZKNcCJtxPLRLSssWzKhxyY1t6KCj6PHctrNKWLsyhkbVaYzaG0A_a1-EdbD3E0vkLZqzdFds6kszaZHiupgfpK__UnQE_O6kavPgnh5DTGEvCFgrMLWgHOxGf-4_YaiEA8Jq5p8GEta_d51exjIQweQwk6lFtu8Tai2umF8ePOHMA_-5uRlGWI6GTiau9ahNNVVmeWZYzBAtu6Zt6-ZoQ3m4ExFRw88CRvZhT6IaAAeVA">
+</div>
+<div class="flex flex-col min-w-0">
+<span class="text-base text-slate-900 dark:text-white font-sansansold truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Straps de Levantamiento GripMax</span>
+<span class="text-xs text-slate-400 dark:text-slate-500 font-mono">SKU-ACC-5520-UN</span>
+</div>
+</div>
+</td>
+<td class="px-5 py-4">
+<span class="px-3 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-sansansemibold">Accesorios</span>
+</td>
+<td class="px-5 py-4 text-right text-base text-slate-800 dark:text-slate-100 font-sansansold tabular-nums">
+                $ 45.000
+              </td>
+<td class="px-5 py-4 text-right text-base text-slate-400 font-medium tabular-nums">
+                â€”
+              </td>
+<td class="px-5 py-4 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400 text-xs font-sansansold border border-rose-200 dark:border-rose-800/40">
+<span class="w-2 h-2 rounded-full bg-rose-500"></span> 2 unid.
+                </span>
+</td>
+<td class="px-5 py-4 text-center">
+<span class="inline-block px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 text-xs font-sansansold uppercase tracking-wider">Borrador</span>
+</td>
+<td class="px-5 py-4 text-center">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 text-xs font-medium">
+                  No compartido
+                </span>
+</td>
+<td class="px-5 py-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1.5">
+<button class="action-edit p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Editar Producto" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="action-adjust-stock p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 transition-colors" data-product="Straps de Levantamiento GripMax" data-stock="2" title="Ajuste RÃ¡pido de Stock" type="button">
+<span class="material-symbols-outlined text-[18px]">exposure</span>
+</button>
+<button class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Ver en Tienda Online" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination and Bulk Bar -->
+<div class="p-4 bg-white border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm">
+<span class="">Mostrando <span class="font-sansansold text-slate-900 dark:text-white">1 - 5</span> de 148 referencias registradas</span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="p-2 rounded-xl bg-white dark:bg-slate-800 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors disabled:opacity-50" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-sansansold text-sm flex items-center justify-center shadow-xs" type="button" style="background-color: rgb(124, 58, 237);">1</button>
+<button class="w-8 h-8 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-sansansold text-sm flex items-center justify-center transition-colors" type="button">2</button>
+<button class="w-8 h-8 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-sansansold text-sm flex items-center justify-center transition-colors" type="button">3</button>
+<button class="p-2 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ============================================================== -->
+<!-- MODAL 1: Crear / Editar Producto                              -->
+<!-- ============================================================== -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md hidden transition-opacity" id="productModal">
+<div class="relative w-full max-w-3xl max-h-[92vh] bg-white dark:bg-[#141e33] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200/80 dark:border-slate-800">
+<!-- Modal Header -->
+<div class="px-6 py-4 bg-slate-50 dark:bg-[#090f1d] border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-2xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">add_box</span>
+</div>
+<div>
+<h2 class="text-xl font-sansansold text-slate-900 dark:text-white" id="productModalTitle">Nuevo Producto en CatÃ¡logo</h2>
+<p class="text-xs text-slate-500 dark:text-slate-400">Configure precios, SKU e integraciÃ³n con distribuidores de la Red Aliada</p>
+</div>
+</div>
+<button class="w-9 h-9 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" id="btnCloseProductModal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body Form -->
+<form class="p-6 overflow-y-auto space-y-4" id="productForm">
+<!-- Row 1: Nombre & SKU -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="md:col-span-2 flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">Nombre del Producto *</label>
+<input class="bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white placeholder:text-slate-400 px-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" id="inputProdName" placeholder="Ej: Zapatillas Phantom Speed XT" required="" type="text">
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">CÃ³digo SKU</label>
+<button class="text-xs text-indigo-600 dark:text-indigo-400 font-sansansemibold hover:underline" id="btnRegenSku" type="button">Generar</button>
+</div>
+<input class="bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white font-mono px-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" id="inputProdSku" type="text" value="SKU-DEP-9941-AUTO">
+</div>
+</div>
+<!-- Row 2: CategorÃ­a & Stocks -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">CategorÃ­a *</label>
+<select class="bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800">
+<option value="calzado">Calzado Deportivo</option>
+<option value="ropa">Ropa Deportiva</option>
+<option value="accesorios">Accesorios &amp; Fitness</option>
+<option value="suplementos">Suplementos &amp; NutriciÃ³n</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">Stock Inicial *</label>
+<input class="bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" min="0" required="" type="number" value="25">
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">Umbral Alerta Bajo</label>
+<input class="bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" min="1" type="number" value="5">
+</div>
+</div>
+<!-- Row 3: Precios (COP) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">Precio Regular ($ COP) *</label>
+<div class="relative">
+<span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-sansansold">$</span>
+<input class="w-full bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white pl-9 pr-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" placeholder="280000" required="" step="1000" type="number">
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">Precio Oferta / Descuento ($ COP)</label>
+<div class="relative">
+<span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-sansansold">$</span>
+<input class="w-full bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white pl-9 pr-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" placeholder="249000 (Opcional)" step="1000" type="number">
+</div>
+</div>
+</div>
+<!-- Row 4: Drag & Drop Media Upload -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">FotografÃ­as del Producto</label>
+<div class="w-full p-6 rounded-2xl bg-slate-50 dark:bg-[#090f1d] border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center cursor-pointer hover:border-indigo-500 transition-colors group">
+<div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-slate-800 group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 dark:text-indigo-400 flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-[26px]">cloud_upload</span>
+</div>
+<p class="font-sansansold text-sm text-slate-800 dark:text-slate-200 mt-2">Arrastra las fotos aquÃ­ o haz clic para examinar</p>
+<p class="text-xs text-slate-400 mt-1">Formatos PNG, JPG o WEBP hasta 8MB. RelaciÃ³n recomendada 1:1.</p>
+</div>
+</div>
+<!-- Row 5: DescripciÃ³n Corta -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">DescripciÃ³n Comercial</label>
+<textarea class="w-full bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white placeholder:text-slate-400 p-3.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" placeholder="Detalla los beneficios tÃ©cnicos, tallas y composiciÃ³n del material..." rows="3"></textarea>
+</div>
+<!-- Row 6: Red Aliada / Afiliados Commission Card -->
+<div class="p-4 rounded-2xl bg-slate-100/70 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-sansansold text-slate-900 dark:text-white">Compartir en el Directorio de Red Aliada</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Permite a otros comercios vender tu stock a cambio de una comisiÃ³n pactada</span>
+</div>
+</div>
+<!-- Custom Toggle -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggleRedAliada" type="checkbox">
+<div class="w-11 h-6 bg-slate-300 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+</label>
+</div>
+<!-- Dynamic Commission Settings -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1" id="redAliadaSettings">
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">ComisiÃ³n para el afiliado (%)</label>
+<div class="flex items-center gap-3">
+<input class="w-full accent-emerald-500 cursor-pointer" id="commissionSlider" max="35" min="5" type="range" value="15">
+<span class="text-sm font-sansansold text-emerald-600 dark:text-emerald-400 bg-white dark:bg-[#090f1d] px-3 py-1 rounded-xl border border-slate-200 dark:border-slate-800" id="commissionValue">15%</span>
+</div>
+</div>
+<div class="p-3 rounded-2xl bg-white dark:bg-[#090f1d] border border-slate-200 dark:border-slate-800 flex items-center gap-2.5 text-slate-600 dark:text-slate-300 text-xs">
+<span class="material-symbols-outlined text-emerald-500 text-[18px] flex-shrink-0">info</span>
+<span class="">Ganancia neta estimada por unidad: <strong class="text-slate-900 dark:text-white font-sansansold">$ 237.150 COP</strong></span>
+</div>
+</div>
+</div>
+</form>
+<!-- Modal Footer -->
+<div class="px-6 py-4 bg-slate-50 dark:bg-[#090f1d] border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-end gap-3">
+<button class="px-5 py-2.5 rounded-2xl bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-sansansemibold text-sm transition-colors" id="btnCancelProductModal" type="button">
+          Cancelar
+        </button>
+<button class="px-6 py-2.5 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-500 font-sansansold text-sm shadow-md shadow-indigo-600/30 transition-all active:scale-95" id="btnSaveProduct" type="button">
+          Guardar Referencia
+        </button>
+</div>
+</div>
+</div>
+<!-- ============================================================== -->
+<!-- MODAL 2: Ajuste RÃ¡pido de Stock                               -->
+<!-- ============================================================== -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md hidden transition-opacity" id="stockModal">
+<div class="relative w-full max-w-md bg-white dark:bg-[#141e33] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-slate-200/80 dark:border-slate-800">
+<!-- Header -->
+<div class="px-6 py-4 bg-slate-50 dark:bg-[#090f1d] border-b border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-2xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">inventory</span>
+</div>
+<div>
+<h2 class="text-xl font-sansansold text-slate-900 dark:text-white">Ajuste RÃ¡pido de Stock</h2>
+<p class="text-xs text-slate-500 dark:text-slate-400">ModificaciÃ³n manual sin alterar compras en trÃ¡nsito</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" id="btnCloseStockModal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Body Content -->
+<div class="p-6 flex flex-col gap-4">
+<!-- Product Picker -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">Seleccionar Referencia</label>
+<select class="bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800" id="stockModalProductSelect">
+<option data-name="Zapatillas Pro Runner Nitro" value="34">Zapatillas Pro Runner Nitro (Actual: 34)</option>
+<option data-name="Camiseta CompresiÃ³n Elite" value="4">Camiseta CompresiÃ³n Elite (Actual: 4)</option>
+<option data-name="Mancuerna Hexagonal 15kg" value="18">Mancuerna Hexagonal 15kg (Actual: 18)</option>
+<option data-name="ProteÃ­na IsoClean 2lb Vainilla" value="52">ProteÃ­na IsoClean 2lb Vainilla (Actual: 52)</option>
+<option data-name="Straps de Levantamiento GripMax" value="2">Straps de Levantamiento GripMax (Actual: 2)</option>
+</select>
+</div>
+<!-- Stepper Component -->
+<div class="p-5 rounded-2xl bg-slate-100/70 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex flex-col items-center justify-center gap-3">
+<span class="text-xs text-slate-500 dark:text-slate-400 font-sansansemibold uppercase tracking-wider">VariaciÃ³n de Unidades</span>
+<div class="flex items-center gap-4">
+<button class="w-11 h-11 rounded-2xl bg-white dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-white flex items-center justify-center text-xl font-sansansold shadow-xs transition-transform active:scale-90" id="btnDecreaseQty" type="button">
+              -
+            </button>
+<span class="text-3xl text-slate-900 dark:text-white font-sansansxtrabold w-20 text-center tabular-nums" id="stockDeltaDisplay">
+              +0
+            </span>
+<button class="w-11 h-11 rounded-2xl bg-white dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-white flex items-center justify-center text-xl font-sansansold shadow-xs transition-transform active:scale-90" id="btnIncreaseQty" type="button">
+              +
+            </button>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs text-slate-500 dark:text-slate-400">Nuevo total calculado:</span>
+<span class="text-sm font-sansansold text-emerald-600 dark:text-emerald-400" id="stockNewTotalPreview">34 unidades</span>
+</div>
+</div>
+<!-- Adjustment Reason -->
+<div class="flex flex-col gap-1.5">
+<label class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-sansansold">Motivo del Ajuste *</label>
+<select class="bg-slate-50 dark:bg-[#090f1d] text-slate-900 dark:text-white px-4 py-2.5 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-slate-200 dark:border-slate-800">
+<option>Entrada fÃ­sica de proveedor</option>
+<option>Conteo de inventario / AuditorÃ­a</option>
+<option>Muestra comercial / Obsequio</option>
+<option>Merma o producto averiado</option>
+<option>DevoluciÃ³n al fabricante</option>
+</select>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-6 py-4 bg-slate-50 dark:bg-[#090f1d] border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-end gap-3">
+<button class="px-5 py-2.5 rounded-2xl bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-sansansemibold text-sm transition-colors" id="btnCancelStockModal" type="button">
+          Cancelar
+        </button>
+<button class="px-6 py-2.5 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-500 font-sansansold text-sm shadow-md shadow-emerald-600/30 transition-transform active:scale-95" id="btnSubmitStockAdjust" type="button">
+          Guardar ActualizaciÃ³n
+        </button>
+</div>
+</div>
+</div>
+<!-- Notification Toast Container -->
+<div class="fixed bottom-6 right-6 z-50 hidden transform transition-all duration-300" id="toastNotification">
+<div class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900 dark:bg-slate-800 text-white shadow-2xl border border-slate-700">
+<span class="material-symbols-outlined text-emerald-400 text-[22px]" id="toastIcon">check_circle</span>
+<span class="text-sm font-sansansemibold" id="toastMessage">OperaciÃ³n completada con Ã©xito</span>
+</div>
+</div>
+</div>
+<!-- Client-side Interactive Behaviors & Theme Switcher -->
+<script>
+  (function () {
+    // Theme Switcher Logic (Claro / Oscuro)
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleIcon = document.getElementById('themeToggleIcon');
+    const htmlEl = document.documentElement;
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        htmlEl.classList.add('dark');
+        themeToggleIcon.textContent = 'light_mode';
+        themeToggleIcon.classList.remove('text-indigo-600');
+        themeToggleIcon.classList.add('text-amber-300');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        htmlEl.classList.remove('dark');
+        themeToggleIcon.textContent = 'dark_mode';
+        themeToggleIcon.classList.remove('text-amber-300');
+        themeToggleIcon.classList.add('text-indigo-600');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Default check
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(savedTheme === 'dark');
+
+    themeToggleBtn.addEventListener('click', () => {
+      const isCurrentlyDark = htmlEl.classList.contains('dark');
+      applyTheme(!isCurrentlyDark);
+      showToast(isCurrentlyDark ? 'Modo Claro activado' : 'Modo Oscuro activado');
+    });
+
+    // Modal 1: Product Modal
+    const btnOpenProductModal = document.getElementById('btnOpenProductModal');
+    const btnCloseProductModal = document.getElementById('btnCloseProductModal');
+    const btnCancelProductModal = document.getElementById('btnCancelProductModal');
+    const productModal = document.getElementById('productModal');
+    const btnSaveProduct = document.getElementById('btnSaveProduct');
+    const btnRegenSku = document.getElementById('btnRegenSku');
+    const inputProdSku = document.getElementById('inputProdSku');
+    const toggleRedAliada = document.getElementById('toggleRedAliada');
+    const redAliadaSettings = document.getElementById('redAliadaSettings');
+    const commissionSlider = document.getElementById('commissionSlider');
+    const commissionValue = document.getElementById('commissionValue');
+
+    // Modal 2: Stock Modal
+    const btnOpenStockModal = document.getElementById('btnOpenStockModal');
+    const btnCloseStockModal = document.getElementById('btnCloseStockModal');
+    const btnCancelStockModal = document.getElementById('btnCancelStockModal');
+    const stockModal = document.getElementById('stockModal');
+    const stockModalProductSelect = document.getElementById('stockModalProductSelect');
+    const btnDecreaseQty = document.getElementById('btnDecreaseQty');
+    const btnIncreaseQty = document.getElementById('btnIncreaseQty');
+    const stockDeltaDisplay = document.getElementById('stockDeltaDisplay');
+    const stockNewTotalPreview = document.getElementById('stockNewTotalPreview');
+    const btnSubmitStockAdjust = document.getElementById('btnSubmitStockAdjust');
+
+    // Filters & Tables
+    const searchInput = document.getElementById('productSearchInput');
+    const stockStatusFilter = document.getElementById('stockStatusFilter');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+    const productChecks = document.querySelectorAll('.product-check');
+    const editBtns = document.querySelectorAll('.action-edit');
+    const adjustBtns = document.querySelectorAll('.action-adjust-stock');
+
+    // Toast
+    const toast = document.getElementById('toastNotification');
+    const toastMessage = document.getElementById('toastMessage');
+
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3200);
+    }
+
+    // Modal 1 Visibility
+    function openProductModal(title) {
+      if (title) {
+        document.getElementById('productModalTitle').textContent = title;
+      } else {
+        document.getElementById('productModalTitle').textContent = 'Nuevo Producto en CatÃ¡logo';
+      }
+      productModal.classList.remove('hidden');
+    }
+    function closeProductModal() {
+      productModal.classList.add('hidden');
+    }
+
+    btnOpenProductModal.addEventListener('click', () => openProductModal());
+    btnCloseProductModal.addEventListener('click', closeProductModal);
+    btnCancelProductModal.addEventListener('click', closeProductModal);
+
+    btnSaveProduct.addEventListener('click', () => {
+      closeProductModal();
+      showToast('Producto guardado y sincronizado con catÃ¡logo live.');
+    });
+
+    btnRegenSku.addEventListener('click', () => {
+      const randomId = Math.floor(1000 + Math.random() * 9000);
+      inputProdSku.value = `SKU-DEP-${randomId}-AUTO`;
+      showToast('Nuevo SKU automÃ¡tico generado.');
+    });
+
+    toggleRedAliada.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        redAliadaSettings.classList.remove('opacity-40', 'pointer-events-none');
+      } else {
+        redAliadaSettings.classList.add('opacity-40', 'pointer-events-none');
+      }
+    });
+
+    commissionSlider.addEventListener('input', (e) => {
+      commissionValue.textContent = `${e.target.value}%`;
+    });
+
+    // Modal 2: Stock adjustments
+    let currentDelta = 0;
+    function updateStockPreview() {
+      const baseStock = parseInt(stockModalProductSelect.value, 10) || 0;
+      const newTotal = Math.max(0, baseStock + currentDelta);
+      stockDeltaDisplay.textContent = (currentDelta >= 0 ? `+${currentDelta}` : `${currentDelta}`);
+      stockNewTotalPreview.textContent = `${newTotal} unidades`;
+    }
+
+    function openStockModal(productName, stockVal) {
+      currentDelta = 0;
+      if (productName) {
+        for (let i = 0; i < stockModalProductSelect.options.length; i++) {
+          if (stockModalProductSelect.options[i].getAttribute('data-name') === productName) {
+            stockModalProductSelect.selectedIndex = i;
+            break;
+          }
+        }
+      }
+      updateStockPreview();
+      stockModal.classList.remove('hidden');
+    }
+
+    function closeStockModal() {
+      stockModal.classList.add('hidden');
+    }
+
+    btnOpenStockModal.addEventListener('click', () => openStockModal());
+    btnCloseStockModal.addEventListener('click', closeStockModal);
+    btnCancelStockModal.addEventListener('click', closeStockModal);
+
+    stockModalProductSelect.addEventListener('change', () => {
+      currentDelta = 0;
+      updateStockPreview();
+    });
+
+    btnIncreaseQty.addEventListener('click', () => {
+      currentDelta += 1;
+      updateStockPreview();
+    });
+
+    btnDecreaseQty.addEventListener('click', () => {
+      currentDelta -= 1;
+      updateStockPreview();
+    });
+
+    btnSubmitStockAdjust.addEventListener('click', () => {
+      closeStockModal();
+      showToast('Inventario actualizado instantÃ¡neamente.');
+    });
+
+    // Table quick actions
+    editBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        openProductModal('Editar Referencia');
+      });
+    });
+
+    adjustBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pName = btn.getAttribute('data-product');
+        const pStock = btn.getAttribute('data-stock');
+        openStockModal(pName, pStock);
+      });
+    });
+
+    // Multi-select Checkbox
+    selectAllCheckbox.addEventListener('change', (e) => {
+      productChecks.forEach(cb => {
+        cb.checked = e.target.checked;
+      });
+    });
+
+    // Filter Buttons
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryBtns.forEach(b => {
+          b.classList.remove('bg-indigo-600', 'text-white', 'font-sansansold');
+          b.classList.add('bg-slate-100', 'dark:bg-slate-800/80', 'text-slate-600', 'dark:text-slate-300', 'font-sansansemibold');
+        });
+        btn.classList.add('bg-indigo-600', 'text-white', 'font-sansansold');
+        btn.classList.remove('bg-slate-100', 'dark:bg-slate-800/80', 'text-slate-600', 'dark:text-slate-300');
+      });
+    });
+
+    // Quick Live Search Filter (Row filtering)
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const rows = document.querySelectorAll('.product-row');
+      rows.forEach(r => {
+        const text = r.textContent.toLowerCase();
+        if (text.includes(q)) {
+          r.style.display = '';
+        } else {
+          r.style.display = 'none';
+        }
+      });
+    });
+
+    stockStatusFilter.addEventListener('change', (e) => {
+      const val = e.target.value;
+      const rows = document.querySelectorAll('.product-row');
+      rows.forEach(r => {
+        const text = r.textContent;
+        if (val === 'all') {
+          r.style.display = '';
+        } else if (val === 'low_stock') {
+          r.style.display = (text.includes('4 unid.') || text.includes('2 unid.')) ? '' : 'none';
+        } else if (val === 'in_stock') {
+          r.style.display = (text.includes('34 unid.') || text.includes('18 unid.') || text.includes('52 unid.')) ? '' : 'none';
+        } else if (val === 'out_stock') {
+          r.style.display = text.includes('0 unid.') ? '' : 'none';
+        }
+      });
+    });
+
+  })();
+</script></main></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
