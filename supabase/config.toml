@@ -335,6 +335,21 @@ skip_nonce_check = false
 # If enabled, it will allow the user to successfully authenticate when the provider does not return an email address.
 email_optional = false
 
+# Google OAuth (ADR-0019, alta self-service de comerciantes).
+# Para habilitarlo en local:
+#   1. Crear un OAuth client (tipo Web) en Google Cloud Console con redirect URI:
+#      http://127.0.0.1:54321/auth/v1/callback
+#   2. Pegar client_id/secret aqui (local) o exportarlos y usar env(...) como Apple.
+#   3. enabled = true y reiniciar: supabase stop && supabase start
+# En produccion (Supabase cloud), configurar el provider en la dashboard con el
+# callback https://<project-ref>.supabase.co/auth/v1/callback y nunca commitear secretos.
+[auth.external.google]
+enabled = false
+client_id = ""
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+redirect_uri = ""
+skip_nonce_check = false
+
 # Allow Solana wallet holders to sign in to your project via the Sign in with Solana (SIWS, EIP-4361) standard.
 # You can configure "web3" rate limit in the [auth.rate_limit] section and set up [auth.captcha] if self-hosting.
 [auth.web3.solana]
