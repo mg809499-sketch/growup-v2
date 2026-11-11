@@ -28,7 +28,10 @@ Estados posibles:
 | [0009](0009-privacidad-dpa-dsr.md) | Privacidad, DPA, aceptaciones legales y DSR | Propuesta | 2026-10-26 |
 | [0010](0010-checkout-pci-scripts.md) | Checkout hosted, PCI SAQ A y gestión de scripts | Propuesta | 2026-10-26 |
 | [0011](0011-email-transaccional.md) | Email transaccional multi-tenant | Propuesta | 2026-10-26 |
+| [0019](0019-selfservice-signup-comerciantes.md) | Signup self-service de comerciantes en el admin | Aceptada | 2026-11-11 |
+
+Los números 0012-0018 quedan reservados (F0-03 prevé ADR-0012 "Proveedores y región"); se salta a 0019 para el signup self-service.
 
 ## Relación con las decisiones de negocio
 
-Las decisiones [`D-01` a `D-08`](../decisiones-pendientes.md) están cerradas, y D-17/D-18 se cerraron el 2026-10-26. Los ADRs 0001-0008 registran las decisiones técnicas aceptadas. El ADR-0005 queda en **Propuesta** hasta la revisión del modelo de bloques. Los ADR-0009 a 0011 son **Propuesta** y acompañan las decisiones D-09 a D-16, que aún no se consideran cerradas.
+Las decisiones [`D-01` a `D-08`](../decisiones-pendientes.md) están cerradas, y D-17/D-18 se cerraron el 2026-10-26. Los ADRs 0001-0008 registran las decisiones técnicas aceptadas. El ADR-0005 queda en **Propuesta** hasta la revisión del modelo de bloques. Los ADR-0009 a 0011 son **Propuesta** y acompañan las decisiones D-09 a D-16, que aún no se consideran cerradas. El ADR-0019 (**Aceptada**, 2026-11-11) implementa el signup self-service de comerciantes en el admin y revierte el freeze de "self-service signup" de `docs/plan/suite-publica-growup.md` §9 (con D-19 abierta: venta de subdominios `slug.growup.com`).

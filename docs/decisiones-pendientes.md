@@ -1,6 +1,6 @@
 # Decisiones de negocio pendientes
 
-> **Estado:** 10 cerradas (D-01 a D-08, D-17 y D-18; D-03 con proveedor propuesto — Factus) · 8 en propuesta (D-09 a D-16) · **Nota (2026-11-10):** el plan y el cierre propuesto de todas las propuestas (con proveedores: Factus DIAN, Resend email, Cloudflare DNS/WAF, sa-east-1, Wompi SAQ A, Stripe Billing, Sentry+Grafana) vive en `docs/plan/README.md` del paquete de ejecución y en `C:\Users\mg809\.opencode\plan\`. Ninguna propuesta se cierra sin la firma explícita de abogado/contador/equipo (sesión F0-01). · **Última actualización:** 2026-11-10
+> **Estado:** 10 cerradas (D-01 a D-08, D-17 y D-18; D-03 con proveedor propuesto — Factus) · 8 en propuesta (D-09 a D-16) + 1 abierta (D-19) · **Nota (2026-11-10):** el plan y el cierre propuesto de todas las propuestas (con proveedores: Factus DIAN, Resend email, Cloudflare DNS/WAF, sa-east-1, Wompi SAQ A, Stripe Billing, Sentry+Grafana) vive en `docs/plan/README.md` del paquete de ejecución y en `C:\Users\mg809\.opencode\plan\`. Ninguna propuesta se cierra sin la firma explícita de abogado/contador/equipo (sesión F0-01). · **Última actualización:** 2026-11-11 (se añade D-19: venta de subdominios `slug.growup.com` a comerciantes, ADR-0019)
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
 > **Origen de D-09 a D-18 (2026-10-24):** brechas detectadas al comparar la arquitectura con los procesos y la normativa de una plataforma de comercio de referencia (Shopify + PCI-DSS v4.0.1, GDPR Art. 28, CCPA, marketplace facilitator USA, SOC 2). Cubren cumplimiento legal, riesgo de pagos y operación, ejes que las 8 decisiones originales no abordan.
 > **Nota (2026-10-26):** D-09 a D-16 se mantienen como propuesta, sujetas a revisión legal, verificación de proveedores y aprobación explícita. D-17 y D-18 se cerraron el 2026-10-26: no hay custodio de fondos ni split en el MVP, y se adopta una postura alineada con SOC 2 sin certificación. Ver “Resolución propuesta y secuencia” al final.
@@ -27,6 +27,7 @@
 | D-16 | Soporte al comerciante y SLA | **IMPORTANTE** | operación, producto | **PROPUESTA** (2026-10-26) |
 | D-17 | Marketplace facilitator / responsabilidad fiscal | **A CONSIDERAR** | fase 2, impuestos, comisión | **CERRADA** (2026-10-26) |
 | D-18 | Vendor risk y objetivo SOC 2 | **A CONSIDERAR** | change management, proveedores | **CERRADA** (2026-10-26) |
+| D-19 | Venta de subdominios slug.growup.com a comerciantes | **A CONSIDERAR** | onboarding, ADR-0019 | **ABIERTA** (2026-11-11) |
 
 ## Protocolo para cerrar una decisión
 
@@ -537,6 +538,19 @@ Elegir "Wompi vs MercadoPago vs Stripe" sin separar estos flujos produce una dec
 
 ---
 
+## D-19 — Venta de subdominios `slug.growup.com` a comerciantes
+
+- **Estado:** ABIERTA (2026-11-11)
+- **Contexto:** en el signup self-service (ADR-0019) un comerciante puede elegir entre (a) subdominio `slug.growup.com` —que Growup **vende**— o (b) dominio propio (DNS posterior). Hoy el registro solo captura la intención de compra (`app.clients.wants_subdomain`); no hay flujo de cobro para ello en la plataforma.
+
+**Preguntas a resolver:**
+1. ¿Precio y modelo del subdominio (incluido en plan / costo único / mensual)?
+2. ¿Cobranza: Factus/Stripe Billing, Wompi, manual vía factura? (D-03/D-04)
+3. ¿El subdominio es un requisito de activación o un add-on opcional?
+4. ¿Renovación, expiración y liberación del slug si no paga?
+5. ¿Qué ve el cliente tras marcar "quiero comprarlo" si el cobro no está listo?
+
+**Nota:** también sigue abierto el derivado de **D-01** (precios y límites por plan visibles en el registro); `plans.price_cents` está en 0 con `features={"placeholder": true}`.
 ## Resolución propuesta y secuencia (2026-10-26)
 
 D-09 a D-16 **no se cierran** en esta fecha. La opción A se mantiene como dirección recomendada, con estas condiciones:

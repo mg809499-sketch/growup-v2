@@ -122,7 +122,7 @@ Formulario accesible (nombre, email, nombre de la tienda, tipo [ropa/joyería/ot
 
 - Super consola pública; KPIs internos; directorio de tenants.
 - Precios numéricos en público.
-- Self-service signup; trial automático sin aprobación.
+- Self-service signup; trial automático sin aprobación. ~~(Revertido parcialmente el 2026-11-11: el alta self-service de comerciantes vive en el admin, ver ADR-0019. El marketing web ya no envía CTAs a /solicitar-acceso sino a /login del admin.)~~
 - Agentes IA, marketplace, dominios propios (badges «Próximamente» en el máximo de honestidad: sin CTA).
 - Copiar el HTML legado ni su identidad violeta/naranja.
 
