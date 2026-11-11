@@ -16,11 +16,13 @@ const API_URL = (process.env.GROWUP_API_URL ?? "http://localhost:8000").replace(
 
 export class ApiError extends Error {
   readonly status: number;
+  readonly code: string | null;
 
-  constructor(status: number, message: string) {
+  constructor(status: number, message: string, code: string | null = null) {
     super(message);
     this.name = "ApiError";
     this.status = status;
+    this.code = code;
   }
 }
 
@@ -70,15 +72,17 @@ export async function apiSend<T>(
 
 async function toApiError(response: Response): Promise<ApiError> {
   let message = `Error ${response.status}`;
+  let code: string | null = null;
   try {
     const payload = (await response.json()) as {
       error?: { message?: string; code?: string };
     };
     message = payload.error?.message ?? payload.error?.code ?? message;
+    code = payload.error?.code ?? null;
   } catch {
     // La API puede devolver HTML en errores de infraestructura.
   }
-  return new ApiError(response.status, message);
+  return new ApiError(response.status, message, code);
 }
 
 export function queryString(
