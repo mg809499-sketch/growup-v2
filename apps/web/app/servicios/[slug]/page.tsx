@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import { getService, services } from "@/content/services";
+import { site } from "@/content/site";
 
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
@@ -54,12 +55,12 @@ export default async function ServicePage({
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-[var(--muted)]">
             {service.description}
           </p>
-          <Link
-            href="/solicitar-acceso"
+          <a
+            href={site.admin_login_url}
             className="label mt-8 inline-flex border border-[var(--ink)] bg-[var(--ink)] px-6 py-3 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
           >
             {service.cta_label}
-          </Link>
+          </a>
         </div>
       </section>
 

@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/planes",
     "/servicios",
     "/consola",
-    "/solicitar-acceso",
   ].map((path) => ({
     url: `${site.url}${path}`,
     lastModified: now,

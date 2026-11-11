@@ -61,12 +61,12 @@ export default function HomePage() {
               DIAN — en una sola plataforma para marcas colombianas.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href="/solicitar-acceso"
+              <a
+                href={site.admin_login_url}
                 className="label inline-flex border border-[var(--ink)] bg-[var(--ink)] px-6 py-4 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
               >
-                Solicitar acceso
-              </Link>
+                Iniciar sesión
+              </a>
               <Link href="/planes" className="label underline underline-offset-4 hover:opacity-60">
                 Ver planes →
               </Link>
@@ -217,7 +217,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA final */}
-      <section aria-label="Solicitar acceso">
+      <section aria-label="Iniciar sesión">
         <div className="mx-auto max-w-6xl px-6 py-20 text-center md:px-10">
           <p className="label text-[var(--muted)]">[ 06 / cupos ]</p>
           <h2 className="display mx-auto mt-4 max-w-4xl text-5xl leading-[0.95] md:text-7xl">
@@ -228,12 +228,12 @@ export default function HomePage() {
             propuesta y una llamada de 20 minutos.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/solicitar-acceso"
+            <a
+              href={site.admin_login_url}
               className="label inline-flex border border-[var(--ink)] bg-[var(--ink)] px-8 py-4 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
             >
-              Solicitar acceso
-            </Link>
+              Iniciar sesión
+            </a>
             <a href={`mailto:${site.contact_email}`} className="label underline underline-offset-4 hover:opacity-60">
               {site.contact_email}
             </a>

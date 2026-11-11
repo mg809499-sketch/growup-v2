@@ -25,12 +25,12 @@ export function SiteHeader() {
             Consola
           </a>
         </nav>
-        <Link
-          href="/solicitar-acceso"
+        <a
+          href={site.admin_login_url}
           className="label inline-flex items-center border border-[var(--ink)] bg-[var(--ink)] px-5 py-2.5 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
         >
-          Solicitar acceso
-        </Link>
+          Iniciar sesión
+        </a>
       </div>
     </header>
   );

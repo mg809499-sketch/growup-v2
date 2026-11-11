@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 
 import { site } from "@/content/site";
@@ -22,18 +21,16 @@ export default function ConsolaPage() {
       </p>
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
         <a
-          href={site.admin_url}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={site.admin_login_url}
           className="label inline-flex border border-[var(--ink)] bg-[var(--ink)] px-8 py-4 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
         >
           Entrar a mi tienda →
         </a>
-        <Link href="/solicitar-acceso" className="label underline underline-offset-4 hover:opacity-60">
-          ¿Aún no tienes tienda? Solicita acceso
-        </Link>
+        <a href={site.admin_login_url} className="label underline underline-offset-4 hover:opacity-60">
+          ¿Aún no tienes tienda? Crea tu cuenta
+        </a>
       </div>
-      <p className="label mt-8 text-[var(--muted)]">{site.admin_url.replace("https://", "")}</p>
+      <p className="label mt-8 text-[var(--muted)]">{site.admin_url.replace(/^https?:\/\//, "")}</p>
     </section>
   );
 }

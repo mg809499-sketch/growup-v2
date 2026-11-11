@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 import { Modal } from "@/components/modal";
 import { annual_note, plans, show_pricing, trial_days } from "@/content/plans";
+import { site } from "@/content/site";
 import type { Plan } from "@/content/plans";
 
 export function PlansClient() {
@@ -86,13 +86,13 @@ export function PlansClient() {
               ¿Encaja con tu marca? Te abrimos la tienda con acceso asistido:
               catálogo inicial, tema, media y primer cobro de prueba incluidos.
             </p>
-            <Link
-              href="/solicitar-acceso"
+            <a
+              href={site.admin_login_url}
               onClick={() => setSelected(null)}
               className="label mt-4 inline-flex w-full items-center justify-center border border-[var(--ink)] bg-[var(--ink)] px-6 py-3 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
             >
-              Solicitar acceso →
-            </Link>
+              Iniciar sesión →
+            </a>
             <p className="label mt-3 text-center text-[var(--muted)]">
               Sin cobro hasta el día {trial_days + 1} · cancelas cuando quieras
             </p>

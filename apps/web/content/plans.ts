@@ -32,7 +32,7 @@ export const plans: Plan[] = [
       "Catálogo, inventario y checkout Wompi incluidos",
       "Facturación DIAN incluida (proveedor certificado)",
     ],
-    cta: "Solicitar acceso",
+    cta: "Ver plan",
   },
   {
     id: "pro",
@@ -51,7 +51,7 @@ export const plans: Plan[] = [
       "Soporte prioritario y onboarding asistido",
       "Facturación DIAN incluida (proveedor certificado)",
     ],
-    cta: "Solicitar acceso",
+    cta: "Ver plan",
   },
 ];
 

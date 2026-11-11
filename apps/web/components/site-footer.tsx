@@ -42,7 +42,7 @@ export function SiteFooter() {
               <p className="label text-[var(--muted)]">Acceso</p>
               <ul className="mt-3 space-y-2 text-sm">
                 <li><Link href="/planes" className="text-[var(--muted)] hover:text-[var(--ink)]">Planes</Link></li>
-                <li><Link href="/solicitar-acceso" className="text-[var(--muted)] hover:text-[var(--ink)]">Solicitar acceso</Link></li>
+                <li><a href={site.admin_login_url} className="text-[var(--muted)] hover:text-[var(--ink)]">Iniciar sesión</a></li>
                 <li>
                   <a href={site.admin_url} className="text-[var(--muted)] hover:text-[var(--ink)]" target="_blank" rel="noopener noreferrer">
                     Consola de comercio
