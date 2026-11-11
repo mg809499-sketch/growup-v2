@@ -49,3 +49,5 @@ Thumbs.db
 apps/storefront/test-results/
 apps/storefront/playwright-report/
 
+# Dev server logs (local)
+.run-logs/
