@@ -44,3 +44,8 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# Playwright / test artifacts
+apps/storefront/test-results/
+apps/storefront/playwright-report/
+

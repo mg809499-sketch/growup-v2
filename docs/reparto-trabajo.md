@@ -1,5 +1,7 @@
 # Reparto de trabajo — Growup
 
+> **Actualización 2026-11-10:** el reparto vigente está en [`docs/plan/README.md`](plan/README.md) (fases F0–F7). Este archivo se conserva como referencia histórica del reparto anterior por persona.
+
 > **Cómo usar este archivo:** cuando tu compañero haga `pull` y abra OpenCode, debe pedirle:
 > “Lee `AGENTS.md` y `docs/reparto-trabajo.md`, y empieza por la tarea `B-01`.”
 >

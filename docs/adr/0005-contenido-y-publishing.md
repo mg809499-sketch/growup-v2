@@ -1,6 +1,6 @@
 # ADR-0005 — Modelo de contenido y publishing
 
-- **Estado:** Propuesta (requiere revisión)
+- **Estado:** Propuesta (requiere revisión) — **implementación completa en código (2026-11-10), pendiente de ratificación**
 - **Fecha:** 2026-10-21
 - **Decisores:** equipo de producto e ingeniería
 - **Relacionado con:** ADR-0001, D-05, D-07
@@ -127,7 +127,10 @@ Reglas:
 | C. Tabla normalizada de bloques | Consultas y edición granular | Versionar un árbol normalizado es complejo | El documento versionado es más simple |
 | D. Mutar la versión publicada | Menos tablas | Sin rollback ni cache consistente | Viola el principio de publish atómico |
 
-## Consecuencias
+## Estado de implementación (2026-11-10)
+
+La Opción A está implementada en código y probada: `app.pages`, `page_versions`, `themes`, `outbox_events` (migraciones `20261110000100_content.sql`); block registry con 16 bloques y esquemas Pydantic cerrados (tests `tests/domains/content/`); publish atómico vía `app.publish_page`; preview con token HMAC; storefront con `BlockRenderer` e ISR (`apps/storefront/components/blocks/`); admin con builder funcional (`/builder`); páginas demo publicadas vía `supabase/seed.demo.sql`. **El estado sigue siendo Propuesta hasta que producto ratifique la lista final de bloques, el schema de tokens y el flujo de publish** — la implementación no sustituye esa decisión.
+
 
 ### Positivas
 

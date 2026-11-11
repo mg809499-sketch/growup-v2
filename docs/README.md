@@ -10,7 +10,7 @@
 - [Tenancy y threat model](architecture/03-tenancy.md) — STRIDE y 12 vectores cross-tenant.
 - [Decisiones de negocio pendientes](decisiones-pendientes.md) — **leer antes de diseñar o implementar**.
 - [ADRs](adr/README.md) — decisiones de arquitectura aceptadas y propuestas.
-- [Spec del MVP](../.kiro/specs/storefront-platform-v2/requirements.md) — requisitos, diseño y tareas.
+- [Plan maestro y guías de ejecución](plan/README.md) — **estado real, auditoría 2026-11-10 y trabajo pendiente por fases**.
 
 ## Legal
 
@@ -26,8 +26,7 @@
 ## Reglas para agentes
 
 - [AGENTS.md](../AGENTS.md)
-- [Steering](../.kiro/steering/) — producto, stack, gobernanza y seguridad.
 
-## Estado de las specs
+## Specs
 
-Las specs ejecutables vivirán en `.kiro/specs/` una vez cerradas las decisiones D-01 a D-08.
+Las specs ejecutables vivirán en `.kiro/specs/` una vez cerradas las decisiones abiertas. Hasta entonces, la hoja de ruta es [`plan/README.md`](plan/README.md).

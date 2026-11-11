@@ -6,9 +6,9 @@
 
 ## Orden de lectura antes de tocar código
 
-1. `docs/decisiones-pendientes.md` — si la tarea depende de una decisión abierta, **detente y pregunta**.
-2. `docs/adr/` — decisiones de arquitectura aceptadas.
-3. `.kiro/steering/` — reglas permanentes de producto, stack, gobernanza y seguridad.
+1. `docs/plan/README.md` — estado real del proyecto y trabajo pendiente por fases (auditoría 2026-11-10).
+2. `docs/decisiones-pendientes.md` — si la tarea depende de una decisión abierta, **detente y pregunta**.
+3. `docs/adr/` — decisiones de arquitectura.
 4. `docs/prompts/v0-storefront.md` — dirección visual del storefront.
 5. `docs/arquitectura-plataforma-inteligente-cordiasolve-v2.md` — documento base (legado, puede contener contradicciones).
 
@@ -30,17 +30,22 @@
 ```bash
 # API
 cd services/api
-uv sync
+uv sync                      # o: python -m uv sync
 uv run uvicorn app.main:app --reload
 uv run ruff check .
 uv run mypy app
-uv run pytest
+uv run pytest                # integración real si GROWUP_TEST_DATABASE_URL está configurada
 
-# Monorepo (cuando existan apps)
+# Monorepo
 pnpm install
 pnpm build
 pnpm lint
 pnpm typecheck
+pnpm contracts:check         # debe fallar solo si openapi/schema.d.ts cambiaron legítimamente
+
+# Datos demo y E2E
+psql "$GROWUP_MIGRATION_URL" -f supabase/seed.demo.sql
+pnpm --filter @growup/storefront test:e2e
 ```
 
 ## Definition of Done
@@ -50,14 +55,10 @@ pnpm typecheck
 - `tsc --noEmit` y `next build` en verde (frontend).
 - Sin secretos ni PII en logs.
 - Documentación o ADR actualizado si cambió una decisión.
-- Si el cambio toca aislamiento de tenants, se ejecuta la skill `tenant-isolation-check`.
-- Si el cambio toca bloques/contenido, se ejecuta `block-review`.
-- Si el cambio toca pagos/webhooks, se ejecuta `payment-webhook-review`.
+- Si el cambio toca aislamiento de tenants, ejecutar la skill de aislamiento o documentar en el PR las pruebas A/B realizadas.
+- Si el cambio toca bloques/contenido, validar los schemas cerrados y el fallback de bloque desconocido.
+- Si el cambio toca pagos/webhooks, verificar firma, idempotencia y que ningún PAN/CVV se loguea.
 
 ## Kiro
 
-- **Steering:** `.kiro/steering/` (6 archivos, `inclusion: always`).
-- **Spec:** `.kiro/specs/storefront-platform-v2/` (`requirements`, `design`, `tasks`).
-- **Skills:** `tenant-isolation-check`, `block-review`, `payment-webhook-review`.
-- **Hooks:** `.kiro/hooks/` (calidad API, migraciones, tests, secretos).
-- Los hooks no reemplazan la CI ni los tests: solo dan feedback temprano.
+Steering y specs viven en `docs/` hasta que se cierre la migración del flujo de trabajo; no hay `.kiro/` en este repositorio. Ver `docs/plan/README.md` para el estado vigente.

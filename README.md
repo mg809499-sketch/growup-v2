@@ -1,6 +1,8 @@
 # Growup — Plataforma de comercio multi-tenant
 
-Repositorio del storefront engine y la API de la plataforma Cordiasolve V2.
+Repositorios del storefront engine y la API de la plataforma Cordiasolve V2.
+
+> **Lectura obligada para entender el estado real y el trabajo pendiente:** [`docs/plan/README.md`](docs/plan/README.md) (auditoría 2026-11-10 + plan maestro F0–F7). Todas las decisiones de proveedores y los pasos de ejecución están documentados ahí y en [`docs/decisiones-pendientes.md`](docs/decisiones-pendientes.md).
 
 ## Stack
 
@@ -12,55 +14,44 @@ Repositorio del storefront engine y la API de la plataforma Cordiasolve V2.
 | Caché / colas | Redis + ARQ |
 | Media | Cloudflare R2 (S3 compatible) |
 | Búsqueda | PostgreSQL FTS (MVP) → Meilisearch (fase posterior) |
-| Observabilidad | Sentry + OpenTelemetry |
+| Observabilidad | Sentry + OpenTelemetry → Grafana Cloud (plan F1) |
+
+## Estado (2026-11-10)
+
+Implementado y verificado:
+
+- Núcleo multi-tenant: RLS forzado, resolución host→tenant (suspendidos no resuelven), JWT/JWKS con singleflight, RBAC desde membresía, aislamiento probado contra Postgres real (pgTAP + pytest integración, 262 passed).
+- Catálogo, variantes, inventario atómico, media (R2 + worker ARQ), gobernanza con hash chain.
+- Contratos OpenAPI → TypeScript (`packages/contracts`) + `@growup/config` compartido.
+- **Contenido/builder (ADR-0005, implementación completa de backend + storefront + admin):** tablas `pages`/`page_versions`/`themes`/`outbox_events`, 16 bloques con esquemas cerrados, publicar atómico, preview con token HMAC, render en storefront, ISR + purga por tags, páginas ejemplo `ropa`/`joyeria` vía `seed.demo.sql`.
+- **Comercio (Wave 4, núcleo):** carrito guest, checkout con redirect a Wompi (SAQ A), órdenes, webhook Wompi firmado e idempotente, admin de pedidos, configuración de cuenta Wompi por tenant (cifrada).
+- **Infraestructura:** Dockerfiles API/worker (no-root), `fly.toml` staging/producción, compose local endurecido, CI con jobs de seguridad (gitleaks, pip-audit, pnpm audit, Trivy) y workflow de deploy.
+- **Frontend:** storefront con catálogo, bloques, carrito, previsualización y navegación; admin con login, catálogo, media, auditoría, builder de páginas, pedidos y tenants.
+- E2E Playwright (`apps/storefront/e2e/`, 6 tests en verde contra stack local).
+
+Pendiente (ver plan): deploys reales a staging/prod, DIAN (Factus), Stripe Billing + suspensión por impago, emails (Resend), DPA/DSR/legal (abogado), observabilidad en producción, piloto Q1 2027.
 
 ## Estructura
 
 ```text
 growup/
 ├─ apps/
-│  ├─ storefront/        # Next.js: resuelve host→tenant y renderiza bloques publicados
-│  └─ admin/             # Next.js: builder, catálogo, pedidos, ajustes
+│  ├─ storefront/        # Next.js: renderiza bloques publicados; carrito y checkout
+│  ├─ admin/             # Next.js: catálogo, media, builder, pedidos, auditoría, tenants
+│  └─ web/               # Next.js: sitio público growup.com (marketing del SaaS)
 ├─ services/
 │  └─ api/               # FastAPI: core + dominios + workers
-├─ packages/             # UI, contratos OpenAPI, configuración compartida
-├─ infra/                # Docker compose local (Redis + MinIO)
-├─ supabase/             # Migraciones, seeds y tests pgTAP
+├─ packages/             # contracts (OpenAPI→TS), config (utilidades compartidas)
+├─ infra/                # compose local (Redis+MinIO), fly.toml (staging/prod)
+├─ supabase/             # Migraciones, seed.demo.sql, tests pgTAP
 ├─ docs/
-│  ├─ adr/               # Decisiones de arquitectura
-│  ├─ architecture/      # Overview, datos y tenancy
-│  ├─ prompts/           # Prompts reproducibles (v0, etc.)
-│  └─ decisiones-pendientes.md
-└─ .kiro/                # Steering, specs y skills
+│  ├─ adr/               # Decisiones de arquitectura (0001-0011; 0005 en propuesta)
+│  ├─ plan/              # Plan maestro F0–F7, decisiones de proveedores, guías ejecutables
+│  ├─ prototypes-legacy-html/  # Mockups visuales históricos (no usar)
+│  ├─ legal/, regulatory/, architecture/
+├─ .github/workflows/    # ci.yml (api, db, contracts, frontend, security, docker)
+└─ AGENTS.md             # Reglas para agentes
 ```
-
-## Estado
-
-- [x] Documentos de arquitectura V2 en `docs/`
-- [x] Prompt de v0 en `docs/prompts/v0-storefront.md`
-- [x] Bootstrap del monorepo
-- [x] ADR-0001 (producto) y ADR-0002 (repositorio)
-- [x] Decisiones de negocio (`docs/decisiones-pendientes.md`)
-- [x] ADRs técnicos 0001-0008
-- [x] Specs en `.kiro/specs/storefront-platform-v2/`
-- [x] Núcleo de seguridad: errores, host, JWT/JWKS, algoritmo asimétrico
-- [x] Migración base de tenancy, RLS forzado y 17 tests pgTAP
-- [x] Pool asyncpg con `SET LOCAL ROLE app_rw` + `SET LOCAL app.tenant_id` y `/readyz`
-- [x] Pipeline OpenAPI → TypeScript (`packages/contracts`)
-- [x] `/v1/storefront/bootstrap` con resolución host→tenant, settings y caché local
-- [x] Auth de staff: JWKS, memberships, roles/permisos y `/v1/admin/me`
-- [x] Catálogo: migración, API admin/storefront, FTS, inventario inicial, 14 tests pgTAP y update/delete de variantes con reglas de stock
-- [x] Inventario: reservas atómicas por ubicación, confirmación/liberación/expiración y test de 40 reservas concurrentes sin overselling
-- [x] Gobernanza: `decide()` con políticas versionadas, `decision_logs` append-only con cadena por tenant/plataforma y verificación de integridad
-- [x] Platform admin: `POST /v1/platform/tenants` atómico con `create_tenant_with_owner` + auditoría, y `GET /v1/platform/tenants` paginado con búsqueda
-- [x] Media: URL prefirmada a R2, worker ARQ, AVIF/WebP 320-1600, strip de EXIF, blurhash, alt obligatorio, asociación a producto, gestión (listar/editar/borrar), limpieza de uploads huérfanos y E2E S3 con moto
-- [x] Aislamiento: 10 vectores cross-tenant automatizados sobre HTTP real (RLS + schemas cerrados)
-- [x] Auditoría: `GET /v1/admin/audit` paginado por `seq` y `GET /v1/admin/audit/verify` sobre la cadena de hashes
-- [x] Hardening HTTP: headers de seguridad (nosniff, frame-options, referrer, CSP en `/v1`, HSTS fuera de local) y límite de cuerpo configurable
-- [x] Observabilidad: logs estructurados con `request_id`, `tenant_id` y duración; Sentry opcional sin PII
-- [x] Storefront base: home, colección y detalle de producto contra la API multi-tenant (dirección visual del prompt v0; falta export final)
-- [x] Admin base: login Supabase SSR, resumen, catálogo editable (producto/variantes/media), auditoría y tenants de plataforma
-- [ ] Wave 0 / Wave 1: frontend y contenido
 
 ## Inicio rápido — API
 
@@ -69,77 +60,50 @@ growup/
 pnpm dlx supabase start
 pnpm dlx supabase db reset
 
+# Datos demo: tenants ropa y joyeria con catálogo y home publicada
+psql "$GROWUP_MIGRATION_URL" -f supabase/seed.demo.sql
+
 # Redis + MinIO para media local (opcional)
 docker compose -f infra/docker-compose.yml up -d
 
 cd services/api
-cp .env.example .env
-uv sync
-uv run uvicorn app.main:app --reload
+cp .env.example .env   # completa GROWUP_DATABASE_URL, GROWUP_PREVIEW_SECRET, ...
+python -m uv sync
+python -m uv run uvicorn app.main:app --reload
 # http://localhost:8000/healthz
 # http://localhost:8000/readyz
-# Worker de media (requiere Redis y R2/MinIO configurados)
-uv run arq app.workers.media.WorkerSettings
 ```
 
 Tests:
 
 ```bash
 cd services/api
-uv run pytest
-uv run ruff check .
-uv run mypy app
+python -m uv run pytest                # unit + integración (con GROWUP_TEST_DATABASE_URL)
+python -m uv run ruff check .
+python -m uv run mypy app
 ```
 
-Tests de integración contra Supabase local:
+E2E storefront (con API y storefront corriendo):
 
 ```bash
-# PowerShell
-$env:GROWUP_TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
-uv run pytest
+cd apps/storefront
+pnpm exec playwright install chromium
+STOREFRONT_URL=http://localhost:3000 pnpm test:e2e
 ```
 
-E2E de media contra un S3-compatible (opcional):
+Build local de imágenes:
 
 ```bash
-# Por defecto levanta moto en un hilo; no requiere Docker ni credenciales.
-$env:GROWUP_TEST_DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:54322/postgres"
-uv run pytest tests/integration/test_media_s3.py
-
-# Contra MinIO local:
-docker compose -f infra/docker-compose.yml up -d
-$env:GROWUP_TEST_S3_ENDPOINT="http://localhost:9000"
-uv run pytest tests/integration/test_media_s3.py
+docker build -f services/api/Dockerfile services/api -t growup-api:local
+docker build -f services/api/Dockerfile.worker services/api -t growup-worker:local
 ```
 
-CI (`.github/workflows/ci.yml`): lint, `mypy` y `pytest` con Postgres real y todas las migraciones aplicadas; pgTAP con Supabase CLI; `contracts:check`; y lint/typecheck/build de storefront y admin.
+CI (`.github/workflows/ci.yml`): API (ruff/mypy/pytest con Postgres real), pgTAP, contratos, frontend (lint/typecheck/build), seguridad (gitleaks/pip-audit/pnpm audit), Docker (build + Trivy). Deploy: `.github/workflows/deploy.yml` (staging automático en main; producción manual con `environment: production`).
 
 ## Equipo
 
-Somos dos personas. El reparto de tareas, el setup, las reglas y el prompt para arrancar en OpenCode están en [`docs/reparto-trabajo.md`](docs/reparto-trabajo.md).
-
-Tests RLS con pgTAP:
-
-```bash
-pnpm dlx supabase test db
-```
-
-## Inicio rápido — Frontend
-
-Pendiente de integrar el export de v0 en `apps/storefront`. Ver `docs/prompts/v0-storefront.md`.
-
-## Documentación
-
-- [Arquitectura V2 (documento base)](docs/arquitectura-plataforma-inteligente-cordiasolve-v2.md)
-- [Overview de arquitectura](docs/architecture/00-overview.md)
-- [Modelo de datos](docs/architecture/02-datos.md)
-- [Tenancy y threat model](docs/architecture/03-tenancy.md)
-- [Decisiones de negocio](docs/decisiones-pendientes.md)
-- [ADRs](docs/adr/README.md)
-- [Spec del MVP](.kiro/specs/storefront-platform-v2/requirements.md)
-- [Steering para agentes](.kiro/steering/)
-- [Reglas para agentes](AGENTS.md)
+Somos dos personas. El reparto histórico está en [`docs/reparto-trabajo.md`](docs/reparto-trabajo.md); el plan vigente está en [`docs/plan/`](docs/plan/README.md).
 
 ## Regla de convivencia
 
-El proyecto hermano `../multitiendas` es **solo lectura**: se usa como referencia y donante de código, pero no se modifica, mueve ni renombra desde este repositorio.
+El proyecto hermano `../multitiendas` es **solo lectura**.
