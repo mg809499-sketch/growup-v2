@@ -1,0 +1,101 @@
+name: Deploy
+
+# Staging: automático en cada push a main (tras CI verde en ese SHA).
+# Producción: manual (workflow_dispatch), con environment protegido y checklist.
+# Orden obligatorio: migraciones → API/worker (Fly) → frontends (Vercel, vía Git integration u hook).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Ambiente destino"
+        required: true
+        default: "staging"
+        type: choice
+        options: [staging, production]
+
+jobs:
+  deploy-staging:
+    name: Deploy staging (Fly)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event.inputs.target == 'staging'
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Apply DB migrations (staging)
+        run: |
+          echo "Aplicar migraciones expand/contract vía Supabase CLI o supabase db push --linked (revisado)."
+          echo "Este paso requiere GROWUP_MIGRATION_URL en GitHub Environment 'staging'."
+          if [ -n "${GROWUP_MIGRATION_URL:-}" ]; then
+            python -m pip install --quiet psycopg[binary];
+            python - <<'EOF'
+            import os, glob, psycopg
+            with psycopg.connect(os.environ["GROWUP_MIGRATION_URL"], autocommit=True) as conn:
+                for path in sorted(glob.glob("supabase/migrations/*.sql")):
+                    print("Applying", path)
+                    conn.execute(open(path, encoding="utf-8").read())
+            EOF
+          else
+            echo "::warning::GROWUP_MIGRATION_URL no configurada; migraciones NO aplicadas."
+          fi
+        env:
+          GROWUP_MIGRATION_URL: ${{ secrets.GROWUP_MIGRATION_URL }}
+
+      - name: Deploy API (staging)
+        run: flyctl deploy --remote-only --config infra/fly.toml --app growup-api-staging
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_STAGING }}
+
+      - name: Deploy worker (staging)
+        run: flyctl deploy --remote-only --config infra/fly.worker.toml --app growup-worker-staging
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_STAGING }}
+
+  deploy-production:
+    name: Deploy production (Fly)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.target == 'production'
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preflight checklist
+        run: |
+          echo "Checklist obligatorio antes de aprobar este job:"
+          echo "  [ ] Backup PITR verificado en las últimas 24h"
+          echo "  [ ] Migración compat hacia atrás (expand/contract) y pgTAP verdes"
+          echo "  [ ] Smoke tests en staging verdes para el mismo SHA"
+          echo "  [ ] Ventana de cambio acordada; on-call disponible"
+          echo "  [ ] Rollback ensayado (Vercel Instant Rollback / fly release anterior)"
+
+      - name: Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Apply DB migrations (production)
+        run: |
+          python -m pip install --quiet psycopg[binary];
+          python - <<'EOF'
+          import os, glob, psycopg
+          with psycopg.connect(os.environ["GROWUP_MIGRATION_URL"], autocommit=True) as conn:
+              for path in sorted(glob.glob("supabase/migrations/*.sql")):
+                  print("Applying", path)
+                  conn.execute(open(path, encoding="utf-8").read())
+          EOF
+        env:
+          GROWUP_MIGRATION_URL: ${{ secrets.GROWUP_MIGRATION_URL }}
+
+      - name: Deploy API (production)
+        run: flyctl deploy --remote-only --config infra/fly.production.toml --app growup-api-production
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_PRODUCTION }}
+
+      - name: Deploy worker (production)
+        run: flyctl deploy --remote-only --config infra/fly.worker.toml --app growup-worker-production
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_PRODUCTION }}

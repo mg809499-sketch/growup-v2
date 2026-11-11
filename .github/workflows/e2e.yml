@@ -1,0 +1,51 @@
+name: E2E (Playwright)
+
+# Manual (workflow_dispatch) contra un ambiente existente (staging por defecto),
+# o automático en pushes a main cuando E2E_STAGING_URL esté configurada como variable.
+on:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "URL base del storefront a probar"
+        required: true
+        default: "https://staging.growup.com"
+  push:
+    branches: [main]
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || vars.E2E_STAGING_URL != ''
+    env:
+      STOREFRONT_URL: ${{ github.event.inputs.target_url || vars.E2E_STAGING_URL }}
+      STOREFRONT_HOST: ropa.growup.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: pnpm --filter @growup/storefront exec playwright install chromium --with-deps
+
+      - name: Run E2E
+        run: pnpm --filter @growup/storefront test:e2e
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/storefront/playwright-report
+          retention-days: 7

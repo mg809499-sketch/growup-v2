@@ -148,3 +148,73 @@ jobs:
 
       - name: Build admin
         run: pnpm --filter @growup/admin build
+
+  security:
+    name: Security (audit + secret scan)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: pip-audit
+        working-directory: services/api
+        run: |
+          uv sync
+          uv run --with pip-audit pip-audit --strict || true   # reporte; no bloquea piloto, revisar semanalmente
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: pnpm audit
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm audit --prod --audit-level high || true         # reporte; no bloquea piloto, revisar semanalmente
+
+  docker:
+    name: Docker (build + Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build API image
+        working-directory: services/api
+        run: docker build -f Dockerfile -t growup-api:ci .
+
+      - name: Build worker image
+        working-directory: services/api
+        run: docker build -f Dockerfile.worker -t growup-worker:ci .
+
+      - name: Trivy scan (API)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: growup-api:ci
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+          ignore-unfixed: true
+
+      - name: Trivy scan (worker)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: growup-worker:ci
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+          ignore-unfixed: true

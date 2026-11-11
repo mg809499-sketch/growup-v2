@@ -1,0 +1,23 @@
+# Fly.io — Worker ARQ (media, emails, DIAN). SIN ingress HTTP: no expone puertos.
+# Deploy: fly deploy -a growup-worker-production --config infra/fly.worker.toml
+app = "growup-worker-production"
+primary_region = "gru"
+kill_signal = "SIGINT"
+kill_timeout = "30s"
+
+[build]
+  dockerfile = "../../services/api/Dockerfile.worker"
+
+[env]
+  GROWUP_ENVIRONMENT = "production"
+  GROWUP_ROOT_DOMAIN = "growup.com"
+
+# Sin [http_service]: el worker no recibe tráfico público.
+
+[checks]
+  # Chequeo de proceso vía máquina viva; Fly verifica que el proceso corre.
+
+[vm]
+  size = "shared-cpu-1x"
+  memory = "512mb"
+  cpus = 1

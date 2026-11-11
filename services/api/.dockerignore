@@ -1,0 +1,23 @@
+# Secretos y entornos locales
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# VCS y docs
+.git/
+.gitignore
+*.md
+tests/
+
+# uv cache local
+.uv-cache/
