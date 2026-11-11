@@ -9,6 +9,7 @@ export type ProductSummaryResponse = components["schemas"]["ProductSummaryRespon
 export type ProductDetailResponse = components["schemas"]["ProductDetailResponse"];
 export type ProductMediaResponse = components["schemas"]["ProductMediaResponse"];
 export type ProductVariantResponse = components["schemas"]["VariantResponse"];
+export type StorefrontPageResponse = components["schemas"]["StorefrontPageResponse"];
 
 const API_URL = (process.env.GROWUP_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 
@@ -38,7 +39,7 @@ async function apiGet<T>(path: string, host: string): Promise<T> {
       Accept: "application/json",
       "X-Storefront-Host": host,
     },
-    cache: "no-store",
+    next: { revalidate: 3600, tags: [`tenant:${host}`] },
   });
 
   if (!response.ok) {
@@ -80,5 +81,21 @@ export const getProduct = cache(
       `/v1/storefront/products/${encodeURIComponent(slug)}`,
       host,
     );
+  },
+);
+
+export const getPublishedPage = cache(
+  async (host: string, slug: string): Promise<StorefrontPageResponse | null> => {
+    try {
+      return await apiGet<StorefrontPageResponse>(
+        `/v1/storefront/pages/${encodeURIComponent(slug)}`,
+        host,
+      );
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 404) {
+        return null;
+      }
+      throw error;
+    }
   },
 );

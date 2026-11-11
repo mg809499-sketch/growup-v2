@@ -11,7 +11,8 @@ import {
   getStorefrontHost,
 } from "@/lib/api";
 import type { ProductDetailResponse } from "@/lib/api";
-import { mediaUrl, productImage } from "@/lib/format";
+import { mediaUrl, productImage, formatPrice } from "@/lib/format";
+import { addToCartAction } from "@/lib/cart-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -200,13 +201,47 @@ export default async function ProductPage({
             </ul>
           </div>
 
-          <div className="mt-6 border border-[var(--hairline)] px-4 py-4">
+          <form action={addToCartAction} className="mt-6 border border-[var(--hairline)] px-4 py-4">
             <p className="label text-[var(--muted)]">Compra</p>
-            <p className="mt-2 text-sm leading-relaxed">
-              El carrito y el checkout están en construcción. Esta tienda ya
-              publica su catálogo desde la API multi-tenant.
-            </p>
-          </div>
+            <label htmlFor="variant-select" className="sr-only">Variante</label>
+            <select
+              id="variant-select"
+              name="variant_id"
+              required
+              defaultValue=""
+              className="mt-2 w-full border border-[var(--hairline)] bg-[var(--surface-2)] px-3 py-3"
+            >
+              <option value="" disabled>
+                Elige una variante…
+              </option>
+              {product.variants
+                .filter((variant) => variant.is_active && variant.stock_available > 0)
+                .map((variant) => (
+                  <option key={variant.id} value={variant.id}>
+                    {variantLabel(variant.option_values)} — {formatPrice(variant.price_cents)}
+                  </option>
+                ))}
+            </select>
+            <div className="mt-3 flex items-center gap-3">
+              <label htmlFor="qty" className="label text-[var(--muted)]">Cantidad</label>
+              <input
+                id="qty"
+                name="quantity"
+                type="number"
+                min={1}
+                max={10}
+                defaultValue={1}
+                className="w-20 border border-[var(--hairline)] bg-[var(--surface-2)] px-3 py-2"
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={!hasActiveVariant}
+              className="label mt-4 w-full border border-[var(--ink)] bg-[var(--ink)] px-6 py-3 text-[var(--surface)] transition-colors hover:bg-[var(--signal)] hover:text-[var(--surface)] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {hasActiveVariant ? "Añadir al carrito" : "Agotado"}
+            </button>
+          </form>
 
           {product.tags.length > 0 ? (
             <div className="mt-6 flex flex-wrap gap-2">

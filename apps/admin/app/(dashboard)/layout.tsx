@@ -27,6 +27,8 @@ export default async function DashboardLayout({
 
         <nav aria-label="Navegación principal" className="flex-1 py-4">
           <NavLink href="/" label="Resumen" />
+          <NavLink href="/orders" label="Pedidos" />
+          <NavLink href="/builder" label="Builder" />
           <NavLink href="/catalog/products" label="Catálogo" />
           <NavLink href="/media" label="Media" />
           <NavLink href="/audit" label="Auditoría" />

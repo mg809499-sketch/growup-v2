@@ -1,3 +1,4 @@
+import { formatPrice } from "@growup/config";
 import type { ProductMediaResponse } from "@/lib/api";
 
 export type StorefrontTheme = "ropa" | "joyeria";
@@ -6,13 +7,7 @@ export function defaultTheme(): StorefrontTheme {
   return process.env.GROWUP_DEFAULT_THEME === "joyeria" ? "joyeria" : "ropa";
 }
 
-export function formatPrice(cents: number): string {
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    maximumFractionDigits: 0,
-  }).format(cents / 100);
-}
+export { formatPrice };
 
 export function mediaUrl(url: string, r2Key: string): string {
   if (url) {

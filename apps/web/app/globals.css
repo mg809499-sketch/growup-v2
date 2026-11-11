@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --surface: #f4f3ee;
+  --surface-2: #faf9f4;
+  --ink: #0d0d0d;
+  --signal: #ff3b1d;
+  --muted: #6f6c61;
+  --hairline: #e3e1d9;
+  --font-display: var(--font-anton);
+  --font-body: var(--font-space);
+  --font-label: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.display {
+  font-family: var(--font-display), Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.label {
+  font-family: var(--font-label), ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.hairline-t {
+  border-top: 1px solid var(--hairline);
+}
+
+.hairline-b {
+  border-bottom: 1px solid var(--hairline);
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--surface);
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

@@ -83,9 +83,25 @@ export default async function RootLayout({
         className={`${anton.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${playfair.variable} ${jakarta.variable}`}
         data-theme={defaultTheme()}
       >
-        {bootstrap ? <SiteHeader tenant={bootstrap.tenant} /> : null}
-        {children}
-        {bootstrap ? <SiteFooter tenant={bootstrap.tenant} /> : null}
+        {bootstrap ? (
+          <>
+            <SiteHeader tenant={bootstrap.tenant} />
+            {children}
+            <SiteFooter tenant={bootstrap.tenant} />
+          </>
+        ) : (
+          <div className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center gap-4 p-8 text-center">
+            <p className="label text-[var(--muted)]">growup</p>
+            <h1 className="display text-3xl">Tienda en configuración</h1>
+            <p className="text-[var(--muted)]">
+              Esta tienda aún no está publicada o está suspendida. Escríbenos a{" "}
+              <a className="underline" href="mailto:soporte@growup.com">
+                soporte@growup.com
+              </a>
+              .
+            </p>
+          </div>
+        )}
       </body>
     </html>
   );

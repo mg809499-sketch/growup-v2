@@ -4,13 +4,28 @@ import Link from "next/link";
 import { EmptyState } from "@/components/empty-state";
 import { ProductCard } from "@/components/product-card";
 import { SectionLabel } from "@/components/section-label";
-import { getBootstrap, getStorefrontHost, listProducts } from "@/lib/api";
+import { BlockRenderer } from "@/components/blocks";
+import { getBootstrap, getPublishedPage, getStorefrontHost, listProducts } from "@/lib/api";
 import { mediaUrl } from "@/lib/format";
+import type { Block } from "@/lib/blocks";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export default async function HomePage() {
   const host = await getStorefrontHost();
+  const published = await getPublishedPage(host, "home");
+
+  if (published && typeof published.layout === "object" && Array.isArray((published.layout as { blocks?: unknown }).blocks)) {
+    const blocks = (published.layout as { blocks: Block[] }).blocks;
+    return (
+      <main>
+        {blocks.map((block) => (
+          <BlockRenderer key={block.id} block={block} />
+        ))}
+      </main>
+    );
+  }
+
   const [bootstrap, products] = await Promise.all([
     getBootstrap(host),
     listProducts(host, 6),

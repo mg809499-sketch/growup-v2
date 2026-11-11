@@ -9,7 +9,7 @@ export type MediaAssetListResponse = components["schemas"]["MediaAssetListRespon
 export type AuditLogListResponse = components["schemas"]["AuditLogListResponse"];
 export type AuditVerifyResponse = components["schemas"]["AuditVerifyResponse"];
 
-const API_URL = (process.env.GROWUP_API_URL ?? "http://127.0.0.1:8000").replace(
+const API_URL = (process.env.GROWUP_API_URL ?? "http://localhost:8000").replace(
   /\/$/,
   "",
 );
@@ -41,7 +41,7 @@ export async function apiGet<T>(path: string, token: string): Promise<T> {
 }
 
 export async function apiSend<T>(
-  method: "POST" | "PATCH" | "DELETE",
+  method: "POST" | "PUT" | "PATCH" | "DELETE",
   path: string,
   token: string,
   body?: unknown,

@@ -22,7 +22,7 @@ const mediaPattern = (() => {
 
 const nextConfig: NextConfig = {
   agentRules: false,
-  transpilePackages: ["@growup/contracts"],
+  transpilePackages: ["@growup/contracts", "@growup/config"],
   images: {
     remotePatterns: [
       { protocol: "http", hostname: "localhost" },
