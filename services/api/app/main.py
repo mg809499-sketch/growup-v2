@@ -28,6 +28,7 @@ from app.domains.governance.router import router as audit_router
 from app.domains.identity.router import router as identity_router
 from app.domains.inventory.router import router as inventory_router
 from app.domains.media.router import router as media_router
+from app.domains.onboarding.router import router as onboarding_router
 from app.domains.tenants.platform_router import platform_router
 from app.domains.tenants.router import router as storefront_router
 from app.runtime import close_media_queue, database
@@ -133,6 +134,7 @@ app.include_router(media_router)
 app.include_router(inventory_router)
 app.include_router(audit_router)
 app.include_router(platform_router)
+app.include_router(onboarding_router)
 
 
 _REQUEST_ID_RE = re.compile(r"^[A-Za-z0-9-]{1,64}$")
@@ -168,7 +170,7 @@ async def add_request_id(
         raise
 
     response.headers["X-Request-ID"] = request_id
-    if request.url.path.startswith(("/v1/admin", "/v1/platform")):
+    if request.url.path.startswith(("/v1/admin", "/v1/platform", "/v1/onboarding")):
         response.headers["Cache-Control"] = "no-store"
     logger.info(
         "http_request",

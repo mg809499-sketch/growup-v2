@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Annotated
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from fastapi import Depends, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -13,6 +14,7 @@ from app.domains.governance.service import GovernanceService
 from app.domains.identity.models import Actor, RequestContext
 from app.domains.identity.service import AuthService, build_context
 from app.domains.media.service import MediaService
+from app.domains.onboarding.service import OnboardingService
 from app.domains.tenants.models import Tenant
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.service import TenantResolver
@@ -38,6 +40,56 @@ def get_auth_service() -> AuthService:
             503,
         )
     return runtime.auth_service
+
+
+@dataclass(frozen=True)
+class VerifiedUser:
+    """Usuario con JWT verificado (p. ej. Google OAuth) y aún sin tenant."""
+
+    user_id: UUID
+    email: str
+
+
+async def get_verified_user(
+    token: Annotated[str, Depends(get_bearer_token)],
+) -> VerifiedUser:
+    """Verifica el JWT vía JWKS sin exigir membresía ni tenant.
+
+    Único camino abierto a usuarios sin tenant: el alta self-service. El JWT
+    debe incluir email (Google lo provee). Cualquier otro endpoint exige
+    get_current_actor, que sí valida membresía/rol/tenant.
+    """
+    if runtime.jwt_verifier is None:
+        raise AppError(
+            "SERVICE_UNAVAILABLE",
+            "La autenticación no está configurada",
+            503,
+        )
+    claims = await runtime.jwt_verifier.verify(token)
+
+    try:
+        user_id = UUID(claims.subject)
+    except (TypeError, ValueError) as exc:
+        raise AppError("TOKEN_INVALID", "sub inválido", 401) from exc
+
+    if not claims.email:
+        raise AppError(
+            "TOKEN_INVALID",
+            "El token no incluye email; el alta requiere un correo",
+            401,
+        )
+
+    return VerifiedUser(user_id=user_id, email=claims.email)
+
+
+def get_onboarding_service() -> OnboardingService:
+    if runtime.onboarding_service is None:
+        raise AppError(
+            "SERVICE_UNAVAILABLE",
+            "El alta de comerciantes no está configurada",
+            503,
+        )
+    return runtime.onboarding_service
 
 
 def get_catalog_service() -> CatalogService:

@@ -24,6 +24,8 @@ from app.domains.inventory.service import InventoryService
 from app.domains.media.repository import PostgresMediaRepository
 from app.domains.media.service import MediaService
 from app.domains.media.storage import R2Storage
+from app.domains.onboarding.repository import PostgresOnboardingRepository
+from app.domains.onboarding.service import OnboardingService
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.repository import PostgresTenantRepository
 from app.domains.tenants.service import InMemoryTenantCache, TenantResolver
@@ -64,6 +66,15 @@ else:
 
 membership_repository: PostgresMembershipRepository | None = (
     PostgresMembershipRepository(database) if database is not None else None
+)
+
+onboarding_repository: PostgresOnboardingRepository | None = (
+    PostgresOnboardingRepository(database) if database is not None else None
+)
+onboarding_service: OnboardingService | None = (
+    OnboardingService(onboarding_repository)
+    if onboarding_repository is not None
+    else None
 )
 
 auth_service: AuthService | None

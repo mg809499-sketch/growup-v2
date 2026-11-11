@@ -2582,6 +2582,72 @@
         }
       }
     },
+    "/v1/onboarding/complete": {
+      "post": {
+        "tags": [
+          "onboarding"
+        ],
+        "summary": "Complete Signup",
+        "operationId": "complete_signup_v1_onboarding_complete_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignupRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignupResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "ops"
+        ],
+        "summary": "Root",
+        "description": "Punto de entrada legible para humanos: dirección y enlaces.",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/healthz": {
       "get": {
         "tags": [
@@ -6026,6 +6092,139 @@
           "state"
         ],
         "title": "ShippingAddressInput"
+      },
+      "SignupRequest": {
+        "properties": {
+          "full_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 2,
+            "title": "Full Name"
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 7,
+            "pattern": "^\\+?[0-9][0-9 ()-]{6,19}$",
+            "title": "Phone"
+          },
+          "doc_type": {
+            "type": "string",
+            "enum": [
+              "CC",
+              "CE",
+              "NIT",
+              "PP"
+            ],
+            "title": "Doc Type"
+          },
+          "doc_number": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 4,
+            "pattern": "^[0-9A-Za-z.-]{4,20}$",
+            "title": "Doc Number"
+          },
+          "store_name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 2,
+            "title": "Store Name"
+          },
+          "store_type": {
+            "type": "string",
+            "enum": [
+              "ropa",
+              "joyeria",
+              "otro"
+            ],
+            "title": "Store Type"
+          },
+          "plan_code": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "pattern": "^[a-z0-9_-]+$",
+            "title": "Plan Code"
+          },
+          "slug": {
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 2,
+            "pattern": "^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$",
+            "title": "Slug"
+          },
+          "domain_choice": {
+            "type": "string",
+            "enum": [
+              "subdomain",
+              "custom"
+            ],
+            "title": "Domain Choice"
+          },
+          "custom_domain": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 253,
+                "minLength": 4,
+                "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Domain"
+          },
+          "wants_subdomain": {
+            "type": "boolean",
+            "title": "Wants Subdomain",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "full_name",
+          "phone",
+          "doc_type",
+          "doc_number",
+          "store_name",
+          "store_type",
+          "plan_code",
+          "slug",
+          "domain_choice"
+        ],
+        "title": "SignupRequest"
+      },
+      "SignupResponse": {
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Tenant Id"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "host": {
+            "type": "string",
+            "title": "Host"
+          },
+          "store_name": {
+            "type": "string",
+            "title": "Store Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant_id",
+          "slug",
+          "host",
+          "store_name"
+        ],
+        "title": "SignupResponse"
       },
       "SpacerBlock": {
         "properties": {

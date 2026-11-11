@@ -637,6 +637,43 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/onboarding/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Complete Signup */
+        post: operations["complete_signup_v1_onboarding_complete_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Root
+         * @description Punto de entrada legible para humanos: dirección y enlaces.
+         */
+        get: operations["root__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/healthz": {
         parameters: {
             query?: never;
@@ -1766,6 +1803,57 @@ export interface components {
             state: string;
             /** Postal Code */
             postal_code?: string | null;
+        };
+        /** SignupRequest */
+        SignupRequest: {
+            /** Full Name */
+            full_name: string;
+            /** Phone */
+            phone: string;
+            /**
+             * Doc Type
+             * @enum {string}
+             */
+            doc_type: "CC" | "CE" | "NIT" | "PP";
+            /** Doc Number */
+            doc_number: string;
+            /** Store Name */
+            store_name: string;
+            /**
+             * Store Type
+             * @enum {string}
+             */
+            store_type: "ropa" | "joyeria" | "otro";
+            /** Plan Code */
+            plan_code: string;
+            /** Slug */
+            slug: string;
+            /**
+             * Domain Choice
+             * @enum {string}
+             */
+            domain_choice: "subdomain" | "custom";
+            /** Custom Domain */
+            custom_domain?: string | null;
+            /**
+             * Wants Subdomain
+             * @default false
+             */
+            wants_subdomain: boolean;
+        };
+        /** SignupResponse */
+        SignupResponse: {
+            /**
+             * Tenant Id
+             * Format: uuid
+             */
+            tenant_id: string;
+            /** Slug */
+            slug: string;
+            /** Host */
+            host: string;
+            /** Store Name */
+            store_name: string;
         };
         /** SpacerBlock */
         SpacerBlock: {
@@ -3527,6 +3615,59 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    complete_signup_v1_onboarding_complete_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SignupRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SignupResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    root__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
         };
