@@ -36,6 +36,7 @@ class StorefrontSettings(BaseModel):
 class BootstrapResponse(BaseModel):
     tenant: TenantPublic
     settings: StorefrontSettings
+    theme: dict[str, Any] | None = None
 
     @classmethod
     def from_domain(cls, bootstrap: TenantBootstrap) -> BootstrapResponse:
@@ -54,6 +55,7 @@ class BootstrapResponse(BaseModel):
                 contact=bootstrap.settings.contact,
                 social=bootstrap.settings.social,
             ),
+            theme=bootstrap.theme,
         )
 
 

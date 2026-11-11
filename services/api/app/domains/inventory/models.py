@@ -24,3 +24,14 @@ class Reservation:
     expires_at: datetime
     cart_id: UUID | None
     order_id: UUID | None
+
+
+@dataclass(frozen=True, slots=True)
+class InventoryLevel:
+    variant_id: UUID
+    location_id: UUID
+    location_name: str
+    sku: str | None
+    available: int
+    reserved: int
+    sellable: int

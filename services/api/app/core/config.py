@@ -38,6 +38,12 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000"
     sentry_dsn: str = ""
     sentry_traces_sample_rate: float = 0.0
+    preview_secret: str = "dev-preview-secret-cambiar-en-produccion"
+    vercel_purge_url: str = ""
+    payment_key: str = ""
+    wompi_base_url: str = "https://checkout.wompi.co/p/"
+    wompi_api_url: str = "https://sandbox.wompi.co/v1"
+    # En producción: GROWUP_WOMPI_API_URL=https://production.wompi.co/v1
 
     @property
     def cors_origin_list(self) -> list[str]:

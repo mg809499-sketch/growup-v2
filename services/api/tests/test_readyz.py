@@ -39,7 +39,11 @@ def test_readyz_with_database_ok(monkeypatch: pytest.MonkeyPatch) -> None:
         response = client.get("/readyz")
 
     assert response.status_code == 200
-    assert response.json() == {"status": "ready", "checks": {"database": "ok"}}
+    payload = response.json()
+    assert payload["status"] == "ready"
+    assert payload["checks"]["database"] == "ok"
+    assert payload["checks"]["redis"] == "not_configured"
+    assert payload["checks"]["jwks"] == "not_configured"
     assert fake.connected is True
     assert fake.closed is True
 
@@ -51,6 +55,8 @@ def test_readyz_with_database_down(monkeypatch: pytest.MonkeyPatch) -> None:
         response = client.get("/readyz")
 
     assert response.status_code == 503
-    assert response.json() == {"status": "not_ready", "checks": {"database": "down"}}
+    payload = response.json()
+    assert payload["status"] == "not_ready"
+    assert payload["checks"]["database"] == "down"
     assert fake.connected is True
     assert fake.closed is True

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import time
 from dataclasses import dataclass
 from datetime import UTC, datetime
@@ -27,7 +28,14 @@ class TokenClaims:
 
 
 class JWKSCache:
-    """Caché de claves públicas de Supabase, con refresco por TTL o kid desconocido."""
+    """Caché de claves públicas de Supabase, con refresco por TTL o kid desconocido.
+
+    Defensas contra amplificación:
+    - singleflight: un único refresh concurrente (los demás esperan el mismo resultado);
+    - negative caching: kid ausente se recuerda 60 s para no re-consultar por cada request;
+    - cooldown global: como máximo un refresh cada `cooldown_seconds`;
+    - refresh también por TTL aunque todos los kid sean conocidos.
+    """
 
     def __init__(
         self,
@@ -35,22 +43,45 @@ class JWKSCache:
         *,
         ttl_seconds: int = 300,
         client: httpx.AsyncClient | None = None,
+        cooldown_seconds: float = 300.0,
+        negative_ttl_seconds: float = 60.0,
     ) -> None:
         self._url = url
         self._ttl_seconds = ttl_seconds
         self._client = client
         self._keys: dict[str, PyJWK] = {}
         self._expires_at = 0.0
+        self._cooldown_seconds = cooldown_seconds
+        self._negative_ttl_seconds = negative_ttl_seconds
+        self._negative: dict[str, float] = {}
+        self._last_refresh = 0.0
+        self._lock = asyncio.Lock()
 
     async def get(self, kid: str) -> PyJWK:
         now = time.monotonic()
-        if now >= self._expires_at or kid not in self._keys:
-            await self._refresh()
+        negative_until = self._negative.get(kid)
+        if negative_until is not None and now < negative_until:
+            raise AppError("TOKEN_INVALID", "kid desconocido", 401)
+
+        if kid in self._keys and now < self._expires_at:
+            return self._keys[kid]
+
+        await self._refresh_singleflight()
 
         key = self._keys.get(kid)
         if key is None:
+            self._negative[kid] = time.monotonic() + self._negative_ttl_seconds
             raise AppError("TOKEN_INVALID", "kid desconocido", 401)
         return key
+
+    async def _refresh_singleflight(self) -> None:
+        async with self._lock:
+            now = time.monotonic()
+            # Otro refresh acaba de completar: no repetir.
+            if now - self._last_refresh < self._cooldown_seconds and self._keys:
+                return
+            await self._refresh()
+            self._last_refresh = time.monotonic()
 
     async def _refresh(self) -> None:
         client = self._client or httpx.AsyncClient(timeout=5.0)

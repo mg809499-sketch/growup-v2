@@ -77,9 +77,11 @@ class TenantResolver:
     async def bootstrap(self, raw_host: str) -> TenantBootstrap:
         tenant = await self.resolve(raw_host)
         settings = await self._repository.get_settings(tenant.id)
+        theme = await self._repository.get_theme(tenant.id)
         return TenantBootstrap(
             tenant=tenant,
             settings=settings or TenantSettings.defaults(),
+            theme=theme,
         )
 
     async def create_tenant(

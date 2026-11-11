@@ -11,10 +11,16 @@ from app.core.errors import AppError
 from app.core.security.jwt import JWTVerifier
 from app.domains.catalog.repository import PostgresCatalogRepository
 from app.domains.catalog.service import CatalogService
+from app.domains.commerce.repository import PostgresCommerceRepository
+from app.domains.commerce.service import CommerceService
+from app.domains.content.repository import PostgresPageRepository
+from app.domains.content.service import PageService
 from app.domains.governance.repository import PostgresDecisionLogRepository
 from app.domains.governance.service import GovernanceService
 from app.domains.identity.repository import PostgresMembershipRepository
 from app.domains.identity.service import AuthService
+from app.domains.inventory.repository import PostgresInventoryRepository
+from app.domains.inventory.service import InventoryService
 from app.domains.media.repository import PostgresMediaRepository
 from app.domains.media.service import MediaService
 from app.domains.media.storage import R2Storage
@@ -97,6 +103,35 @@ if tenant_repository is not None and governance_service is not None:
     platform_tenant_service = PlatformTenantService(tenant_repository, governance_service)
 else:
     platform_tenant_service = None
+
+inventory_repository: PostgresInventoryRepository | None = (
+    PostgresInventoryRepository(database) if database is not None else None
+)
+
+inventory_service: InventoryService | None = (
+    InventoryService(
+        inventory_repository,
+        default_ttl_seconds=settings.inventory_reservation_ttl_seconds,
+    )
+    if inventory_repository is not None
+    else None
+)
+
+page_repository: PostgresPageRepository | None = (
+    PostgresPageRepository(database) if database is not None else None
+)
+
+page_service: PageService | None = (
+    PageService(page_repository) if page_repository is not None else None
+)
+
+commerce_repository: PostgresCommerceRepository | None = (
+    PostgresCommerceRepository(database) if database is not None else None
+)
+
+commerce_service: CommerceService | None = (
+    CommerceService(commerce_repository) if commerce_repository is not None else None
+)
 
 media_repository: PostgresMediaRepository | None = (
     PostgresMediaRepository(database) if database is not None else None

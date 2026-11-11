@@ -112,6 +112,8 @@ async def get_admin_context(
     actor: Annotated[Actor, Depends(get_current_actor)],
 ) -> RequestContext:
     request_id = getattr(request.state, "request_id", None) or str(uuid4())
+    if actor.tenant_id is not None:
+        request.state.tenant_id = str(actor.tenant_id)
     return build_context(
         actor,
         request_id=request_id,

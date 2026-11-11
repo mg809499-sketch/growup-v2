@@ -12,3 +12,13 @@ def test_healthz() -> None:
     payload = response.json()
     assert payload["status"] == "ok"
     assert payload["service"] == "growup-api"
+
+
+def test_root_points_to_docs() -> None:
+    response = client.get("/")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["service"] == "growup-api"
+    assert payload["links"]["health"] == "/healthz"
+    assert payload["links"]["docs"] == "/docs"

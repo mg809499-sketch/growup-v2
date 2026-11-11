@@ -4,7 +4,7 @@ from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from app.core.errors import AppError
-from app.domains.inventory.models import Reservation
+from app.domains.inventory.models import InventoryLevel, Reservation
 from app.domains.inventory.repository import InventoryRepository
 
 
@@ -78,3 +78,18 @@ class InventoryService:
 
     async def expire(self, tenant_id: UUID) -> int:
         return await self._repository.expire(tenant_id)
+
+    async def list_levels(
+        self,
+        tenant_id: UUID,
+        *,
+        variant_id: UUID | None = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[InventoryLevel]:
+        return await self._repository.list_levels(
+            tenant_id,
+            variant_id=variant_id,
+            limit=limit,
+            offset=offset,
+        )

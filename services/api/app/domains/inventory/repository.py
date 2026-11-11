@@ -6,7 +6,7 @@ from uuid import UUID
 
 from app.core.db import Database
 from app.core.errors import AppError
-from app.domains.inventory.models import Reservation, ReservationStatus
+from app.domains.inventory.models import InventoryLevel, Reservation, ReservationStatus
 
 _RESERVATION_COLUMNS = (
     "id, tenant_id, variant_id, location_id, cart_id, order_id, "
@@ -40,6 +40,15 @@ class InventoryRepository(Protocol):
     ) -> Reservation: ...
 
     async def expire(self, tenant_id: UUID) -> int: ...
+
+    async def list_levels(
+        self,
+        tenant_id: UUID,
+        *,
+        variant_id: UUID | None = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[InventoryLevel]: ...
 
 
 class PostgresInventoryRepository:
@@ -149,6 +158,48 @@ class PostgresInventoryRepository:
                 reservation_id,
             )
         return _reservation(row) if row is not None else None
+
+    async def list_levels(
+        self,
+        tenant_id: UUID,
+        *,
+        variant_id: UUID | None = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> list[InventoryLevel]:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            rows = await connection.fetch(
+                """
+                select il.variant_id, il.location_id, l.name as location_name,
+                       v.sku, il.available, il.reserved,
+                       (il.available - il.reserved) as sellable
+                from app.inventory_levels il
+                join app.locations l
+                  on l.tenant_id = il.tenant_id and l.id = il.location_id
+                left join app.product_variants v
+                  on v.tenant_id = il.tenant_id and v.id = il.variant_id
+                where il.tenant_id = $1
+                  and ($2::uuid is null or il.variant_id = $2)
+                order by il.variant_id, l.name
+                limit $3 offset $4
+                """,
+                tenant_id,
+                variant_id,
+                limit,
+                offset,
+            )
+        return [
+            InventoryLevel(
+                variant_id=row["variant_id"],
+                location_id=row["location_id"],
+                location_name=row["location_name"],
+                sku=row["sku"],
+                available=row["available"],
+                reserved=row["reserved"],
+                sellable=row["sellable"],
+            )
+            for row in rows
+        ]
 
     async def release(self, tenant_id: UUID, reservation_id: UUID) -> Reservation:
         async with self._database.tenant_transaction(tenant_id) as connection:

@@ -53,6 +53,8 @@ class TenantRepository(Protocol):
         offset: int,
     ) -> tuple[tuple[PlatformTenant, ...], int]: ...
 
+    async def get_theme(self, tenant_id: UUID) -> dict[str, Any] | None: ...
+
 
 class PostgresTenantRepository:
     """Acceso a tenants mediante funciones SECURITY DEFINER acotadas."""
@@ -193,6 +195,16 @@ class PostgresTenantRepository:
 
         total = int(rows[0]["total_count"]) if rows else 0
         return tuple(_platform_tenant(row) for row in rows), total
+
+    async def get_theme(self, tenant_id: UUID) -> dict[str, Any] | None:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            row = await connection.fetchrow(
+                "select tokens from app.themes where tenant_id = $1",
+                tenant_id,
+            )
+        if row is None:
+            return None
+        return _as_dict(row["tokens"]) or None
 
 
 def _platform_tenant(row: Any) -> PlatformTenant:

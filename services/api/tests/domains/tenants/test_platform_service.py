@@ -58,6 +58,9 @@ class FakeTenantRepository:
     async def get_settings(self, tenant_id: UUID) -> object:
         return None
 
+    async def get_theme(self, tenant_id: UUID) -> object:
+        return None
+
     async def create_tenant(self, **kwargs: object) -> UUID:
         return uuid4()
 

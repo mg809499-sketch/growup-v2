@@ -26,6 +26,340 @@
         }
       }
     },
+    "/v1/storefront/pages/preview": {
+      "get": {
+        "tags": [
+          "storefront-content"
+        ],
+        "summary": "Preview Page",
+        "description": "Previsualización acotada por token HMAC firmado (sin sesión).",
+        "operationId": "preview_page_v1_storefront_pages_preview_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorefrontPageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/storefront/pages/{slug}": {
+      "get": {
+        "tags": [
+          "storefront-content"
+        ],
+        "summary": "Get Page Public",
+        "operationId": "get_page_public_v1_storefront_pages__slug__get",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorefrontPageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/storefront/cart": {
+      "get": {
+        "tags": [
+          "storefront-commerce"
+        ],
+        "summary": "Get Cart",
+        "operationId": "get_cart_v1_storefront_cart_get",
+        "parameters": [
+          {
+            "name": "x-cart-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Cart-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/storefront/cart/items": {
+      "post": {
+        "tags": [
+          "storefront-commerce"
+        ],
+        "summary": "Add Cart Item",
+        "operationId": "add_cart_item_v1_storefront_cart_items_post",
+        "parameters": [
+          {
+            "name": "x-cart-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Cart-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartAddRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "storefront-commerce"
+        ],
+        "summary": "Update Cart Item",
+        "operationId": "update_cart_item_v1_storefront_cart_items_patch",
+        "parameters": [
+          {
+            "name": "x-cart-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Cart-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/storefront/checkout": {
+      "post": {
+        "tags": [
+          "storefront-commerce"
+        ],
+        "summary": "Checkout",
+        "operationId": "checkout_v1_storefront_checkout_post",
+        "parameters": [
+          {
+            "name": "x-cart-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Cart-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/webhooks/wompi": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "summary": "Wompi Webhook",
+        "operationId": "wompi_webhook_v1_webhooks_wompi_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Wompi Webhook V1 Webhooks Wompi Post"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/admin/me": {
       "get": {
         "tags": [
@@ -816,6 +1150,766 @@
         }
       }
     },
+    "/v1/admin/pages": {
+      "get": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "List Pages",
+        "operationId": "list_pages_v1_admin_pages_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Create Page",
+        "operationId": "create_page_v1_admin_pages_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/pages/{page_id}": {
+      "get": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Get Page",
+        "operationId": "get_page_v1_admin_pages__page_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Page Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Update Page",
+        "operationId": "update_page_v1_admin_pages__page_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Page Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageSummary"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/pages/{page_id}/draft": {
+      "get": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Get Draft",
+        "description": "Última versión del layout (base de edición), o null si no hay borradores.",
+        "operationId": "get_draft_v1_admin_pages__page_id__draft_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Page Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Draft V1 Admin Pages  Page Id  Draft Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Create Draft",
+        "operationId": "create_draft_v1_admin_pages__page_id__draft_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Page Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageDraftRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Create Draft V1 Admin Pages  Page Id  Draft Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/pages/{page_id}/preview-token": {
+      "post": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Preview Token",
+        "operationId": "preview_token_v1_admin_pages__page_id__preview_token_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Page Id"
+            }
+          },
+          {
+            "name": "version_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Version Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Preview Token V1 Admin Pages  Page Id  Preview Token Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/pages/{page_id}/publish": {
+      "post": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Publish Page",
+        "operationId": "publish_page_v1_admin_pages__page_id__publish_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Page Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Publish Page V1 Admin Pages  Page Id  Publish Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/pages/{page_id}/unpublish": {
+      "post": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Unpublish Page",
+        "operationId": "unpublish_page_v1_admin_pages__page_id__unpublish_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Page Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/theme": {
+      "get": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Get Theme",
+        "operationId": "get_theme_v1_admin_theme_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThemeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "admin-content"
+        ],
+        "summary": "Put Theme",
+        "operationId": "put_theme_v1_admin_theme_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ThemeUpsertRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThemeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/orders": {
+      "get": {
+        "tags": [
+          "admin-orders"
+        ],
+        "summary": "List Orders",
+        "operationId": "list_orders_v1_admin_orders_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/orders/{order_id}": {
+      "get": {
+        "tags": [
+          "admin-orders"
+        ],
+        "summary": "Get Order",
+        "operationId": "get_order_v1_admin_orders__order_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/orders/{order_id}/status": {
+      "post": {
+        "tags": [
+          "admin-orders"
+        ],
+        "summary": "Transition Order",
+        "operationId": "transition_order_v1_admin_orders__order_id__status_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Order Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderTransitionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/payment-account": {
+      "put": {
+        "tags": [
+          "admin-orders"
+        ],
+        "summary": "Upsert Payment Account",
+        "description": "Conecta la cuenta Wompi del comercio (merchant of record = tenant).",
+        "operationId": "upsert_payment_account_v1_admin_payment_account_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentAccountRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/v1/admin/media/upload-url": {
       "post": {
         "tags": [
@@ -1146,6 +2240,84 @@
         }
       }
     },
+    "/v1/admin/inventory/levels": {
+      "get": {
+        "tags": [
+          "admin-inventory"
+        ],
+        "summary": "List Levels",
+        "operationId": "list_levels_v1_admin_inventory_levels_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "variant_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Variant Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InventoryLevelListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/admin/audit": {
       "get": {
         "tags": [
@@ -1438,7 +2610,7 @@
           "ops"
         ],
         "summary": "Readyz",
-        "description": "Readiness probe: exige base de datos configurada y disponible.",
+        "description": "Readiness: exige base de datos; Redis si está configurado (colas/rate limit).",
         "operationId": "readyz_readyz_get",
         "responses": {
           "200": {
@@ -1638,6 +2810,18 @@
           },
           "settings": {
             "$ref": "#/components/schemas/StorefrontSettings"
+          },
+          "theme": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Theme"
           }
         },
         "type": "object",
@@ -1646,6 +2830,141 @@
           "settings"
         ],
         "title": "BootstrapResponse"
+      },
+      "CartAddRequest": {
+        "properties": {
+          "variant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Variant Id"
+          },
+          "quantity": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 1.0,
+            "title": "Quantity"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "variant_id",
+          "quantity"
+        ],
+        "title": "CartAddRequest"
+      },
+      "CartItemResponse": {
+        "properties": {
+          "variant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Variant Id"
+          },
+          "product_name": {
+            "type": "string",
+            "title": "Product Name"
+          },
+          "variant_sku": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant Sku"
+          },
+          "variant_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant Title"
+          },
+          "unit_price_cents": {
+            "type": "integer",
+            "title": "Unit Price Cents"
+          },
+          "quantity": {
+            "type": "integer",
+            "title": "Quantity"
+          },
+          "line_total_cents": {
+            "type": "integer",
+            "title": "Line Total Cents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "variant_id",
+          "product_name",
+          "variant_sku",
+          "variant_title",
+          "unit_price_cents",
+          "quantity",
+          "line_total_cents"
+        ],
+        "title": "CartItemResponse"
+      },
+      "CartResponse": {
+        "properties": {
+          "cart_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Cart Id"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CartItemResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "subtotal_cents": {
+            "type": "integer",
+            "title": "Subtotal Cents"
+          },
+          "currency": {
+            "type": "string",
+            "const": "COP",
+            "title": "Currency",
+            "default": "COP"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cart_id",
+          "items",
+          "subtotal_cents"
+        ],
+        "title": "CartResponse"
+      },
+      "CartUpdateRequest": {
+        "properties": {
+          "variant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Variant Id"
+          },
+          "quantity": {
+            "type": "integer",
+            "maximum": 50.0,
+            "minimum": 0.0,
+            "title": "Quantity"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "variant_id",
+          "quantity"
+        ],
+        "title": "CartUpdateRequest"
       },
       "CategoryCreate": {
         "properties": {
@@ -1730,6 +3049,292 @@
         ],
         "title": "CategoryResponse"
       },
+      "CheckoutRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 320,
+            "minLength": 3,
+            "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+            "title": "Email"
+          },
+          "shipping_zone": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "pattern": "^[a-z0-9_-]+$",
+            "title": "Shipping Zone"
+          },
+          "shipping": {
+            "$ref": "#/components/schemas/ShippingAddressInput"
+          },
+          "redirect_base_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^https?://[^\\s<>\\\"']+$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Redirect Base Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "email",
+          "shipping_zone",
+          "shipping"
+        ],
+        "title": "CheckoutRequest"
+      },
+      "CheckoutResponse": {
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Order Id"
+          },
+          "reference": {
+            "type": "string",
+            "title": "Reference"
+          },
+          "total_cents": {
+            "type": "integer",
+            "title": "Total Cents"
+          },
+          "amount_in_cents": {
+            "type": "integer",
+            "title": "Amount In Cents"
+          },
+          "currency": {
+            "type": "string",
+            "const": "COP",
+            "title": "Currency",
+            "default": "COP"
+          },
+          "wompi_url": {
+            "type": "string",
+            "title": "Wompi Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "order_id",
+          "reference",
+          "total_cents",
+          "amount_in_cents",
+          "wompi_url"
+        ],
+        "title": "CheckoutResponse"
+      },
+      "CollectionGridBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "collection_grid",
+            "title": "Type",
+            "default": "collection_grid"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CollectionItem"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "items"
+        ],
+        "title": "CollectionGridBlock"
+      },
+      "CollectionItem": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "href": {
+            "type": "string",
+            "maxLength": 2048,
+            "pattern": "^(https?://|/)[^\\s<>\\\"']*$",
+            "title": "Href"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "href"
+        ],
+        "title": "CollectionItem"
+      },
+      "ColumnSlot": {
+        "properties": {
+          "width": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "Width"
+          },
+          "blocks": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/HeaderBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/FooterBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/HeroBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/EditorialSplitBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ProductGridBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ProductCarouselBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/CollectionGridBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ImageBannerBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/QuoteBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/GalleryBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/VideoEmbedBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/FaqBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/NewsletterBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/SpacerBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ColumnsBlock"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "collection_grid": "#/components/schemas/CollectionGridBlock",
+                  "columns": "#/components/schemas/ColumnsBlock",
+                  "editorial_split": "#/components/schemas/EditorialSplitBlock",
+                  "faq": "#/components/schemas/FaqBlock",
+                  "footer": "#/components/schemas/FooterBlock",
+                  "gallery": "#/components/schemas/GalleryBlock",
+                  "header": "#/components/schemas/HeaderBlock",
+                  "hero": "#/components/schemas/HeroBlock",
+                  "image_banner": "#/components/schemas/ImageBannerBlock",
+                  "newsletter": "#/components/schemas/NewsletterBlock",
+                  "product_carousel": "#/components/schemas/ProductCarouselBlock",
+                  "product_grid": "#/components/schemas/ProductGridBlock",
+                  "quote": "#/components/schemas/QuoteBlock",
+                  "rich_text": "#/components/schemas/RichTextBlock",
+                  "spacer": "#/components/schemas/SpacerBlock",
+                  "video_embed": "#/components/schemas/VideoEmbedBlock"
+                }
+              }
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Blocks"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "width"
+        ],
+        "title": "ColumnSlot"
+      },
+      "ColumnsBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "columns",
+            "title": "Type",
+            "default": "columns"
+          },
+          "columns": {
+            "items": {
+              "$ref": "#/components/schemas/ColumnSlot"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Columns"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "columns"
+        ],
+        "title": "ColumnsBlock"
+      },
       "CompleteUploadRequest": {
         "properties": {
           "alt": {
@@ -1755,6 +3360,258 @@
         ],
         "title": "Decision"
       },
+      "EditorialSplitBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "editorial_split",
+            "title": "Type",
+            "default": "editorial_split"
+          },
+          "kicker": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 60
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kicker"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Body"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageRef"
+          },
+          "image_side": {
+            "type": "string",
+            "enum": [
+              "left",
+              "right"
+            ],
+            "title": "Image Side",
+            "default": "left"
+          },
+          "cta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LinkRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "body",
+          "image"
+        ],
+        "title": "EditorialSplitBlock"
+      },
+      "FaqBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "faq",
+            "title": "Type",
+            "default": "faq"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/FaqItem"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "items"
+        ],
+        "title": "FaqBlock"
+      },
+      "FaqItem": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Question"
+          },
+          "answer": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Answer"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question",
+          "answer"
+        ],
+        "title": "FaqItem"
+      },
+      "FooterBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "footer",
+            "title": "Type",
+            "default": "footer"
+          },
+          "columns": {
+            "items": {
+              "$ref": "#/components/schemas/FooterColumn"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "title": "Columns"
+          },
+          "legal_line": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Legal Line"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "FooterBlock"
+      },
+      "FooterColumn": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "links": {
+            "items": {
+              "$ref": "#/components/schemas/LinkRef"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Links"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "links"
+        ],
+        "title": "FooterColumn"
+      },
+      "GalleryBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "gallery",
+            "title": "Type",
+            "default": "gallery"
+          },
+          "images": {
+            "items": {
+              "$ref": "#/components/schemas/ImageRef"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "minItems": 1,
+            "title": "Images"
+          },
+          "columns": {
+            "type": "integer",
+            "enum": [
+              2,
+              3,
+              4
+            ],
+            "title": "Columns",
+            "default": 3
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "images"
+        ],
+        "title": "GalleryBlock"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -1767,6 +3624,70 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "HeaderBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "header",
+            "title": "Type",
+            "default": "header"
+          },
+          "nav": {
+            "items": {
+              "$ref": "#/components/schemas/HeaderNavItem"
+            },
+            "type": "array",
+            "maxItems": 6,
+            "title": "Nav"
+          },
+          "cta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LinkRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "HeaderBlock"
+      },
+      "HeaderNavItem": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "title": "Label"
+          },
+          "href": {
+            "type": "string",
+            "maxLength": 2048,
+            "pattern": "^(https?://|/)[^\\s<>\\\"']*$",
+            "title": "Href"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "label",
+          "href"
+        ],
+        "title": "HeaderNavItem"
       },
       "HealthResponse": {
         "properties": {
@@ -1791,6 +3712,287 @@
           "environment"
         ],
         "title": "HealthResponse"
+      },
+      "HeroBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "hero",
+            "title": "Type",
+            "default": "hero"
+          },
+          "eyebrow": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 60
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eyebrow"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "subtitle": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subtitle"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "cta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LinkRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "align": {
+            "type": "string",
+            "enum": [
+              "left",
+              "center"
+            ],
+            "title": "Align",
+            "default": "left"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "title"
+        ],
+        "title": "HeroBlock"
+      },
+      "ImageBannerBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "image_banner",
+            "title": "Type",
+            "default": "image_banner"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageRef"
+          },
+          "href": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048,
+                "pattern": "^(https?://|/)[^\\s<>\\\"']*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Href"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "button_label": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Button Label"
+          },
+          "ratio": {
+            "type": "string",
+            "enum": [
+              "16:9",
+              "21:9",
+              "4:3"
+            ],
+            "title": "Ratio",
+            "default": "21:9"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "image"
+        ],
+        "title": "ImageBannerBlock"
+      },
+      "ImageRef": {
+        "properties": {
+          "url": {
+            "type": "string",
+            "maxLength": 2048,
+            "pattern": "^https?://[^\\s<>\\\"']{1,2047}$",
+            "title": "Url"
+          },
+          "alt": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Alt"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "url",
+          "alt"
+        ],
+        "title": "ImageRef"
+      },
+      "InventoryLevelListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/InventoryLevelResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "limit",
+          "offset"
+        ],
+        "title": "InventoryLevelListResponse"
+      },
+      "InventoryLevelResponse": {
+        "properties": {
+          "variant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Variant Id"
+          },
+          "location_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Location Id"
+          },
+          "location_name": {
+            "type": "string",
+            "title": "Location Name"
+          },
+          "sku": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sku"
+          },
+          "available": {
+            "type": "integer",
+            "title": "Available"
+          },
+          "reserved": {
+            "type": "integer",
+            "title": "Reserved"
+          },
+          "sellable": {
+            "type": "integer",
+            "title": "Sellable"
+          }
+        },
+        "type": "object",
+        "required": [
+          "variant_id",
+          "location_id",
+          "location_name",
+          "sku",
+          "available",
+          "reserved",
+          "sellable"
+        ],
+        "title": "InventoryLevelResponse"
+      },
+      "LinkRef": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "title": "Label"
+          },
+          "href": {
+            "type": "string",
+            "maxLength": 2048,
+            "pattern": "^(https?://|/)[^\\s<>\\\"']*$",
+            "title": "Href"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "label",
+          "href"
+        ],
+        "title": "LinkRef"
       },
       "MeResponse": {
         "properties": {
@@ -2164,6 +4366,664 @@
         ],
         "title": "MediaVariantResponse"
       },
+      "NewsletterBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "newsletter",
+            "title": "Type",
+            "default": "newsletter"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "subtitle": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subtitle"
+          },
+          "cta_label": {
+            "type": "string",
+            "maxLength": 60,
+            "title": "Cta Label",
+            "default": "Quiero recibir novedades"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "NewsletterBlock"
+      },
+      "OrderDetail": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "subtotal_cents": {
+            "type": "integer",
+            "title": "Subtotal Cents"
+          },
+          "tax_cents": {
+            "type": "integer",
+            "title": "Tax Cents"
+          },
+          "shipping_cents": {
+            "type": "integer",
+            "title": "Shipping Cents"
+          },
+          "total_cents": {
+            "type": "integer",
+            "title": "Total Cents"
+          },
+          "tax_rate_bps": {
+            "type": "integer",
+            "title": "Tax Rate Bps"
+          },
+          "shipping_zone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipping Zone"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/OrderItemResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "status",
+          "subtotal_cents",
+          "tax_cents",
+          "shipping_cents",
+          "total_cents",
+          "tax_rate_bps",
+          "shipping_zone",
+          "created_at",
+          "updated_at",
+          "items"
+        ],
+        "title": "OrderDetail"
+      },
+      "OrderItemResponse": {
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "title": "Product Name"
+          },
+          "variant_sku": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant Sku"
+          },
+          "variant_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Variant Title"
+          },
+          "unit_price_cents": {
+            "type": "integer",
+            "title": "Unit Price Cents"
+          },
+          "quantity": {
+            "type": "integer",
+            "title": "Quantity"
+          }
+        },
+        "type": "object",
+        "required": [
+          "product_name",
+          "variant_sku",
+          "variant_title",
+          "unit_price_cents",
+          "quantity"
+        ],
+        "title": "OrderItemResponse"
+      },
+      "OrderListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/OrderSummary"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "OrderListResponse"
+      },
+      "OrderStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "paid",
+          "failed",
+          "expired",
+          "cancelled",
+          "preparing",
+          "shipped",
+          "delivered",
+          "refund_pending",
+          "refunded"
+        ],
+        "title": "OrderStatus"
+      },
+      "OrderSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          },
+          "subtotal_cents": {
+            "type": "integer",
+            "title": "Subtotal Cents"
+          },
+          "tax_cents": {
+            "type": "integer",
+            "title": "Tax Cents"
+          },
+          "shipping_cents": {
+            "type": "integer",
+            "title": "Shipping Cents"
+          },
+          "total_cents": {
+            "type": "integer",
+            "title": "Total Cents"
+          },
+          "tax_rate_bps": {
+            "type": "integer",
+            "title": "Tax Rate Bps"
+          },
+          "shipping_zone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Shipping Zone"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "status",
+          "subtotal_cents",
+          "tax_cents",
+          "shipping_cents",
+          "total_cents",
+          "tax_rate_bps",
+          "shipping_zone",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "OrderSummary"
+      },
+      "OrderTransitionRequest": {
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "OrderTransitionRequest"
+      },
+      "PageCreateRequest": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[a-z0-9](?:[a-z0-9/-]{0,126}[a-z0-9])?$",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "slug",
+          "title"
+        ],
+        "title": "PageCreateRequest"
+      },
+      "PageDetail": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PageStatus"
+          },
+          "published_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published Version Id"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "latest_version": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "status",
+          "published_version_id",
+          "updated_at",
+          "latest_version"
+        ],
+        "title": "PageDetail"
+      },
+      "PageDraftRequest": {
+        "properties": {
+          "layout": {
+            "$ref": "#/components/schemas/PageLayout"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "layout"
+        ],
+        "title": "PageDraftRequest"
+      },
+      "PageLayout": {
+        "properties": {
+          "version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Version"
+          },
+          "blocks": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/HeaderBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/FooterBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/HeroBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/EditorialSplitBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ProductGridBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ProductCarouselBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/CollectionGridBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ImageBannerBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/QuoteBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/GalleryBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/VideoEmbedBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/FaqBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/NewsletterBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/SpacerBlock"
+                },
+                {
+                  "$ref": "#/components/schemas/ColumnsBlock"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "collection_grid": "#/components/schemas/CollectionGridBlock",
+                  "columns": "#/components/schemas/ColumnsBlock",
+                  "editorial_split": "#/components/schemas/EditorialSplitBlock",
+                  "faq": "#/components/schemas/FaqBlock",
+                  "footer": "#/components/schemas/FooterBlock",
+                  "gallery": "#/components/schemas/GalleryBlock",
+                  "header": "#/components/schemas/HeaderBlock",
+                  "hero": "#/components/schemas/HeroBlock",
+                  "image_banner": "#/components/schemas/ImageBannerBlock",
+                  "newsletter": "#/components/schemas/NewsletterBlock",
+                  "product_carousel": "#/components/schemas/ProductCarouselBlock",
+                  "product_grid": "#/components/schemas/ProductGridBlock",
+                  "quote": "#/components/schemas/QuoteBlock",
+                  "rich_text": "#/components/schemas/RichTextBlock",
+                  "spacer": "#/components/schemas/SpacerBlock",
+                  "video_embed": "#/components/schemas/VideoEmbedBlock"
+                }
+              }
+            },
+            "type": "array",
+            "maxItems": 256,
+            "minItems": 1,
+            "title": "Blocks"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "version",
+          "blocks"
+        ],
+        "title": "PageLayout",
+        "description": "Layout completo de una versión de página."
+      },
+      "PageListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PageSummary"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "PageListResponse"
+      },
+      "PageStatus": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "published",
+          "archived"
+        ],
+        "title": "PageStatus"
+      },
+      "PageSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PageStatus"
+          },
+          "published_version_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published Version Id"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "status",
+          "published_version_id",
+          "updated_at"
+        ],
+        "title": "PageSummary"
+      },
+      "PageUpdateRequest": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "slug": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 128,
+                "minLength": 1,
+                "pattern": "^[a-z0-9](?:[a-z0-9/-]{0,126}[a-z0-9])?$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Slug"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "PageUpdateRequest"
+      },
+      "PaymentAccountRequest": {
+        "properties": {
+          "public_key": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 8,
+            "pattern": "^(pub_test_|pub_prod_)[A-Za-z0-9]+$",
+            "title": "Public Key"
+          },
+          "events_secret": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 8,
+            "title": "Events Secret"
+          },
+          "integrity_key": {
+            "type": "string",
+            "maxLength": 256,
+            "minLength": 8,
+            "title": "Integrity Key"
+          },
+          "mode": {
+            "type": "string",
+            "pattern": "^(sandbox|production)$",
+            "title": "Mode"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "public_key",
+          "events_secret",
+          "integrity_key",
+          "mode"
+        ],
+        "title": "PaymentAccountRequest"
+      },
       "Permission": {
         "type": "string",
         "enum": [
@@ -2292,6 +5152,80 @@
           "created_at"
         ],
         "title": "PlatformTenantResponse"
+      },
+      "ProductCarouselBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "product_carousel",
+            "title": "Type",
+            "default": "product_carousel"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "latest",
+              "category",
+              "manual"
+            ],
+            "title": "Source",
+            "default": "latest"
+          },
+          "category_slug": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 63,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category Slug"
+          },
+          "product_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Product Ids"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 8
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "ProductCarouselBlock"
       },
       "ProductCreate": {
         "properties": {
@@ -2486,6 +5420,85 @@
           "media"
         ],
         "title": "ProductDetailResponse"
+      },
+      "ProductGridBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "product_grid",
+            "title": "Type",
+            "default": "product_grid"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "latest",
+              "category",
+              "manual"
+            ],
+            "title": "Source",
+            "default": "latest"
+          },
+          "category_slug": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 63,
+                "pattern": "^[a-z0-9][a-z0-9-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category Slug"
+          },
+          "product_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "maxItems": 24,
+            "title": "Product Ids"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 24.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 8
+          },
+          "show_price": {
+            "type": "boolean",
+            "title": "Show Price",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "ProductGridBlock"
       },
       "ProductListResponse": {
         "properties": {
@@ -2802,6 +5815,69 @@
         "type": "object",
         "title": "ProductUpdate"
       },
+      "PublishRequest": {
+        "properties": {
+          "version_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Version Id"
+          },
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "version_id",
+          "expected_version"
+        ],
+        "title": "PublishRequest"
+      },
+      "QuoteBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "quote",
+            "title": "Type",
+            "default": "quote"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "title": "QuoteBlock"
+      },
       "ReadyResponse": {
         "properties": {
           "status": {
@@ -2827,6 +5903,45 @@
         ],
         "title": "ReadyResponse"
       },
+      "RichTextBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "rich_text",
+            "title": "Type",
+            "default": "rich_text"
+          },
+          "markdown": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Markdown"
+          },
+          "width": {
+            "type": "string",
+            "enum": [
+              "narrow",
+              "wide"
+            ],
+            "title": "Width",
+            "default": "narrow"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "markdown"
+        ],
+        "title": "RichTextBlock"
+      },
       "Role": {
         "type": "string",
         "enum": [
@@ -2838,6 +5953,141 @@
           "platform_admin"
         ],
         "title": "Role"
+      },
+      "ShippingAddressInput": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 2,
+            "title": "Name"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 30
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "line1": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 3,
+            "title": "Line1"
+          },
+          "line2": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Line2"
+          },
+          "city": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "title": "City"
+          },
+          "state": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "title": "State"
+          },
+          "postal_code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 20
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Postal Code"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "line1",
+          "city",
+          "state"
+        ],
+        "title": "ShippingAddressInput"
+      },
+      "SpacerBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "spacer",
+            "title": "Type",
+            "default": "spacer"
+          },
+          "height": {
+            "type": "string",
+            "enum": [
+              "sm",
+              "md",
+              "lg"
+            ],
+            "title": "Height",
+            "default": "md"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "SpacerBlock"
+      },
+      "StorefrontPageResponse": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "layout": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Layout"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title",
+          "version",
+          "layout"
+        ],
+        "title": "StorefrontPageResponse"
       },
       "StorefrontSettings": {
         "properties": {
@@ -3020,6 +6270,43 @@
           "canceled"
         ],
         "title": "TenantStatus"
+      },
+      "ThemeResponse": {
+        "properties": {
+          "tokens": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tokens"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tokens"
+        ],
+        "title": "ThemeResponse"
+      },
+      "ThemeUpsertRequest": {
+        "properties": {
+          "tokens": {
+            "additionalProperties": true,
+            "type": "object",
+            "minProperties": 1,
+            "title": "Tokens"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tokens"
+        ],
+        "title": "ThemeUpsertRequest"
       },
       "UploadUrlRequest": {
         "properties": {
@@ -3365,6 +6652,47 @@
         "additionalProperties": false,
         "type": "object",
         "title": "VariantUpdate"
+      },
+      "VideoEmbedBlock": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9_-]+$",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "const": "video_embed",
+            "title": "Type",
+            "default": "video_embed"
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 600,
+            "title": "Url"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "url"
+        ],
+        "title": "VideoEmbedBlock"
       }
     },
     "securitySchemes": {

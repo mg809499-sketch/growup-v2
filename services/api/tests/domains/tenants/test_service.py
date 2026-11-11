@@ -36,6 +36,9 @@ class FakeTenantRepository:
         self.settings_calls.append(tenant_id)
         return self.settings
 
+    async def get_theme(self, tenant_id: UUID) -> dict[str, object] | None:
+        return None
+
     async def create_tenant(
         self,
         *,

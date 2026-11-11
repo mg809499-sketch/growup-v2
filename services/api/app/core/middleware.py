@@ -34,6 +34,8 @@ class SecurityMiddleware:
             return
 
         content_length = _header(scope, b"content-length")
+        transfer_encoding = _header(scope, b"transfer-encoding")
+        is_body_method = scope.get("method", "").upper() in ("POST", "PUT", "PATCH")
         if content_length is not None:
             try:
                 length = int(content_length)
@@ -41,6 +43,12 @@ class SecurityMiddleware:
                 length = 0
             if length > self._max_request_bytes:
                 await self._send_too_large(send)
+                return
+        elif is_body_method and transfer_encoding and "chunked" in transfer_encoding.lower():
+            # Sin Content-Length no se puede acotar el cuerpo aquí; en producción se rechaza
+            # y el borde debe cortar igualmente.
+            if settings.environment == "production":
+                await self._send_length_required(send)
                 return
 
         async def send_with_headers(message: Message) -> None:
@@ -56,6 +64,25 @@ class SecurityMiddleware:
             await send(message)
 
         await self.app(scope, receive, send_with_headers)
+
+    async def _send_length_required(self, send: Send) -> None:
+        body = (
+            b'{"error":{"code":"LENGTH_REQUIRED",'
+            b'"message":"Se requiere Content-Length",'
+            b'"details":{},"request_id":null}}'
+        )
+        await send(
+            {
+                "type": "http.response.start",
+                "status": 411,
+                "headers": [
+                    *_JSON_HEADERS,
+                    *_BASE_HEADERS,
+                    (b"content-length", str(len(body)).encode()),
+                ],
+            }
+        )
+        await send({"type": "http.response.body", "body": body})
 
     async def _send_too_large(self, send: Send) -> None:
         body = (

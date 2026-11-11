@@ -42,6 +42,7 @@ class TenantSettings:
 class TenantBootstrap:
     tenant: Tenant
     settings: TenantSettings
+    theme: dict[str, Any] | None = None
 
 
 @dataclass(frozen=True, slots=True)
