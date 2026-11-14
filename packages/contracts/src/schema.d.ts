@@ -1342,6 +1342,11 @@ export interface components {
              * @enum {string}
              */
             type: "header";
+            /**
+             * Brand
+             * @default growup
+             */
+            brand: string;
             /** Nav */
             nav?: components["schemas"]["HeaderNavItem"][];
             cta?: components["schemas"]["LinkRef"] | null;

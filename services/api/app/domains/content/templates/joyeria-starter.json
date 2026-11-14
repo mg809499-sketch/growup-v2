@@ -1,37 +1,70 @@
 {
   "template_id": "joyeria-starter",
-  "name": "Joyería & Atelier",
-  "description": "Plantilla elegante para joyería fina: editorial, grilla y datos de marca.",
+  "name": "Joyería · Atelier (Starter)",
+  "description": "Hero editorial joyería · Grilla Cat 1 · Quote · Newsletter.",
   "blocks": [
     {
-      "id": "block-hero-joyeria",
-      "type": "hero",
-      "eyebrow": "El atelier · Temporada 03",
-      "title": "Portallow · Joyas Esenciales 2026",
-      "subtitle": "Piezas de oro y plata con acabado en bruto. Fotorealismo del atelier bogotano.",
-      "align": "left",
-      "cta": { "label": "Ver colección", "href": "/collection" }
+      "id": "joy-header",
+      "type": "header",
+      "brand": "atelier",
+      "nav": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Casa", "href": "/collection" },
+        { "label": "Novedades", "href": "/collection" }
+      ],
+      "cta": { "label": "VER COLECCIÓN", "href": "/collection" }
     },
     {
-      "id": "block-grid-joyeria",
+      "id": "joy-hero-classic",
+      "type": "hero",
+      "eyebrow": "Atelier · Ingreso 2026",
+      "title": "La joya empieza aquí",
+      "subtitle": "Piezas hechas a mano en Bogotá, limitadas a 50 ejemplares por modelo.",
+      "align": "left",
+      "cta": { "label": "Explorar", "href": "/collection" }
+    },
+    {
+      "id": "joy-product-grid-star",
       "type": "product_grid",
       "title": "Piezas destacadas",
-      "source": "latest",
+      "source": "category",
+      "category_slug": "joyeria-cat-1",
       "limit": 4,
       "show_price": true
     },
     {
-      "id": "block-quote-joyeria",
+      "id": "joy-quote-star",
       "type": "quote",
-      "text": "La joya es un gesto, no un accesorio.",
-      "author": "Andrés Beltrán, director creativo"
+      "text": "Llevar una joya escrita sobre el cuerpo.",
+      "author": "Elena Ospina · Directora creativa"
     },
     {
-      "id": "block-newsletter-joyeria",
+      "id": "joy-newsletter",
       "type": "newsletter",
       "title": "Boletín Atelier",
-      "subtitle": "Registro de piezas, colas de espera y acceso prioritario a drops.",
-      "cta_label": "Quiero recibir novedades"
+      "subtitle": "Drops cerrados, lista de espera y acceso prioritario a ejemplares.",
+      "cta_label": "Quiero entrar en la lista"
+    },
+    {
+      "id": "joy-footer-min",
+      "type": "footer",
+      "columns": [
+        {
+          "title": "Atelier",
+          "links": [
+            { "label": "Colección", "href": "/collection" },
+            { "label": "Envíos a Colombia", "href": "/legal/envios" }
+          ]
+        },
+        {
+          "title": "Cuidado",
+          "links": [
+            { "label": "Servicios", "href": "https://www.instagram.com/atelier" },
+            { "label": "Política de uso", "href": "/legal/uso" }
+          ]
+        }
+      ],
+      "legal_line": "Joyería Atelier · Bogotá, Colombia"
     }
   ]
 }

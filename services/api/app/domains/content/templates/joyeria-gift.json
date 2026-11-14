@@ -1,0 +1,81 @@
+{
+  "template_id": "joyeria-gift",
+  "name": "Joyería · Gift Guide",
+  "description": "Regalos por ocasión · FAQ · CTA duplicado para campaña de temporada.",
+  "blocks": [
+    {
+      "id": "jg-header",
+      "type": "header",
+      "brand": "joyeria gift",
+      "nav": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Gifts", "href": "/collection" }
+      ],
+      "cta": { "label": "VER GIFTS", "href": "/collection" }
+    },
+    {
+      "id": "jg-hero",
+      "type": "hero",
+      "eyebrow": "Gift Guide · Temporada 2026",
+      "title": "Regala oro que dura",
+      "subtitle": "Piezas debajo de $500K y sobre $500K, para cualquier ocasión. Envíos a todo el país en 48h.",
+      "align": "left",
+      "cta": { "label": "Ver regalos", "href": "/collection" }
+    },
+    {
+      "id": "jg-product-grid",
+      "type": "product_grid",
+      "title": "Regalos más vendidos",
+      "source": "category",
+      "category_slug": "joyeria-cat-1",
+      "limit": 6,
+      "show_price": true
+    },
+    {
+      "id": "jg-faq",
+      "type": "faq",
+      "title": "Preguntas frecuentes",
+      "items": [
+        {
+          "question": "¿Puedo cambiar el tamaño de mi regalo?",
+          "answer": "Sí. En oro hasta 6 meses después te lo cambiamos por el nuevo importe. Plata 30 días."
+        },
+        {
+          "question": "¿Llegan a mi casa sin caja?",
+          "answer": "Todos los envíos incluyen estuche de tela y nota personalizada escrita a mano."
+        },
+        {
+          "question": "¿Cuánto tarda la entrega?",
+          "answer": "Bogotá y Medellín 48h; el resto del país máximo 5 días hábiles; hoy gratis en compras superiores a $400K."
+        }
+      ]
+    },
+    {
+      "id": "jg-cta-banner",
+      "type": "rich_text",
+      "markdown": "**Pedidos antes 18:00 hoy, entregamos mañana.**\\n\\n Cualquier pieza de la colección Gift actual sale empacada en estuche con nota personalizada escrita a mano por nosotros.",
+      "width": "narrow"
+    },
+    {
+      "id": "jg-newsletter",
+      "type": "newsletter",
+      "title": "Avisos de Gift Drop",
+      "subtitle": "Acceso antes que nadie a piezas únicas de la temporada.",
+      "cta_label": "Quiero estar lista"
+    },
+    {
+      "id": "jg-footer",
+      "type": "footer",
+      "columns": [
+        {
+          "title": "Gifts",
+          "links": [
+            { "label": "Por ocasión", "href": "/collection" },
+            { "label": "Por presupuesto", "href": "/collection" }
+          ]
+        }
+      ],
+      "legal_line": "Joyería Gift · Envíos Colombia · Bogotá"
+    }
+  ]
+}

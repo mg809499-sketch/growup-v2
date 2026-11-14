@@ -45,6 +45,7 @@ class HeaderNavItem(BaseModel):
 
 class HeaderBlock(BlockBase):
     type: Literal["header"] = "header"
+    brand: str = Field(default="growup", min_length=1, max_length=100)
     nav: list[HeaderNavItem] = Field(default_factory=list, max_length=6)
     cta: LinkRef | None = None
 

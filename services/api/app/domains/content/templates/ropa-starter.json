@@ -1,31 +1,64 @@
 {
   "template_id": "ropa-starter",
-  "name": "Ropa & Streetwear Minimal",
-  "description": "Plantilla optimizada para marcas de moda con héroe y grilla de productos.",
+  "name": "Ropa · Drops (Starter)",
+  "description": "Header editorial · Hero grande · Grilla Cat 1 · Newsletter · Footer minimal.",
   "blocks": [
     {
-      "id": "block-hero-starter",
+      "id": "ropa-header",
+      "type": "header",
+      "brand": "growup",
+      "nav": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Catálogo", "href": "/collection" },
+        { "label": "Drops", "href": "/collection" }
+      ],
+      "cta": { "label": "VER DROPS", "href": "/collection" }
+    },
+    {
+      "id": "ropa-hero-classic",
       "type": "hero",
       "eyebrow": "Drops · Volumen 01",
-      "title": "Nueva Colección Invierno 2026",
-      "subtitle": "Prendas esenciales de la temporada con series limitadas.",
+      "title": "Novedades en la tienda",
+      "subtitle": "Prendas seleccionadas para tu armario diario. Envíos a toda Colombia.",
       "align": "left",
       "cta": { "label": "Ver colección", "href": "/collection" }
     },
     {
-      "id": "block-grid-starter",
+      "id": "ropa-product-grid-star",
       "type": "product_grid",
       "title": "Más vendidos",
-      "source": "latest",
+      "source": "category",
+      "category_slug": "ropa-cat-1",
       "limit": 8,
       "show_price": true
     },
     {
-      "id": "block-newsletter-starter",
+      "id": "ropa-newsletter-doro",
       "type": "newsletter",
-      "title": "Boletín Joyería GrowUp",
-      "subtitle": "Recibe novedades de drops limitados antes que nadie.",
+      "title": "Recibe drops antes que nadie",
+      "subtitle": "Stock limitado, acceso prioritario y 10% off tu primera compra.",
       "cta_label": "Suscribirme"
+    },
+    {
+      "id": "ropa-footer-min",
+      "type": "footer",
+      "columns": [
+        {
+          "title": "Tienda",
+          "links": [
+            { "label": "Catálogo", "href": "/collection" },
+            { "label": "Envíos", "href": "/legal/envios" }
+          ]
+        },
+        {
+          "title": "Ayuda",
+          "links": [
+            { "label": "Contacto", "href": "https://www.whatsapp.com/channel/growup" },
+            { "label": "Devoluciones", "href": "/legal/devoluciones" }
+          ]
+        }
+      ],
+      "legal_line": "GrowUp Space · Hecho en Colombia"
     }
   ]
 }

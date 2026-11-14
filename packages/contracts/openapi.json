@@ -4469,6 +4469,13 @@
             "title": "Type",
             "default": "header"
           },
+          "brand": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Brand",
+            "default": "growup"
+          },
           "nav": {
             "items": {
               "$ref": "#/components/schemas/HeaderNavItem"

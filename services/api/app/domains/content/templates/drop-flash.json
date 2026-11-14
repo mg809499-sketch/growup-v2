@@ -1,0 +1,81 @@
+{
+  "template_id": "drop-flash",
+  "name": "Drop Flash",
+  "description": "Urgencia · Carousel de productos · FAQ resumido · Newsletter drop.",
+  "blocks": [
+    {
+      "id": "flash-header",
+      "type": "header",
+      "brand": "drop flash",
+      "nav": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Drop actual", "href": "/collection" }
+      ],
+      "cta": { "label": "IR A DROP", "href": "/collection" }
+    },
+    {
+      "id": "flash-hero",
+      "type": "hero",
+      "eyebrow": "DROP FLASH · 48h",
+      "title": "Sólo 100 unidades. Hoy.",
+      "subtitle": "Cuando se agoten, se cierran. Sin restock. Sin 'un segundo drop'. Te lo decimos en serio.",
+      "align": "left",
+      "cta": { "label": "Ver piezas", "href": "/collection" }
+    },
+    {
+      "id": "flash-product-carousel",
+      "type": "product_carousel",
+      "title": "Disponibilidad en tiempo real",
+      "source": "category",
+      "category_slug": "ropa-cat-1",
+      "limit": 8
+    },
+    {
+      "id": "flash-quote",
+      "type": "quote",
+      "text": "Esto se acaba. No es marketing.",
+      "author": "Equipo GrowUp"
+    },
+    {
+      "id": "flash-spacer",
+      "type": "spacer",
+      "height": "sm"
+    },
+    {
+      "id": "flash-faq",
+      "type": "faq",
+      "title": "Condiciones del Drop",
+      "items": [
+        {
+          "question": "¿Cuál es el máximo por persona?",
+          "answer": "Una unidad por modelo. Si quieres más, escribe primero a soporte y lo resolvemos."
+        },
+        {
+          "question": "¿Puedo devolver?",
+          "answer": "Drop Flash tiene política de devolución estándar 30 días con estuche original y nota escrita."
+        }
+      ]
+    },
+    {
+      "id": "flash-newsletter",
+      "type": "newsletter",
+      "title": "Avisos Drop",
+      "subtitle": "Lista de espera para poder entrar antes que nadie.",
+      "cta_label": "Me lista la espera"
+    },
+    {
+      "id": "flash-footer",
+      "type": "footer",
+      "columns": [
+        {
+          "title": "Drop",
+          "links": [
+            { "label": "Condiciones completas", "href": "/legal/drop" },
+            { "label": "Sobre unidades", "href": "/legal/unidades" }
+          ]
+        }
+      ],
+      "legal_line": "Drop Flash · Wobble · Bogotá"
+    }
+  ]
+}

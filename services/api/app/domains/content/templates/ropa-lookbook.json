@@ -1,0 +1,64 @@
+{
+  "template_id": "ropa-lookbook",
+  "name": "Ropa · Lookbook",
+  "description": "Editorial fotografiado en texto · Collection grid de categorías · Newsletter.",
+  "blocks": [
+    {
+      "id": "look-header",
+      "type": "header",
+      "brand": "growup lookbook",
+      "nav": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Lookbook", "href": "/collection" }
+      ],
+      "cta": { "label": "VER LOOKBOOK", "href": "/collection" }
+    },
+    {
+      "id": "look-hero",
+      "type": "hero",
+      "eyebrow": "Lookbook · Edición 02",
+      "title": "La calle en Bogotá",
+      "subtitle": "Fotografía documental de calle. Cada pieza tiene pieza hermana, cada look tiene historia.",
+      "align": "left",
+      "cta": { "label": "Ver prendas", "href": "/collection" }
+    },
+    {
+      "id": "look-collection-grid",
+      "type": "collection_grid",
+      "title": "Categorías",
+      "items": [
+        { "title": "Streetwear", "href": "/collection?category=streetwear" },
+        { "title": "Basics", "href": "/collection?category=basics" },
+        { "title": "Denim", "href": "/collection?category=denim" }
+      ]
+    },
+    {
+      "id": "look-product-grid",
+      "type": "product_grid",
+      "title": "Más buscados",
+      "source": "category",
+      "category_slug": "ropa-cat-1",
+      "limit": 4,
+      "show_price": true
+    },
+    {
+      "id": "look-footer",
+      "type": "footer",
+      "columns": [
+        {
+          "title": "Instagram",
+          "links": [
+            { "label": "@growupstudio", "href": "https://www.instagram.com/growupstudio" }
+          ]
+        },
+        {
+          "title": "Envíos",
+          "links": [
+            { "label": "Colombia 48h", "href": "/legal/envios" }
+          ]
+        }
+      ],
+      "legal_line": "GrowUp Studio · Foto en la calle"
+    }
+  ]
+}

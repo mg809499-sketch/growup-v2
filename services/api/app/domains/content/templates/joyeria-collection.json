@@ -1,0 +1,80 @@
+{
+  "template_id": "joyeria-collection",
+  "name": "Joyería · Colección",
+  "description": "Hero trilogy-ready · Collection visual · Editorial intimista · Footer robusto.",
+  "blocks": [
+    {
+      "id": "jc-header",
+      "type": "header",
+      "brand": "joyeria collection",
+      "nav": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Collection", "href": "/collection" },
+        { "label": "Atelier", "href": "/about" }
+      ],
+      "cta": { "label": "VER COLECCIÓN", "href": "/collection" }
+    },
+    {
+      "id": "jc-hero",
+      "type": "hero",
+      "eyebrow": "Colección · Primavera 2026",
+      "title": "Tierra, sal y resina",
+      "subtitle": "Tres series hechas a mano en Bogotá. 18 piezas por colección, numeradas y signadas.",
+      "align": "left",
+      "cta": { "label": "Descubre Colección", "href": "/collection" }
+    },
+    {
+      "id": "jc-collection-grid",
+      "type": "collection_grid",
+      "title": "Series de la temporada",
+      "items": [
+        { "title": "Tierra", "href": "/collection?serie=tierra" },
+        { "title": "Sal", "href": "/collection?serie=sal" },
+        { "title": "Resina", "href": "/collection?serie=resina" }
+      ]
+    },
+    {
+      "id": "jc-quote",
+      "type": "quote",
+      "text": "Una pieza bien hecha se nota al cerrar los ojos.",
+      "author": "Taller 24"
+    },
+    {
+      "id": "jc-product-grid",
+      "type": "product_grid",
+      "title": "Más recientes",
+      "source": "category",
+      "category_slug": "joyeria-cat-1",
+      "limit": 4,
+      "show_price": true
+    },
+    {
+      "id": "jc-newsletter",
+      "type": "newsletter",
+      "title": "Boletín Col.",
+      "subtitle": "El catálogo y las colas de espera llegan primero al boletín.",
+      "cta_label": "Recibir catálogo"
+    },
+    {
+      "id": "jc-footer",
+      "type": "footer",
+      "columns": [
+        {
+          "title": "Colección",
+          "links": [
+            { "label": "Todas las piezas", "href": "/collection" },
+            { "label": "Numeración", "href": "/legal/numeracion" }
+          ]
+        },
+        {
+          "title": "Contacto",
+          "links": [
+            { "label": "WhatsApp", "href": "https://www.whatsapp.com/channel/atelierabell" },
+            { "label": "Visítanos", "href": "/atelier" }
+          ]
+        }
+      ],
+      "legal_line": "Taller 24 · Joyería Atelier · Bogotá"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "template_id": "ropa-minimal",
+  "name": "Ropa · Minimal",
+  "description": "Hero centrado · Editorial de texto · Newsletter · Footer editorial.",
+  "blocks": [
+    {
+      "id": "min-header",
+      "type": "header",
+      "brand": "growup minimal",
+      "nav": [
+        { "label": "Inicio", "href": "/" },
+        { "label": "Colección", "href": "/collection" }
+      ]
+    },
+    {
+      "id": "min-hero",
+      "type": "hero",
+      "eyebrow": "Minimal · Essencial",
+      "title": "Una camiseta. Una vida.",
+      "subtitle": "Basics en algodón peinado 200 grs. Precio directo de fábrica, sin capas.",
+      "align": "center",
+      "cta": { "label": "Ver coleccio", "href": "/collection" }
+    },
+    {
+      "id": "min-rich-text",
+      "type": "rich_text",
+      "markdown": "**Diseñamos para que vivas más y compres menos.**\n\n Cada pieza tiene medidas publicadas y tela hecha en Colombia. Sin cortos.",
+      "width": "narrow"
+    },
+    {
+      "id": "min-product-grid",
+      "type": "product_grid",
+      "title": "Todos los basics",
+      "source": "category",
+      "category_slug": "ropa-cat-1",
+      "limit": 8,
+      "show_price": true
+    },
+    {
+      "id": "min-newsletter",
+      "type": "newsletter",
+      "title": "Novedades con conciencia",
+      "subtitle": "Te avisamos cuando hay drops reales. Nada de spam.",
+      "cta_label": "Me interesa"
+    },
+    {
+      "id": "min-footer",
+      "type": "footer",
+      "columns": [
+        {
+          "title": "Info",
+          "links": [
+            { "label": "Escríbenos", "href": "/contacto" },
+            { "label": "Libro de reclamaciones", "href": "/legal/reclamaciones" }
+          ]
+        }
+      ],
+      "legal_line": "GrowUp Minimal · Bogotá · 2026"
+    }
+  ]
+}
