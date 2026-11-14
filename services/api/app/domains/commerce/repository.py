@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from typing import Any
+from typing import Any, cast
 from uuid import UUID
 
 import asyncpg  # type: ignore[import-untyped]
@@ -26,6 +26,55 @@ class PostgresCommerceRepository:
         self._database = database
 
     # ---------- Carrito ----------
+    async def upsert_customer(
+        self,
+        tenant_id: UUID,
+        *,
+        email: str,
+        name: str | None,
+        phone: str | None,
+    ) -> UUID:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            row = await connection.fetchrow(
+                """
+                insert into app.customers (tenant_id, email, name, phone)
+                values ($1, lower(btrim($2)), $3, $4)
+                on conflict (tenant_id, lower(email)) do update
+                    set name = coalesce(nullif(btrim(excluded.name), ''), customers.name),
+                        phone = coalesce(nullif(btrim(excluded.phone), ''), customers.phone),
+                        updated_at = now()
+                returning id
+                """,
+                tenant_id,
+                email,
+                name,
+                phone,
+            )
+        if row is None:
+            raise AppError("CUSTOMER_UPSERT_FAILED", "No se pudo crear el comprador", 500)
+        return cast(UUID, row["id"])
+
+    async def assign_customer_to_cart(
+        self,
+        tenant_id: UUID,
+        *,
+        cart_id: UUID,
+        customer_id: UUID,
+    ) -> None:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            result = await connection.execute(
+                """
+                update app.carts
+                   set customer_id = $3, updated_at = now()
+                 where tenant_id = $1 and id = $2 and status = 'open' and expires_at > now()
+                """,
+                tenant_id,
+                cart_id,
+                customer_id,
+            )
+        if result != "UPDATE 1":
+            raise AppError("CART_NOT_FOUND", "El carrito no existe o expiró", 404)
+
     async def create_cart(self, tenant_id: UUID) -> UUID:
         async with self._database.tenant_transaction(tenant_id) as connection:
             cart_id = await connection.fetchval(
@@ -182,6 +231,7 @@ class PostgresCommerceRepository:
         shipping_cents: int,
         tax_rate_bps: int,
         shipping: dict[str, Any],
+        customer_id: UUID | None = None,
     ) -> Order:
         async with self._database.tenant_transaction(tenant_id) as connection:
             async with connection.transaction():
@@ -225,18 +275,19 @@ class PostgresCommerceRepository:
                 order_id = await connection.fetchval(
                     """
                     insert into app.orders (
-                        tenant_id, cart_id, email, status,
+                        tenant_id, cart_id, customer_id, email, status,
                         subtotal_cents, tax_cents, shipping_cents, total_cents, tax_rate_bps,
                         shipping_zone, shipping_name, shipping_line1, shipping_line2,
                         shipping_city, shipping_state, shipping_postal_code, shipping_country
                     ) values (
-                        $1, $2, $3, 'pending',
-                        $4, $5, $6, $7, $8,
-                        $9, $10, $11, $12, $13, $14, $15, $16
+                        $1, $2, $3, $4, 'pending',
+                        $5, $6, $7, $8, $9,
+                        $10, $11, $12, $13, $14, $15, $16, $17
                     ) returning id
                     """,
                     tenant_id,
                     cart_id,
+                    customer_id,
                     email.lower(),
                     subtotal,
                     tax_cents,

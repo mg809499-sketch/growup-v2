@@ -100,6 +100,27 @@ async def test_cart_to_checkout_and_webhook_flow() -> None:
         assert "signature:integrity=" in checkout["wompi_url"]
         assert "amount-in-cents=998000" in checkout["wompi_url"]
 
+        # Checkout upsertó al comprador y enlazó cart/order
+        async with database.pool.acquire() as connection:
+            customer = await connection.fetchrow(
+                """select id, email, name, phone from app.customers
+                    where tenant_id = $1 and lower(email) = lower($2)""",
+                tenant_id,
+                "comprador@example.com",
+            )
+            assert customer is not None, "customers no se materializó en el checkout"
+            assert customer["name"] == "Comprador Prueba"
+            assert customer["phone"] is None
+            order_row = await connection.fetchrow(
+                "select customer_id from app.orders where id = $1",
+                UUID(checkout["order_id"]),
+            )
+            assert order_row["customer_id"] == customer["id"]
+            cart_row = await connection.fetchrow(
+                "select customer_id from app.carts where id = $1", cart.id
+            )
+            assert cart_row["customer_id"] == customer["id"]
+
         # Webhook: firma inválida → 401
         invalid_event_id = f"evt-inv-{uuid4().hex[:8]}"
         with pytest.raises(AppError) as excinfo:

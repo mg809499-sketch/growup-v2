@@ -114,6 +114,15 @@ class CommerceService:
             )
 
         shipping_cents = self.zone_price(shipping_zone, settings_zones)
+        customer_id = await self._repository.upsert_customer(
+            tenant_id,
+            email=email.lower(),
+            name=(shipping.get("name") if isinstance(shipping, dict) else None),
+            phone=(shipping.get("phone") if isinstance(shipping, dict) else None),
+        )
+        await self._repository.assign_customer_to_cart(
+            tenant_id, cart_id=cart_id, customer_id=customer_id
+        )
         order = await self._repository.create_order_from_cart(
             tenant_id,
             cart_id=cart_id,
@@ -122,6 +131,7 @@ class CommerceService:
             shipping_cents=shipping_cents,
             tax_rate_bps=TAX_RATE_BPS,
             shipping=shipping,
+            customer_id=customer_id,
         )
 
         integrity_key = decrypt_secret(account.integrity_key_encrypted)

@@ -12,6 +12,7 @@ from app.core.observability import get_logger
 from app.domains.media.repository import PostgresMediaRepository
 from app.domains.media.service import MediaService
 from app.domains.media.storage import R2Storage
+from app.workers.outbox_purge import publish_purge
 
 logger = get_logger("growup.worker.media")
 
@@ -89,8 +90,8 @@ async def shutdown(ctx: dict[str, Any]) -> None:
 
 
 class WorkerSettings:
-    functions = [process_media]
-    cron_jobs = [cron(cleanup_uploads, minute=0)]
+    functions = [process_media, publish_purge]
+    cron_jobs = [cron(cleanup_uploads, minute=0), cron(publish_purge, minute=5)]
     on_startup = startup
     on_shutdown = shutdown
     redis_settings = (
