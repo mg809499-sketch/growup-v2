@@ -27,6 +27,7 @@ logger = structlog.get_logger("growup.ratelimit")
 _LIMITS: tuple[tuple[str, int], ...] = (
     ("/v1/platform", 30),
     ("/v1/admin", 120),
+    ("/v1/onboarding", 10),
     ("/v1/storefront", 300),
 )
 
