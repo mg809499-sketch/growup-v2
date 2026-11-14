@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useTransition, useMemo } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -79,8 +79,6 @@ export function BuilderEditor({
   const [templateBusy, setTemplateBusy] = useState(false);
   const [templatesOpen, setTemplatesOpen] = useState(false);
   const [, startTransition] = useTransition();
-  const previewRef = useRef<HTMLIFrameElement>(null);
-  const storefrontOrigin = useMemo(() => new URL(storefrontUrl).origin, [storefrontUrl]);
 
   const mutate = useCallback((updater: (blocks: Block[]) => Block[]) => {
     setBlocks((current) => {
@@ -128,15 +126,6 @@ export function BuilderEditor({
     }, 2000);
     return () => clearTimeout(timer);
   }, [blocks, dirty, conflict, onSave]);
-
-  // Live sync con el iframe de preview (sin recargar). Se dispara con cada
-  // cambio de bloques, incluyendo drag/drop.
-  useEffect(() => {
-    previewRef.current?.contentWindow?.postMessage(
-      { type: "GROWUP_UPDATE_BLOCKS", blocks },
-      storefrontOrigin,
-    );
-  }, [blocks, storefrontOrigin]);
 
   // Token de preview al montar (solo si hay borrador).
   useEffect(() => {
@@ -446,7 +435,6 @@ export function BuilderEditor({
         <div className="min-h-[380px] flex-1 border border-slate-200 bg-slate-100">
           {previewUrl ? (
             <iframe
-              ref={previewRef}
               key={frameKey}
               src={previewUrl}
               title="Vista previa de la página"

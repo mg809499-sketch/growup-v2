@@ -427,6 +427,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/admin/templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Templates */
+        get: operations["list_templates_v1_admin_templates_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/pages/{page_id}/apply-template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Apply Template */
+        post: operations["apply_template_v1_admin_pages__page_id__apply_template_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/admin/webhooks": {
         parameters: {
             query?: never;
@@ -614,6 +648,40 @@ export interface paths {
         get: operations["list_levels_v1_admin_inventory_levels_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/inventory/suggestions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Suggestions */
+        get: operations["list_suggestions_v1_admin_inventory_suggestions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/inventory/suggestions/{suggestion_id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Resolve Suggestion */
+        post: operations["resolve_suggestion_v1_admin_inventory_suggestions__suggestion_id__resolve_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -889,6 +957,57 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AISuggestionListResponse */
+        AISuggestionListResponse: {
+            /** Items */
+            items: components["schemas"]["AISuggestionResponse"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+        };
+        /** AISuggestionResolveRequest */
+        AISuggestionResolveRequest: {
+            /** Action */
+            action: string;
+        };
+        /** AISuggestionResponse */
+        AISuggestionResponse: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Type */
+            type: string;
+            /** Status */
+            status: string;
+            /** Payload */
+            payload: {
+                [key: string]: unknown;
+            };
+            /**
+             * Proposed At
+             * Format: date-time
+             */
+            proposed_at: string;
+        };
+        /** ApplyTemplateRequest */
+        ApplyTemplateRequest: {
+            /** Template Id */
+            template_id: string;
+            /** Expected Version */
+            expected_version?: number | null;
+        };
+        /** ApplyTemplateResponse */
+        ApplyTemplateResponse: {
+            /** Id */
+            id: string;
+            /** Version */
+            version: number;
+        };
         /** AuditLogListResponse */
         AuditLogListResponse: {
             /** Items */
@@ -2283,6 +2402,15 @@ export interface components {
             /** Created At */
             created_at?: string | null;
         };
+        /** TemplateSummary */
+        TemplateSummary: {
+            /** Template Id */
+            template_id: string;
+            /** Name */
+            name: string;
+            /** Description */
+            description: string;
+        };
         /** TenantBrief */
         TenantBrief: {
             /**
@@ -3607,6 +3735,61 @@ export interface operations {
             };
         };
     };
+    list_templates_v1_admin_templates_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TemplateSummary"][];
+                };
+            };
+        };
+    };
+    apply_template_v1_admin_pages__page_id__apply_template_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                page_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ApplyTemplateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApplyTemplateResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     list_webhooks_v1_admin_webhooks_get: {
         parameters: {
             query?: never;
@@ -4034,6 +4217,74 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["InventoryLevelListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_suggestions_v1_admin_inventory_suggestions_get: {
+        parameters: {
+            query?: {
+                status?: string | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AISuggestionListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    resolve_suggestion_v1_admin_inventory_suggestions__suggestion_id__resolve_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                suggestion_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AISuggestionResolveRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AISuggestionResponse"];
                 };
             };
             /** @description Validation Error */
