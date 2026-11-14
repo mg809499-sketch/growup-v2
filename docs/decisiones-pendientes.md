@@ -1,5 +1,6 @@
 # Decisiones de negocio pendientes
 
+> **Nota (2026-11-14):** Super consola v1 lanzada en eat/superconsola (mando global, reorden rule-based, pausa/activacion de tenant, planes editor). **D-03 Factus - bloqueada** por falta de cuenta sandbox DIAN; D-15 Resend - pendiente (SMTP por tenant); ADR-0005 sigue en propuesta.
 > **Estado:** 10 cerradas (D-01 a D-08, D-17 y D-18; D-03 con proveedor propuesto — Factus) · 8 en propuesta (D-09 a D-16) + 1 abierta (D-19) · **Nota (2026-11-10):** el plan y el cierre propuesto de todas las propuestas (con proveedores: Factus DIAN, Resend email, Cloudflare DNS/WAF, sa-east-1, Wompi SAQ A, Stripe Billing, Sentry+Grafana) vive en `docs/plan/README.md` del paquete de ejecución y en `C:\Users\mg809\.opencode\plan\`. Ninguna propuesta se cierra sin la firma explícita de abogado/contador/equipo (sesión F0-01). · **Última actualización:** 2026-11-11 (se añade D-19: venta de subdominios `slug.growup.com` a comerciantes, ADR-0019)
 > **Regla:** ninguna de estas decisiones se asume en silencio. Cada una se cierra con una respuesta explícita y, cuando aplique, un ADR.
 > **Origen de D-09 a D-18 (2026-10-24):** brechas detectadas al comparar la arquitectura con los procesos y la normativa de una plataforma de comercio de referencia (Shopify + PCI-DSS v4.0.1, GDPR Art. 28, CCPA, marketplace facilitator USA, SOC 2). Cubren cumplimiento legal, riesgo de pagos y operación, ejes que las 8 decisiones originales no abordan.
@@ -588,3 +589,25 @@ D-09 a D-16 **no se cierran** en esta fecha. La opción A se mantiene como direc
 **Antes de go-live**
 - D-12, D-16 final, D-18 evidencia y D-08 (fecha/responsable de contenido).
 - ADR-0005 sigue pendiente para contenido/publishing; sin eso no hay storefront ni política publicada.
+
+---
+
+## Actualización 2026-11-14 — Super Consola (v1 lanzada en `feat/superconsola`)
+
+Avances entregados (operativo):
+- **Visual revival**: topbar con branding "GrowUp Space", navegación agrupada (Operaciones Core / Crecimiento & Canales / Infraestructura), `Live` badge, typeface Inter/JetBrains Mono.
+- **Super consola v1**: dashboard mando global (MRR/GMV/órdenes/suscripciones), alerta list por severidad, pausa/activación de tenant (owner-only + auditoría), CSV export del listado de tenants.
+- **Planes 3D editor**: `app.plans` ampliada (`active`, `badge`, `sort_order`, `list_price_cop/usd_cents`); endpoint admin `/v1/platform/plans` (PUT) editable solo por staff reconocido como platform admin; `pwr` app_rw con SELECT. Seed `starter` y `pro` listos para subir COP.
+- **Reorden rule-based (E5.1)**: tabla `ai_suggestions` + función `app.detect_reorder_candidates(tenant_id, min_stock)`; worker ARQ `suggest_reorders` sugiere sin ejecutar; UI `/suggestions` con aprobación humana.
+- **Builder live-sync**: storefront escucha `GROWUP_UPDATE_BLOCKS` vía postMessage origin-checked; admin auto-actualiza preview sin recargar; editor aplica plantillas `ropa-starter` / `joyeria-starter` con un clic (listadas vía `/v1/admin/templates`).
+
+## Bloqueados / pendientes declarados
+
+| Bloqueo | Impacto | Cierre requerido |
+|---|---|---|
+| **D-03 Factus (DIAN)** | Épica 6 (facturación electrónica) — **bloqueada**. No hay cuenta sandbox NIT registrado ni API key; piloto no puede emitir invoices electrónicos. | Crear cuenta sandbox Factus esta semana con NIT de prueba; luego ejecutar PR4 (epic 6). |
+| **PR5 Post-pilot fixes** | No se inicia hasta post-piloto | Fecha tentativa tras piloto Q1 2027 |
+| **D-02 Pasarela DIAN vs. PIX** | Checkout PIX funcionando nativo Wompi; DIAN espera Factus | Espera D-03 |
+| **E5.2 Chat comprador + E5.3 ROAS advisory** | Agente IA conversacional + pauta asistida | Post-piloto; hoy solo rules; discovery con el equipo |
+| **ADR-0005 ratificación final** | Editor de pagina + Studio blocks 3D; bloques listo pero producto no firma | Ratificar con producto tras run QA en staging |
+| **Resend/Cloud email** | Notificaciones reales de checkout/order | D-15 pendiente — certificar dominio por tenant con DKIM antes de go-live |
