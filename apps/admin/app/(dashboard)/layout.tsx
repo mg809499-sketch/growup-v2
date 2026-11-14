@@ -32,6 +32,7 @@ export default async function DashboardLayout({
           <NavLink href="/catalog/products" label="Catálogo" />
           <NavLink href="/media" label="Media" />
           <NavLink href="/audit" label="Auditoría" />
+          <NavLink href="/platform/overview" label="Panel" />
           <NavLink href="/platform/tenants" label="Plataforma · Tenants" />
         </nav>
 
