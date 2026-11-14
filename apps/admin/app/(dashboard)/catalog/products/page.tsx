@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
+import { SectionError } from "@/components/section-error";
 import { StatusBadge } from "@/components/status-badge";
 import { requireSession } from "@/lib/auth";
-import { apiGet, queryString } from "@/lib/api";
+import { apiGetSafe, queryString } from "@/lib/api";
 import type { ProductListResponse } from "@/lib/api";
 import { formatPrice } from "@/lib/format";
 
@@ -21,7 +23,7 @@ export default async function ProductsPage({
   const params = await searchParams;
   const { token } = await requireSession();
   const limit = Math.min(Number(params.limit) || 20, 50);
-  const page = await apiGet<ProductListResponse>(
+  const result = await apiGetSafe<ProductListResponse>(
     `/v1/admin/products${queryString({
       status: params.status,
       q: params.q,
@@ -30,12 +32,16 @@ export default async function ProductsPage({
     })}`,
     token,
   );
+  if (result.redirectToLogin) {
+    redirect("/login");
+  }
+  const page = result.data;
 
   const nextParams = new URLSearchParams();
   if (params.status) nextParams.set("status", params.status);
   if (params.q) nextParams.set("q", params.q);
   nextParams.set("limit", String(limit));
-  if (page.next_cursor) {
+  if (page?.next_cursor) {
     nextParams.set("cursor", page.next_cursor);
   }
 
@@ -98,7 +104,12 @@ export default async function ProductsPage({
         </Link>
       </form>
 
-      {page.items.length === 0 ? (
+      {page === null ? (
+        <SectionError
+          title="No se pudo cargar el catálogo"
+          error={result.error ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      ) : page.items.length === 0 ? (
         <EmptyState
           title="No hay productos con este filtro"
           description="Cambia el estado o la búsqueda para ver otros resultados."
@@ -152,7 +163,7 @@ export default async function ProductsPage({
         </div>
       )}
 
-      {page.next_cursor ? (
+      {page?.next_cursor ? (
         <div className="flex justify-end">
           <Link
             className="border border-slate-300 bg-white px-3 py-1.5 text-sm hover:border-slate-950"

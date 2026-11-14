@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import { apiGet } from "@/lib/api";
+import { apiGetSafe } from "@/lib/api";
 import { requireSession } from "@/lib/auth";
+import { SectionError } from "@/components/section-error";
 import { PageHeader } from "@/components/page-header";
 import type { PageListResponse } from "@/lib/pages";
 import { createPageAction } from "./actions";
@@ -21,10 +23,14 @@ export default async function BuilderPage({
 }) {
   const { token } = await requireSession();
   const params = await searchParams;
-  const pages = await apiGet<PageListResponse>(
+  const result = await apiGetSafe<PageListResponse>(
     "/v1/admin/pages?limit=100",
     token,
   );
+  if (result.redirectToLogin) {
+    redirect("/login");
+  }
+  const pages = result.data;
 
   return (
     <div className="space-y-6">
@@ -71,6 +77,12 @@ export default async function BuilderPage({
         </button>
       </form>
 
+      {result.error || !pages ? (
+        <SectionError
+          title="No se pudo cargar el listado de páginas"
+          error={result.error ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      ) : (
       <div className="border border-slate-200 bg-white">
         <table className="w-full text-sm">
           <thead className="border-b border-slate-200 text-left text-xs uppercase tracking-wide text-slate-500">
@@ -115,6 +127,7 @@ export default async function BuilderPage({
           </tbody>
         </table>
       </div>
+      )}
     </div>
   );
 }

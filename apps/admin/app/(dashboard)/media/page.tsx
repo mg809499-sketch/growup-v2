@@ -1,12 +1,14 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { updateMediaAltAction } from "@/app/(dashboard)/media/actions";
 import { MediaUploader } from "@/components/media-uploader";
 import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
+import { SectionError } from "@/components/section-error";
 import { StatusBadge } from "@/components/status-badge";
 import { requireSession } from "@/lib/auth";
-import { apiGet, queryString } from "@/lib/api";
+import { apiGetSafe, queryString } from "@/lib/api";
 import type { MediaAssetListResponse } from "@/lib/api";
 import { formatBytes } from "@/lib/format";
 
@@ -34,12 +36,16 @@ export default async function MediaPage({
     requestedOffset <= 1_000_000
       ? requestedOffset
       : 0;
-  const page = await apiGet<MediaAssetListResponse>(
+  const result = await apiGetSafe<MediaAssetListResponse>(
     `/v1/admin/media${queryString({ status: params.status, limit, offset })}`,
     token,
   );
+  if (result.redirectToLogin) {
+    redirect("/login");
+  }
+  const page = result.data;
   const previousOffset = Math.max(0, offset - limit);
-  const nextOffset = offset + page.items.length;
+  const nextOffset = offset + (page?.items.length ?? 0);
   const pageHref = (targetOffset: number) => {
     const query = new URLSearchParams({
       limit: String(limit),
@@ -97,7 +103,12 @@ export default async function MediaPage({
         </Link>
       </form>
 
-      {page.items.length === 0 ? (
+      {page === null ? (
+        <SectionError
+          title="No se pudo cargar la biblioteca de media"
+          error={result.error ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      ) : page.items.length === 0 ? (
         <EmptyState
           title="No hay media con este filtro"
           description="Sube imágenes arriba o cambia el filtro de estado."
@@ -176,40 +187,42 @@ export default async function MediaPage({
           </table>
         </div>
       )}
-      <nav
-        aria-label="Paginación de media"
-        className="flex items-center justify-between gap-4 text-sm"
-      >
-        <p className="text-slate-500">
-          {page.total === 0
-            ? "0 assets"
-            : `${offset + 1}–${offset + page.items.length} de ${page.total}`}
-        </p>
-        <div className="flex gap-2">
-          <Link
-            aria-disabled={offset === 0}
-            className={`border px-3 py-2 ${
-              offset === 0
-                ? "pointer-events-none border-slate-200 text-slate-300"
-                : "border-slate-300 hover:border-slate-950"
-            }`}
-            href={pageHref(previousOffset)}
-          >
-            Anterior
-          </Link>
-          <Link
-            aria-disabled={nextOffset >= page.total}
-            className={`border px-3 py-2 ${
-              nextOffset >= page.total
-                ? "pointer-events-none border-slate-200 text-slate-300"
-                : "border-slate-300 hover:border-slate-950"
-            }`}
-            href={pageHref(nextOffset)}
-          >
-            Siguiente
-          </Link>
-        </div>
-      </nav>
+      {page ? (
+        <nav
+          aria-label="Paginación de media"
+          className="flex items-center justify-between gap-4 text-sm"
+        >
+          <p className="text-slate-500">
+            {page.total === 0
+              ? "0 assets"
+              : `${offset + 1}–${offset + page.items.length} de ${page.total}`}
+          </p>
+          <div className="flex gap-2">
+            <Link
+              aria-disabled={offset === 0}
+              className={`border px-3 py-2 ${
+                offset === 0
+                  ? "pointer-events-none border-slate-200 text-slate-300"
+                  : "border-slate-300 hover:border-slate-950"
+              }`}
+              href={pageHref(previousOffset)}
+            >
+              Anterior
+            </Link>
+            <Link
+              aria-disabled={nextOffset >= page.total}
+              className={`border px-3 py-2 ${
+                nextOffset >= page.total
+                  ? "pointer-events-none border-slate-200 text-slate-300"
+                  : "border-slate-300 hover:border-slate-950"
+              }`}
+              href={pageHref(nextOffset)}
+            >
+              Siguiente
+            </Link>
+          </div>
+        </nav>
+      ) : null}
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
+import { SectionError } from "@/components/section-error";
 import { StatusBadge } from "@/components/status-badge";
 import { requireSession } from "@/lib/auth";
-import { apiGet, queryString } from "@/lib/api";
+import { apiGetSafe, queryString } from "@/lib/api";
 import type { AuditLogListResponse, AuditVerifyResponse } from "@/lib/api";
 import { formatDate } from "@/lib/format";
 
@@ -22,8 +24,8 @@ export default async function AuditPage({
   const { token } = await requireSession();
   const limit = Math.min(Number(params.limit) || 50, 100);
 
-  const [page, verify] = await Promise.all([
-    apiGet<AuditLogListResponse>(
+  const [pageResult, verifyResult] = await Promise.all([
+    apiGetSafe<AuditLogListResponse>(
       `/v1/admin/audit${queryString({
         action: params.action,
         decision: params.decision,
@@ -32,14 +34,23 @@ export default async function AuditPage({
       })}`,
       token,
     ),
-    apiGet<AuditVerifyResponse>("/v1/admin/audit/verify", token),
+    apiGetSafe<AuditVerifyResponse>("/v1/admin/audit/verify", token),
   ]);
+
+  if (pageResult.redirectToLogin || verifyResult.redirectToLogin) {
+    redirect("/login");
+  }
+
+  const pageError = pageResult.error;
+  const verifyError = verifyResult.error;
+  const page = pageResult.data;
+  const verify = verifyResult.data;
 
   const nextParams = new URLSearchParams();
   if (params.action) nextParams.set("action", params.action);
   if (params.decision) nextParams.set("decision", params.decision);
   nextParams.set("limit", String(limit));
-  if (page.next_cursor) {
+  if (page?.next_cursor) {
     nextParams.set("before_seq", String(page.next_cursor));
   }
 
@@ -51,20 +62,27 @@ export default async function AuditPage({
         description="Registro append-only de las decisiones de gobernanza del tenant."
       />
 
-      <div
-        className={`border px-4 py-3 text-sm ${
-          verify.valid
-            ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-            : "border-red-200 bg-red-50 text-red-800"
-        }`}
-      >
-        <p className="font-medium">
-          {verify.valid ? "Cadena válida" : "Cadena alterada"}
-        </p>
-        <p className="mono mt-1 text-[11px] opacity-80">
-          chain_key: {verify.chain_key}
-        </p>
-      </div>
+      {verify ? (
+        <div
+          className={`border px-4 py-3 text-sm ${
+            verify.valid
+              ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+              : "border-red-200 bg-red-50 text-red-800"
+          }`}
+        >
+          <p className="font-medium">
+            {verify.valid ? "Cadena válida" : "Cadena alterada"}
+          </p>
+          <p className="mono mt-1 text-[11px] opacity-80">
+            chain_key: {verify.chain_key}
+          </p>
+        </div>
+      ) : (
+        <SectionError
+          title="No se pudo verificar la cadena de integridad"
+          error={verifyError ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      )}
 
       <form className="flex flex-wrap items-end gap-3 border border-slate-200 bg-white p-4">
         <label className="block">
@@ -108,7 +126,12 @@ export default async function AuditPage({
         </Link>
       </form>
 
-      {page.items.length === 0 ? (
+      {page === null ? (
+        <SectionError
+          title="No se pudo cargar el registro de decisiones"
+          error={pageError ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      ) : page.items.length === 0 ? (
         <EmptyState
           title="No hay decisiones con este filtro"
           description="El registro se llena a medida que se ejecutan acciones auditadas."
@@ -157,7 +180,7 @@ export default async function AuditPage({
         </div>
       )}
 
-      {page.next_cursor ? (
+      {page?.next_cursor ? (
         <div className="flex justify-end">
           <Link
             className="border border-slate-300 bg-white px-3 py-1.5 text-sm hover:border-slate-950"

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 import { apiGet, apiSend, ApiError } from "@/lib/api";
@@ -24,7 +24,10 @@ export default async function OrderDetailPage({
   let order: OrderDetail | null = null;
   try {
     order = await apiGet<OrderDetail>(`/v1/admin/orders/${id}`, token);
-  } catch {
+  } catch (apiError) {
+    if (apiError instanceof ApiError && apiError.status === 401) {
+      redirect("/login");
+    }
     notFound();
   }
   if (!order) {
@@ -42,11 +45,9 @@ export default async function OrderDetailPage({
     } catch (error) {
       const message =
         error instanceof ApiError ? error.message : "No se pudo actualizar el estado";
-      const { redirect } = await import("next/navigation");
       redirect(`/orders/${id}?error=${encodeURIComponent(message)}`);
     }
     revalidatePath(`/orders/${id}`);
-    const { redirect } = await import("next/navigation");
     redirect(`/orders/${id}`);
   }
 

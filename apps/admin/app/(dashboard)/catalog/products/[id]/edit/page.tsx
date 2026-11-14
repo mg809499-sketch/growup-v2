@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { updateProductAction } from "@/app/(dashboard)/catalog/products/actions";
 import { PageHeader } from "@/components/page-header";
+import { SectionError } from "@/components/section-error";
 import { requireSession } from "@/lib/auth";
 import { ApiError, apiGet } from "@/lib/api";
 import type { ProductDetailResponse } from "@/lib/api";
@@ -30,10 +31,29 @@ export default async function EditProductPage({
       token,
     );
   } catch (apiError) {
+    if (apiError instanceof ApiError && apiError.status === 401) {
+      redirect("/login");
+    }
     if (apiError instanceof ApiError && apiError.status === 404) {
       notFound();
     }
-    throw apiError;
+    return (
+      <div className="space-y-6">
+        <PageHeader
+          eyebrow="Catálogo"
+          title="Producto no disponible"
+          description="No se pudo resolver el producto desde la API."
+        />
+        <SectionError
+          title="No se pudo cargar el producto"
+          error={{
+            status: apiError instanceof ApiError ? apiError.status : 0,
+            code: apiError instanceof ApiError ? apiError.code : null,
+            message: apiError instanceof Error ? apiError.message : "Error inesperado",
+          }}
+        />
+      </div>
+    );
   }
 
   return (

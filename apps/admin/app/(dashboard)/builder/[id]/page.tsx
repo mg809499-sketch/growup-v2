@@ -1,8 +1,9 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
-import { apiGet } from "@/lib/api";
+import { ApiError, apiGet, apiGetSafe } from "@/lib/api";
 import { requireSession } from "@/lib/auth";
 import { PageHeader } from "@/components/page-header";
+import { SectionError } from "@/components/section-error";
 import type { PageDetail } from "@/lib/pages";
 import { updatePageAction } from "../actions";
 import { BuilderEditor } from "./builder-editor";
@@ -29,16 +30,26 @@ export default async function BuilderEditorPage({
   let page: PageDetail | null = null;
   try {
     page = await apiGet<PageDetail>(`/v1/admin/pages/${id}`, token);
-  } catch {
+  } catch (apiError) {
+    if (apiError instanceof ApiError && apiError.status === 401) {
+      redirect("/login");
+    }
     notFound();
   }
   if (!page) {
     notFound();
   }
 
-  const draft = await apiGet<DraftResponse>(`/v1/admin/pages/${id}/draft`, token);
+  const draftResult = await apiGetSafe<DraftResponse>(
+    `/v1/admin/pages/${id}/draft`,
+    token,
+  );
+  if (draftResult.redirectToLogin) {
+    redirect("/login");
+  }
+  const draft = draftResult.data;
   const latestDraft =
-    draft.id && draft.version && draft.layout
+    draft && draft.id && draft.version && draft.layout
       ? { id: draft.id, version: draft.version, layout: draft.layout }
       : null;
 
@@ -88,14 +99,21 @@ export default async function BuilderEditorPage({
         </button>
       </form>
 
-      <BuilderEditor
-        pageId={id}
-        initialSlug={page.slug}
-        initialTitle={page.title}
-        status={page.status}
-        latestDraft={latestDraft}
-        storefrontUrl={storefrontUrl}
-      />
+      {draftResult.error || !draft ? (
+        <SectionError
+          title="No se pudo cargar el borrador de la página"
+          error={draftResult.error ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      ) : (
+        <BuilderEditor
+          pageId={id}
+          initialSlug={page.slug}
+          initialTitle={page.title}
+          status={page.status}
+          latestDraft={latestDraft}
+          storefrontUrl={storefrontUrl}
+        />
+      )}
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import { apiGet } from "@/lib/api";
+import { apiGetSafe } from "@/lib/api";
 import { requireSession } from "@/lib/auth";
 import { PageHeader } from "@/components/page-header";
+import { SectionError } from "@/components/section-error";
 import type { OrderListResponse } from "@/lib/orders";
 import { formatPrice } from "@/lib/format";
 
@@ -31,10 +33,14 @@ export default async function OrdersPage({
   const offset = Math.max(0, Number(params.offset ?? 0) || 0);
   const limit = 20;
 
-  const orders = await apiGet<OrderListResponse>(
+  const result = await apiGetSafe<OrderListResponse>(
     `/v1/admin/orders?limit=${limit}&offset=${offset}`,
     token,
   );
+  if (result.redirectToLogin) {
+    redirect("/login");
+  }
+  const orders = result.data;
 
   return (
     <div className="space-y-6">
@@ -44,6 +50,12 @@ export default async function OrdersPage({
         description="Órdenes recibidas por la tienda. El cobro lo procesa la pasarela del comerciante (Wompi); Growup no custodia fondos."
       />
 
+      {orders === null ? (
+        <SectionError
+          title="No se pudo cargar el listado de pedidos"
+          error={result.error ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      ) : (
       <div className="border border-slate-200 bg-white">
         <table className="w-full text-sm">
           <thead className="border-b border-slate-200 text-left text-xs uppercase tracking-wide text-slate-500">
@@ -90,30 +102,33 @@ export default async function OrdersPage({
           </tbody>
         </table>
       </div>
+      )}
 
-      <div className="flex items-center justify-between text-sm">
-        <p className="text-slate-500">
-          {orders.total} pedido{orders.total === 1 ? "" : "s"}
-        </p>
-        <div className="flex gap-2">
-          {offset > 0 ? (
-            <Link
-              href={`/orders?offset=${Math.max(0, offset - limit)}`}
-              className="border border-slate-200 px-3 py-1.5 hover:border-slate-400"
-            >
-              ← Anterior
-            </Link>
-          ) : null}
-          {offset + limit < orders.total ? (
-            <Link
-              href={`/orders?offset=${offset + limit}`}
-              className="border border-slate-200 px-3 py-1.5 hover:border-slate-400"
-            >
-              Siguiente →
-            </Link>
-          ) : null}
+      {orders ? (
+        <div className="flex items-center justify-between text-sm">
+          <p className="text-slate-500">
+            {orders.total} pedido{orders.total === 1 ? "" : "s"}
+          </p>
+          <div className="flex gap-2">
+            {offset > 0 ? (
+              <Link
+                href={`/orders?offset=${Math.max(0, offset - limit)}`}
+                className="border border-slate-200 px-3 py-1.5 hover:border-slate-400"
+              >
+                ← Anterior
+              </Link>
+            ) : null}
+            {offset + limit < orders.total ? (
+              <Link
+                href={`/orders?offset=${offset + limit}`}
+                className="border border-slate-200 px-3 py-1.5 hover:border-slate-400"
+              >
+                Siguiente →
+              </Link>
+            ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }

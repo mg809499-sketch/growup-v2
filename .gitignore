@@ -48,6 +48,7 @@ Thumbs.db
 # Playwright / test artifacts
 apps/storefront/test-results/
 apps/storefront/playwright-report/
+.playwright-mcp/
 
 # Dev server logs (local)
 .run-logs/

@@ -24,14 +24,19 @@ const nextConfig: NextConfig = {
   agentRules: false,
   transpilePackages: ["@growup/contracts", "@growup/config"],
   async headers() {
-    const adminOrigin = (process.env.GROWUP_ADMIN_ORIGIN ?? "http://localhost:3001").replace(/\/$/, "");
+    const rawOrigins = process.env.GROWUP_ADMIN_ORIGIN ?? "http://localhost:3001,http://localhost:3011";
+    const adminOrigins = rawOrigins
+      .split(",")
+      .map((origin) => origin.trim().replace(/\/$/, ""))
+      .filter(Boolean)
+      .join(" ");
     return [
       {
         source: "/preview",
         headers: [
           {
             key: "Content-Security-Policy",
-            value: `frame-ancestors 'self' ${adminOrigin}`,
+            value: `frame-ancestors 'self' ${adminOrigins}`,
           },
           { key: "Cache-Control", value: "no-store" },
         ],

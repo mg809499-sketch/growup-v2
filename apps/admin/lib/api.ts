@@ -42,6 +42,46 @@ export async function apiGet<T>(path: string, token: string): Promise<T> {
   return (await response.json()) as T;
 }
 
+export type SafeGetError = {
+  status: number;
+  code: string | null;
+  message: string;
+};
+
+/** Resultado discriminado de una lectura contra la API. Nunca lanza. */
+export type SafeGetResult<T> =
+  | { data: T; error: null; redirectToLogin: false }
+  | { data: null; error: SafeGetError; redirectToLogin: false }
+  | { data: null; error: null; redirectToLogin: true };
+
+/**
+ * apiGet tolerante a fallos para Server Components:
+ *  - 401 → redirectToLogin (el llamador hace redirect("/login")).
+ *  - cualquier otro fallo (4xx/5xx/red) → { error } con status/code para
+ *    renderizar una tarjeta controlada en lugar de tumbar la página (React #441).
+ */
+export async function apiGetSafe<T>(
+  path: string,
+  token: string,
+): Promise<SafeGetResult<T>> {
+  try {
+    return { data: await apiGet<T>(path, token), error: null, redirectToLogin: false };
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 401) {
+      return { data: null, error: null, redirectToLogin: true };
+    }
+    return {
+      data: null,
+      error: {
+        status: error instanceof ApiError ? error.status : 0,
+        code: error instanceof ApiError ? error.code : null,
+        message: error instanceof Error ? error.message : "Error inesperado",
+      },
+      redirectToLogin: false,
+    };
+  }
+}
+
 export async function apiSend<T>(
   method: "POST" | "PUT" | "PATCH" | "DELETE",
   path: string,

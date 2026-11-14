@@ -1,13 +1,35 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { PageHeader } from "@/components/page-header";
+import { SectionError } from "@/components/section-error";
 import { requireSession } from "@/lib/auth";
-import { apiGet } from "@/lib/api";
+import { apiGetSafe } from "@/lib/api";
 import type { MeResponse } from "@/lib/api";
 
 export default async function DashboardPage() {
   const { token } = await requireSession();
-  const me = await apiGet<MeResponse>("/v1/admin/me", token);
+  const result = await apiGetSafe<MeResponse>("/v1/admin/me", token);
+  if (result.redirectToLogin) {
+    redirect("/login");
+  }
+  const me = result.data;
+
+  if (result.error || !me) {
+    return (
+      <div className="space-y-8">
+        <PageHeader
+          eyebrow="Resumen"
+          title="Estado de la cuenta"
+          description="Sesión verificada con Supabase Auth y contexto resuelto desde la API multi-tenant."
+        />
+        <SectionError
+          title="No se pudo resolver tu sesión con la API"
+          error={result.error ?? { status: 0, code: null, message: "Respuesta inválida" }}
+        />
+      </div>
+    );
+  }
 
   const cards = [
     { label: "Rol", value: me.role },
