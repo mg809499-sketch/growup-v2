@@ -4,7 +4,7 @@ from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from app.core.errors import AppError
-from app.domains.inventory.models import InventoryLevel, Reservation
+from app.domains.inventory.models import AISuggestion, InventoryLevel, Reservation
 from app.domains.inventory.repository import InventoryRepository
 
 
@@ -92,4 +92,31 @@ class InventoryService:
             variant_id=variant_id,
             limit=limit,
             offset=offset,
+        )
+
+    async def list_suggestions(
+        self,
+        tenant_id: UUID,
+        *,
+        status: str | None = None,
+        limit: int = 50,
+        offset: int = 0,
+    ) -> tuple[tuple[AISuggestion, ...], int]:
+        if status is not None and status not in {"pending", "accepted", "applied", "dismissed"}:
+            raise AppError("SUGGESTION_STATUS_INVALID", "Estado de sugerencia inválido", 422)
+        return await self._repository.list_suggestions(
+            tenant_id, status=status, limit=limit, offset=offset
+        )
+
+    async def resolve_suggestion(
+        self,
+        tenant_id: UUID,
+        suggestion_id: UUID,
+        *,
+        action: str,
+    ) -> AISuggestion:
+        if action not in {"accept", "dismiss"}:
+            raise AppError("SUGGESTION_ACTION_INVALID", "La acción debe ser accept o dismiss", 422)
+        return await self._repository.resolve_suggestion(
+            tenant_id, suggestion_id, action
         )

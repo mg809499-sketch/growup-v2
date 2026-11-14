@@ -90,6 +90,40 @@ export async function saveDraftAction(
   }
 }
 
+export async function applyTemplateAction(
+  pageId: string,
+  templateId: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const { token } = await requireSession();
+  if (!/^[a-z0-9-]+$/.test(templateId)) {
+    return { ok: false, error: "Plantilla inválida" };
+  }
+  try {
+    await apiSend(
+      "POST",
+      `/v1/admin/pages/${pageId}/apply-template`,
+      token,
+      { template_id: templateId },
+    );
+    revalidatePath(`/builder/${pageId}`);
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, error: messageFor(error) };
+  }
+}
+
+export async function listTemplatesAction(): Promise<Array<{ template_id: string; name: string; description: string }>> {
+  const { token } = await requireSession();
+  try {
+    return (await apiGet(
+      "/v1/admin/templates",
+      token,
+    )) as unknown as Array<{ template_id: string; name: string; description: string }>;
+  } catch {
+    return [];
+  }
+}
+
 export async function publishAction(
   pageId: string,
   versionId: string,

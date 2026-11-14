@@ -1,6 +1,8 @@
 import type { components } from "@growup/contracts";
 
 export type MeResponse = components["schemas"]["MeResponse"];
+export type PlanOut = components["schemas"]["PlanOut"];
+export type PlanUpdateRequest = components["schemas"]["PlanUpdateRequest"];
 export type ProductListResponse = components["schemas"]["ProductListResponse"];
 export type ProductDetailResponse = components["schemas"]["ProductDetailResponse"];
 export type PlatformTenantListResponse =
@@ -40,6 +42,23 @@ export async function apiGet<T>(path: string, token: string): Promise<T> {
   }
 
   return (await response.json()) as T;
+}
+
+/** Solo para endpoints de texto (CSV, etc.): devuelve el cuerpo en crudo. */
+export async function apiGetText(path: string, token: string): Promise<string> {
+  const response = await fetch(`${API_URL}${path}`, {
+    headers: {
+      Accept: "text/csv,text/plain,*/*",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw await toApiError(response);
+  }
+
+  return response.text();
 }
 
 export type SafeGetError = {

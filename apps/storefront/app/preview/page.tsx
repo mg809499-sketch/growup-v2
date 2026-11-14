@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { BlockRenderer } from "@/components/blocks";
+import { PreviewBlocks } from "@/components/preview-blocks";
 import { parseLayoutBlocks } from "@/lib/blocks";
 
 export const dynamic = "force-dynamic";
@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 const API_URL = (process.env.GROWUP_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
+const ADMIN_ORIGIN = (process.env.GROWUP_ADMIN_ORIGIN ?? "http://localhost:3001").replace(/\/$/, "");
 
 async function loadPreview(token: string) {
   const response = await fetch(
@@ -59,9 +60,7 @@ export default async function PreviewPage({
       <div className="border-b border-[var(--hairline)] bg-[var(--signal)] px-6 py-2 text-center">
         <p className="label text-[var(--surface)]">vista previa · sin publicar</p>
       </div>
-      {blocks.map((block) => (
-        <BlockRenderer key={block.id} block={block} />
-      ))}
+      <PreviewBlocks initialBlocks={blocks} adminOrigin={ADMIN_ORIGIN} />
     </main>
   );
 }

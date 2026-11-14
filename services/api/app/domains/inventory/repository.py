@@ -1,12 +1,18 @@
 from __future__ import annotations
 
+import json
 from datetime import UTC, datetime
 from typing import Any, Protocol
 from uuid import UUID
 
 from app.core.db import Database
 from app.core.errors import AppError
-from app.domains.inventory.models import InventoryLevel, Reservation, ReservationStatus
+from app.domains.inventory.models import (
+    AISuggestion,
+    InventoryLevel,
+    Reservation,
+    ReservationStatus,
+)
 
 _RESERVATION_COLUMNS = (
     "id, tenant_id, variant_id, location_id, cart_id, order_id, "
@@ -28,6 +34,19 @@ class InventoryRepository(Protocol):
     ) -> Reservation: ...
 
     async def get(self, tenant_id: UUID, reservation_id: UUID) -> Reservation | None: ...
+
+    async def list_suggestions(
+        self,
+        tenant_id: UUID,
+        *,
+        status: str | None,
+        limit: int,
+        offset: int,
+    ) -> tuple[tuple[AISuggestion, ...], int]: ...
+
+    async def resolve_suggestion(
+        self, tenant_id: UUID, suggestion_id: UUID, action: str
+    ) -> AISuggestion: ...
 
     async def release(self, tenant_id: UUID, reservation_id: UUID) -> Reservation: ...
 
@@ -388,6 +407,106 @@ class PostgresInventoryRepository:
                     row["id"],
                 )
             return len(rows)
+
+    async def list_suggestions(
+        self,
+        tenant_id: UUID,
+        *,
+        status: str | None,
+        limit: int,
+        offset: int,
+    ) -> tuple[tuple[AISuggestion, ...], int]:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            if status:
+                rows = await connection.fetch(
+                    """
+                    select id, type, status, payload, proposed_at
+                    from app.ai_suggestions
+                    where tenant_id = $1 and status = $2
+                    order by proposed_at desc
+                    limit $3 offset $4
+                    """,
+                    tenant_id,
+                    status,
+                    limit,
+                    offset,
+                )
+                count = await connection.fetchval(
+                    "select count(*) from app.ai_suggestions where tenant_id = $1 and status = $2",
+                    tenant_id,
+                    status,
+                )
+            else:
+                rows = await connection.fetch(
+                    """
+                    select id, type, status, payload, proposed_at
+                    from app.ai_suggestions
+                    where tenant_id = $1
+                    order by proposed_at desc
+                    limit $2 offset $3
+                    """,
+                    tenant_id,
+                    limit,
+                    offset,
+                )
+                count = await connection.fetchval(
+                    "select count(*) from app.ai_suggestions where tenant_id = $1",
+                    tenant_id,
+                )
+        return (
+            tuple(
+                AISuggestion(
+                    id=row["id"],
+                    tenant_id=tenant_id,
+                    type=row["type"],
+                    status=row["status"],
+                    payload=(
+                        json.loads(row["payload"])
+                        if isinstance(row["payload"], str)
+                        else row["payload"]
+                    ),
+                    proposed_at=row["proposed_at"],
+                )
+                for row in rows
+            ),
+            int(count or 0),
+        )
+
+    async def resolve_suggestion(
+        self,
+        tenant_id: UUID,
+        suggestion_id: UUID,
+        action: str,
+    ) -> AISuggestion:
+        if action not in {"accept", "dismiss"}:
+            raise AppError("INVALID_ACTION", "Acción inválida", 422)
+        new_status = "applied" if action == "accept" else "dismissed"
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            row = await connection.fetchrow(
+                """
+                update app.ai_suggestions
+                set status = $3, resolved_at = now()
+                where tenant_id = $1 and id = $2 and status = 'pending'
+                returning id, type, status, payload, proposed_at
+                """,
+                tenant_id,
+                suggestion_id,
+                new_status,
+            )
+        if row is None:
+            raise AppError("SUGGESTION_NOT_FOUND", "Sugerencia no encontrada o ya resuelta", 404)
+        return AISuggestion(
+            id=row["id"],
+            tenant_id=tenant_id,
+            type=row["type"],
+            status=row["status"],
+            payload=(
+                row["payload"]
+                if isinstance(row["payload"], dict)
+                else json.loads(row["payload"])
+            ),
+            proposed_at=row["proposed_at"],
+        )
 
     async def _lock(
         self,

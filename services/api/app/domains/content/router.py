@@ -4,6 +4,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, Response
+from pydantic import BaseModel, ConfigDict, Field
 
 from app import runtime
 from app.api.deps import get_storefront_tenant, get_tenant_context, require_tenant_id
@@ -30,6 +31,18 @@ from app.domains.tenants.models import Tenant
 
 admin_router = APIRouter(prefix="/v1/admin", tags=["admin-content"])
 storefront_router = APIRouter(prefix="/v1/storefront", tags=["storefront-content"])
+
+
+class ApplyTemplateRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    template_id: str = Field(min_length=1, max_length=100, pattern=r"^[a-z0-9-]+$")
+    expected_version: int | None = Field(default=None, ge=0)
+
+
+class ApplyTemplateResponse(BaseModel):
+    id: str
+    version: int
 
 
 def get_page_service() -> PageService:

@@ -740,6 +740,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/platform/plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Plans */
+        get: operations["list_plans_v1_platform_plans_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/platform/plans/{plan_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Plan */
+        put: operations["update_plan_v1_platform_plans__plan_id__put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/platform/tenants/{tenant_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Pause Tenant */
+        patch: operations["pause_tenant_v1_platform_tenants__tenant_id__patch"];
+        trace?: never;
+    };
+    "/v1/platform/tenants/export.csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Export Tenants Csv */
+        get: operations["export_tenants_csv_v1_platform_tenants_export_csv_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/onboarding/complete": {
         parameters: {
             query?: never;
@@ -1580,6 +1648,11 @@ export interface components {
             /** Slug */
             slug?: string | null;
         };
+        /** PauseTenantRequest */
+        PauseTenantRequest: {
+            /** Status */
+            status: string;
+        };
         /** PaymentAccountRequest */
         PaymentAccountRequest: {
             /** Public Key */
@@ -1596,6 +1669,80 @@ export interface components {
          * @enum {string}
          */
         Permission: "catalog:read" | "catalog:write" | "content:read" | "content:write" | "content:publish" | "orders:read" | "orders:fulfill" | "payments:read" | "payments:refund" | "billing:read" | "billing:write" | "team:read" | "team:write" | "settings:read" | "settings:write" | "customers:read" | "audit:read" | "webhooks:manage" | "platform:tenants" | "platform:audit" | "platform:support";
+        /** PlanOut */
+        PlanOut: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Code */
+            code: string;
+            /** Name */
+            name: string;
+            /** Price Cents */
+            price_cents: number;
+            /** Currency */
+            currency: string;
+            /** Billing Interval */
+            billing_interval: string;
+            /** Trial Days */
+            trial_days: number;
+            /** Features */
+            features?: string[];
+            /**
+             * Active
+             * @default true
+             */
+            active: boolean;
+            /**
+             * Badge
+             * @default
+             */
+            badge: string;
+            /** Description */
+            description?: string | null;
+            /**
+             * Sort Order
+             * @default 100
+             */
+            sort_order: number;
+            /** List Price Cop Cents */
+            list_price_cop_cents?: number | null;
+            /** List Price Usd Cents */
+            list_price_usd_cents?: number | null;
+            /** Created At */
+            created_at?: string | null;
+            /** Updated At */
+            updated_at?: string | null;
+        };
+        /** PlanUpdateRequest */
+        PlanUpdateRequest: {
+            /** Name */
+            name?: string | null;
+            /** Price Cents */
+            price_cents?: number | null;
+            /** Currency */
+            currency?: string | null;
+            /** Billing Interval */
+            billing_interval?: string | null;
+            /** Trial Days */
+            trial_days?: number | null;
+            /** Features */
+            features?: string[] | null;
+            /** Active */
+            active?: boolean | null;
+            /** Badge */
+            badge?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Sort Order */
+            sort_order?: number | null;
+            /** List Price Cop Cents */
+            list_price_cop_cents?: number | null;
+            /** List Price Usd Cents */
+            list_price_usd_cents?: number | null;
+        };
         /** PlatformAlert */
         PlatformAlert: {
             /** Type */
@@ -4120,6 +4267,112 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
                 };
+            };
+        };
+    };
+    list_plans_v1_platform_plans_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanOut"][];
+                };
+            };
+        };
+    };
+    update_plan_v1_platform_plans__plan_id__put: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                plan_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PlanUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlanOut"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    pause_tenant_v1_platform_tenants__tenant_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tenant_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PauseTenantRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    export_tenants_csv_v1_platform_tenants_export_csv_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

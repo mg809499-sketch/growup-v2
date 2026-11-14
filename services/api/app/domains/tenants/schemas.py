@@ -166,6 +166,60 @@ class PlatformAlertDismissRequest(BaseModel):
     alert_key: str = Field(min_length=1, max_length=200)
 
 
+class PlanFeatureOut(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    features: list[str] = Field(default_factory=list)
+
+
+class PlanOut(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    id: UUID
+    code: str
+    name: str
+    price_cents: int
+    currency: str
+    billing_interval: str
+    trial_days: int
+    features: list[str] = Field(default_factory=list)
+    active: bool = True
+    badge: str = ""
+    description: str | None = None
+    sort_order: int = 100
+    list_price_cop_cents: int | None = None
+    list_price_usd_cents: int | None = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
+
+
+class PlanUpdateRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    name: str | None = Field(default=None, min_length=1, max_length=200)
+    price_cents: int | None = Field(default=None, ge=0)
+    currency: str | None = Field(
+        default=None, min_length=3, max_length=3, pattern="^[A-Z]{3}$"
+    )
+    billing_interval: str | None = Field(
+        default=None, pattern="^(month|year)$"
+    )
+    trial_days: int | None = Field(default=None, ge=0, le=365)
+    features: list[str] | None = Field(default=None, max_length=64)
+    active: bool | None = None
+    badge: str | None = Field(default=None, max_length=80)
+    description: str | None = Field(default=None, max_length=1000)
+    sort_order: int | None = Field(default=None, ge=0, le=10000)
+    list_price_cop_cents: int | None = Field(default=None, ge=0)
+    list_price_usd_cents: int | None = Field(default=None, ge=0)
+
+
+class PauseTenantRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: str = Field(pattern="^(active|suspended)$")
+
+
 class TenantCreatedResponse(BaseModel):
     id: UUID
     slug: str

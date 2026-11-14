@@ -1,9 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useRef, useState, useTransition, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 import {
+  applyTemplateAction,
+  listTemplatesAction,
   publishAction,
   previewTokenAction,
   saveDraftAction,
@@ -73,7 +75,12 @@ export function BuilderEditor({
   const [publishOpen, setPublishOpen] = useState(false);
   const [previewToken, setPreviewToken] = useState<string | null>(null);
   const [frameKey, setFrameKey] = useState(0);
+  const [templates, setTemplates] = useState<Array<{ template_id: string; name: string; description: string }>>([]);
+  const [templateBusy, setTemplateBusy] = useState(false);
+  const [templatesOpen, setTemplatesOpen] = useState(false);
   const [, startTransition] = useTransition();
+  const previewRef = useRef<HTMLIFrameElement>(null);
+  const storefrontOrigin = useMemo(() => new URL(storefrontUrl).origin, [storefrontUrl]);
 
   const mutate = useCallback((updater: (blocks: Block[]) => Block[]) => {
     setBlocks((current) => {
@@ -121,6 +128,15 @@ export function BuilderEditor({
     }, 2000);
     return () => clearTimeout(timer);
   }, [blocks, dirty, conflict, onSave]);
+
+  // Live sync con el iframe de preview (sin recargar). Se dispara con cada
+  // cambio de bloques, incluyendo drag/drop.
+  useEffect(() => {
+    previewRef.current?.contentWindow?.postMessage(
+      { type: "GROWUP_UPDATE_BLOCKS", blocks },
+      storefrontOrigin,
+    );
+  }, [blocks, storefrontOrigin]);
 
   // Token de preview al montar (solo si hay borrador).
   useEffect(() => {
@@ -292,10 +308,79 @@ export function BuilderEditor({
           <p className="mono text-[10px] uppercase tracking-[0.18em] text-slate-500">
             {selectedBlock ? blockLabel(selectedBlock.type) : "Ningún bloque seleccionado"}
           </p>
-          <span className="mono text-[10px] text-slate-400">
-            {blocks.length} {blocks.length === 1 ? "bloque" : "bloques"}
-          </span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={async () => {
+                const next = !templatesOpen;
+                setTemplatesOpen(next);
+                if (next && templates.length === 0) {
+                  setTemplateBusy(true);
+                  try {
+                    setTemplates(await listTemplatesAction());
+                  } finally {
+                    setTemplateBusy(false);
+                  }
+                }
+              }}
+              className="border border-slate-200 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-slate-600 hover:border-slate-400"
+            >
+              Plantillas
+            </button>
+            <span className="mono text-[10px] text-slate-400">
+              {blocks.length} {blocks.length === 1 ? "bloque" : "bloques"}
+            </span>
+          </div>
         </div>
+        {templatesOpen ? (
+          <div className="border-b border-slate-200 bg-slate-50 p-3">
+            <p className="mono text-[9px] uppercase tracking-[0.14em] text-slate-500">
+              Plantillas disponibles
+            </p>
+            <ul className="mt-2 space-y-2">
+              {templates.length === 0 && !templateBusy ? (
+                <li className="text-xs text-slate-500">No hay plantillas.</li>
+              ) : null}
+              {templates.map((item) => (
+                <li
+                  key={item.template_id}
+                  className="flex items-center justify-between gap-2 border border-slate-200 bg-white p-2"
+                >
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-slate-900">{item.name}</p>
+                    <p className="mt-0.5 text-[10px] text-slate-500">{item.description}</p>
+                  </div>
+                  <button
+                    type="button"
+                    disabled={templateBusy}
+                    onClick={async () => {
+                      if (
+                        !window.confirm(
+                          `¿Aplicar la plantilla "${item.name}"? Se sobreescribirán los bloques del borrador.`,
+                        )
+                      )
+                        return;
+                      setTemplateBusy(true);
+                      try {
+                        const result = await applyTemplateAction(pageId, item.template_id);
+                        if (result.ok) {
+                          window.location.reload();
+                        } else {
+                          window.alert(result.error ?? "No se pudo aplicar la plantilla");
+                        }
+                      } finally {
+                        setTemplateBusy(false);
+                      }
+                    }}
+                    className="border border-slate-200 px-2 py-1 text-[10px] font-medium text-slate-700 hover:border-slate-400 disabled:opacity-40"
+                  >
+                    Aplicar
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         <div className="flex-1 overflow-y-auto p-4">
           {selectedBlock ? (
             <BlockForm value={selectedBlock} onChange={updateSelected} />
@@ -361,6 +446,7 @@ export function BuilderEditor({
         <div className="min-h-[380px] flex-1 border border-slate-200 bg-slate-100">
           {previewUrl ? (
             <iframe
+              ref={previewRef}
               key={frameKey}
               src={previewUrl}
               title="Vista previa de la página"

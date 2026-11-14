@@ -11,6 +11,7 @@ from app.core.errors import AppError
 from app.domains.content.blocks import PageLayout
 from app.domains.content.models import Page, PageVersion
 from app.domains.content.repository import PostgresPageRepository
+from app.domains.content.templates import TemplateSummary, list_templates, load_template
 
 _MAX_LAYOUT_BYTES = 65536
 
@@ -144,6 +145,27 @@ class PageService:
                 413,
             )
         return await self._repository.upsert_theme(tenant_id, tokens=tokens)
+
+    async def apply_template(
+        self,
+        tenant_id: UUID,
+        page_id: UUID,
+        template_id: str,
+        *,
+        actor_id: UUID | None,
+        expected_version: int | None = None,
+    ) -> PageVersion:
+        layout = load_template(template_id)
+        return await self.create_draft(
+            tenant_id,
+            page_id,
+            layout=layout,
+            actor_id=actor_id,
+            expected_version=expected_version,
+        )
+
+    async def list_templates(self) -> list[TemplateSummary]:
+        return list_templates()
 
     # Preview con token firmado HMAC (TTL corto)
     @staticmethod

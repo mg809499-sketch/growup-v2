@@ -1,0 +1,37 @@
+{
+  "template_id": "joyeria-starter",
+  "name": "Joyería & Atelier",
+  "description": "Plantilla elegante para joyería fina: editorial, grilla y datos de marca.",
+  "blocks": [
+    {
+      "id": "block-hero-joyeria",
+      "type": "hero",
+      "eyebrow": "El atelier · Temporada 03",
+      "title": "Portallow · Joyas Esenciales 2026",
+      "subtitle": "Piezas de oro y plata con acabado en bruto. Fotorealismo del atelier bogotano.",
+      "align": "left",
+      "cta": { "label": "Ver colección", "href": "/collection" }
+    },
+    {
+      "id": "block-grid-joyeria",
+      "type": "product_grid",
+      "title": "Piezas destacadas",
+      "source": "latest",
+      "limit": 4,
+      "show_price": true
+    },
+    {
+      "id": "block-quote-joyeria",
+      "type": "quote",
+      "text": "La joya es un gesto, no un accesorio.",
+      "author": "Andrés Beltrán, director creativo"
+    },
+    {
+      "id": "block-newsletter-joyeria",
+      "type": "newsletter",
+      "title": "Boletín Atelier",
+      "subtitle": "Registro de piezas, colas de espera y acceso prioritario a drops.",
+      "cta_label": "Quiero recibir novedades"
+    }
+  ]
+}

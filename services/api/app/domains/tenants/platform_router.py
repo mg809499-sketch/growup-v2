@@ -4,6 +4,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, Response
+from fastapi.responses import StreamingResponse
 
 from app.api.deps import get_admin_context, get_platform_tenant_service
 from app.core.config import settings
@@ -12,6 +13,9 @@ from app.domains.identity.permissions import require_permission
 from app.domains.tenants.models import TenantStatus
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.schemas import (
+    PauseTenantRequest,
+    PlanOut,
+    PlanUpdateRequest,
     PlatformAlertDismissRequest,
     PlatformAlertListResponse,
     PlatformOverviewResponse,
@@ -123,3 +127,59 @@ async def dismiss_alert(
         alert_key=payload.alert_key,
     )
     return Response(status_code=204)
+
+
+@platform_router.get("/plans", response_model=list[PlanOut])
+async def list_plans(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+) -> list[PlanOut]:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    return await service.list_plans(actor_id=context.actor.user_id)
+
+
+@platform_router.put("/plans/{plan_id}", response_model=PlanOut)
+async def update_plan(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+    plan_id: UUID,
+    payload: PlanUpdateRequest,
+) -> PlanOut:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    return await service.update_plan(
+        actor_id=context.actor.user_id, plan_id=plan_id, payload=payload
+    )
+
+
+@platform_router.patch("/tenants/{tenant_id}", status_code=204)
+async def pause_tenant(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+    tenant_id: UUID,
+    payload: PauseTenantRequest,
+) -> Response:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    await service.pause_tenant(
+        actor_id=context.actor.user_id, tenant_id=tenant_id, status=payload.status
+    )
+    return Response(status_code=204)
+
+
+@platform_router.get("/tenants/export.csv", response_class=StreamingResponse)
+async def export_tenants_csv(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+) -> StreamingResponse:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    csv_body = await service.tenants_csv(actor_id=context.actor.user_id)
+
+    from collections.abc import AsyncIterator
+
+    async def iterate() -> AsyncIterator[bytes]:
+        yield csv_body.encode("utf-8")
+
+    return StreamingResponse(
+        iterate(),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": 'attachment; filename="tenants.csv"'},
+    )

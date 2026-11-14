@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import Any
 from uuid import UUID
 
 import asyncpg  # type: ignore[import-untyped]
@@ -13,6 +14,8 @@ from app.domains.governance.service import GovernanceService
 from app.domains.tenants.models import PlatformTenantPage, Tenant, TenantStatus
 from app.domains.tenants.repository import TenantRepository
 from app.domains.tenants.schemas import (
+    PlanOut,
+    PlanUpdateRequest,
     PlatformAlert,
     PlatformAlertListResponse,
     PlatformOverviewResponse,
@@ -165,3 +168,74 @@ class PlatformTenantService:
             await self._tenants.dismiss_alert(actor_id, tenant_id, alert_key)
         except asyncpg.ForeignKeyViolationError as exc:
             raise AppError("TENANT_NOT_FOUND", "Tenant no encontrado", 404) from exc
+
+    async def list_plans(self, actor_id: UUID) -> list[PlanOut]:
+        raw = await self._tenants.list_plans()
+        plans: list[PlanOut] = []
+        for item in raw:
+            if not isinstance(item, dict):
+                continue
+            features = item.get("features")
+            if isinstance(features, list):
+                item = {**item, "features": [str(f) for f in features]}
+            try:
+                plans.append(PlanOut.model_validate(item))
+            except Exception:
+                continue
+        return plans
+
+    async def update_plan(
+        self, actor_id: UUID, plan_id: UUID, payload: PlanUpdateRequest
+    ) -> PlanOut:
+        features_list = payload.features if payload.features is not None else None
+        raw = await self._tenants.update_plan(
+            actor_id,
+            plan_id,
+            name=payload.name,
+            price_cents=payload.price_cents,
+            currency=payload.currency,
+            billing_interval=payload.billing_interval,
+            trial_days=payload.trial_days,
+            features=features_list,
+            active=payload.active,
+            badge=payload.badge,
+            description=payload.description,
+            sort_order=payload.sort_order,
+            list_price_cop_cents=payload.list_price_cop_cents,
+            list_price_usd_cents=payload.list_price_usd_cents,
+        )
+        features = raw.get("features")
+        if isinstance(features, list):
+            raw = {**raw, "features": [str(f) for f in features]}
+        return PlanOut.model_validate(raw)
+
+    async def pause_tenant(
+        self, actor_id: UUID, tenant_id: UUID, status: str
+    ) -> dict[str, Any]:
+        if status not in {"active", "suspended"}:
+            raise AppError("INVALID_STATUS", "Estado inválido", 422)
+        raw = await self._tenants.pause_tenant(actor_id, tenant_id, status)
+        return raw
+
+    async def tenants_csv(self, actor_id: UUID) -> str:
+        rows = await self._tenants.list_tenants_with_plan()
+        out = [
+            "id,slug,name,host,plan_code,plan_name,status,trial_ends_at,created_at",
+        ]
+        for row in rows:
+            out.append(
+                ",".join(
+                    [
+                        str(row.get("id", "")),
+                        str(row.get("slug", "")),
+                        str(row.get("name", "")).replace(",", " "),
+                        str(row.get("host") or ""),
+                        str(row.get("plan_code") or ""),
+                        str(row.get("plan_name") or "").replace(",", " "),
+                        str(row.get("status", "")),
+                        str(row.get("trial_ends_at") or ""),
+                        str(row.get("created_at") or ""),
+                    ]
+                )
+            )
+        return "\n".join(out) + "\n"

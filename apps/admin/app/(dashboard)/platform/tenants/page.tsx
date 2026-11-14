@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { EmptyState } from "@/components/empty-state";
 import { OffsetPagination } from "@/components/offset-pagination";
+import { pauseTenantAction } from "@/app/(dashboard)/planes/actions";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
 import { requireSession } from "@/lib/auth";
@@ -52,6 +53,14 @@ export default async function TenantsPage({
         title="Tenants"
         description="Listado cross-tenant para platform admins. Cada fila incluye host primario, plan, trial y estado."
       />
+      <div className="flex justify-end">
+        <a
+          href="/platform/tenants/export"
+          className="mono border border-slate-200 px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-slate-600 hover:border-slate-400"
+        >
+          Exportar CSV
+        </a>
+      </div>
 
       {forbidden ? (
         <div className="border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
@@ -123,6 +132,7 @@ export default async function TenantsPage({
                       <th className="px-4 py-3 font-medium">Plan</th>
                       <th className="px-4 py-3 font-medium">Trial</th>
                       <th className="px-4 py-3 font-medium">Creado</th>
+                      <th className="px-4 py-3 text-right font-medium">Pausa</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -148,6 +158,29 @@ export default async function TenantsPage({
                         </td>
                         <td className="px-4 py-3 text-slate-600">
                           {formatDate(tenant.created_at)}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <form
+                            action={pauseTenantAction}
+                            className="inline-flex items-center gap-2"
+                          >
+                            <input type="hidden" name="tenant_id" value={tenant.id} />
+                            <input
+                              type="hidden"
+                              name="status"
+                              value={tenant.status === "suspended" ? "active" : "suspended"}
+                            />
+                            <button
+                              type="submit"
+                              className={`mono border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] transition-colors ${
+                                tenant.status === "suspended"
+                                  ? "border-emerald-300 bg-emerald-50 text-emerald-700 hover:border-emerald-500"
+                                  : "border-slate-200 text-slate-600 hover:border-slate-400"
+                              }`}
+                            >
+                              {tenant.status === "suspended" ? "Activar" : "Pausar"}
+                            </button>
+                          </form>
                         </td>
                       </tr>
                     ))}

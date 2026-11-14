@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any, Protocol, cast
 from uuid import UUID
 
@@ -45,6 +46,33 @@ class TenantRepository(Protocol):
     ) -> UUID: ...
 
     async def overview(self, actor_id: UUID) -> dict[str, Any]: ...
+
+    async def list_plans(self) -> list[dict[str, Any]]: ...
+
+    async def update_plan(
+        self,
+        actor_id: UUID,
+        plan_id: UUID,
+        *,
+        name: str | None,
+        price_cents: int | None,
+        currency: str | None,
+        billing_interval: str | None,
+        trial_days: int | None,
+        features: list[str] | None,
+        active: bool | None,
+        badge: str | None,
+        description: str | None,
+        sort_order: int | None,
+        list_price_cop_cents: int | None,
+        list_price_usd_cents: int | None,
+    ) -> dict[str, Any]: ...
+
+    async def pause_tenant(
+        self, actor_id: UUID, tenant_id: UUID, status: str
+    ) -> dict[str, Any]: ...
+
+    async def list_tenants_with_plan(self) -> list[dict[str, Any]]: ...
 
     async def tenant_overview(self, actor_id: UUID, tenant_id: UUID) -> dict[str, Any] | None: ...
 
@@ -208,6 +236,91 @@ class PostgresTenantRepository:
 
         total = int(rows[0]["total_count"]) if rows else 0
         return tuple(_platform_tenant(row) for row in rows), total
+
+    async def list_plans(self) -> list[dict[str, Any]]:
+        async with self._database.public_transaction() as connection:
+            rows = await connection.fetch(
+                """
+                select id, code, name, price_cents, currency, billing_interval,
+                       trial_days, features, active, badge, description,
+                       sort_order, list_price_cop_cents, list_price_usd_cents,
+                       created_at, updated_at
+                from app.plans
+                order by sort_order, name
+                """
+            )
+        return [dict(row) for row in rows]
+
+    async def update_plan(
+        self,
+        actor_id: UUID,
+        plan_id: UUID,
+        *,
+        name: str | None,
+        price_cents: int | None,
+        currency: str | None,
+        billing_interval: str | None,
+        trial_days: int | None,
+        features: list[str] | None,
+        active: bool | None,
+        badge: str | None,
+        description: str | None,
+        sort_order: int | None,
+        list_price_cop_cents: int | None,
+        list_price_usd_cents: int | None,
+    ) -> dict[str, Any]:
+        async with self._database.public_transaction(actor_id=actor_id) as connection:
+            row = await connection.fetchrow(
+                """
+                select app.update_plan_admin(
+                    $1, $2, $3, $4, $5, $6, $7, $8::jsonb,
+                    $9, $10, $11, $12, $13, $14
+                ) as data
+                """,
+                actor_id,
+                plan_id,
+                name,
+                price_cents,
+                currency,
+                billing_interval,
+                trial_days,
+                json.dumps(features) if features is not None else None,
+                active,
+                badge,
+                description,
+                sort_order,
+                list_price_cop_cents,
+                list_price_usd_cents,
+            )
+        if row is None or row["data"] is None:
+            raise AppError("PLAN_UPDATE_FAILED", "No se pudo actualizar el plan", 500)
+        return safe_json_object(row["data"], context="platform.update_plan")
+
+    async def pause_tenant(self, actor_id: UUID, tenant_id: UUID, status: str) -> dict[str, Any]:
+        async with self._database.public_transaction(actor_id=actor_id) as connection:
+            row = await connection.fetchrow(
+                "select app.pause_tenant_admin($1, $2, $3) as data",
+                actor_id,
+                tenant_id,
+                status,
+            )
+        if row is None or row["data"] is None:
+            raise AppError("TENANT_NOT_FOUND", "Tenant no encontrado", 404)
+        return safe_json_object(row["data"], context="platform.pause_tenant")
+
+    async def list_tenants_with_plan(self) -> list[dict[str, Any]]:
+        async with self._database.public_transaction() as connection:
+            rows = await connection.fetch(
+                """
+                select t.id, t.slug, t.name, t.status, t.trial_ends_at, t.plan_id,
+                       d.host, p.code as plan_code, p.name as plan_name
+                from app.tenants t
+                left join app.domains d on d.tenant_id = t.id and d.is_primary
+                left join app.plans p on p.id = t.plan_id
+                order by t.created_at desc
+                """
+            )
+        return [dict(row) for row in rows]
 
     async def overview(self, actor_id: UUID) -> dict[str, Any]:
         async with self._database.public_transaction(actor_id=actor_id) as connection:

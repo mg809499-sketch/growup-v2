@@ -1,0 +1,31 @@
+{
+  "template_id": "ropa-starter",
+  "name": "Ropa & Streetwear Minimal",
+  "description": "Plantilla optimizada para marcas de moda con héroe y grilla de productos.",
+  "blocks": [
+    {
+      "id": "block-hero-starter",
+      "type": "hero",
+      "eyebrow": "Drops · Volumen 01",
+      "title": "Nueva Colección Invierno 2026",
+      "subtitle": "Prendas esenciales de la temporada con series limitadas.",
+      "align": "left",
+      "cta": { "label": "Ver colección", "href": "/collection" }
+    },
+    {
+      "id": "block-grid-starter",
+      "type": "product_grid",
+      "title": "Más vendidos",
+      "source": "latest",
+      "limit": 8,
+      "show_price": true
+    },
+    {
+      "id": "block-newsletter-starter",
+      "type": "newsletter",
+      "title": "Boletín Joyería GrowUp",
+      "subtitle": "Recibe novedades de drops limitados antes que nadie.",
+      "cta_label": "Suscribirme"
+    }
+  ]
+}

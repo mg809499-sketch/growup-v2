@@ -24,6 +24,7 @@ from app.domains.commerce.storefront_router import router as commerce_storefront
 from app.domains.commerce.webhook_router import router as webhooks_router
 from app.domains.content.router import admin_router as content_admin_router
 from app.domains.content.router import storefront_router as content_storefront_router
+from app.domains.content.template_router import router as content_templates_router
 from app.domains.governance.router import router as audit_router
 from app.domains.identity.router import router as identity_router
 from app.domains.inventory.router import router as inventory_router
@@ -131,6 +132,7 @@ app.include_router(identity_router)
 app.include_router(catalog_admin_router)
 app.include_router(catalog_storefront_router)
 app.include_router(content_admin_router)
+app.include_router(content_templates_router)
 app.include_router(admin_webhooks_router)
 app.include_router(orders_admin_router)
 app.include_router(media_router)
