@@ -13,13 +13,13 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-[#f6f6f4] lg:flex">
-      <aside className="flex w-full flex-col bg-slate-950 lg:min-h-screen lg:w-64 lg:shrink-0">
-        <div className="border-b border-white/10 px-5 py-5">
+      <aside className="flex w-full flex-col border-r border-slate-200 bg-white lg:min-h-screen lg:w-64 lg:shrink-0">
+        <div className="border-b border-slate-200 px-5 py-5">
           <Link href="/" className="block">
             <span className="mono text-[10px] uppercase tracking-[0.24em] text-slate-500">
               Growup
             </span>
-            <span className="mt-1 block text-lg font-semibold tracking-tight text-white">
+            <span className="mt-1 block text-lg font-semibold tracking-tight text-slate-900">
               Backoffice
             </span>
           </Link>
@@ -35,14 +35,14 @@ export default async function DashboardLayout({
           <NavLink href="/platform/tenants" label="Plataforma · Tenants" />
         </nav>
 
-        <div className="border-t border-white/10 px-5 py-4">
-          <p className="mono truncate text-[11px] text-slate-400">
+        <div className="border-t border-slate-200 px-5 py-4">
+          <p className="mono truncate text-[11px] text-slate-600">
             {user.email ?? user.id}
           </p>
           <form action={logout} className="mt-3">
             <button
               type="submit"
-              className="mono text-[11px] uppercase tracking-[0.14em] text-slate-500 underline underline-offset-4 hover:text-white"
+              className="mono text-[11px] uppercase tracking-[0.14em] text-slate-500 underline underline-offset-4 hover:text-slate-900"
             >
               Cerrar sesión
             </button>
