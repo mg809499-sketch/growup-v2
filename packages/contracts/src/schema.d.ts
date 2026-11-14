@@ -637,6 +637,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/platform/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Overview */
+        get: operations["overview_v1_platform_overview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/platform/tenants/{tenant_id}/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Tenant Overview */
+        get: operations["tenant_overview_v1_platform_tenants__tenant_id__overview_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/platform/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Alerts */
+        get: operations["list_alerts_v1_platform_alerts_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/platform/alerts/dismiss": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Dismiss Alert */
+        post: operations["dismiss_alert_v1_platform_alerts_dismiss_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/onboarding/complete": {
         parameters: {
             query?: never;
@@ -1493,6 +1561,85 @@ export interface components {
          * @enum {string}
          */
         Permission: "catalog:read" | "catalog:write" | "content:read" | "content:write" | "content:publish" | "orders:read" | "orders:fulfill" | "payments:read" | "payments:refund" | "billing:read" | "billing:write" | "team:read" | "team:write" | "settings:read" | "settings:write" | "customers:read" | "audit:read" | "platform:tenants" | "platform:audit" | "platform:support";
+        /** PlatformAlert */
+        PlatformAlert: {
+            /** Type */
+            type: string;
+            /** Alert Key */
+            alert_key: string;
+            /**
+             * Tenant Id
+             * Format: uuid
+             */
+            tenant_id: string;
+            /** Slug */
+            slug: string;
+            /** Name */
+            name: string;
+            /** Message */
+            message: string;
+            /** Severity */
+            severity: string;
+        };
+        /** PlatformAlertDismissRequest */
+        PlatformAlertDismissRequest: {
+            /**
+             * Tenant Id
+             * Format: uuid
+             */
+            tenant_id: string;
+            /** Alert Key */
+            alert_key: string;
+        };
+        /** PlatformAlertListResponse */
+        PlatformAlertListResponse: {
+            /** Alerts */
+            alerts: components["schemas"]["PlatformAlert"][];
+            /** Count */
+            count: number;
+        };
+        /** PlatformOverviewResponse */
+        PlatformOverviewResponse: {
+            /** Tenants Total */
+            tenants_total: number;
+            /** Tenants Active */
+            tenants_active: number;
+            /** Tenants Trialing */
+            tenants_trialing: number;
+            /** Tenants Suspended */
+            tenants_suspended: number;
+            /** Tenants Canceled */
+            tenants_canceled: number;
+            /** Trials Ending 7D */
+            trials_ending_7d: number;
+            /** Gmv Last 7D Cents */
+            gmv_last_7d_cents: number;
+            /** Gmv Last 30D Cents */
+            gmv_last_30d_cents: number;
+            /** Orders Last 30D */
+            orders_last_30d: number;
+            /** Products Total */
+            products_total: number;
+            /** Media Bytes Total */
+            media_bytes_total: number;
+            /** Media Failed */
+            media_failed: number;
+            /** Outbox Stuck */
+            outbox_stuck: number;
+            /** Audit Decisions Last 7D */
+            audit_decisions_last_7d: number;
+            /** Audit Denied Last 7D */
+            audit_denied_last_7d: number;
+            /** Subscriptions Active */
+            subscriptions_active: number;
+            /**
+             * Computed At
+             * Format: date-time
+             */
+            computed_at: string;
+        } & {
+            [key: string]: unknown;
+        };
         /** PlatformTenantListResponse */
         PlatformTenantListResponse: {
             /** Items */
@@ -1503,6 +1650,38 @@ export interface components {
             limit: number;
             /** Offset */
             offset: number;
+        };
+        /** PlatformTenantOverviewResponse */
+        PlatformTenantOverviewResponse: {
+            tenant: components["schemas"]["TenantBrief"];
+            subscription?: components["schemas"]["SubscriptionRef"] | null;
+            /** Gmv Last 7D Cents */
+            gmv_last_7d_cents: number;
+            /** Gmv Last 30D Cents */
+            gmv_last_30d_cents: number;
+            /** Orders Last 30D */
+            orders_last_30d: number;
+            /** Products Total */
+            products_total: number;
+            /** Media Bytes Total */
+            media_bytes_total: number;
+            /** Media Failed */
+            media_failed: number;
+            /** Outbox Stuck */
+            outbox_stuck: number;
+            /** Audit Decisions Last 7D */
+            audit_decisions_last_7d: number;
+            /** Audit Denied Last 7D */
+            audit_denied_last_7d: number;
+            /** Audit Chain Valid */
+            audit_chain_valid: boolean;
+            /**
+             * Computed At
+             * Format: date-time
+             */
+            computed_at: string;
+        } & {
+            [key: string]: unknown;
         };
         /** PlatformTenantResponse */
         PlatformTenantResponse: {
@@ -1911,6 +2090,37 @@ export interface components {
                 [key: string]: unknown;
             };
         };
+        /** SubscriptionRef */
+        SubscriptionRef: {
+            /** Provider */
+            provider: string;
+            /** Status */
+            status: string;
+            /** Current Period End */
+            current_period_end?: string | null;
+            /** Created At */
+            created_at?: string | null;
+        };
+        /** TenantBrief */
+        TenantBrief: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Slug */
+            slug: string;
+            /** Name */
+            name: string;
+            status: components["schemas"]["TenantStatus"];
+            /** Created At */
+            created_at?: string | null;
+            /** Trial Ends At */
+            trial_ends_at?: string | null;
+            /** Host */
+            host?: string | null;
+            plan?: components["schemas"]["TenantPlanRef"] | null;
+        };
         /** TenantCreateRequest */
         TenantCreateRequest: {
             /** Slug */
@@ -1948,6 +2158,18 @@ export interface components {
              * Format: uuid
              */
             owner_user_id: string;
+        };
+        /** TenantPlanRef */
+        TenantPlanRef: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Code */
+            code: string;
+            /** Name */
+            name: string;
         };
         /** TenantPublic */
         TenantPublic: {
@@ -3609,6 +3831,108 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["TenantCreatedResponse"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    overview_v1_platform_overview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformOverviewResponse"];
+                };
+            };
+        };
+    };
+    tenant_overview_v1_platform_tenants__tenant_id__overview_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                tenant_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformTenantOverviewResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_alerts_v1_platform_alerts_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PlatformAlertListResponse"];
+                };
+            };
+        };
+    };
+    dismiss_alert_v1_platform_alerts_dismiss_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PlatformAlertDismissRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

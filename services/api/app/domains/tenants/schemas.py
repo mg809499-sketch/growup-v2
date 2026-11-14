@@ -70,6 +70,102 @@ class TenantCreateRequest(BaseModel):
     owner_email: str = Field(min_length=3, max_length=320, pattern=_EMAIL_PATTERN)
 
 
+class TenantPlanRef(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    id: UUID
+    code: str
+    name: str
+
+
+class TenantBrief(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    id: UUID
+    slug: str
+    name: str
+    status: TenantStatus
+    created_at: datetime | None = None
+    trial_ends_at: datetime | None = None
+    host: str | None = None
+    plan: TenantPlanRef | None = None
+
+
+class SubscriptionRef(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    provider: str
+    status: str
+    current_period_end: datetime | None = None
+    created_at: datetime | None = None
+
+
+class PlatformOverviewResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    tenants_total: int
+    tenants_active: int
+    tenants_trialing: int
+    tenants_suspended: int
+    tenants_canceled: int
+    trials_ending_7d: int
+    gmv_last_7d_cents: int
+    gmv_last_30d_cents: int
+    orders_last_30d: int
+    products_total: int
+    media_bytes_total: int
+    media_failed: int
+    outbox_stuck: int
+    audit_decisions_last_7d: int
+    audit_denied_last_7d: int
+    subscriptions_active: int
+    computed_at: datetime
+
+
+class PlatformTenantOverviewResponse(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    tenant: TenantBrief
+    subscription: SubscriptionRef | None = None
+    gmv_last_7d_cents: int
+    gmv_last_30d_cents: int
+    orders_last_30d: int
+    products_total: int
+    media_bytes_total: int
+    media_failed: int
+    outbox_stuck: int
+    audit_decisions_last_7d: int
+    audit_denied_last_7d: int
+    audit_chain_valid: bool
+    computed_at: datetime
+
+
+class PlatformAlert(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    type: str
+    alert_key: str = Field(min_length=1, max_length=200)
+    tenant_id: UUID
+    slug: str = Field(min_length=1, max_length=63)
+    name: str = Field(min_length=1, max_length=200)
+    message: str = Field(min_length=1, max_length=300)
+    severity: str = Field(pattern="^(critical|warning|info)$")
+
+
+class PlatformAlertListResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    alerts: list[PlatformAlert]
+    count: int
+
+
+class PlatformAlertDismissRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    tenant_id: UUID
+    alert_key: str = Field(min_length=1, max_length=200)
+
+
 class TenantCreatedResponse(BaseModel):
     id: UUID
     slug: str

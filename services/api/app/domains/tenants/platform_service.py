@@ -2,13 +2,22 @@ from __future__ import annotations
 
 from uuid import UUID
 
+import asyncpg  # type: ignore[import-untyped]
+
 from app.core.config import settings
 from app.core.errors import AppError
+from app.core.safe_json import report_anomaly
 from app.core.tenancy import validate_slug
 from app.domains.governance.models import PolicyInput
 from app.domains.governance.service import GovernanceService
 from app.domains.tenants.models import PlatformTenantPage, Tenant, TenantStatus
 from app.domains.tenants.repository import TenantRepository
+from app.domains.tenants.schemas import (
+    PlatformAlert,
+    PlatformAlertListResponse,
+    PlatformOverviewResponse,
+    PlatformTenantOverviewResponse,
+)
 
 _VALID_STATUSES = {status.value for status in TenantStatus}
 
@@ -112,3 +121,47 @@ class PlatformTenantService:
             limit=limit,
             offset=offset,
         )
+
+    async def get_overview(self, actor_id: UUID) -> PlatformOverviewResponse:
+        raw = await self._tenants.overview(actor_id)
+        if not raw:
+            raise AppError(
+                "PLATFORM_OVERVIEW_UNAVAILABLE",
+                "No se pudo calcular el resumen ejecutivo",
+                503,
+            )
+        return PlatformOverviewResponse.model_validate(raw)
+
+    async def get_tenant_overview(
+        self, actor_id: UUID, tenant_id: UUID
+    ) -> PlatformTenantOverviewResponse:
+        raw = await self._tenants.tenant_overview(actor_id, tenant_id)
+        if raw is None:
+            raise AppError("TENANT_NOT_FOUND", "Tenant no encontrado", 404)
+        return PlatformTenantOverviewResponse.model_validate(raw)
+
+    async def list_alerts(self, actor_id: UUID) -> PlatformAlertListResponse:
+        raw = await self._tenants.alerts(actor_id)
+        alerts: list[PlatformAlert] = []
+        for item in raw:
+            if not isinstance(item, dict):
+                report_anomaly(
+                    "platform.alerts",
+                    f"alerta no-objeto ignorada: {type(item).__name__}",
+                )
+                continue
+            try:
+                alerts.append(PlatformAlert.model_validate(item))
+            except Exception as exc:  # noqa: BLE001 - un item malformado no debe tumbar el feed
+                report_anomaly("platform.alerts", f"alerta inválida ignorada: {item!r} ({exc})")
+        return PlatformAlertListResponse(alerts=alerts, count=len(alerts))
+
+    async def dismiss_alert(
+        self, actor_id: UUID, tenant_id: UUID, alert_key: str
+    ) -> None:
+        if not alert_key.strip():
+            raise AppError("ALERT_KEY_REQUIRED", "alert_key requerido", 422)
+        try:
+            await self._tenants.dismiss_alert(actor_id, tenant_id, alert_key)
+        except asyncpg.ForeignKeyViolationError as exc:
+            raise AppError("TENANT_NOT_FOUND", "Tenant no encontrado", 404) from exc

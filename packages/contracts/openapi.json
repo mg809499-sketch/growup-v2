@@ -2582,6 +2582,145 @@
         }
       }
     },
+    "/v1/platform/overview": {
+      "get": {
+        "tags": [
+          "platform"
+        ],
+        "summary": "Overview",
+        "operationId": "overview_v1_platform_overview_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlatformOverviewResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/platform/tenants/{tenant_id}/overview": {
+      "get": {
+        "tags": [
+          "platform"
+        ],
+        "summary": "Tenant Overview",
+        "operationId": "tenant_overview_v1_platform_tenants__tenant_id__overview_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Tenant Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlatformTenantOverviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/platform/alerts": {
+      "get": {
+        "tags": [
+          "platform"
+        ],
+        "summary": "List Alerts",
+        "operationId": "list_alerts_v1_platform_alerts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlatformAlertListResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/platform/alerts/dismiss": {
+      "post": {
+        "tags": [
+          "platform"
+        ],
+        "summary": "Dismiss Alert",
+        "operationId": "dismiss_alert_v1_platform_alerts_dismiss_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlatformAlertDismissRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/v1/onboarding/complete": {
       "post": {
         "tags": [
@@ -5128,6 +5267,198 @@
         ],
         "title": "Permission"
       },
+      "PlatformAlert": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "alert_key": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Alert Key"
+          },
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Tenant Id"
+          },
+          "slug": {
+            "type": "string",
+            "maxLength": 63,
+            "minLength": 1,
+            "title": "Slug"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 1,
+            "title": "Message"
+          },
+          "severity": {
+            "type": "string",
+            "pattern": "^(critical|warning|info)$",
+            "title": "Severity"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "alert_key",
+          "tenant_id",
+          "slug",
+          "name",
+          "message",
+          "severity"
+        ],
+        "title": "PlatformAlert"
+      },
+      "PlatformAlertDismissRequest": {
+        "properties": {
+          "tenant_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Tenant Id"
+          },
+          "alert_key": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Alert Key"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "tenant_id",
+          "alert_key"
+        ],
+        "title": "PlatformAlertDismissRequest"
+      },
+      "PlatformAlertListResponse": {
+        "properties": {
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/PlatformAlert"
+            },
+            "type": "array",
+            "title": "Alerts"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "alerts",
+          "count"
+        ],
+        "title": "PlatformAlertListResponse"
+      },
+      "PlatformOverviewResponse": {
+        "properties": {
+          "tenants_total": {
+            "type": "integer",
+            "title": "Tenants Total"
+          },
+          "tenants_active": {
+            "type": "integer",
+            "title": "Tenants Active"
+          },
+          "tenants_trialing": {
+            "type": "integer",
+            "title": "Tenants Trialing"
+          },
+          "tenants_suspended": {
+            "type": "integer",
+            "title": "Tenants Suspended"
+          },
+          "tenants_canceled": {
+            "type": "integer",
+            "title": "Tenants Canceled"
+          },
+          "trials_ending_7d": {
+            "type": "integer",
+            "title": "Trials Ending 7D"
+          },
+          "gmv_last_7d_cents": {
+            "type": "integer",
+            "title": "Gmv Last 7D Cents"
+          },
+          "gmv_last_30d_cents": {
+            "type": "integer",
+            "title": "Gmv Last 30D Cents"
+          },
+          "orders_last_30d": {
+            "type": "integer",
+            "title": "Orders Last 30D"
+          },
+          "products_total": {
+            "type": "integer",
+            "title": "Products Total"
+          },
+          "media_bytes_total": {
+            "type": "integer",
+            "title": "Media Bytes Total"
+          },
+          "media_failed": {
+            "type": "integer",
+            "title": "Media Failed"
+          },
+          "outbox_stuck": {
+            "type": "integer",
+            "title": "Outbox Stuck"
+          },
+          "audit_decisions_last_7d": {
+            "type": "integer",
+            "title": "Audit Decisions Last 7D"
+          },
+          "audit_denied_last_7d": {
+            "type": "integer",
+            "title": "Audit Denied Last 7D"
+          },
+          "subscriptions_active": {
+            "type": "integer",
+            "title": "Subscriptions Active"
+          },
+          "computed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Computed At"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "tenants_total",
+          "tenants_active",
+          "tenants_trialing",
+          "tenants_suspended",
+          "tenants_canceled",
+          "trials_ending_7d",
+          "gmv_last_7d_cents",
+          "gmv_last_30d_cents",
+          "orders_last_30d",
+          "products_total",
+          "media_bytes_total",
+          "media_failed",
+          "outbox_stuck",
+          "audit_decisions_last_7d",
+          "audit_denied_last_7d",
+          "subscriptions_active",
+          "computed_at"
+        ],
+        "title": "PlatformOverviewResponse"
+      },
       "PlatformTenantListResponse": {
         "properties": {
           "items": {
@@ -5158,6 +5489,85 @@
           "offset"
         ],
         "title": "PlatformTenantListResponse"
+      },
+      "PlatformTenantOverviewResponse": {
+        "properties": {
+          "tenant": {
+            "$ref": "#/components/schemas/TenantBrief"
+          },
+          "subscription": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SubscriptionRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "gmv_last_7d_cents": {
+            "type": "integer",
+            "title": "Gmv Last 7D Cents"
+          },
+          "gmv_last_30d_cents": {
+            "type": "integer",
+            "title": "Gmv Last 30D Cents"
+          },
+          "orders_last_30d": {
+            "type": "integer",
+            "title": "Orders Last 30D"
+          },
+          "products_total": {
+            "type": "integer",
+            "title": "Products Total"
+          },
+          "media_bytes_total": {
+            "type": "integer",
+            "title": "Media Bytes Total"
+          },
+          "media_failed": {
+            "type": "integer",
+            "title": "Media Failed"
+          },
+          "outbox_stuck": {
+            "type": "integer",
+            "title": "Outbox Stuck"
+          },
+          "audit_decisions_last_7d": {
+            "type": "integer",
+            "title": "Audit Decisions Last 7D"
+          },
+          "audit_denied_last_7d": {
+            "type": "integer",
+            "title": "Audit Denied Last 7D"
+          },
+          "audit_chain_valid": {
+            "type": "boolean",
+            "title": "Audit Chain Valid"
+          },
+          "computed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Computed At"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "tenant",
+          "gmv_last_7d_cents",
+          "gmv_last_30d_cents",
+          "orders_last_30d",
+          "products_total",
+          "media_bytes_total",
+          "media_failed",
+          "outbox_stuck",
+          "audit_decisions_last_7d",
+          "audit_denied_last_7d",
+          "audit_chain_valid",
+          "computed_at"
+        ],
+        "title": "PlatformTenantOverviewResponse"
       },
       "PlatformTenantResponse": {
         "properties": {
@@ -6348,6 +6758,121 @@
         ],
         "title": "StorefrontSettings"
       },
+      "SubscriptionRef": {
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "current_period_end": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Period End"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provider",
+          "status"
+        ],
+        "title": "SubscriptionRef"
+      },
+      "TenantBrief": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TenantStatus"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "trial_ends_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trial Ends At"
+          },
+          "host": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Host"
+          },
+          "plan": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TenantPlanRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "name",
+          "status"
+        ],
+        "title": "TenantBrief"
+      },
       "TenantCreateRequest": {
         "properties": {
           "slug": {
@@ -6448,6 +6973,30 @@
           "owner_user_id"
         ],
         "title": "TenantCreatedResponse"
+      },
+      "TenantPlanRef": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "code",
+          "name"
+        ],
+        "title": "TenantPlanRef"
       },
       "TenantPublic": {
         "properties": {

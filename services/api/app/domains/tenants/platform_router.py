@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 from typing import Annotated
+from uuid import UUID
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Response
 
 from app.api.deps import get_admin_context, get_platform_tenant_service
 from app.core.config import settings
@@ -11,7 +12,11 @@ from app.domains.identity.permissions import require_permission
 from app.domains.tenants.models import TenantStatus
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.schemas import (
+    PlatformAlertDismissRequest,
+    PlatformAlertListResponse,
+    PlatformOverviewResponse,
     PlatformTenantListResponse,
+    PlatformTenantOverviewResponse,
     TenantCreatedResponse,
     TenantCreateRequest,
 )
@@ -71,3 +76,50 @@ async def list_tenants(
         offset=offset,
     )
     return PlatformTenantListResponse.from_domain(page)
+
+
+@platform_router.get("/overview", response_model=PlatformOverviewResponse)
+async def overview(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+) -> PlatformOverviewResponse:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    return await service.get_overview(actor_id=context.actor.user_id)
+
+
+@platform_router.get(
+    "/tenants/{tenant_id}/overview", response_model=PlatformTenantOverviewResponse
+)
+async def tenant_overview(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+    tenant_id: UUID,
+) -> PlatformTenantOverviewResponse:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    return await service.get_tenant_overview(
+        actor_id=context.actor.user_id, tenant_id=tenant_id
+    )
+
+
+@platform_router.get("/alerts", response_model=PlatformAlertListResponse)
+async def list_alerts(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+) -> PlatformAlertListResponse:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    return await service.list_alerts(actor_id=context.actor.user_id)
+
+
+@platform_router.post("/alerts/dismiss", status_code=204)
+async def dismiss_alert(
+    context: Annotated[RequestContext, Depends(get_admin_context)],
+    service: Annotated[PlatformTenantService, Depends(get_platform_tenant_service)],
+    payload: PlatformAlertDismissRequest,
+) -> Response:
+    require_permission(context, Permission.PLATFORM_TENANTS)
+    await service.dismiss_alert(
+        actor_id=context.actor.user_id,
+        tenant_id=payload.tenant_id,
+        alert_key=payload.alert_key,
+    )
+    return Response(status_code=204)

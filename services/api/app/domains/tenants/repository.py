@@ -44,6 +44,16 @@ class TenantRepository(Protocol):
         plan_id: UUID | None = None,
     ) -> UUID: ...
 
+    async def overview(self, actor_id: UUID) -> dict[str, Any]: ...
+
+    async def tenant_overview(self, actor_id: UUID, tenant_id: UUID) -> dict[str, Any] | None: ...
+
+    async def alerts(self, actor_id: UUID) -> list[dict[str, Any]]: ...
+
+    async def dismiss_alert(
+        self, actor_id: UUID, tenant_id: UUID, alert_key: str
+    ) -> None: ...
+
     async def list_tenants(
         self,
         *,
@@ -198,6 +208,47 @@ class PostgresTenantRepository:
 
         total = int(rows[0]["total_count"]) if rows else 0
         return tuple(_platform_tenant(row) for row in rows), total
+
+    async def overview(self, actor_id: UUID) -> dict[str, Any]:
+        async with self._database.public_transaction(actor_id=actor_id) as connection:
+            row = await connection.fetchrow(
+                "select app.platform_overview($1) as data", actor_id
+            )
+        if row is None:
+            return {}
+        return safe_json_object(row["data"], context="platform.overview")
+
+    async def tenant_overview(
+        self, actor_id: UUID, tenant_id: UUID
+    ) -> dict[str, Any] | None:
+        async with self._database.public_transaction(actor_id=actor_id) as connection:
+            row = await connection.fetchrow(
+                "select app.tenant_overview($1, $2) as data", actor_id, tenant_id
+            )
+        if row is None or row["data"] is None:
+            return None
+        data = safe_json_object(row["data"], context="platform.tenant_overview")
+        return data or None
+
+    async def alerts(self, actor_id: UUID) -> list[dict[str, Any]]:
+        async with self._database.public_transaction(actor_id=actor_id) as connection:
+            row = await connection.fetchrow(
+                "select app.platform_alerts($1) as data", actor_id
+            )
+        if row is None:
+            return []
+        return safe_json_list(row["data"], context="platform.alerts")
+
+    async def dismiss_alert(
+        self, actor_id: UUID, tenant_id: UUID, alert_key: str
+    ) -> None:
+        async with self._database.public_transaction(actor_id=actor_id) as connection:
+            await connection.execute(
+                "select app.dismiss_platform_alert($1, $2, $3)",
+                actor_id,
+                tenant_id,
+                alert_key,
+            )
 
     async def get_theme(self, tenant_id: UUID) -> dict[str, Any] | None:
         async with self._database.tenant_transaction(tenant_id) as connection:
