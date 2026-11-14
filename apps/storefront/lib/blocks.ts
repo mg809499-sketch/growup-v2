@@ -15,6 +15,31 @@ export type PageLayout = {
   blocks: Block[];
 };
 
+/**
+ * Extrae bloques del layout crudo de la API (fail-safe, espejo del registry
+ * cerrado del backend): descarta entradas que no sean objetos, sanea id/type y
+ * nunca lanza. Cualquier bloque desconocido llega igualmente a `BlockRenderer`,
+ * que lo ignora (fallback seguro).
+ */
+export function parseLayoutBlocks(value: unknown): Block[] {
+  if (typeof value !== "object" || value === null) return [];
+  const blocks = (value as { blocks?: unknown }).blocks;
+  if (!Array.isArray(blocks)) return [];
+  const parsed: Block[] = [];
+  for (const item of blocks) {
+    if (typeof item !== "object" || item === null) continue;
+    const record = item as Record<string, unknown>;
+    const type = typeof record.type === "string" ? record.type : "";
+    if (!type) continue;
+    const id =
+      typeof record.id === "string" && record.id.trim()
+        ? record.id
+        : `block-${parsed.length}`;
+    parsed.push({ ...record, id, type });
+  }
+  return parsed;
+}
+
 export function asImage(value: unknown): ImageRef | null {
   if (typeof value !== "object" || value === null) return null;
   const candidate = value as Record<string, unknown>;

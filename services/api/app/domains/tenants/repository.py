@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from typing import Any, Protocol, cast
 from uuid import UUID
 
@@ -8,12 +7,14 @@ import asyncpg  # type: ignore[import-untyped]
 
 from app.core.db import Database
 from app.core.errors import AppError
+from app.core.safe_json import safe_json_list, safe_json_object
 from app.domains.tenants.models import (
     PlatformTenant,
     Tenant,
     TenantSettings,
     TenantStatus,
 )
+from app.domains.tenants.zones import parse_shipping_zones
 
 
 class TenantRepository(Protocol):
@@ -99,7 +100,9 @@ class PostgresTenantRepository:
             locale=row["locale"],
             navigation=_as_dict(row["navigation"]),
             seo_defaults=_as_dict(row["seo_defaults"]),
-            shipping_zones=_as_list(row["shipping_zones"]),
+            shipping_zones=parse_shipping_zones(
+                _as_list(row["shipping_zones"]), context="tenant_settings.shipping_zones"
+            ),
             contact=_as_dict(row["contact"]),
             social=_as_dict(row["social"]),
         )
@@ -221,20 +224,8 @@ def _platform_tenant(row: Any) -> PlatformTenant:
 
 
 def _as_dict(value: object) -> dict[str, Any]:
-    if isinstance(value, dict):
-        return value
-    if isinstance(value, str):
-        parsed = json.loads(value)
-        if isinstance(parsed, dict):
-            return parsed
-    return {}
+    return safe_json_object(value, context="tenant_settings")
 
 
 def _as_list(value: object) -> list[Any]:
-    if isinstance(value, list):
-        return value
-    if isinstance(value, str):
-        parsed = json.loads(value)
-        if isinstance(parsed, list):
-            return parsed
-    return []
+    return safe_json_list(value, context="tenant_settings")

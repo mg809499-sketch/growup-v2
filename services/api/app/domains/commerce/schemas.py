@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import Any, Literal
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
+from app.core.errors import AppError
 from app.domains.commerce.models import Cart, Order, OrderStatus
 
 _EMAIL = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
@@ -110,6 +111,57 @@ class OrderTransitionRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     status: OrderStatus
+
+
+# ---------- Webhook Wompi (esquema público de Wompi, tipado y fail-closed) ----------
+class WompiTransaction(BaseModel):
+    """Transacción embebida en data.transaction. Wompi añade campos libremente."""
+
+    model_config = ConfigDict(extra="allow")
+
+    id: str | None = Field(default=None, max_length=120)
+    reference: str = Field(default="", max_length=120)
+    status: str = Field(default="", max_length=40)
+    payment_method_type: str | None = Field(default=None, max_length=60)
+
+
+class WompiEventData(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    transaction: WompiTransaction = Field(default_factory=WompiTransaction)
+
+
+class WompiSignature(BaseModel):
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
+
+    properties: list[str] = Field(default_factory=list, max_length=20)
+    timestamp: int | str | None = None
+    checksum: str | None = Field(default=None, max_length=128)
+    checksum_sha256: str | None = Field(default=None, alias="checksum-sha256", max_length=128)
+
+
+class WompiEvent(BaseModel):
+    model_config = ConfigDict(extra="allow")
+
+    id: str | None = Field(default=None, max_length=120)
+    data: WompiEventData = Field(default_factory=WompiEventData)
+    signature: WompiSignature = Field(default_factory=WompiSignature)
+
+
+def parse_wompi_event(event: dict[str, Any]) -> WompiEvent:
+    """Parsea el evento con esquema cerrado; 400 ante cualquier desviación de tipos."""
+    if not isinstance(event, dict):
+        raise AppError("WOMPI_EVENT_INVALID", "Cuerpo JSON inválido", 400)
+    try:
+        return WompiEvent.model_validate(event)
+    except ValidationError as exc:
+        issues = [".".join(str(part) for part in err.get("loc", ())) for err in exc.errors()[:5]]
+        raise AppError(
+            "WOMPI_EVENT_INVALID",
+            "Evento Wompi inválido",
+            400,
+            {"issues": issues},
+        ) from exc
 
 
 def cart_response(cart: Cart) -> CartResponse:

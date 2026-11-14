@@ -6,7 +6,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Query
 
 from app import runtime
-from app.api.deps import get_tenant_context
+from app.api.deps import get_tenant_context, require_tenant_id
 from app.core.errors import AppError
 from app.domains.identity.models import Permission, RequestContext
 from app.domains.identity.permissions import require_permission
@@ -35,8 +35,7 @@ async def list_levels(
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> InventoryLevelListResponse:
     require_permission(context, Permission.CATALOG_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None  # get_tenant_context garantiza tenant cuando llega aquí
+    tenant_id = require_tenant_id(context)
     levels = await service.list_levels(
         tenant_id,
         variant_id=variant_id,

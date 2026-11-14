@@ -30,7 +30,9 @@ class SignupRequest(BaseModel):
     plan_code: str = Field(min_length=1, max_length=50, pattern=r"^[a-z0-9_-]+$")
     slug: str = Field(min_length=2, max_length=63, pattern=_SLUG_PATTERN)
     domain_choice: DomainChoice
-    custom_domain: str | None = Field(default=None, min_length=4, max_length=253, pattern=_DOMAIN_PATTERN)
+    custom_domain: str | None = Field(
+        default=None, min_length=4, max_length=253, pattern=_DOMAIN_PATTERN
+    )
     wants_subdomain: bool = False
 
     @model_validator(mode="after")

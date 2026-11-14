@@ -6,7 +6,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Query, Response
 
 from app import runtime
-from app.api.deps import get_storefront_tenant, get_tenant_context
+from app.api.deps import get_storefront_tenant, get_tenant_context, require_tenant_id
 from app.core.errors import AppError
 from app.domains.content.schemas import (
     PageCreateRequest,
@@ -50,8 +50,7 @@ async def list_pages(
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> PageListResponse:
     require_permission(context, Permission.CONTENT_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     pages, total = await service.list_pages(tenant_id, limit=limit, offset=offset)
     return PageListResponse(
         items=[page_summary(page) for page in pages],
@@ -68,8 +67,7 @@ async def create_page(
     body: PageCreateRequest,
 ) -> PageSummary:
     require_permission(context, Permission.CONTENT_WRITE)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     page = await service.create_page(tenant_id, slug=body.slug, title=body.title)
     return page_summary(page)
 
@@ -81,8 +79,7 @@ async def get_page(
     page_id: UUID,
 ) -> PageDetail:
     require_permission(context, Permission.CONTENT_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     page = await service.get_page(tenant_id, page_id)
     latest = await service.latest_version(tenant_id, page_id)
     return page_detail(page, latest.version if latest else None)
@@ -96,8 +93,7 @@ async def get_draft(
 ) -> dict[str, object]:
     """Última versión del layout (base de edición), o null si no hay borradores."""
     require_permission(context, Permission.CONTENT_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     await service.get_page(tenant_id, page_id)
     latest = await service.latest_version(tenant_id, page_id)
     if latest is None:
@@ -113,8 +109,7 @@ async def update_page(
     body: PageUpdateRequest,
 ) -> PageSummary:
     require_permission(context, Permission.CONTENT_WRITE)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     page = await service.update_page(tenant_id, page_id, title=body.title, slug=body.slug)
     return page_summary(page)
 
@@ -127,8 +122,7 @@ async def create_draft(
     body: PageDraftRequest,
 ) -> dict[str, object]:
     require_permission(context, Permission.CONTENT_WRITE)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     version = await service.create_draft(
         tenant_id,
         page_id,
@@ -146,8 +140,7 @@ async def preview_token(
     version_id: UUID,
 ) -> dict[str, str]:
     require_permission(context, Permission.CONTENT_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     await service.get_version(tenant_id, page_id, version_id)
     return {"token": service.sign_preview_token(tenant_id, page_id, version_id)}
 
@@ -160,8 +153,7 @@ async def publish_page(
     body: PublishRequest,
 ) -> dict[str, str]:
     require_permission(context, Permission.CONTENT_PUBLISH)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     await service.publish(
         tenant_id,
         page_id,
@@ -179,8 +171,7 @@ async def unpublish_page(
     page_id: UUID,
 ) -> Response:
     require_permission(context, Permission.CONTENT_PUBLISH)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     await service.unpublish(tenant_id, page_id, actor_id=context.actor.user_id)
     return Response(status_code=204)
 
@@ -208,8 +199,7 @@ async def get_theme(
     service: Annotated[PageService, Depends(get_page_service)],
 ) -> ThemeResponse:
     require_permission(context, Permission.CONTENT_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     return ThemeResponse(tokens=await service.get_theme(tenant_id))
 
 
@@ -220,8 +210,7 @@ async def put_theme(
     body: ThemeUpsertRequest,
 ) -> ThemeResponse:
     require_permission(context, Permission.CONTENT_WRITE)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     tokens = await service.upsert_theme(tenant_id, tokens=body.tokens)
     return ThemeResponse(tokens=tokens)
 

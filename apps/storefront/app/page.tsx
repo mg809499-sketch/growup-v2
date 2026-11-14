@@ -7,7 +7,7 @@ import { SectionLabel } from "@/components/section-label";
 import { BlockRenderer } from "@/components/blocks";
 import { getBootstrap, getPublishedPage, getStorefrontHost, listProducts } from "@/lib/api";
 import { mediaUrl } from "@/lib/format";
-import type { Block } from "@/lib/blocks";
+import { parseLayoutBlocks } from "@/lib/blocks";
 
 export const revalidate = 3600;
 
@@ -15,15 +15,17 @@ export default async function HomePage() {
   const host = await getStorefrontHost();
   const published = await getPublishedPage(host, "home");
 
-  if (published && typeof published.layout === "object" && Array.isArray((published.layout as { blocks?: unknown }).blocks)) {
-    const blocks = (published.layout as { blocks: Block[] }).blocks;
-    return (
-      <main>
-        {blocks.map((block) => (
-          <BlockRenderer key={block.id} block={block} />
-        ))}
-      </main>
-    );
+  if (published) {
+    const blocks = parseLayoutBlocks(published.layout);
+    if (blocks.length > 0) {
+      return (
+        <main>
+          {blocks.map((block) => (
+            <BlockRenderer key={block.id} block={block} />
+          ))}
+        </main>
+      );
+    }
   }
 
   const [bootstrap, products] = await Promise.all([

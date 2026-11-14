@@ -10,6 +10,7 @@ import asyncpg  # type: ignore[import-untyped]
 
 from app.core.db import Database
 from app.core.errors import AppError
+from app.core.safe_json import safe_json_object
 
 
 @dataclass(frozen=True, slots=True)
@@ -180,10 +181,4 @@ def _record(row: Any) -> DecisionLogRecord:
 
 
 def _as_dict(value: object) -> dict[str, Any]:
-    if isinstance(value, dict):
-        return value
-    if isinstance(value, str):
-        parsed = json.loads(value)
-        if isinstance(parsed, dict):
-            return parsed
-    return {}
+    return safe_json_object(value, context="governance.context_summary")

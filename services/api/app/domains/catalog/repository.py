@@ -9,6 +9,7 @@ import asyncpg  # type: ignore[import-untyped]
 
 from app.core.db import Database
 from app.core.errors import AppError
+from app.core.safe_json import safe_json_object
 from app.domains.catalog.models import (
     VARIANT_PATCH_FIELDS,
     Category,
@@ -1090,10 +1091,5 @@ def _media_variant(row: Any) -> ProductMediaVariant:
 
 
 def _as_dict(value: object) -> dict[str, str]:
-    if isinstance(value, dict):
-        return {str(key): str(item) for key, item in value.items()}
-    if isinstance(value, str):
-        parsed = json.loads(value)
-        if isinstance(parsed, dict):
-            return {str(key): str(item) for key, item in parsed.items()}
-    return {}
+    parsed = safe_json_object(value, context="catalog.option_values")
+    return {str(key): str(item) for key, item in parsed.items()}

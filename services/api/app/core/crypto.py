@@ -36,5 +36,7 @@ def encrypt_secret(plaintext: str) -> str:
 def decrypt_secret(token: str) -> str:
     try:
         return _fernet().decrypt(token.encode("ascii")).decode("utf-8")
+    except UnicodeEncodeError as exc:
+        raise AppError("SECRET_INVALID", "No se pudo descifrar el secreto", 500) from exc
     except InvalidToken as exc:
         raise AppError("SECRET_INVALID", "No se pudo descifrar el secreto", 500) from exc

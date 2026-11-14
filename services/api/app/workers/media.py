@@ -8,17 +8,31 @@ from arq.connections import RedisSettings
 
 from app.core.config import settings
 from app.core.db import Database
+from app.core.observability import get_logger
 from app.domains.media.repository import PostgresMediaRepository
 from app.domains.media.service import MediaService
 from app.domains.media.storage import R2Storage
+
+logger = get_logger("growup.worker.media")
 
 _CTX_DATABASE = "database"
 _CTX_MEDIA_SERVICE = "media_service"
 
 
 async def process_media(ctx: dict[str, Any], tenant_id: str, asset_id: str) -> None:
-    service: MediaService = ctx[_CTX_MEDIA_SERVICE]
-    await service.process_asset(UUID(tenant_id), UUID(asset_id))
+    service = ctx.get(_CTX_MEDIA_SERVICE)
+    if service is None:
+        # Startup inválido: reintentar no lo arregla; fail-closed y se descarta.
+        logger.error("process_media_missing_service", tenant_id=tenant_id, asset_id=asset_id)
+        return
+    try:
+        tenant_uuid = UUID(tenant_id)
+        asset_uuid = UUID(asset_id)
+    except (ValueError, TypeError, AttributeError):
+        # Mensaje envenenado: reintentar siempre fallaría; se registra y se suelta.
+        logger.error("process_media_invalid_id", tenant_id=tenant_id, asset_id=asset_id)
+        return
+    await service.process_asset(tenant_uuid, asset_uuid)
 
 
 async def cleanup_uploads(ctx: dict[str, Any]) -> None:

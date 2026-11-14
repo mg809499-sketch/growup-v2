@@ -96,7 +96,8 @@ app.add_exception_handler(AppError, _app_error_adapter)
 
 async def _validation_error_adapter(request: Request, exc: Exception) -> Response:
     """422 de Pydantic/FastAPI dentro del envelope uniforme."""
-    assert isinstance(exc, RequestValidationError)
+    if not isinstance(exc, RequestValidationError):
+        raise exc
     request_id = getattr(request.state, "request_id", None)
     fields = [
         {

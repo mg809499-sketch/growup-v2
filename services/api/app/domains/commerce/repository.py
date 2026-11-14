@@ -539,11 +539,22 @@ def wompi_event_checksum(event: dict[str, Any], events_secret: str) -> str:
 
     concat(valores de signature.properties en orden, signature.timestamp,
     events_secret) → SHA256 hex.
+
+    Fail-closed: ante cualquier entrada malformada devuelve "" (el emisor
+    verifica firma; "" nunca coincide con un checksum real).
     """
-    signature = event.get("signature", {})
-    properties = signature.get("properties", [])
+    if not isinstance(event, dict):
+        return ""
+    signature = event.get("signature")
+    if not isinstance(signature, dict):
+        return ""
+    properties = signature.get("properties")
+    if not isinstance(properties, list):
+        return ""
     timestamp = signature.get("timestamp")
-    data = event.get("data", {})
+    data = event.get("data")
+    if timestamp is None or not isinstance(data, dict):
+        return ""
     values: list[str] = []
     for prop in properties:
         value: Any = data

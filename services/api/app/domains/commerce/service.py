@@ -12,6 +12,8 @@ from app.domains.commerce.repository import (
     wompi_event_checksum,
     wompi_integrity_signature,
 )
+from app.domains.commerce.schemas import parse_wompi_event
+from app.domains.tenants.zones import parse_shipping_zones
 
 DEFAULT_SHIPPING_ZONES = [
     {"code": "bogota", "name": "Bogotá D.C.", "price_cents": 800_000},
@@ -45,7 +47,12 @@ class CommerceService:
                 return cart
         new_id = await self._repository.create_cart(tenant_id)
         cart = await self._repository.get_cart(tenant_id, new_id)
-        assert cart is not None
+        if cart is None:
+            raise AppError(
+                "CART_CREATE_FAILED",
+                "No se pudo crear el carrito",
+                500,
+            )
         return cart
 
     async def get_cart(self, tenant_id: UUID, cart_id: UUID) -> Cart:
@@ -72,14 +79,16 @@ class CommerceService:
 
     # ---------- Checkout ----------
     def shipping_zones(self, settings_zones: list[Any]) -> list[dict[str, Any]]:
-        if settings_zones:
-            return settings_zones
-        return list(DEFAULT_SHIPPING_ZONES)
+        # Revalidación defensiva: el valor puede venir crudo del jsonb del tenant.
+        # Las zonas inválidas se descartan (con anomalía en logs/Sentry) y, si no
+        # queda ninguna válida, se usan las del plan MVP.
+        zones = parse_shipping_zones(settings_zones, context="checkout.shipping_zones")
+        return zones or [dict(zone) for zone in DEFAULT_SHIPPING_ZONES]
 
     def zone_price(self, zone_code: str, settings_zones: list[Any]) -> int:
         for zone in self.shipping_zones(settings_zones):
-            if str(zone.get("code")) == zone_code:
-                price = int(zone.get("price_cents", 0))
+            if str(zone.get("code", "")) == zone_code:
+                price = int(zone["price_cents"])
                 if price < 0:
                     raise AppError("SHIPPING_ZONE_INVALID", "Tarifa de envío inválida", 400)
                 return price
@@ -188,31 +197,36 @@ class CommerceService:
         # Transición genérica vía update; la base fuerza el rango de estados válidos.
         await self._repository.set_order_status(tenant_id, order_id, target.value)
         updated = await self._repository.get_order(tenant_id, order_id)
-        assert updated is not None
+        if updated is None:
+            raise AppError(
+                "ORDER_UPDATE_FAILED",
+                "No se pudo confirmar la actualización de la orden",
+                500,
+            )
         return updated
 
     # ---------- Webhook Wompi ----------
     async def process_wompi_event(self, event: dict[str, Any]) -> dict[str, str]:
-        transaction_id = str(event.get("id") or event.get("transaction", {}).get("id") or "")
+        parsed = parse_wompi_event(event)
+        transaction = parsed.data.transaction
+        transaction_id = str(parsed.id or transaction.id or "")
         if not transaction_id:
             raise AppError("WOMPI_EVENT_INVALID", "Evento sin identificador", 400)
 
-        data = event.get("data", {})
-        transaction = data.get("transaction", data if isinstance(data, dict) else {})
-        reference = str(transaction.get("reference", ""))
-        status = str(transaction.get("status", "")).lower()
-        method = transaction.get("payment_method_type")
+        reference = transaction.reference
+        status = transaction.status.lower()
+        method = transaction.payment_method_type
 
         correlation = await self._repository.get_payment_by_reference(reference)
         if correlation is None:
             # Evento de otra referencia o aún no registrada: se contesta 200 y se ignora.
-            recorded = await self._repository.record_webhook_event(
+            await self._repository.record_webhook_event(
                 provider="wompi",
                 event_id=transaction_id,
                 tenant_id=None,
                 payload=event,
             )
-            return {"status": "ignored" if not recorded else "ignored"}
+            return {"status": "ignored"}
 
         tenant_id, order_id, _ = correlation
 
@@ -222,11 +236,9 @@ class CommerceService:
 
         events_secret = decrypt_secret(account.events_secret_encrypted)
         expected = wompi_event_checksum(event, events_secret)
-        provided = str(
-            event.get("signature", {}).get("checksum", "")
-            or event.get("signature", {}).get("checksum-sha256", "")
-        ).lower()
-        if not expected or provided != expected:
+        signature = parsed.signature
+        provided = str(signature.checksum or signature.checksum_sha256 or "").lower()
+        if not provided or provided != expected:
             raise AppError("WOMPI_SIGNATURE_INVALID", "Firma del webhook inválida", 401)
 
         recorded = await self._repository.record_webhook_event(

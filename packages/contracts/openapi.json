@@ -6496,6 +6496,7 @@
           "tokens": {
             "additionalProperties": true,
             "type": "object",
+            "maxProperties": 200,
             "minProperties": 1,
             "title": "Tokens"
           }

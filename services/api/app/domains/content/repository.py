@@ -5,6 +5,7 @@ from typing import Any
 from uuid import UUID
 
 from app.core.db import Database
+from app.core.safe_json import safe_json_object
 from app.domains.content.models import Page, PageStatus, PageVersion
 
 
@@ -222,8 +223,8 @@ class PostgresPageRepository:
             )
         if row is None:
             return None
-        tokens = row["tokens"]
-        return tokens if isinstance(tokens, dict) else json.loads(tokens)
+        theme = safe_json_object(row["tokens"], context="content.theme.get")
+        return theme or None
 
     async def upsert_theme(self, tenant_id: UUID, *, tokens: dict[str, Any]) -> dict[str, Any]:
         async with self._database.tenant_transaction(tenant_id) as connection:
@@ -237,8 +238,7 @@ class PostgresPageRepository:
                 tenant_id,
                 json.dumps(tokens),
             )
-        tokens = row["tokens"]
-        return tokens if isinstance(tokens, dict) else json.loads(tokens)
+        return safe_json_object(row["tokens"], context="content.theme.upsert")
 
 
 def _page(row: Any) -> Page:
@@ -261,7 +261,7 @@ def _version(row: Any) -> PageVersion:
         tenant_id=row["tenant_id"],
         page_id=row["page_id"],
         version=row["version"],
-        layout=layout if isinstance(layout, dict) else json.loads(layout),
+        layout=safe_json_object(layout, context="content.layout.read"),
         created_by=row["created_by"],
         created_at=row["created_at"],
     )

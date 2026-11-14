@@ -181,3 +181,14 @@ async def get_tenant_context(
         raise AppError("FORBIDDEN", "Se requiere un tenant", 403)
     request.state.tenant_id = str(context.tenant_id)
     return context
+
+
+def require_tenant_id(context: RequestContext) -> UUID:
+    """Extrae el tenant del contexto ya validado por get_tenant_context.
+
+    Falla cerrado (403) en lugar de un assert: el assert nunca debe quedar
+    como última línea de defensa en el camino de un request.
+    """
+    if context.tenant_id is None:
+        raise AppError("FORBIDDEN", "Se requiere un tenant", 403)
+    return context.tenant_id

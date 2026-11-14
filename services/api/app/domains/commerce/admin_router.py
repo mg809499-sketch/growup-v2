@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel, ConfigDict, Field
 
 from app import runtime
-from app.api.deps import get_tenant_context
+from app.api.deps import get_tenant_context, require_tenant_id
 from app.core.errors import AppError
 from app.domains.commerce.schemas import (
     OrderDetail,
@@ -53,8 +53,7 @@ async def list_orders(
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> OrderListResponse:
     require_permission(context, Permission.ORDERS_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     orders, total = await service.list_orders(tenant_id, limit=limit, offset=offset)
     return OrderListResponse(
         items=[order_summary(order) for order in orders],
@@ -71,8 +70,7 @@ async def get_order(
     order_id: UUID,
 ) -> OrderDetail:
     require_permission(context, Permission.ORDERS_READ)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     order, items = await service.get_order(tenant_id, order_id)
     summary = order_summary(order)
     return OrderDetail(
@@ -89,8 +87,7 @@ async def transition_order(
     body: OrderTransitionRequest,
 ) -> OrderDetail:
     require_permission(context, Permission.ORDERS_FULFILL)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     order = await service.transition_order(tenant_id, order_id, target=body.status)
     _, items = await service.get_order(tenant_id, order_id)
     summary = order_summary(order)
@@ -108,8 +105,7 @@ async def upsert_payment_account(
 ) -> None:
     """Conecta la cuenta Wompi del comercio (merchant of record = tenant)."""
     require_permission(context, Permission.BILLING_WRITE)
-    tenant_id = context.tenant_id
-    assert tenant_id is not None
+    tenant_id = require_tenant_id(context)
     await service.upsert_payment_account(
         tenant_id,
         public_key=body.public_key,
