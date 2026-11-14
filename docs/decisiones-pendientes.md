@@ -599,7 +599,7 @@ Avances entregados (operativo):
 - **Super consola v1**: dashboard mando global (MRR/GMV/órdenes/suscripciones), alerta list por severidad, pausa/activación de tenant (owner-only + auditoría), CSV export del listado de tenants.
 - **Planes 3D editor**: `app.plans` ampliada (`active`, `badge`, `sort_order`, `list_price_cop/usd_cents`); endpoint admin `/v1/platform/plans` (PUT) editable solo por staff reconocido como platform admin; `pwr` app_rw con SELECT. Seed `starter` y `pro` listos para subir COP.
 - **Reorden rule-based (E5.1)**: tabla `ai_suggestions` + función `app.detect_reorder_candidates(tenant_id, min_stock)`; worker ARQ `suggest_reorders` sugiere sin ejecutar; UI `/suggestions` con aprobación humana.
-- **Builder live-sync**: storefront escucha `GROWUP_UPDATE_BLOCKS` vía postMessage origin-checked; admin auto-actualiza preview sin recargar; editor aplica plantillas `ropa-starter` / `joyeria-starter` con un clic (listadas vía `/v1/admin/templates`).
+- **Builder preview**: la vista previa del editor usa un `<iframe>` con el `/preview` del storefront y token efímero; se recarga (cambio de `frameKey`) al guardar o pedir "vista previa" — el live-sync por `postMessage` se descartó (commit `a80444a`) a favor de recarga, más simple y robusta. El editor aplica plantillas con un clic (listadas vía `/v1/admin/templates`): `ropa-starter`, `ropa-minimal`, `ropa-lookbook`, `joyeria-starter`, `joyeria-collection`, `joyeria-gift`, `drop-flash` (validadas con `PageLayout` en el backend; commit `7ffafd0`).
 
 ## Bloqueados / pendientes declarados
 
