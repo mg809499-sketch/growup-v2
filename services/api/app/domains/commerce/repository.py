@@ -557,6 +557,17 @@ class PostgresCommerceRepository:
                 order_id,
                 order_status,
             )
+            if result == "approved":
+                await connection.execute(
+                    """
+                    insert into app.outbox_events (tenant_id, type, payload)
+                    values ($1, 'orders.paid', $2::jsonb)
+                    """,
+                    tenant_id,
+                    json.dumps(
+                        {"order_id": str(order_id), "reference": reference, "method": method}
+                    ),
+                )
 
 
 def _order(row: Any) -> Order:

@@ -13,6 +13,7 @@ from app.domains.media.repository import PostgresMediaRepository
 from app.domains.media.service import MediaService
 from app.domains.media.storage import R2Storage
 from app.workers.outbox_purge import publish_purge
+from app.workers.webhook_deliver import deliver_paid_webhooks
 
 logger = get_logger("growup.worker.media")
 
@@ -90,8 +91,12 @@ async def shutdown(ctx: dict[str, Any]) -> None:
 
 
 class WorkerSettings:
-    functions = [process_media, publish_purge]
-    cron_jobs = [cron(cleanup_uploads, minute=0), cron(publish_purge, minute=5)]
+    functions = [process_media, publish_purge, deliver_paid_webhooks]
+    cron_jobs = [
+        cron(cleanup_uploads, minute=0),
+        cron(publish_purge, minute=set(range(0, 60, 5))),
+        cron(deliver_paid_webhooks, minute=set(range(0, 60, 2))),
+    ]
     on_startup = startup
     on_shutdown = shutdown
     redis_settings = (

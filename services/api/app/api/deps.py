@@ -18,6 +18,7 @@ from app.domains.onboarding.service import OnboardingService
 from app.domains.tenants.models import Tenant
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.service import TenantResolver
+from app.domains.webhooks.service import WebhookService
 
 _bearer_scheme = HTTPBearer(auto_error=False)
 
@@ -100,6 +101,16 @@ def get_catalog_service() -> CatalogService:
             503,
         )
     return runtime.catalog_service
+
+
+def get_webhook_service() -> WebhookService:
+    if runtime.webhook_service is None:
+        raise AppError(
+            "SERVICE_UNAVAILABLE",
+            "El servicio de webhooks no está configurado",
+            503,
+        )
+    return runtime.webhook_service
 
 
 def get_platform_tenant_service() -> PlatformTenantService:

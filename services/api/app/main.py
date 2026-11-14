@@ -31,6 +31,7 @@ from app.domains.media.router import router as media_router
 from app.domains.onboarding.router import router as onboarding_router
 from app.domains.tenants.platform_router import platform_router
 from app.domains.tenants.router import router as storefront_router
+from app.domains.webhooks.router import router as admin_webhooks_router
 from app.runtime import close_media_queue, database
 from app.schemas.ops import HealthResponse, ReadyResponse
 
@@ -130,6 +131,7 @@ app.include_router(identity_router)
 app.include_router(catalog_admin_router)
 app.include_router(catalog_storefront_router)
 app.include_router(content_admin_router)
+app.include_router(admin_webhooks_router)
 app.include_router(orders_admin_router)
 app.include_router(media_router)
 app.include_router(inventory_router)

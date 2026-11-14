@@ -1703,6 +1703,121 @@
         ]
       }
     },
+    "/v1/admin/webhooks": {
+      "get": {
+        "tags": [
+          "admin-webhooks"
+        ],
+        "summary": "List Webhooks",
+        "operationId": "list_webhooks_v1_admin_webhooks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WebhookEndpointOut"
+                  },
+                  "type": "array",
+                  "title": "Response List Webhooks V1 Admin Webhooks Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "admin-webhooks"
+        ],
+        "summary": "Create Webhook",
+        "operationId": "create_webhook_v1_admin_webhooks_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookEndpointCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookEndpointCreateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/webhooks/{endpoint_id}": {
+      "delete": {
+        "tags": [
+          "admin-webhooks"
+        ],
+        "summary": "Delete Webhook",
+        "operationId": "delete_webhook_v1_admin_webhooks__endpoint_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "endpoint_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Endpoint Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/admin/orders": {
       "get": {
         "tags": [
@@ -5261,6 +5376,7 @@
           "settings:write",
           "customers:read",
           "audit:read",
+          "webhooks:manage",
           "platform:tenants",
           "platform:audit",
           "platform:support"
@@ -7454,6 +7570,129 @@
           "url"
         ],
         "title": "VideoEmbedBlock"
+      },
+      "WebhookEndpointCreateRequest": {
+        "properties": {
+          "event": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Event"
+          },
+          "target_url": {
+            "type": "string",
+            "maxLength": 2048,
+            "minLength": 9,
+            "pattern": "^https?://",
+            "title": "Target Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event",
+          "target_url"
+        ],
+        "title": "WebhookEndpointCreateRequest"
+      },
+      "WebhookEndpointCreateResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "event": {
+            "type": "string",
+            "title": "Event"
+          },
+          "target_url": {
+            "type": "string",
+            "title": "Target Url"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Active"
+          },
+          "fail_count": {
+            "type": "integer",
+            "title": "Fail Count"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "secret": {
+            "type": "string",
+            "title": "Secret"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "event",
+          "target_url",
+          "active",
+          "fail_count",
+          "created_at",
+          "updated_at",
+          "secret"
+        ],
+        "title": "WebhookEndpointCreateResponse"
+      },
+      "WebhookEndpointOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "event": {
+            "type": "string",
+            "title": "Event"
+          },
+          "target_url": {
+            "type": "string",
+            "title": "Target Url"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Active"
+          },
+          "fail_count": {
+            "type": "integer",
+            "title": "Fail Count"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "event",
+          "target_url",
+          "active",
+          "fail_count",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "WebhookEndpointOut"
       }
     },
     "securitySchemes": {

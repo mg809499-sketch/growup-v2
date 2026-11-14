@@ -22,6 +22,7 @@ _TENANT_ALL = frozenset(
         Permission.SETTINGS_WRITE,
         Permission.CUSTOMERS_READ,
         Permission.AUDIT_READ,
+        Permission.WEBHOOKS_MANAGE,
     }
 )
 
@@ -41,6 +42,7 @@ _MATRIX: dict[Role, frozenset[Permission]] = {
             Permission.SETTINGS_READ,
             Permission.SETTINGS_WRITE,
             Permission.CUSTOMERS_READ,
+            Permission.WEBHOOKS_MANAGE,
         }
     ),
     Role.TREASURER: frozenset(

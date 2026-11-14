@@ -427,6 +427,41 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/admin/webhooks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Webhooks */
+        get: operations["list_webhooks_v1_admin_webhooks_get"];
+        put?: never;
+        /** Create Webhook */
+        post: operations["create_webhook_v1_admin_webhooks_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v1/admin/webhooks/{endpoint_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Webhook */
+        delete: operations["delete_webhook_v1_admin_webhooks__endpoint_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/admin/orders": {
         parameters: {
             query?: never;
@@ -1560,7 +1595,7 @@ export interface components {
          * Permission
          * @enum {string}
          */
-        Permission: "catalog:read" | "catalog:write" | "content:read" | "content:write" | "content:publish" | "orders:read" | "orders:fulfill" | "payments:read" | "payments:refund" | "billing:read" | "billing:write" | "team:read" | "team:write" | "settings:read" | "settings:write" | "customers:read" | "audit:read" | "platform:tenants" | "platform:audit" | "platform:support";
+        Permission: "catalog:read" | "catalog:write" | "content:read" | "content:write" | "content:publish" | "orders:read" | "orders:fulfill" | "payments:read" | "payments:refund" | "billing:read" | "billing:write" | "team:read" | "team:write" | "settings:read" | "settings:write" | "customers:read" | "audit:read" | "webhooks:manage" | "platform:tenants" | "platform:audit" | "platform:support";
         /** PlatformAlert */
         PlatformAlert: {
             /** Type */
@@ -2321,6 +2356,67 @@ export interface components {
             url: string;
             /** Title */
             title?: string | null;
+        };
+        /** WebhookEndpointCreateRequest */
+        WebhookEndpointCreateRequest: {
+            /** Event */
+            event: string;
+            /** Target Url */
+            target_url: string;
+        };
+        /** WebhookEndpointCreateResponse */
+        WebhookEndpointCreateResponse: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Event */
+            event: string;
+            /** Target Url */
+            target_url: string;
+            /** Active */
+            active: boolean;
+            /** Fail Count */
+            fail_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Secret */
+            secret: string;
+        };
+        /** WebhookEndpointOut */
+        WebhookEndpointOut: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Event */
+            event: string;
+            /** Target Url */
+            target_url: string;
+            /** Active */
+            active: boolean;
+            /** Fail Count */
+            fail_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
         };
     };
     responses: never;
@@ -3352,6 +3448,88 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["ThemeResponse"];
                 };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_webhooks_v1_admin_webhooks_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WebhookEndpointOut"][];
+                };
+            };
+        };
+    };
+    create_webhook_v1_admin_webhooks_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WebhookEndpointCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WebhookEndpointCreateResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_webhook_v1_admin_webhooks__endpoint_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                endpoint_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Validation Error */
             422: {

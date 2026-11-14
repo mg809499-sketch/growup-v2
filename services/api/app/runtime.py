@@ -29,6 +29,8 @@ from app.domains.onboarding.service import OnboardingService
 from app.domains.tenants.platform_service import PlatformTenantService
 from app.domains.tenants.repository import PostgresTenantRepository
 from app.domains.tenants.service import InMemoryTenantCache, TenantResolver
+from app.domains.webhooks.repository import PostgresWebhookRepository
+from app.domains.webhooks.service import WebhookService
 
 database: Database | None = (
     Database(
@@ -196,4 +198,11 @@ media_service: MediaService | None = (
     )
     if media_repository is not None and media_storage is not None
     else None
+)
+
+webhook_repository: PostgresWebhookRepository | None = (
+    PostgresWebhookRepository(database) if database is not None else None
+)
+webhook_service: WebhookService | None = (
+    WebhookService(webhook_repository) if webhook_repository is not None else None
 )

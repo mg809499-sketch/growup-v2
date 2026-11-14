@@ -32,6 +32,7 @@ class Permission(StrEnum):
     SETTINGS_WRITE = "settings:write"
     CUSTOMERS_READ = "customers:read"
     AUDIT_READ = "audit:read"
+    WEBHOOKS_MANAGE = "webhooks:manage"
     PLATFORM_TENANTS = "platform:tenants"
     PLATFORM_AUDIT = "platform:audit"
     PLATFORM_SUPPORT = "platform:support"
