@@ -23,6 +23,21 @@ const mediaPattern = (() => {
 const nextConfig: NextConfig = {
   agentRules: false,
   transpilePackages: ["@growup/contracts", "@growup/config"],
+  async headers() {
+    const adminOrigin = (process.env.GROWUP_ADMIN_ORIGIN ?? "http://localhost:3001").replace(/\/$/, "");
+    return [
+      {
+        source: "/preview",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: `frame-ancestors 'self' ${adminOrigin}`,
+          },
+          { key: "Cache-Control", value: "no-store" },
+        ],
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       { protocol: "http", hostname: "localhost" },

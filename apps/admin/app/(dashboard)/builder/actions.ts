@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireSession } from "@/lib/auth";
-import { apiSend, ApiError } from "@/lib/api";
+import { apiGet, apiSend, ApiError } from "@/lib/api";
 import type { DraftResponse } from "@/lib/pages";
 
 export type ActionResult =
@@ -58,7 +58,8 @@ export async function updatePageAction(
 export async function saveDraftAction(
   pageId: string,
   layoutJson: string,
-): Promise<ActionResult & { version?: number; id?: string }> {
+  expectedVersion?: number | null,
+): Promise<ActionResult & { version?: number; id?: string; conflict?: boolean; latest?: number }> {
   const { token } = await requireSession();
   let layout: unknown;
   try {
@@ -67,11 +68,13 @@ export async function saveDraftAction(
     return { ok: false, error: "El layout no es JSON válido" };
   }
   try {
+    const body =
+      expectedVersion === undefined ? { layout } : { layout, expected_version: expectedVersion };
     const draft = await apiSend<DraftResponse>(
       "POST",
       `/v1/admin/pages/${pageId}/draft`,
       token,
-      { layout },
+      body,
     );
     revalidatePath(`/builder/${pageId}`);
     return {
@@ -80,6 +83,9 @@ export async function saveDraftAction(
       id: draft?.id ?? undefined,
     };
   } catch (error) {
+    if (error instanceof ApiError && error.code === "VERSION_CONFLICT") {
+      return { ok: false, conflict: true, error: "Alguien más editó esta página. Recarga para ver los cambios." };
+    }
     return { ok: false, error: messageFor(error) };
   }
 }
@@ -113,6 +119,49 @@ export async function unpublishAction(pageId: string): Promise<ActionResult> {
   revalidatePath(`/builder/${pageId}`);
   revalidatePath("/builder");
   return { ok: true };
+}
+
+export type MediaItem = {
+  id: string;
+  url: string;
+  alt: string;
+  filename: string;
+  mime: string;
+  width: number | null;
+};
+
+export async function listMediaAction(
+  offset = 0,
+  limit = 24,
+): Promise<{ ok: true; items: MediaItem[] } | { ok: false; error: string }> {
+  const { token } = await requireSession();
+  const mediaBase = process.env.NEXT_PUBLIC_MEDIA_BASE_URL?.replace(/\/$/, "") ?? "";
+  try {
+    const result = await apiGet<{
+      items: Array<{
+        id: string;
+        r2_key: string;
+        alt: string | null;
+        original_filename: string | null;
+        mime: string;
+        width: number | null;
+      }>;
+    }>(
+      `/v1/admin/media?status=ready&limit=${limit}&offset=${offset}`,
+      token,
+    );
+    const items: MediaItem[] = result.items.map((asset) => ({
+      id: asset.id,
+      url: mediaBase ? `${mediaBase}/${asset.r2_key.replace(/^\//, "")}` : "",
+      alt: asset.alt ?? "",
+      filename: asset.original_filename ?? asset.r2_key,
+      mime: asset.mime,
+      width: asset.width,
+    }));
+    return { ok: true, items };
+  } catch (error) {
+    return { ok: false, error: messageFor(error) };
+  }
 }
 
 export async function previewTokenAction(

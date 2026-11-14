@@ -131,6 +131,8 @@ Reglas:
 
 La Opción A está implementada en código y probada: `app.pages`, `page_versions`, `themes`, `outbox_events` (migraciones `20261110000100_content.sql`); block registry con 16 bloques y esquemas Pydantic cerrados (tests `tests/domains/content/`); publish atómico vía `app.publish_page`; preview con token HMAC; storefront con `BlockRenderer` e ISR (`apps/storefront/components/blocks/`); admin con builder funcional (`/builder`); páginas demo publicadas vía `supabase/seed.demo.sql`. **El estado sigue siendo Propuesta hasta que producto ratifique la lista final de bloques, el schema de tokens y el flujo de publish** — la implementación no sustituye esa decisión.
 
+> **2026-11-13 — Builder visual (rama `feat/builder-visual`):** el editor JSON textarea fue reemplazado por un editor de tres columnas: árbol de bloques con DnD HTML5 + botones ↑/↓ + duplicar, formularios de props cerrados por tipo (mismos límites que blocks.py), autosave (debounce 2s), indicador de estado, iframe de preview con token HMAC (recarga post-autosave; `CSP frame-ancestors` en `/preview` del storefront), y `expected_version` opcional en `PageDraftRequest` para 409 `VERSION_CONFLICT` al guardar, no solo al publicar. Conflicto de versión probado en tests de servicio. E2E Playwright automatizado pendiente (requiere OAuth de admin en CI).
+
 
 ### Positivas
 
