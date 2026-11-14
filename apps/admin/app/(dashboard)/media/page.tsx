@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { updateMediaAltAction } from "@/app/(dashboard)/media/actions";
+import { MediaUploader } from "@/components/media-uploader";
 import { EmptyState } from "@/components/empty-state";
 import { PageHeader } from "@/components/page-header";
 import { StatusBadge } from "@/components/status-badge";
@@ -64,6 +65,8 @@ export default async function MediaPage({
         </p>
       ) : null}
 
+      <MediaUploader />
+
       <form className="flex flex-wrap items-end gap-3 border border-slate-200 bg-white p-4">
         <label className="block">
           <span className="mono block text-[10px] uppercase tracking-[0.14em] text-slate-500">
@@ -97,7 +100,7 @@ export default async function MediaPage({
       {page.items.length === 0 ? (
         <EmptyState
           title="No hay media con este filtro"
-          description="Sube imágenes desde el endpoint admin de media o cambia el estado."
+          description="Sube imágenes arriba o cambia el filtro de estado."
         />
       ) : (
         <div className="overflow-x-auto border border-slate-200 bg-white">
