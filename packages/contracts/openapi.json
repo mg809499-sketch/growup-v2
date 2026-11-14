@@ -4827,6 +4827,18 @@
         "properties": {
           "layout": {
             "$ref": "#/components/schemas/PageLayout"
+          },
+          "expected_version": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Version"
           }
         },
         "additionalProperties": false,

@@ -77,8 +77,25 @@ class PageService:
         *,
         layout: PageLayout,
         actor_id: UUID | None,
+        expected_version: int | None = None,
     ) -> PageVersion:
+        """Crea la siguiente versión del borrador.
+
+        `expected_version=None` no asevera nada (compatibilidad con clientes
+        anteriores); `0` asevera que aún no existe borrador; `N` asevera que la
+        última versión sigue siendo N. Cualquier desviación → 409 VERSION_CONFLICT.
+        """
         await self.get_page(tenant_id, page_id)
+        if expected_version is not None:
+            latest = await self._repository.latest_version(tenant_id, page_id)
+            latest_version = latest.version if latest else 0
+            if latest_version != expected_version:
+                raise AppError(
+                    "VERSION_CONFLICT",
+                    "La página cambió desde que se guardó el borrador",
+                    409,
+                    {"expected": expected_version, "latest": latest_version},
+                )
         payload = layout.model_dump(mode="json")
         if len(json_dumps(payload)) > _MAX_LAYOUT_BYTES:
             raise AppError("LAYOUT_TOO_LARGE", "El layout supera el tamaño permitido", 413)

@@ -128,6 +128,7 @@ async def create_draft(
         page_id,
         layout=body.layout,
         actor_id=context.actor.user_id,
+        expected_version=body.expected_version,
     )
     return version_response(version)
 

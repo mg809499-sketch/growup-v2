@@ -102,6 +102,10 @@ class PageDraftRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     layout: PageLayout
+    # Base de edición del cliente: ausente = sin aseveración (compat);
+    # 0 = se espera que no exista borrador alguno; N = se espera la versión N.
+    # Si no coincide con la última versión del servidor → 409 VERSION_CONFLICT.
+    expected_version: int | None = Field(default=None, ge=0)
 
 
 class PublishRequest(BaseModel):

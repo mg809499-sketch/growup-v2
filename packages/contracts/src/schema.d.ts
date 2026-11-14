@@ -1421,6 +1421,8 @@ export interface components {
         /** PageDraftRequest */
         PageDraftRequest: {
             layout: components["schemas"]["PageLayout"];
+            /** Expected Version */
+            expected_version?: number | null;
         };
         /**
          * PageLayout
