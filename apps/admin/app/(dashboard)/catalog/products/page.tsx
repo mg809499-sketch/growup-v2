@@ -8,6 +8,7 @@ import { requireSession } from "@/lib/auth";
 import { apiGetSafe, queryString } from "@/lib/api";
 import type { ProductListResponse } from "@/lib/api";
 import { formatPrice } from "@/lib/format";
+import { SkuQuickForm } from "./sku-quick-form";
 
 const CATALOG_ENRICHED: Record<
   string,
@@ -232,54 +233,10 @@ export default async function ProductsPage({
         </table>
       </div>
 
-      {/* Modal / Panel rápido de Creación y Vinculación de SKU */}
-      <section className="vn-card p-6">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-black/10 pb-4">
-          <div>
-            <p className="mono text-[10px] font-bold text-[#525866]">CREACIÓN Y EDICIÓN RÁPIDA DE SKU</p>
-            <h2 className="display mt-1 text-lg font-bold text-[#0d0d0d]">
-              Ficha de Producto, Variantes y Pasarela Wompi
-            </h2>
-          </div>
-          <span className="rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-900">
-            Vinculado con Checkout Express Wompi
-          </span>
-        </div>
-        <div className="mt-4 grid gap-4 md:grid-cols-4">
-          <label className="block text-xs font-medium text-[#525866]">
-            Título del Producto
-            <input
-              type="text"
-              placeholder="Ej. Chaqueta Deportiva Pro"
-              className="mt-1 w-full rounded-xl border border-black/15 bg-white px-3 py-2 text-sm text-[#0d0d0d]"
-            />
-          </label>
-          <label className="block text-xs font-medium text-[#525866]">
-            SKU &amp; Variantes (Talla/Color)
-            <input
-              type="text"
-              placeholder="SKU-910 · S, M, L, XL"
-              className="mt-1 w-full rounded-xl border border-black/15 bg-white px-3 py-2 font-mono text-sm text-[#0d0d0d]"
-            />
-          </label>
-          <label className="block text-xs font-medium text-[#525866]">
-            Precio en COP
-            <input
-              type="number"
-              placeholder="189900"
-              className="mt-1 w-full rounded-xl border border-black/15 bg-white px-3 py-2 font-mono text-sm text-[#0d0d0d]"
-            />
-          </label>
-          <div className="flex items-end">
-            <Link
-              href="/catalog/products/new"
-              className="inline-flex w-full items-center justify-center rounded-xl bg-[#0d0d0d] px-4 py-2.5 text-xs font-bold text-white hover:bg-zinc-800"
-            >
-              Guardar y Publicar SKU
-            </Link>
-          </div>
-        </div>
-      </section>
+      <SkuQuickForm
+        categories={["Alto Rendimiento", "Denim Editorial", "Alta Joyería 18k", "Running & Outdoor"]}
+        brands={["Growup", "Valkyrie", "Aurélia", "Archivo 04"]}
+      />
     </div>
   );
 }

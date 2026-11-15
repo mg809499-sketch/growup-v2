@@ -99,20 +99,34 @@ export async function saveDraftAction(
 export async function applyTemplateAction(
   pageId: string,
   templateId: string,
-): Promise<{ ok: true } | { ok: false; error: string }> {
+): Promise<
+  | { ok: true; version?: number; id?: string; layout?: Record<string, unknown> }
+  | { ok: false; error: string }
+> {
   const { token } = await requireSession();
   if (!/^[a-z0-9-]+$/.test(templateId)) {
     return { ok: false, error: "Plantilla inválida" };
   }
   try {
-    await apiSend(
+    const applied = await apiSend<{ id?: string; version?: number }>(
       "POST",
       `/v1/admin/pages/${pageId}/apply-template`,
       token,
       { template_id: templateId },
     );
+    // Recuperar el borrador recién creado para sincronizar el canvas.
+    let layout: Record<string, unknown> | undefined;
+    try {
+      const draft = await apiGet<DraftResponse>(
+        `/v1/admin/pages/${pageId}/draft`,
+        token,
+      );
+      if (draft?.layout) layout = draft.layout;
+    } catch {
+      // No bloquea la aplicación de la plantilla.
+    }
     revalidatePath(`/builder/${pageId}`);
-    return { ok: true };
+    return { ok: true, version: applied?.version, id: applied?.id, layout };
   } catch (error) {
     return { ok: false, error: messageFor(error) };
   }

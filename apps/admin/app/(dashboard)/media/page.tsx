@@ -71,6 +71,22 @@ export default async function MediaPage({
         </p>
       ) : null}
 
+      <section className="border border-slate-200 bg-white p-4 text-sm text-slate-700">
+        <p className="mono text-[10px] uppercase tracking-[0.14em] text-slate-500">
+          Uso en landing y formatos recomendados
+        </p>
+        <ul className="mt-2 grid gap-1.5 sm:grid-cols-2">
+          <li><strong>Logo:</strong> 512×512 px · PNG/WebP/SVG · fondo transparente</li>
+          <li><strong>Banner hero:</strong> 1920×600 px · WebP/JPG · &lt; 400 KB</li>
+          <li><strong>Hero full:</strong> 2560×1440 px · WebP/JPG</li>
+          <li><strong>Producto:</strong> 1200×1200 px · WebP/JPG · cuadrado</li>
+          <li><strong>Miniatura:</strong> 400×400 px · WebP/JPG</li>
+        </ul>
+        <p className="mt-2 text-xs text-slate-500">
+          Al subir, indica el uso (logo/banner/producto) en el campo Alt para que el builder lo asigne automáticamente.
+        </p>
+      </section>
+
       <MediaUploader />
 
       <form className="flex flex-wrap items-end gap-3 border border-slate-200 bg-white p-4">

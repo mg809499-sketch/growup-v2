@@ -402,7 +402,7 @@ export function BuilderEditor({
         setPublishOpen(false);
         setMessage({
           tone: "ok",
-          text: `Tienda publicada en Cloudflare Edge y sincronizada con WordPress · v${baseline.version}`,
+          text: `Tienda publicada en Edge y sincronizada · v${baseline.version}`,
         });
         router.refresh();
       } else {
@@ -797,10 +797,23 @@ export function BuilderEditor({
                         try {
                           const res = await applyTemplateAction(pageId, tpl.template_id);
                           if (res.ok) {
+                            if (res.layout) {
+                              const nextBlocks = sanitizeBlocks(res.layout as Record<string, unknown>);
+                              setBlocks(nextBlocks);
+                              setPast([]);
+                              setFuture([]);
+                              setDirty(false);
+                              if (res.id && res.version) {
+                                setBaseline({ id: res.id, version: res.version });
+                              }
+                              setFrameKey((k) => k + 1);
+                            }
                             setMessage({
                               tone: "ok",
                               text: `Plantilla "${tpl.name}" aplicada al canvas.`,
                             });
+                          } else {
+                            setMessage({ tone: "error", text: res.error });
                           }
                         } finally {
                           setTemplateBusy(false);

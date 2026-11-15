@@ -62,7 +62,7 @@ const OWNER_NAV: ReadonlyArray<NavGroup> = [
     group: "4. Infraestructura & Finanzas",
     links: [
       { href: "/infra/pagos", label: "Pasarelas & Pagos (Wompi)" },
-      { href: "/infra/dominio", label: "Dominio & Marca (Cloudflare)" },
+      { href: "/infra/dominio", label: "Dominio & Marca" },
       { href: "/audit", label: "Ajustes & Configuración" },
     ],
   },

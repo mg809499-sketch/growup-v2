@@ -39,9 +39,9 @@ export default function DominioEdgePage() {
   return (
     <div className="space-y-8">
       <PageHeader
-        eyebrow="4. Módulo: Infraestructura & Finanzas · Dominio & Marca (Cloudflare Edge)"
+        eyebrow="4. Módulo: Infraestructura & Finanzas · Dominio & Marca"
         title="Administrador de Dominios, Registros DNS y SSL TLS 1.3"
-        description="Configuración de dominio principal (tutienda.com), subdominios (*.growupstore.app), propagación DNS en vivo en Cloudflare Edge y métricas Core Web Vitals."
+        description="Configuración de dominio principal (tutienda.com), subdominios (*.growup.com), propagación DNS en vivo en Edge y métricas Core Web Vitals."
       />
 
       {/* Métricas Core Web Vitals y Edge */}

@@ -3,9 +3,14 @@ import { redirect } from "next/navigation";
 
 import { apiGetSafe } from "@/lib/api";
 import { requireSession } from "@/lib/auth";
-import { mockBuilderDraft } from "@/lib/design-preview";
 import { PageHeader } from "@/components/page-header";
 import type { PageListResponse } from "@/lib/pages";
+
+type DraftResponse = {
+  id: string | null;
+  version: number | null;
+  layout: Record<string, unknown> | null;
+};
 import { createPageAction } from "./actions";
 import { BuilderEditor } from "./[id]/builder-editor";
 
@@ -38,6 +43,19 @@ export default async function BuilderPage({
     title: "Home · Colección Deportiva Alto Rendimiento",
     status: "published",
   };
+
+  // Carga el borrador real de la página primaria (sin mocks).
+  let primaryDraft: { id: string; version: number; layout: Record<string, unknown> } | null = null;
+  if (pages.length > 0) {
+    const draftResult = await apiGetSafe<DraftResponse>(
+      `/v1/admin/pages/${primaryPage.id}/draft`,
+      token,
+    );
+    const draft = draftResult.data;
+    if (draft && draft.id && draft.version && draft.layout) {
+      primaryDraft = { id: draft.id, version: draft.version, layout: draft.layout };
+    }
+  }
 
   const storefrontUrl =
     process.env.NEXT_PUBLIC_STOREFRONT_URL ?? "http://localhost:3000";
@@ -118,11 +136,7 @@ export default async function BuilderPage({
         initialSlug={primaryPage.slug}
         initialTitle={primaryPage.title}
         status={primaryPage.status}
-        latestDraft={{
-          id: mockBuilderDraft.id,
-          version: mockBuilderDraft.version,
-          layout: mockBuilderDraft.layout as unknown as Record<string, unknown>,
-        }}
+        latestDraft={primaryDraft}
         storefrontUrl={storefrontUrl}
       />
     </div>
