@@ -1,10 +1,33 @@
-import { formatPrice } from "@growup/config";
-import type { ProductMediaResponse } from "@/lib/api";
+import {
+  formatPrice,
+  resolveThemeCssVars,
+  resolveThemePreset,
+  type ThemePreset,
+} from "@growup/config";
+import type { BootstrapResponse, ProductMediaResponse } from "@/lib/api";
 
-export type StorefrontTheme = "ropa" | "joyeria";
+export type StorefrontTheme = ThemePreset;
 
 export function defaultTheme(): StorefrontTheme {
-  return process.env.GROWUP_DEFAULT_THEME === "joyeria" ? "joyeria" : "ropa";
+  return "nova";
+}
+
+export function resolveStorefrontTheme(
+  bootstrap?: Pick<BootstrapResponse, "tenant" | "theme"> | null,
+): StorefrontTheme {
+  if (!bootstrap) {
+    return "nova";
+  }
+  return resolveThemePreset(bootstrap.theme ?? null, bootstrap.tenant?.slug ?? null);
+}
+
+export function resolveStorefrontStyle(
+  bootstrap?: Pick<BootstrapResponse, "tenant" | "theme"> | null,
+): Record<string, string> {
+  if (!bootstrap) {
+    return resolveThemeCssVars(null, null);
+  }
+  return resolveThemeCssVars(bootstrap.theme ?? null, bootstrap.tenant?.slug ?? null);
 }
 
 export { formatPrice };

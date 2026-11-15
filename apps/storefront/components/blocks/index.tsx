@@ -114,7 +114,7 @@ export function HeroBlockView({ block }: BlockProps) {
   const centered = block.align === "center";
 
   return (
-    <section className="relative overflow-hidden border-b border-[var(--hairline)]">
+    <section className="group relative overflow-hidden border-b border-[var(--hairline)]">
       {image ? (
         <Image
           src={image.url}
@@ -122,7 +122,7 @@ export function HeroBlockView({ block }: BlockProps) {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.035] motion-reduce:transition-none motion-reduce:transform-none"
         />
       ) : null}
       <div
@@ -150,8 +150,8 @@ export function EditorialSplitBlockView({ block }: BlockProps) {
       <div className="grid items-center gap-10 md:grid-cols-2">
         <div className={imageLeft ? "" : "md:order-2"}>
           {image ? (
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--surface-2)]">
-              <Image src={image.url} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+            <div className="group relative aspect-[4/5] w-full overflow-hidden bg-[var(--surface-2)]">
+              <Image src={image.url} alt={image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045] motion-reduce:transition-none motion-reduce:transform-none" />
             </div>
           ) : null}
         </div>
@@ -235,7 +235,7 @@ export function CollectionGridBlockView({ block }: BlockProps) {
                   alt={image.alt}
                   fill
                   sizes="(min-width: 768px) 25vw, 50vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045] group-focus-within:scale-[1.045]"
                 />
               ) : null}
               <span className="label absolute bottom-3 left-3 bg-[var(--surface)]/80 px-3 py-1 backdrop-blur">
@@ -259,8 +259,8 @@ export function ImageBannerBlockView({ block }: BlockProps) {
     block.ratio === "16:9" ? "aspect-[16/9]" : block.ratio === "4:3" ? "aspect-[4/3]" : "aspect-[21/9]";
 
   const inner = (
-    <div className={`relative w-full overflow-hidden bg-[var(--surface-2)] ${ratio}`}>
-      <Image src={image.url} alt={image.alt} fill sizes="100vw" className="object-cover" />
+    <div className={`group relative w-full overflow-hidden bg-[var(--surface-2)] ${ratio}`}>
+      <Image src={image.url} alt={image.alt} fill sizes="100vw" className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045] motion-reduce:transition-none motion-reduce:transform-none" />
       {title || button ? (
         <div className="absolute inset-0 flex flex-col items-start justify-end gap-3 bg-gradient-to-t from-black/55 to-transparent p-6 text-[#faf9f4] md:p-10">
           {title ? <h2 className="display text-3xl md:text-5xl">{title}</h2> : null}
@@ -320,8 +320,8 @@ export function GalleryBlockView({ block }: BlockProps) {
           const image = asImage(item);
           if (!image) return null;
           return (
-            <div key={index} className="relative aspect-square overflow-hidden bg-[var(--surface-2)]">
-              <Image src={image.url} alt={image.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
+            <div key={index} className="group relative aspect-square overflow-hidden bg-[var(--surface-2)]">
+              <Image src={image.url} alt={image.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045] motion-reduce:transition-none motion-reduce:transform-none" />
             </div>
           );
         })}

@@ -1,102 +1,185 @@
 @import "tailwindcss";
 
-:root {
-  --surface: #f4f3ee;
-  --surface-2: #faf9f4;
-  --ink: #0d0d0d;
-  --signal: #ff3b1d;
-  --muted: #8c887b;
-  --hairline: #e5e3dc;
-  --font-display: var(--font-anton);
-  --font-body: var(--font-space);
-  --font-label: var(--font-mono);
-  --display-transform: uppercase;
-  --display-tracking: -0.03em;
+@layer tokens, base, components, utilities;
+
+@layer tokens {
+  :root,
+  [data-theme="nova"],
+  [data-theme="ropa"],
+  [data-theme="joyeria"] {
+    color-scheme: light;
+    --surface: #ffffff;
+    --surface-2: rgba(255, 255, 255, 0.76);
+    --surface-3: #f1f5f9;
+    --ink: #0d0d0d;
+    --signal: #0d0d0d;
+    --signal-ink: #ffffff;
+    --signal-glow: rgba(13, 13, 13, 0.08);
+    --muted: #525866;
+    --hairline: rgba(13, 13, 13, 0.1);
+    --font-display: var(--font-unbounded);
+    --font-body: var(--font-geist);
+    --font-label: var(--font-geist-mono);
+    --display-transform: none;
+    --display-tracking: -0.03em;
+  }
 }
 
-[data-theme="joyeria"] {
-  --surface: #0b0b0c;
-  --surface-2: #141416;
-  --ink: #f5f4f0;
-  --signal: #d4af37;
-  --muted: #9e9b93;
-  --hairline: #26262b;
-  --font-display: var(--font-playfair);
-  --font-body: var(--font-jakarta);
-  --font-label: var(--font-jakarta);
-  --display-transform: none;
-  --display-tracking: -0.02em;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: #f8fafc;
+  }
+
+  body {
+    margin: 0;
+    background-color: #f8fafc;
+    background-image:
+      radial-gradient(at 15% 10%, rgba(226, 232, 240, 0.7) 0px, transparent 55%),
+      radial-gradient(at 85% 20%, rgba(241, 245, 249, 0.9) 0px, transparent 50%);
+    color: var(--ink);
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.55;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #0d0d0d;
+    color: #ffffff;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    color: #0d0d0d;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid #0d0d0d;
+    outline-offset: 2px;
+  }
+
+  a,
+  button,
+  summary,
+  label[for],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"] {
+    transition:
+      transform 150ms ease,
+      opacity 150ms ease,
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  a:hover,
+  button:not(:disabled):hover,
+  summary:hover,
+  label[for]:hover,
+  input[type="button"]:not(:disabled):hover,
+  input[type="submit"]:not(:disabled):hover,
+  input[type="reset"]:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+
+  a:active,
+  button:not(:disabled):active,
+  summary:active,
+  label[for]:active,
+  input[type="button"]:not(:disabled):active,
+  input[type="submit"]:not(:disabled):active,
+  input[type="reset"]:not(:disabled):active {
+    transform: translateY(0) scale(0.985);
+  }
+
+  .overflow-hidden > img,
+  .overflow-hidden picture > img {
+    transition: transform 450ms ease;
+  }
+
+  a:hover .overflow-hidden > img,
+  a:focus-visible .overflow-hidden > img,
+  button:hover .overflow-hidden > img,
+  button:focus-visible .overflow-hidden > img,
+  .group:hover .overflow-hidden > img,
+  .group:focus-within .overflow-hidden > img {
+    transform: scale(1.045);
+  }
 }
 
-* {
-  box-sizing: border-box;
-}
+@layer components {
+  .display {
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    text-transform: var(--display-transform);
+    letter-spacing: var(--display-tracking);
+  }
 
-html {
-  background: var(--surface);
-  color-scheme: light;
-}
+  .label {
+    font-family: var(--font-label), ui-monospace, monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
 
-[data-theme="joyeria"] {
-  color-scheme: dark;
-}
+  .glass-card {
+    background: rgba(255, 255, 255, 0.76);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(13, 13, 13, 0.08);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  }
 
-body {
-  margin: 0;
-  background: var(--surface);
-  color: var(--ink);
-  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
-::selection {
-  background: var(--signal);
-  color: var(--surface);
-}
-
-.display {
-  font-family: var(--font-display), ui-serif, Georgia, serif;
-  font-weight: 400;
-  text-transform: var(--display-transform);
-  letter-spacing: var(--display-tracking);
-}
-
-.label {
-  font-family: var(--font-label), ui-monospace, monospace;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
-
-[data-theme="joyeria"] .label {
-  letter-spacing: 0.2em;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-:focus-visible {
-  outline: 2px solid var(--signal);
-  outline-offset: 4px;
+  .nova-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 1.5rem;
+    background: #0d0d0d;
+    color: #ffffff;
+    border: 1px solid #0d0d0d;
+    border-radius: 0.875rem;
+    box-shadow: 0 8px 24px rgba(13, 13, 13, 0.12);
+    transition: transform 150ms ease, opacity 150ms ease;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -106,7 +106,7 @@ export default async function ProductPage({
 
       <div className="mt-6 grid gap-8 border-t border-[var(--hairline)] pt-6 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7">
-          <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--surface-2)]">
+          <div className="group relative aspect-[4/5] w-full overflow-hidden bg-[var(--surface-2)]">
             {main ? (
               <Image
                 src={main.url}
@@ -114,7 +114,7 @@ export default async function ProductPage({
                 fill
                 priority
                 sizes="(min-width: 1024px) 55vw, 100vw"
-                className="object-cover"
+                className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045] motion-reduce:transition-none motion-reduce:transform-none"
               />
             ) : (
               <div className="flex h-full items-center justify-center">
@@ -128,14 +128,14 @@ export default async function ProductPage({
               {thumbnails.map((item) => (
                 <div
                   key={item.media_asset_id}
-                  className="relative aspect-square overflow-hidden bg-[var(--surface-2)]"
+                  className="group relative aspect-square overflow-hidden bg-[var(--surface-2)]"
                 >
                   <Image
                     src={item.absoluteUrl}
                     alt={item.alt ?? product.name}
                     fill
                     sizes="15vw"
-                    className="object-cover"
+                    className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.055] motion-reduce:transition-none motion-reduce:transform-none"
                   />
                 </div>
               ))}

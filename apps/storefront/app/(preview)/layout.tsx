@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "../globals.css";
 import { defaultTheme } from "@/lib/format";
-import { fontVariables } from "@/lib/fonts";
+import { fontVariablesForTheme } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   // El <title> del admin/isPreview es gestionado por la propia página; aquí
@@ -24,9 +24,10 @@ export const metadata: Metadata = {
 export default function PreviewLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const theme = defaultTheme();
   return (
-    <html lang="es">
-      <body className={fontVariables} data-theme={defaultTheme()}>
+    <html lang="es-CO" data-theme={theme}>
+      <body className={fontVariablesForTheme(theme)} data-theme={theme}>
         {children}
       </body>
     </html>

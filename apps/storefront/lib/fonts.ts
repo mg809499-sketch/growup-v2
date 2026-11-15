@@ -1,14 +1,39 @@
 // Fuentes compartidas por los root layouts de (site) y (preview).
-// El "preview" del builder debe verse idéntico al storefront publicado,
-// por eso ambas superficies usan las mismas variables de fuente.
+// Se cargan selectivamente por preset activo (C-3 / ADR-0020):
+// - nova: Unbounded + Geist + Geist Mono
+// - ropa: Anton + Space Grotesk + Space Mono
+// - joyeria: Playfair Display + Plus Jakarta Sans
 
 import {
   Anton,
+  Geist,
+  Geist_Mono,
   Playfair_Display,
   Plus_Jakarta_Sans,
   Space_Grotesk,
   Space_Mono,
+  Unbounded,
 } from "next/font/google";
+
+import type { ThemePreset } from "@growup/config";
+
+export const unbounded = Unbounded({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-unbounded",
+  display: "swap",
+});
+
+export const geist = Geist({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-geist",
+  display: "swap",
+});
+
+export const geistMono = Geist_Mono({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
 
 export const anton = Anton({
   subsets: ["latin"],
@@ -42,4 +67,16 @@ export const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-export const fontVariables = `${anton.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${playfair.variable} ${jakarta.variable}`;
+export function fontVariablesForTheme(theme: ThemePreset): string {
+  switch (theme) {
+    case "ropa":
+      return `${anton.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`;
+    case "joyeria":
+      return `${playfair.variable} ${jakarta.variable}`;
+    case "nova":
+    default:
+      return `${unbounded.variable} ${geist.variable} ${geistMono.variable}`;
+  }
+}
+
+export const fontVariables = fontVariablesForTheme("nova");

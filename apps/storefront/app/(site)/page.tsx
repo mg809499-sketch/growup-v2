@@ -66,7 +66,7 @@ export default async function HomePage() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative aspect-[4/5] w-full overflow-hidden bg-[var(--surface-2)]">
+            <div className="group relative aspect-[4/5] w-full overflow-hidden bg-[var(--surface-2)]">
               {heroImage ? (
                 <Image
                   src={heroImage}
@@ -74,7 +74,7 @@ export default async function HomePage() {
                   fill
                   priority
                   sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045] motion-reduce:transition-none motion-reduce:transform-none"
                 />
               ) : (
                 <div className="flex h-full items-center justify-center">

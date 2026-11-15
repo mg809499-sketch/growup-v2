@@ -7,9 +7,8 @@ export de v0; esta primera base usa la dirección visual de
 
 ## Estado
 
-- Home, colección y detalle de producto con datos reales de la API.
-- Temas `ropa` y `joyeria` por variables CSS (`GROWUP_DEFAULT_THEME`).
-- Sin carrito/checkout todavía.
+- Home, colección, detalle de producto, carrito y retorno de checkout con datos reales de la API.
+- Temas dinámicos por tenant resueltos desde `bootstrap.theme` (`nova` sistema técnico total por defecto en ADR-0020; presets `ropa` y `joyeria` disponibles para reversión inmediata).
 - Sin login (el storefront es público).
 
 ## Ejecutar

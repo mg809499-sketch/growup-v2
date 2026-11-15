@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 
 import "../globals.css";
@@ -5,8 +6,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ApiError, getBootstrap, getStorefrontHost } from "@/lib/api";
 import type { BootstrapResponse } from "@/lib/api";
-import { defaultTheme } from "@/lib/format";
-import { fontVariables } from "@/lib/fonts";
+import { resolveStorefrontStyle, resolveStorefrontTheme } from "@/lib/format";
+import { fontVariablesForTheme } from "@/lib/fonts";
 
 export async function generateMetadata(): Promise<Metadata> {
   const host = await getStorefrontHost();
@@ -39,11 +40,15 @@ export default async function RootLayout({
     bootstrap = null;
   }
 
+  const theme = resolveStorefrontTheme(bootstrap);
+  const themeStyle = resolveStorefrontStyle(bootstrap) as CSSProperties;
+
   return (
-    <html lang="es">
+    <html lang="es-CO" data-theme={theme}>
       <body
-        className={fontVariables}
-        data-theme={defaultTheme()}
+        className={fontVariablesForTheme(theme)}
+        data-theme={theme}
+        style={themeStyle}
       >
         {bootstrap ? (
           <>
@@ -53,7 +58,7 @@ export default async function RootLayout({
           </>
         ) : (
           <div className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center gap-4 p-8 text-center">
-            <p className="label text-[var(--muted)]">growup</p>
+            <p className="label text-[var(--muted)]">growup // nova.os</p>
             <h1 className="display text-3xl">Tienda en configuración</h1>
             <p className="text-[var(--muted)]">
               Esta tienda aún no está publicada o está suspendida. Escríbenos a{" "}
