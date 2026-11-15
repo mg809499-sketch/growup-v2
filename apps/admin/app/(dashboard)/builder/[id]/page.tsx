@@ -58,46 +58,48 @@ export default async function BuilderEditorPage({
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        eyebrow="Builder"
-        title={page.title}
-        description="Edita el layout y publícalo. El storefront renderiza la versión publicada y purga su caché automáticamente."
-      />
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <PageHeader
+          eyebrow="Store & Web Builder v3.0"
+          title={page.title}
+          description="Edición visual Drag & Drop, mapeo dinámico WooCommerce/ACF y publicación directa en Cloudflare Edge."
+        />
+
+        <form
+          action={updatePageAction.bind(null, id)}
+          className="vn-card flex flex-wrap items-end gap-3 p-3.5"
+        >
+          <label className="block text-xs font-medium text-[#525866]">
+            <span className="mono block text-[10px]">Slug</span>
+            <input
+              name="slug"
+              defaultValue={page.slug}
+              pattern="[a-z0-9](?:[a-z0-9/-]{0,126}[a-z0-9])?"
+              className="mt-1 w-36 rounded-xl border border-black/15 bg-white px-2.5 py-1.5 font-mono text-xs text-[#0d0d0d]"
+            />
+          </label>
+          <label className="block text-xs font-medium text-[#525866]">
+            <span className="mono block text-[10px]">Título</span>
+            <input
+              name="title"
+              defaultValue={page.title}
+              className="mt-1 w-52 rounded-xl border border-black/15 bg-white px-2.5 py-1.5 text-xs text-[#0d0d0d]"
+            />
+          </label>
+          <button
+            type="submit"
+            className="rounded-xl bg-[#0d0d0d] px-3.5 py-1.5 text-xs font-bold text-white hover:bg-zinc-800"
+          >
+            Guardar Metadatos
+          </button>
+        </form>
+      </div>
 
       {query.error ? (
-        <p className="border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p className="vn-card border-rose-300 px-4 py-3 text-sm text-rose-900">
           {query.error}
         </p>
       ) : null}
-
-      <form
-        action={updatePageAction.bind(null, id)}
-        className="flex flex-col gap-3 border border-slate-200 bg-white p-5 sm:flex-row sm:items-end"
-      >
-        <label className="block text-sm">
-          <span className="mb-1 block font-medium text-slate-700">Slug</span>
-          <input
-            name="slug"
-            defaultValue={page.slug}
-            pattern="[a-z0-9](?:[a-z0-9/-]{0,126}[a-z0-9])?"
-            className="w-48 border border-slate-200 px-3 py-2 font-mono text-xs outline-none focus:border-slate-400"
-          />
-        </label>
-        <label className="block text-sm">
-          <span className="mb-1 block font-medium text-slate-700">Título</span>
-          <input
-            name="title"
-            defaultValue={page.title}
-            className="w-64 border border-slate-200 px-3 py-2 outline-none focus:border-slate-400"
-          />
-        </label>
-        <button
-          type="submit"
-          className="border border-slate-200 px-4 py-2 text-sm hover:border-slate-400"
-        >
-          Guardar datos
-        </button>
-      </form>
 
       {draftResult.error || !draft ? (
         <SectionError

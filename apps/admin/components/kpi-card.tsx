@@ -8,15 +8,15 @@ export function KpiCard({
   detail?: string;
 }) {
   return (
-    <div className="border border-slate-200 bg-white p-5">
-      <p className="mono text-[10px] uppercase tracking-[0.16em] text-slate-500">
+    <div className="vn-card flex flex-col justify-between p-5">
+      <p className="mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#525866]">
         {label}
       </p>
-      <p className="mono mt-3 text-2xl font-semibold tabular-nums tracking-tight text-slate-900">
+      <p className="display mt-3 text-2xl font-extrabold tabular-nums tracking-tight text-[#0d0d0d] md:text-3xl">
         {value}
       </p>
       {detail ? (
-        <p className="mt-1 text-[11px] text-slate-500">{detail}</p>
+        <p className="mt-1.5 text-[11px] text-[#525866]">{detail}</p>
       ) : null}
     </div>
   );
@@ -36,17 +36,19 @@ export function RiskCard({
 }) {
   const tone =
     severity === "critical"
-      ? "border-red-200 bg-red-50 text-red-900"
+      ? "border-rose-300 bg-rose-50/80 text-rose-950"
       : severity === "warn"
-        ? "border-amber-200 bg-amber-50 text-amber-900"
-        : "border-emerald-200 bg-emerald-50 text-emerald-900";
+        ? "border-amber-300 bg-amber-50/80 text-amber-950"
+        : "border-emerald-300 bg-emerald-50/80 text-emerald-950";
   return (
-    <div className={`border p-5 ${tone}`}>
-      <p className="mono text-[10px] uppercase tracking-[0.16em] opacity-80">
+    <div className={`rounded-2xl border p-5 backdrop-blur-xl shadow-xs ${tone}`}>
+      <p className="mono text-[10px] font-semibold uppercase tracking-[0.16em] opacity-80">
         {label}
       </p>
-      <p className="mono mt-3 text-2xl font-semibold tabular-nums">{value}</p>
-      {detail ? <p className="mt-1 text-[11px] opacity-80">{detail}</p> : null}
+      <p className="display mt-3 text-2xl font-extrabold tabular-nums text-[#0d0d0d]">
+        {value}
+      </p>
+      {detail ? <p className="mt-1.5 text-[11px] opacity-85">{detail}</p> : null}
     </div>
   );
 }

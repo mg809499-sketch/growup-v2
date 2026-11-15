@@ -3,29 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function NavLink({
-  href,
-  label,
-}: {
-  href: string;
-  label: string;
-}) {
+export function NavLink({ href, label }: { href: string; label: string }) {
   const pathname = usePathname();
   const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
-
   return (
     <Link
       href={href}
-      className={`flex items-center justify-between border-l-2 px-4 py-2.5 text-sm transition-colors ${
+      aria-current={active ? "page" : undefined}
+      className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-[13px] transition-all ${
         active
-          ? "border-slate-900 bg-slate-100 text-slate-900"
-          : "border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900"
+          ? "bg-[#0d0d0d] font-semibold text-white shadow-sm"
+          : "text-[#525866] hover:bg-black/5 hover:text-[#0d0d0d]"
       }`}
     >
       <span>{label}</span>
-      <span className="mono text-[10px] text-slate-400">
-        {active ? "•" : ""}
-      </span>
+      <span className={`h-1.5 w-1.5 rounded-full ${active ? "bg-white" : "bg-black/15"}`} />
     </Link>
   );
 }

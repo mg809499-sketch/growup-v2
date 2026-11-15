@@ -48,46 +48,46 @@ export default async function TenantsPage({
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        eyebrow="Plataforma"
-        title="Tenants"
-        description="Listado cross-tenant para platform admins. Cada fila incluye host primario, plan, trial y estado."
-      />
-      <div className="flex justify-end">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <PageHeader
+          eyebrow="Consola Staff · Multi-Tenants"
+          title="Resumen de Multi-Tenants, Clientes y Tiendas"
+          description="Control global de comercios activos, cuentas en trial, dominios asignados y congelamiento/activación instantánea con auditoría."
+        />
         <a
           href="/platform/tenants/export"
-          className="mono border border-slate-200 px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-slate-600 hover:border-slate-400"
+          className="rounded-xl bg-[#0d0d0d] px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-zinc-800"
         >
-          Exportar CSV
+          Exportar Directorio CSV
         </a>
       </div>
 
       {forbidden ? (
-        <div className="border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+        <div className="vn-card border-amber-300 px-5 py-4 text-sm text-[#0d0d0d]">
           Tu cuenta no tiene permiso `platform:tenants`. Esta vista solo está
           disponible para platform admins.
         </div>
       ) : (
         <>
-          <form className="flex flex-wrap items-end gap-3 border border-slate-200 bg-white p-4">
-            <label className="block">
-              <span className="mono block text-[10px] uppercase tracking-[0.14em] text-slate-500">
-                Buscar
+          <form className="vn-card flex flex-wrap items-end gap-3 p-5">
+            <label className="block min-w-[220px] flex-1">
+              <span className="mono block text-[10px] font-semibold uppercase tracking-[0.14em] text-[#525866]">
+                Buscar cliente, tienda o dominio
               </span>
               <input
-                className="mt-1 w-64 border border-slate-300 px-3 py-2 text-sm"
+                className="mt-1.5 w-full rounded-xl border border-black/15 bg-white/90 px-3.5 py-2 text-sm text-[#0d0d0d] placeholder:text-slate-400 focus:border-[#0d0d0d] focus:outline-none"
                 type="search"
                 name="q"
                 defaultValue={params.q ?? ""}
-                placeholder="Slug o nombre"
+                placeholder="Ej. sol-de-calle, joyeria, mitiendadeportiva..."
               />
             </label>
             <label className="block">
-              <span className="mono block text-[10px] uppercase tracking-[0.14em] text-slate-500">
+              <span className="mono block text-[10px] font-semibold uppercase tracking-[0.14em] text-[#525866]">
                 Estado
               </span>
               <select
-                className="mt-1 border border-slate-300 px-3 py-2 text-sm"
+                className="mt-1.5 rounded-xl border border-black/15 bg-white/90 px-3.5 py-2 text-sm text-[#0d0d0d] focus:border-[#0d0d0d] focus:outline-none"
                 name="status"
                 defaultValue={params.status ?? ""}
               >
@@ -100,13 +100,13 @@ export default async function TenantsPage({
               </select>
             </label>
             <button
-              className="bg-slate-950 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
+              className="rounded-xl bg-[#0d0d0d] px-5 py-2 text-sm font-bold text-white hover:bg-zinc-800"
               type="submit"
             >
               Filtrar
             </button>
             <Link
-              className="mono px-2 py-2 text-[11px] text-slate-500 underline underline-offset-4"
+              className="mono px-3 py-2 text-[11px] font-semibold text-[#525866] underline underline-offset-4 hover:text-[#0d0d0d]"
               href="/platform/tenants"
             >
               Limpiar
@@ -122,44 +122,44 @@ export default async function TenantsPage({
 
           {page && page.items.length > 0 ? (
             <>
-              <div className="overflow-x-auto border border-slate-200 bg-white">
+              <div className="vn-card overflow-x-auto admin-scroll">
                 <table className="w-full min-w-[900px] text-left text-sm">
-                  <thead className="border-b border-slate-200 bg-slate-50">
-                    <tr className="mono text-[10px] uppercase tracking-[0.12em] text-slate-500">
-                      <th className="px-4 py-3 font-medium">Tenant</th>
-                      <th className="px-4 py-3 font-medium">Estado</th>
-                      <th className="px-4 py-3 font-medium">Host</th>
-                      <th className="px-4 py-3 font-medium">Plan</th>
-                      <th className="px-4 py-3 font-medium">Trial</th>
-                      <th className="px-4 py-3 font-medium">Creado</th>
-                      <th className="px-4 py-3 text-right font-medium">Pausa</th>
+                  <thead className="border-b border-black/10 bg-white/50">
+                    <tr className="mono text-[10px] uppercase tracking-[0.12em] text-[#525866]">
+                      <th className="px-5 py-3.5 font-semibold">Tienda / Cliente</th>
+                      <th className="px-5 py-3.5 font-semibold">Estado</th>
+                      <th className="px-5 py-3.5 font-semibold">Host Primario</th>
+                      <th className="px-5 py-3.5 font-semibold">Plan</th>
+                      <th className="px-5 py-3.5 font-semibold">Vencimiento Trial</th>
+                      <th className="px-5 py-3.5 font-semibold">Creado</th>
+                      <th className="px-5 py-3.5 text-right font-semibold">Acción Operativa</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-black/10">
                     {page.items.map((tenant) => (
-                      <tr key={tenant.id} className="hover:bg-slate-50">
-                        <td className="px-4 py-3">
-                          <p className="font-medium">{tenant.name}</p>
-                          <p className="mono mt-0.5 text-[10px] text-slate-400">
+                      <tr key={tenant.id} className="hover:bg-black/[0.02]">
+                        <td className="px-5 py-4">
+                          <p className="font-semibold text-[#0d0d0d]">{tenant.name}</p>
+                          <p className="mono mt-0.5 text-[10px] text-[#525866]">
                             {tenant.slug}
                           </p>
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-5 py-4">
                           <StatusBadge value={tenant.status} />
                         </td>
-                        <td className="mono px-4 py-3 text-[11px] text-slate-600">
+                        <td className="mono px-5 py-4 text-[11px] font-semibold text-[#0d0d0d]">
                           {tenant.host ?? "—"}
                         </td>
-                        <td className="mono px-4 py-3 text-[11px] text-slate-500">
-                          {tenant.plan_id ?? "—"}
+                        <td className="mono px-5 py-4 text-[11px] font-bold text-[#0d0d0d]">
+                          {tenant.plan_id ? "PRO / STARTER" : "TRIAL"}
                         </td>
-                        <td className="px-4 py-3 text-slate-600">
+                        <td className="px-5 py-4 text-[#525866]">
                           {formatDate(tenant.trial_ends_at)}
                         </td>
-                        <td className="px-4 py-3 text-slate-600">
+                        <td className="px-5 py-4 text-[#525866]">
                           {formatDate(tenant.created_at)}
                         </td>
-                        <td className="px-4 py-3 text-right">
+                        <td className="px-5 py-4 text-right">
                           <form
                             action={pauseTenantAction}
                             className="inline-flex items-center gap-2"
@@ -172,13 +172,9 @@ export default async function TenantsPage({
                             />
                             <button
                               type="submit"
-                              className={`mono border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] transition-colors ${
-                                tenant.status === "suspended"
-                                  ? "border-emerald-300 bg-emerald-50 text-emerald-700 hover:border-emerald-500"
-                                  : "border-slate-200 text-slate-600 hover:border-slate-400"
-                              }`}
+                              className="mono rounded-xl border border-black/15 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#0d0d0d] hover:bg-[#0d0d0d] hover:text-white"
                             >
-                              {tenant.status === "suspended" ? "Activar" : "Pausar"}
+                              {tenant.status === "suspended" ? "Activar Tienda" : "Pausar Tienda"}
                             </button>
                           </form>
                         </td>

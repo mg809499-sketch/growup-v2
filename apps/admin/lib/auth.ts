@@ -1,8 +1,24 @@
 import { redirect } from "next/navigation";
 
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
+import {
+  designPreviewToken,
+  designPreviewUser,
+  isDesignPreview,
+} from "@/lib/design-preview";
 
 export async function requireSession() {
+  if (isDesignPreview()) {
+    return {
+      user: {
+        ...designPreviewUser,
+        authMode: "design-preview" as const,
+      },
+      token: designPreviewToken,
+      supabase: null as never,
+    };
+  }
+
   if (!isSupabaseConfigured()) {
     redirect("/login?error=config");
   }

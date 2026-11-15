@@ -1,9 +1,5 @@
 import type { SafeGetError } from "@/lib/api";
 
-/**
- * Tarjeta de error controlado para Server Components cuando la API falla.
- * No expone trazas ni mensajes internos sensibles: solo status + code + texto seguro.
- */
 export function SectionError({
   title,
   error,
@@ -19,13 +15,13 @@ export function SectionError({
   return (
     <div
       role="alert"
-      className="border border-amber-200 bg-amber-50 px-5 py-6 text-amber-900"
+      className="vn-card border-amber-300 px-5 py-6 text-[#0d0d0d]"
     >
-      <p className="mono text-[10px] uppercase tracking-[0.18em] text-amber-700">
+      <p className="mono text-[10px] font-bold uppercase tracking-[0.18em] text-amber-800">
         {codeLabel}
       </p>
-      <p className="mt-2 text-base font-medium">{title}</p>
-      <p className="mt-1 text-sm leading-relaxed text-amber-800">
+      <p className="mt-2 text-base font-bold text-[#0d0d0d]">{title}</p>
+      <p className="mt-1 text-sm leading-relaxed text-[#525866]">
         {error.message}. Verifica que la API esté disponible y recarga la página.
       </p>
     </div>

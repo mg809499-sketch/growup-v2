@@ -5,6 +5,7 @@ import { completeSignup, login, loginWithGoogle } from "@/app/login/actions";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 import { apiGet } from "@/lib/api";
 import type { MeResponse } from "@/lib/api";
+import { isDesignPreview } from "@/lib/design-preview";
 
 const errors: Record<string, string> = {
   config: "Falta configurar NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY.",
@@ -24,6 +25,12 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string; tab?: string }>;
 }) {
   const { error, tab } = await searchParams;
+  const designPreview = isDesignPreview();
+
+  if (designPreview) {
+    redirect("/");
+  }
+
   const configured = isSupabaseConfigured();
 
   const supabase = configured ? await createClient() : null;

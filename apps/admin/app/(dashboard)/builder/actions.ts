@@ -3,6 +3,12 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import {
+  PRESET_DEFAULT_TOKENS,
+  isThemePreset,
+  resolveThemePreset,
+  type ThemePreset,
+} from "@growup/config";
 import { requireSession } from "@/lib/auth";
 import { apiGet, apiSend, ApiError } from "@/lib/api";
 import type { DraftResponse } from "@/lib/pages";
@@ -211,6 +217,45 @@ export async function previewTokenAction(
       sessionToken,
     );
     return { ok: true, token: result?.token };
+  } catch (error) {
+    return { ok: false, error: messageFor(error) };
+  }
+}
+
+export async function getThemePresetAction(): Promise<{
+  ok: true;
+  preset: ThemePreset;
+  tokens: Record<string, unknown> | null;
+} | { ok: false; error: string }> {
+  const { token } = await requireSession();
+  try {
+    const res = await apiGet<{ tokens: Record<string, unknown> | null }>(
+      "/v1/admin/theme",
+      token,
+    );
+    const tokens = res?.tokens ?? null;
+    return {
+      ok: true,
+      preset: resolveThemePreset(tokens, null),
+      tokens,
+    };
+  } catch (error) {
+    return { ok: false, error: messageFor(error) };
+  }
+}
+
+export async function saveThemePresetAction(
+  preset: string,
+): Promise<ActionResult & { preset?: ThemePreset }> {
+  const { token } = await requireSession();
+  if (!isThemePreset(preset)) {
+    return { ok: false, error: "Preset de tema inválido" };
+  }
+  const tokens = PRESET_DEFAULT_TOKENS[preset];
+  try {
+    await apiSend("PUT", "/v1/admin/theme", token, { tokens });
+    revalidatePath("/builder");
+    return { ok: true, preset };
   } catch (error) {
     return { ok: false, error: messageFor(error) };
   }
