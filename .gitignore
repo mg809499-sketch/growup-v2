@@ -52,3 +52,6 @@ apps/storefront/playwright-report/
 
 # Dev server logs (local)
 .run-logs/
+
+# Skills locales / tooling
+.taste-skill/
