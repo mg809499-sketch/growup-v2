@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -18,16 +18,111 @@ _THEME_MAX_KEYS = 200
 _THEME_MAX_STRING = 2048
 _THEME_MAX_LIST = 50
 
+THEME_PRESETS: tuple[str, ...] = ("ropa", "joyeria", "nova")
+FONT_REGISTRY: tuple[str, ...] = (
+    "Anton",
+    "Space Grotesk",
+    "Space Mono",
+    "Playfair Display",
+    "Plus Jakarta Sans",
+    "Unbounded",
+    "Geist",
+    "Geist Mono",
+    "Inter",
+    "JetBrains Mono",
+)
+COLOR_SCHEMES: tuple[str, ...] = ("light", "dark", "system")
+MOTION_LEVELS: tuple[str, ...] = ("none", "subtle", "technical")
+
+ThemePresetLiteral = Literal["ropa", "joyeria", "nova"]
+RegisteredFontLiteral = Literal[
+    "Anton",
+    "Space Grotesk",
+    "Space Mono",
+    "Playfair Display",
+    "Plus Jakarta Sans",
+    "Unbounded",
+    "Geist",
+    "Geist Mono",
+    "Inter",
+    "JetBrains Mono",
+]
+ColorSchemeLiteral = Literal["light", "dark", "system"]
+MotionLevelLiteral = Literal["none", "subtle", "technical"]
+
+_CSS_COLOR_PATTERN = re.compile(
+    r"^(#[0-9a-fA-F]{3,8}|oklch\([0-9.% /deg+-]+\)|rgb\([0-9., %/]+\)|hsl\([0-9., %/deg]+\))$"
+)
+
+
+class ThemeColorsV1(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    surface: str = Field(default="oklch(0.155 0.012 265)", max_length=64)
+    surface_2: str = Field(default="oklch(0.205 0.015 265)", max_length=64)
+    ink: str = Field(default="oklch(0.975 0.004 265)", max_length=64)
+    signal: str = Field(default="oklch(0.88 0.19 128)", max_length=64)
+    muted: str = Field(default="oklch(0.76 0.015 265)", max_length=64)
+    hairline: str = Field(default="oklch(0.34 0.015 265)", max_length=64)
+
+    @field_validator("surface", "surface_2", "ink", "signal", "muted", "hairline")
+    @classmethod
+    def _valid_color(cls, value: str) -> str:
+        cleaned = value.strip()
+        if not _CSS_COLOR_PATTERN.match(cleaned):
+            raise ValueError(f"color CSS inválido: {value!r}")
+        return cleaned
+
+
+class ThemeTokensV1(BaseModel):
+    """Esquema cerrado v1 para tokens de tema por tenant (ADR-0005 §5 / ADR-0020)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal[1] = 1
+    preset: ThemePresetLiteral = "nova"
+    color_scheme: ColorSchemeLiteral = "dark"
+    font_display: RegisteredFontLiteral = "Unbounded"
+    font_body: RegisteredFontLiteral = "Geist"
+    font_mono: RegisteredFontLiteral = "Geist Mono"
+    colors: ThemeColorsV1 = Field(default_factory=ThemeColorsV1)
+    radius_px: int = Field(default=0, ge=0, le=32)
+    clip_angle_px: int = Field(default=10, ge=0, le=24)
+    motion: MotionLevelLiteral = "technical"
+
 
 def validate_theme_tokens(tokens: dict[str, Any]) -> dict[str, Any]:
     """Cierra el esquema del JSON de tokens de tema (análogo a un metacampo tipado).
 
-    Reglas: claves acotadas, profundidad <= 3, <= 200 claves en total, valores
-    planos (str acotada | int | float | bool | None | list acotada). Cualquier
-    violación rechaza la escritura con 422 en lugar de persistir basura.
+    Reglas:
+    1. Claves acotadas, profundidad <= 3, <= 200 claves en total, valores planos.
+    2. Si incluye `schema_version`, se valida contra `ThemeTokensV1` (`extra="forbid"`).
+    3. Cualquier campo de preset (`preset`), fuente (`display`, `font_display`,
+       `font_body`, `font_mono`), esquema de color (`color_scheme`) o movimiento
+       (`motion`) debe pertenecer al registro cerrado.
     """
     budget = [_THEME_MAX_KEYS]
     _validate_theme_value(tokens, depth=0, path="tokens", budget=budget)
+
+    if "schema_version" in tokens:
+        ThemeTokensV1.model_validate(tokens)
+        return tokens
+
+    if "preset" in tokens and tokens["preset"] not in THEME_PRESETS:
+        raise ValueError(f"tokens.preset: preset no registrado {tokens['preset']!r}")
+
+    for font_key in ("display", "font_display", "font_body", "font_mono"):
+        if font_key in tokens and tokens[font_key] not in FONT_REGISTRY:
+            raise ValueError(f"tokens.{font_key}: fuente no registrada {tokens[font_key]!r}")
+
+    if "color_scheme" in tokens and tokens["color_scheme"] not in COLOR_SCHEMES:
+        raise ValueError(
+            f"tokens.color_scheme: esquema no registrado {tokens['color_scheme']!r}"
+        )
+
+    if "motion" in tokens and tokens["motion"] not in MOTION_LEVELS:
+        raise ValueError(f"tokens.motion: nivel no registrado {tokens['motion']!r}")
+
     return tokens
 
 
