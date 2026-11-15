@@ -1,108 +1,172 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { PlanCarousel } from "@/components/plan-carousel";
-import { services, coming_soon } from "@/content/services";
+import { mockTheme } from "@/content/mock-storefront";
 import { site } from "@/content/site";
-
-const steps = [
-  {
-    number: "01",
-    title: "Solicita acceso",
-    body: "Nos escribes o dejas tus datos. Te abrimos la tienda con acceso asistido.",
-  },
-  {
-    number: "02",
-    title: "Publicas tu catálogo",
-    body: "Productos, variantes, media y páginas con el builder. En minutos.",
-  },
-  {
-    number: "03",
-    title: "Vendes y cobras",
-    body: "Checkout Wompi hosted, factura DIAN y stock que no se oversell.",
-  },
-];
-
-const differentiators = [
-  {
-    number: "01",
-    title: "Builder de páginas",
-    body: "16 bloques cerrados, versionado, preview con token y publish atómico con purga de caché.",
-  },
-  {
-    number: "02",
-    title: "Catálogo sin oversell",
-    body: "Variantes, SKU, FTS en español e inventario atómico multi-ubicación.",
-  },
-  {
-    number: "03",
-    title: "Pagos hosted",
-    body: "Wompi de tu cuenta cobra al comprador; Stripe de growup cobra tu suscripción. Cero PAN en nuestros servidores.",
-  },
-  {
-    number: "04",
-    title: "Facturación DIAN",
-    body: "Cada pago emite factura electrónica por API; devoluciones generan nota crédito.",
-  },
-];
+import { ProductCarousel } from "@/components/mock-product-carousel";
 
 export default function HomePage() {
+  const { tenant, categories, products, brands, credits } = mockTheme;
+
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-[var(--hairline)]">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-16 pt-14 md:grid-cols-12 md:px-10 md:pb-24 md:pt-20">
-          <div className="flex flex-col justify-center md:col-span-7">
-            <p className="label text-[var(--muted)]">[ comercio × acento ]</p>
-            <h1 className="display mt-4 text-[clamp(3.2rem,12vw,7.5rem)] leading-[0.9]">
-              La tiendita completa para marcas de ropa y joyería
-            </h1>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-[var(--muted)]">
-              Tienda, builder, catálogo, inventario, pagos Wompi y factura
-              DIAN — en una sola plataforma para marcas colombianas.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+      {/* Hero: mock completo de storefront con glassmorphism y fondo blanco */}
+      <section
+        aria-labelledby="hero-title"
+        className="border-b border-black/10 bg-transparent text-[#0d0d0d]"
+      >
+        <div className="mx-auto max-w-6xl px-6 py-8 md:px-10 md:py-10">
+          <div className="glass-card mb-6 flex flex-col gap-3 px-5 py-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-[13px] font-medium text-[#525866]">
+                Demo de storefront publicada · {tenant.host}
+              </p>
+              <p className="mt-0.5 text-[15px] font-semibold text-[#0d0d0d]">
+                {tenant.name} — esta es la experiencia que un comerciante ve en growup.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <Link href="/servicios/builder" className="font-medium text-[#0d0d0d] underline underline-offset-4 hover:opacity-70">
+                Ver cómo se construye
+              </Link>
               <a
                 href={site.admin_login_url}
-                className="label inline-flex border border-[var(--ink)] bg-[var(--ink)] px-6 py-4 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
+                className="inline-flex min-h-11 items-center rounded-xl bg-[#0d0d0d] px-5 font-semibold text-white shadow-sm"
               >
-                Iniciar sesión
+                Entrar a la tienda
               </a>
-              <Link href="/planes" className="label underline underline-offset-4 hover:opacity-60">
-                Ver planes →
-              </Link>
             </div>
-            <p className="label mt-8 text-[var(--muted)]">
-              Piloto ropa + joyería · Q1 2027 · Sin tarjeta al pedir cupo
-            </p>
           </div>
 
-          <div
-            aria-hidden
-            className="relative flex min-h-[320px] flex-col justify-end overflow-hidden border border-[var(--hairline)] bg-[var(--ink)] p-6 text-[var(--surface)] md:col-span-5"
-          >
-            <p className="label text-[var(--muted)]">[ 01 / señal ]</p>
-            <p className="display mt-auto text-6xl leading-[0.9] text-[var(--surface)]">
-              Archivo
-              <br />
-              <span className="text-[var(--signal)]">ropa</span>
-            </p>
-            <p className="mt-3 text-sm text-[var(--muted)]">
-              Ropa artesanal · Bogotá — storefront con bloques publicados
-            </p>
+          <div className="grid gap-6 py-4 md:grid-cols-12 md:gap-8 md:py-6">
+            <div className="glass-card flex flex-col justify-between gap-6 p-6 md:col-span-5 md:p-8">
+              <div>
+                <span className="label inline-block rounded-full border border-black/10 bg-white/80 px-3 py-1 text-[#525866]">
+                  Plataforma E-Commerce
+                </span>
+                <h1
+                  id="hero-title"
+                  className="display mt-4 text-[clamp(2.2rem,4.6vw,3.8rem)] leading-[1.02] text-[#0d0d0d]"
+                >
+                  La tienda online lista para publicar.
+                </h1>
+                <p className="mt-4 max-w-[36ch] text-[1.05rem] leading-relaxed text-[#525866]">
+                  Catálogo, páginas con bloques, pagos hosted y facturación — sin rehacer
+                  tu marca. Esto es un mock vivo del storefront.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href={site.admin_login_url}
+                  className="nova-cta inline-flex min-h-12 items-center rounded-xl bg-[#0d0d0d] px-6 text-sm font-semibold uppercase tracking-[0.08em] text-white"
+                >
+                  Solicitar cupo piloto
+                </a>
+                <Link href="/servicios" className="text-sm font-semibold text-[#0d0d0d] underline underline-offset-4 hover:opacity-70">
+                  Qué incluye
+                </Link>
+              </div>
+            </div>
+
+            {/* Mosaico de tarjetas redondeadas con glassmorphism */}
+            <div className="relative md:col-span-7">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="group glass-card relative col-span-8 aspect-[4/5] overflow-hidden">
+                  <Image
+                    src="/assets-nova/drop-sol-de-calle.jpg"
+                    alt="Calle streetwear en Tokio para la colección de Sol de Calle"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 66vw, 560px"
+                    className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045]"
+                  />
+                  <div className="absolute inset-x-3 bottom-3 flex items-end justify-between rounded-2xl border border-black/10 bg-white/80 p-4 backdrop-blur-xl">
+                    <div className="text-[#0d0d0d]">
+                      <p className="text-[11px] font-semibold uppercase tracking-wider text-[#525866]">
+                        DROP 04 · EN VIVO
+                      </p>
+                      <p className="display mt-0.5 text-xl leading-none text-[#0d0d0d]">
+                        Sol de Calle
+                      </p>
+                    </div>
+                    <span className="rounded-xl bg-[#0d0d0d] px-3.5 py-1.5 text-[12px] font-semibold text-white">
+                      Ver drop
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-4 flex flex-col gap-4">
+                  <div className="group glass-card relative aspect-square overflow-hidden">
+                    <Image
+                      src="/assets-nova/aretes-kyanite.jpg"
+                      alt="Aretes Arabesque de oro y kyanita"
+                      fill
+                      sizes="(max-width: 768px) 33vw, 220px"
+                      className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045]"
+                    />
+                    <p className="absolute left-3 top-3 rounded-full border border-black/10 bg-white/85 px-3 py-1 text-[11px] font-semibold text-[#0d0d0d] backdrop-blur-md">
+                      Aurélia
+                    </p>
+                  </div>
+                  <div className="group glass-card relative aspect-[4/5] overflow-hidden">
+                    <Image
+                      src="/assets-nova/denim-jeans.jpg"
+                      alt="Editorial de denim recto"
+                      fill
+                      sizes="(max-width: 768px) 33vw, 220px"
+                      className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045]"
+                    />
+                    <p className="absolute left-3 bottom-3 rounded-full border border-black/10 bg-white/85 px-3 py-1 text-[11px] font-semibold text-[#0d0d0d] backdrop-blur-md">
+                      Estudio 04
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Carril de categorías con bordes redondeados y etiqueta glass */}
+          <div className="mt-4 flex gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {categories.map((category) => (
+              <Link
+                key={category.label}
+                href={category.href}
+                className="group glass-card relative h-36 w-[156px] shrink-0 overflow-hidden md:h-40"
+              >
+                <Image
+                  src={category.image}
+                  alt={category.label}
+                  fill
+                  sizes="156px"
+                  className="object-cover transition-transform duration-[450ms] ease-out group-hover:scale-[1.045]"
+                />
+                <span className="absolute inset-x-2.5 bottom-2.5 flex items-center justify-between rounded-xl border border-black/10 bg-white/85 px-3 py-1.5 text-[13px] font-semibold text-[#0d0d0d] backdrop-blur-md">
+                  <span>{category.label}</span>
+                  <span>→</span>
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Diferenciadores */}
-      <section aria-label="Diferenciadores" className="hairline-b">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:px-10">
-          <p className="label text-[var(--muted)]">[ 01 / qué resuelve ]</p>
-          <div className="mt-6 grid gap-px overflow-hidden border border-[var(--hairline)] bg-[var(--hairline)] md:grid-cols-2 lg:grid-cols-4">
-            {differentiators.map((item) => (
-              <div key={item.number} className="bg-[var(--surface-2)] p-6">
-                <p className="label text-[var(--muted)]">[{item.number}]</p>
-                <h2 className="mt-3 text-lg font-medium leading-tight">{item.title}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{item.body}</p>
+      {/* Carrusel de productos */}
+      <ProductCarousel products={products} />
+
+      {/* Marcas en tarjetas redondeadas glass */}
+      <section aria-labelledby="marcas-plataforma" className="border-t border-black/10 px-6 py-16 md:px-10">
+        <div className="mx-auto max-w-6xl">
+          <h2 id="marcas-plataforma" className="display text-[clamp(1.5rem,2.8vw,2.25rem)] leading-tight text-[#0d0d0d]">
+            Marcas que publican con growup
+          </h2>
+          <p className="mt-3 max-w-[52ch] text-[#525866]">
+            Dos pilotos y el estudio que los cura: ropa y joyería premium con inventario
+            propio, Wompi hosted y factura DIAN.
+          </p>
+          <div className="mt-8 grid gap-4 md:grid-cols-4">
+            {brands.map((brand) => (
+              <div key={brand.name} className="glass-card p-6">
+                <p className="display text-xl text-[#0d0d0d]">{brand.name}</p>
+                <p className="mt-2 text-sm text-[#525866]">{brand.line}</p>
               </div>
             ))}
           </div>
@@ -110,135 +174,43 @@ export default function HomePage() {
       </section>
 
       {/* Cómo funciona */}
-      <section aria-label="Cómo funciona" className="hairline-b">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:px-10">
-          <p className="label text-[var(--muted)]">[ 02 / cómo funciona ]</p>
-          <ol className="mt-6 grid gap-8 md:grid-cols-3">
-            {steps.map((step) => (
-              <li key={step.number} className="border-l-2 border-[var(--ink)] pl-5">
-                <p className="label text-[var(--muted)]">{step.number}</p>
-                <h3 className="mt-2 text-xl font-medium">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{step.body}</p>
-              </li>
-            ))}
+      <section aria-labelledby="como-funciona" className="border-t border-black/10 px-6 py-16 md:px-10">
+        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-12">
+          <h2
+            id="como-funciona"
+            className="display max-w-[18ch] text-[clamp(1.6rem,2.6vw,2.4rem)] leading-[1.05] text-[#0d0d0d] md:col-span-4"
+          >
+            Del prototipo a la tienda publicada
+          </h2>
+          <ol className="grid gap-6 text-[1.05rem] leading-[1.55] md:col-span-7 md:col-start-6">
+            <li className="glass-card p-5">
+              <span className="font-bold text-[#0d0d0d]">Solicita acceso.</span>{" "}
+              <span className="text-[#525866]">Te abrimos la tienda con acceso asistido; sin tarjeta al pedir cupo.</span>
+            </li>
+            <li className="glass-card p-5">
+              <span className="font-bold text-[#0d0d0d]">Carga catálogo y páginas.</span>{" "}
+              <span className="text-[#525866]">Variantes, media e inventario atómico. Builder de bloques con publish atómico.</span>
+            </li>
+            <li className="glass-card p-5">
+              <span className="font-bold text-[#0d0d0d]">Publica y cobra.</span>{" "}
+              <span className="text-[#525866]">Checkout Wompi hosted. Facturación DIAN por API (pendiente de proveedor sandbox en piloto).</span>
+            </li>
           </ol>
         </div>
       </section>
 
-      {/* Planes */}
-      <section aria-label="Planes" className="hairline-b">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:px-10">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="label text-[var(--muted)]">[ 03 / planes ]</p>
-              <h2 className="display mt-2 text-4xl md:text-5xl">Escoge tu ritmo</h2>
-            </div>
-            <Link href="/planes" className="label underline underline-offset-4 hover:opacity-60">
-              Ver plan completo →
-            </Link>
-          </div>
-          <div className="mt-8">
-            <PlanCarousel />
-          </div>
-        </div>
-      </section>
-
-      {/* Servicios */}
-      <section aria-label="Servicios" className="hairline-b">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:px-10">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <p className="label text-[var(--muted)]">[ 04 / servicios ]</p>
-              <h2 className="display mt-2 text-4xl md:text-5xl">Todo en un solo panel</h2>
-            </div>
-            <Link href="/servicios" className="label underline underline-offset-4 hover:opacity-60">
-              Todos los servicios →
-            </Link>
-          </div>
-          <ul className="mt-8 grid grid-cols-2 gap-px overflow-hidden border border-[var(--hairline)] bg-[var(--hairline)] md:grid-cols-4">
-            {services.slice(0, 8).map((service) => (
-              <li key={service.slug} className="bg-[var(--surface-2)]">
-                <Link
-                  href={`/servicios/${service.slug}`}
-                  className="flex h-full flex-col justify-between gap-4 p-5 transition-colors hover:bg-[var(--ink)] hover:text-[var(--surface)]"
-                >
-                  <h3 className="text-sm font-medium leading-snug">{service.title}</h3>
-                  <p className="label text-[var(--muted)]">{service.status === "en-piloto" ? "en piloto" : service.status}</p>
-                </Link>
-              </li>
+      {/* Créditos */}
+      <section aria-label="Créditos de las imágenes" className="border-t border-black/10 px-6 py-6 md:px-10">
+        <details className="glass-card mx-auto max-w-6xl p-4 text-[13px] text-[#525866]">
+          <summary className="cursor-pointer font-semibold text-[#0d0d0d]">
+            Créditos de fotografía usada en este demo
+          </summary>
+          <ul className="mt-3 list-disc space-y-1 pl-5">
+            {credits.map((credit) => (
+              <li key={credit}>{credit}</li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* Prueba social honesta */}
-      <section aria-label="Pilotos" className="hairline-b">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:px-10">
-          <p className="label text-[var(--muted)]">[ 05 / pilotos ]</p>
-          <h2 className="display mt-2 text-3xl md:text-4xl">
-            Dos marcas que están construyendo con growup
-          </h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <figure className="border border-[var(--hairline)] p-6">
-              <blockquote className="text-lg leading-relaxed">
-                «Queremos un archivo editorial, no otra tienda genérica. growup
-                nos deja diseñar la boutique como se ve y pagar cobrando de
-                inmediato.»
-              </blockquote>
-              <figcaption className="label mt-4 text-[var(--muted)]">
-                Piloto ropa · Bogotá · En preparación (pendiente de permiso de nombre)
-              </figcaption>
-            </figure>
-            <figure className="border border-[var(--hairline)] p-6">
-              <blockquote className="text-lg leading-relaxed">
-                «Facturar cada venta por API sin tocar la DIAN a mano es la
-                diferencia entre vender y operar en serio.»
-              </blockquote>
-              <figcaption className="label mt-4 text-[var(--muted)]">
-                Piloto joyería · Bogotá · En preparación (pendiente de permiso de nombre)
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      {/* Próximamente */}
-      <section aria-label="Próximamente" className="hairline-b">
-        <div className="mx-auto max-w-6xl px-6 py-10 md:px-10">
-          <p className="label text-[var(--muted)]">[ próximamente ]</p>
-          <ul className="mt-3 flex flex-wrap gap-3 text-sm text-[var(--muted)]">
-            {coming_soon.map((item) => (
-              <li key={item.title} className="label border border-[var(--hairline)] px-3 py-2">
-                {item.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* CTA final */}
-      <section aria-label="Iniciar sesión">
-        <div className="mx-auto max-w-6xl px-6 py-20 text-center md:px-10">
-          <p className="label text-[var(--muted)]">[ 06 / cupos ]</p>
-          <h2 className="display mx-auto mt-4 max-w-4xl text-5xl leading-[0.95] md:text-7xl">
-            ¿Vendemos tú y yo en marzo?
-          </h2>
-          <p className="mx-auto mt-6 max-w-md text-lg text-[var(--muted)]">
-            Cupos de piloto limitados. Sin tarjeta al pedir cupo; recibes una
-            propuesta y una llamada de 20 minutos.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={site.admin_login_url}
-              className="label inline-flex border border-[var(--ink)] bg-[var(--ink)] px-8 py-4 text-[var(--surface)] transition-colors hover:bg-[var(--signal)]"
-            >
-              Iniciar sesión
-            </a>
-            <a href={`mailto:${site.contact_email}`} className="label underline underline-offset-4 hover:opacity-60">
-              {site.contact_email}
-            </a>
-          </div>
-        </div>
+        </details>
       </section>
     </>
   );

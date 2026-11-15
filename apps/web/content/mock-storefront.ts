@@ -1,0 +1,83 @@
+import { site } from "@/content/site";
+
+export const mockTheme = {
+  tenant: {
+    slug: "sol-de-calle",
+    name: "Sol de Calle",
+    host: "ropa.growup.com",
+  },
+  categories: [
+    { label: "Denim", href: "/planes", image: "/assets-nova/denim-jeans.jpg" },
+    { label: "Streetwear", href: "/planes", image: "/assets-nova/streetwear-duo.jpg" },
+    { label: "Joyería 18k", href: "/planes", image: "/assets-nova/arete-oxigeno.jpg" },
+    { label: "Kyanite", href: "/planes", image: "/assets-nova/aretes-kyanite.jpg" },
+    { label: "Archivo", href: "/planes", image: "/assets-nova/editorial-portrait.jpg" },
+  ],
+  products: [
+    {
+      id: "jeans-archivo-04",
+      name: "JEAN RECTO ARCHIVO 04",
+      price_cents: 22900000,
+      badge: "DROP 04",
+      image: "/assets-nova/denim-jeans.jpg",
+      alt: "Editorial de dos personas caminando con jean recto crudo",
+    },
+    {
+      id: "tee-blank-02",
+      name: "TEE BLANK 02 · 450 GSM",
+      price_cents: 11900000,
+      badge: "AGOTADO EN M",
+      image: "/assets-nova/streetwear-duo.jpg",
+      alt: "Streetwear sol de calle con chaqueta y camiseta en plena calle",
+    },
+    {
+      id: "drop-sol-de-calle",
+      name: "CHAQUETA VALKYRIE DROP",
+      price_cents: 38900000,
+      badge: "NUEVO",
+      image: "/assets-nova/drop-sol-de-calle.jpg",
+      alt: "Escena streetwear en Tokio para la colección Drop 04",
+    },
+    {
+      id: "arete-oxigeno",
+      name: "ARANA METAMÍTICAS · 18K",
+      price_cents: 68000000,
+      badge: "1 DE 1",
+      image: "/assets-nova/arete-oxigeno.jpg",
+      alt: "Arete de oro con esferas cluster del museo Metropolitan (dominio público)",
+    },
+    {
+      id: "aretes-kyanite",
+      name: "ARETES ARABESQUE KYANITE",
+      price_cents: 49000000,
+      badge: "AURÉLIA",
+      image: "/assets-nova/aretes-kyanite.jpg",
+      alt: "Aretes de oro y kyanita azul, corpus artesanal",
+    },
+    {
+      id: "hoja-intermedia-hoard",
+      name: "COLLAR HOARD · SIGLO XI",
+      price_cents: 185000000,
+      badge: "REFERENCIA",
+      image: "/assets-nova/aurelia-hoard.jpg",
+      alt: "Referencia histórica del hoard de joyería del siglo XI",
+    },
+  ],
+  brands: [
+    { name: "Sol de Calle", line: "Streetwear editorial" },
+    { name: "Aurélia Atelier", line: "Alta joyería · Piezas 1 de 1" },
+    { name: "Estudio 04", line: "Denim & archivo" },
+    { name: "LOTE_24", line: "Curaduría CDMX · BOG · GRU" },
+  ],
+  credits: [
+    "“Fashion-woman-model-portrait (24300464886)” por www.Pixel.la Free Stock Photos, CC0, via Wikimedia Commons",
+    "“Urban Streetwear 2” por Extreme Ben, CC BY 2.0, via Flickr",
+    "“Harajuku Fashion Street Snap (November 11, 2017)” por Dick Thomas Johnson, CC BY 2.0, via Wikimedia Commons",
+    "“Fashion photgraphs of jeans” por Seppo Konstig, CC BY 4.0, via Wikimedia Commons",
+    "“A couple walking…” por Nilo Velez, CC0, via WordPress Photo Directory",
+    "“Gold Earring with clustered sphere”, CC0, via Wikimedia Commons",
+    "“Arabesque – gold and kyanite earrings” por W.carter, CC BY 4.0, via Wikimedia Commons",
+    "“Gold Earrings & Jewelry Hoard, 11th Century AD” por Gary Todd, CC0, via Wikimedia Commons",
+  ],
+  site_url: site.url,
+} as const;
