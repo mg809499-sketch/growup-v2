@@ -7,7 +7,7 @@ Fecha: 2026-11-10 · Basado en el paquete de ejecución y decisiones de marca/co
 | ID | Decisión | Valor ratificado |
 |---|---|---|
 | DEC-1 | Nombre | **Growup** (nunca "GrowUp Space" en materiales nuevos) |
-| DEC-2 | Identidad visual | **Dirección v0**: editorial, Anton para display, Space Grotesk/Space Mono cuerpo/etiquetas, superficies papel/tinta (off-white + ink + señal de acento). **No** violeta/naranja del legado; la tienda de cada tenant sigue con su tema propio |
+| DEC-2 | Identidad visual | **Reabierta y actualizada (2026-11-15, DU-01 / DU-06, ADR-0020):** se adopta la dirección **Nova (Sistema Técnico Total)** en toda la plataforma (`apps/web`, `apps/admin` y preset `nova` en `apps/storefront`): tipografía `Unbounded` (display), `Geist` (cuerpo) y `Geist Mono` (datos/telemetría), superficies oscuras en `oklch()` con soporte `light-dark()` y acento volt `#b8ff3b` / `oklch(0.88 0.19 128)`. Los presets editoriales v0 (`ropa` y `joyeria`) se conservan en el motor de temas como reversión inmediata por tenant. |
 | DEC-3 | Precios de planes en público | **Ocultos hasta ratificar D-01 derivado.** Solo "Solicitar acceso" / "Hablemos"; nada de números en público |
 | DEC-4 | CTA de conversión | **Solicitar acceso manual**: formulario + email + WhatsApp; alta asistida por el equipo (sin self-service hasta onboarding público) |
 | DEC-5 | Consolas | **Consola de clientes sí** (`/consola` → link a `admin.growup.com`); **super consola NO pública** (nunca en web pública; vive en `admin.growup.com/platform` con rol interno) |

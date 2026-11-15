@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es-CO" data-theme="nova">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Growup Nova · Variante B (Editorial Asimétrico & Consola)</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --surface: oklch(0.155 0.012 265);
+        --surface-2: oklch(0.205 0.015 265);
+        --ink: oklch(0.975 0.004 265);
+        --muted: oklch(0.76 0.015 265);
+        --hairline: oklch(0.34 0.015 265);
+        --signal: oklch(0.88 0.19 128);
+        --signal-ink: oklch(0.155 0.012 265);
+        --font-display: "Unbounded", system-ui, sans-serif;
+        --font-body: "Geist", system-ui, sans-serif;
+        --font-label: "Geist Mono", monospace;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      body { background: var(--surface); color: var(--ink); font-family: var(--font-body); line-height: 1.55; }
+      .split { display: grid; grid-template-columns: 320px 1fr; min-height: 100dvh; }
+      .rail { border-right: 1px solid var(--hairline); background: var(--surface-2); padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; transition: border-color 180ms ease; }
+      .rail:hover { border-color: var(--signal); }
+      .stage { padding: clamp(2rem, 5vw, 4rem); display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; }
+      a,button,summary,label,select { transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
+      a:hover,button:not(:disabled):hover,summary:hover,select:hover { transform: translateY(-1px); }
+      a:active,button:not(:disabled):active,summary:active,select:active { transform: translateY(0) scale(0.985); }
+      @media (prefers-reduced-motion: reduce) {
+        a,button,summary,.rail,.stage { transition: none !important; transform: none !important; }
+      }
+      .mono { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+      h1 { font-family: var(--font-display); font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 0.98; }
+      @media (max-width: 840px) { .split { grid-template-columns: 1fr; } .rail { border-right: none; border-bottom: 1px solid var(--hairline); } }
+    </style>
+  </head>
+  <body>
+    <div class="split">
+      <aside class="rail" aria-label="Columna de estado del sistema">
+        <div>
+          <p class="mono">GROWUP // NOVA RAIL</p>
+          <p style="margin-top:1rem;color:var(--muted);">Arquitectura con barra lateral de telemetría fija y lienzo editorial expandido.</p>
+        </div>
+        <div class="mono" style="color:var(--signal);">ESTADO: SINCRONIZADO</div>
+      </aside>
+      <main class="stage">
+        <p class="mono"><span aria-hidden="true">[VARIANTE B] </span>COMPOSICIÓN DE CONSOLA + EDITORIAL</p>
+        <h1>Un solo motor para tiendas y operaciones en vivo.</h1>
+        <p style="max-width:58ch;color:var(--muted);">
+          Diseñado para marcas que operan lanzamientos de alta demanda y requieren control absoluto de sus bloques, tokens y auditoría.
+        </p>
+      </main>
+    </div>
+  </body>
+</html>

@@ -611,3 +611,18 @@ Avances entregados (operativo):
 | **E5.2 Chat comprador + E5.3 ROAS advisory** | Agente IA conversacional + pauta asistida | Post-piloto; hoy solo rules; discovery con el equipo |
 | **ADR-0005 ratificación final** | Editor de pagina + Studio blocks 3D; bloques listo pero producto no firma | Ratificar con producto tras run QA en staging |
 | **Resend/Cloud email** | Notificaciones reales de checkout/order | D-15 pendiente — certificar dominio por tenant con DKIM antes de go-live |
+
+---
+
+## Actualización 2026-11-15 — Dirección Visual Nova y Ruta Completa (WP-04)
+
+Decisiones del usuario registradas el 2026-11-15 (sin alterar el estado de `D-01` a `D-19`; ver `docs/adr/0020-direccion-visual-nova.md` y `docs/plan/plan-nova-gemini-argon.md`):
+
+| ID | Decisión registrada | Responsable / Fecha | Impacto arquitectónico |
+|---|---|---|---|
+| **DU-01** | Aplicar el sistema visual **Nova** al storefront (`apps/storefront`), sitio público (`apps/web`) y consola administrativa (`apps/admin`). | Usuario · 2026-11-15 | Reabre y actualiza `DEC-2` en `docs/plan/suite-publica-growup.md`. |
+| **DU-02** | Nivel de futurismo **Técnico Total** con lista cerrada de 11 excepciones y límites no negociables (WCAG AA, foco visible, cuerpo `>= 16px`, `prefers-reduced-motion`, `LCP < 2.5s`, `CLS < 0.1`, SAQ A en checkout). | Usuario · 2026-11-15 | Formalizado en `ADR-0020`. |
+| **DU-03** | Pareja tipográfica oficial de Nova: **Opción A** (`Unbounded` display, `Geist` cuerpo/UI, `Geist Mono` datos/telemetría). | Usuario · 2026-11-15 | Registrada en `FONT_REGISTRY` (`@growup/config` y `services/api/app/domains/content/schemas.py`). |
+| **DU-04** | Aplicación inmediata de Nova en plataforma (`apps/web`, `apps/admin`) y como preset disponible y activo en `apps/storefront`. | Usuario · 2026-11-15 | Se elimina la dependencia de `GROWUP_DEFAULT_THEME` a favor del tema por tenant (`bootstrap.theme`). |
+| **DU-05** | Aprobación del roster de modelos para construcción y revisión (`gemini-4-argon`, `kimi-k3.1-pro`, `gpt-6-luna`, `deepseek-v4.1-flash`, `glm-5.3-flash`, `kimi-k2.7-code`). | Usuario · 2026-11-15 | Documentado en `docs/plan/organizacion-agentes-growup.md`. |
+| **DU-06** | Eliminación del gate `H-10` y adopción de alcance de toda la plataforma para `H-11`: las tiendas piloto adoptan Nova conservando intactos su nombre, logo, copy, catálogo y precios, y manteniendo los presets `ropa` y `joyeria` para reversión inmediata. | Usuario · 2026-11-15 | `app.themes.tokens` soporta `preset: "nova" | "ropa" | "joyeria"` (`ThemeTokensV1`). |

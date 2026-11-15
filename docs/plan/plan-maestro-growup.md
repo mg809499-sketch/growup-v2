@@ -14,7 +14,14 @@
 
 **Ya existe y es sólido:** RLS forzado en 22/23 tablas (95 asserts pgTAP), JWT/JWKS, RBAC desde membresía, dinero en `bigint` COP, catálogo completo, inventario atómico sin oversell, media a R2 con worker ARQ, gobernanza con hash chain, contratos OpenAPI→TS, CI verde, storefront/admin bases.
 
-**No existe:** builder/bloques/contenido/publish (0%), carrito/checkout/órdenes/pagos (0%), billing/Stripe/suspensión (0%), DIAN (0%), emails (0%), infraestructura desplegada (no Dockerfile, no staging, no runbooks), observabilidad (sin métricas/traces exportables), tests frontend (0), suspensión de tenant por impago (rota).
+**No existe (foto del 2026-11-10):** builder/bloques/contenido/publish (0%), carrito/checkout/órdenes/pagos (0%), billing/Stripe/suspensión (0%), DIAN (0%), emails (0%), infraestructura desplegada (no Dockerfile, no staging, no runbooks), observabilidad (sin métricas/traces exportables), tests frontend (0), suspensión de tenant por impago (rota).
+
+> **Reconciliación verificada (2026-11-15 — WP-00 / WP-01, ver `docs/estado/verificacion-2026-11-15.md`):**
+> Entre el 2026-11-10 y el 2026-11-15 se implementaron en código y pruebas unitarias (`295 passed` en `pytest`, `pnpm lint/typecheck/contracts:check/build` verdes):
+> - **Contenido y Builder (`ADR-0005`):** 16 bloques tipados (`blocks.py`), 7 plantillas de 1 clic (`templates.py`), publish atómico, preview HMAC y editor visual de 3 columnas en `apps/admin/app/(dashboard)/builder/`.
+> - **Comercio y Super Consola:** dominio `commerce` (carrito, checkout, órdenes y webhook Wompi), `Dockerfile` + `Dockerfile.worker`, Super Consola v1 (`/platform/overview`, `/platform/tenants`), editor de planes (`/planes`) y sugerencias de reorden (`/suggestions`).
+> - **Sistema Visual Nova (`ADR-0020`):** dirección visual técnica total (`Unbounded` + `Geist` + `Geist Mono`) y resolución dinámica de tema por tenant (`ThemeTokensV1`).
+> - **Siguientes bloqueos reales:** ratificación legal/contable (`D-09..D-16`, `D-06`), cuentas sandbox externas (`D-03` Factus, `D-15` Resend, Wompi/Stripe en staging) y suite de integración con `GROWUP_TEST_DATABASE_URL`.
 
 **Decisiones congeladas que bloquean olas enteras:** ADR-0005 (contenido) en Propuesta; D-09 a D-16 en Propuesta; D-03 sin proveedor DIAN; derivados de D-01 (precio/límites), D-06 (IVA envío), D-07 (DNS/TLS), D-08 (fecha/responsable), D-02 (cuenta Stripe/Wompi).
 
@@ -28,7 +35,7 @@
 2. **Fail-closed y evidencia.** Cada control de seguridad/legal llega con su test (pgTAP/integración/E2E). Sin evidencia, no se marca hecho.
 3. **Cero custodia de fondos.** Wompi (checkout) + Stripe Billing (suscripción), merchant of record = tenant/plataforma según D-02. Nunca tocar PAN; hosted/redirect.
 4. **El dueño de la decisión es quien firma.** Producto/legal ratifican textos y precios; ingeniería implementa y verifica. Este plan propone valores por defecto; cada decisión muestra su gate de ratificación en `decisiones-proveedores-growup.md`.
-5. **MVP-recortado, no MVP-recortado-en-silencio.** Toda omisión frente a "tipo Shopify" queda registrada en §9 (fuera de alcance explícito).
+5. **MVP-recortado, no MVP-recortado-en-silencio.** Toda omisión frente a "tipo Shopify" queda registrada en §10 (fuera de alcance explícito).
 6. **Orden de merge:** migración expand → código compatible → deploy → migración contract → verificación. Nunca DROP destructivo en el mismo deploy.
 7. **SOC 2-ready, no certificado** (D-18): evidence folder `docs/compliance/` desde el día 1.
 

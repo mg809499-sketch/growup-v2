@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es-CO" data-theme="nova">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Growup Nova · Variante A (Catálogo Denso & Placas de Datos)</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --surface: oklch(0.155 0.012 265);
+        --surface-2: oklch(0.205 0.015 265);
+        --ink: oklch(0.975 0.004 265);
+        --muted: oklch(0.76 0.015 265);
+        --hairline: oklch(0.34 0.015 265);
+        --signal: oklch(0.88 0.19 128);
+        --signal-ink: oklch(0.155 0.012 265);
+        --font-display: "Unbounded", system-ui, sans-serif;
+        --font-body: "Geist", system-ui, sans-serif;
+        --font-label: "Geist Mono", monospace;
+      }
+      * { box-sizing: border-box; margin: 0; }
+      body { background: var(--surface); color: var(--ink); font-family: var(--font-body); line-height: 1.5; padding: 2rem; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); margin-top: 2rem; }
+      .card { background: var(--surface-2); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; }
+      .mono { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+      h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -0.03em; }
+      .cta { display: inline-block; background: var(--signal); color: var(--signal-ink); font-family: var(--font-label); font-weight: 700; padding: 0.65rem 1.25rem; text-transform: uppercase; font-size: 0.75rem; }
+      a,button,summary,label,select { transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
+      a:hover,button:not(:disabled):hover,summary:hover,select:hover { transform: translateY(-1px); }
+      a:active,button:not(:disabled):active,summary:active,select:active { transform: translateY(0) scale(0.985); }
+      .card { transition: transform 180ms ease; }
+      .card:hover { transform: translateY(-2px); border-color: var(--signal); }
+      .cta:hover { transform: translateY(-1px); }
+      .cta:active { transform: translateY(0) scale(0.985); }
+      @media (prefers-reduced-motion: reduce) {
+        a,button,summary,.card,.cta { transition: none !important; transform: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="mono"><span aria-hidden="true">[VARIANTE A] </span>MATRIZ DE CATÁLOGO TÉCNICO</p>
+      <h1>Inventario verificable en tiempo real.</h1>
+    </header>
+    <section class="grid" aria-label="Piezas de demostración">
+      <article class="card">
+        <span class="mono">SKU: NV-01 · STOCK: 14</span>
+        <h2 style="font-family:var(--font-display);font-size:1.25rem;">Parka Impermeable 600D</h2>
+        <p style="color:var(--muted);">Costuras termoselladas y trazabilidad de lote en cadena.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="mono" style="color:var(--signal);font-size:0.95rem;">$ 420.000 COP</span>
+          <a href="#reserva" class="cta">Reservar</a>
+        </div>
+      </article>
+      <article class="card">
+        <span class="mono">SKU: NV-02 · STOCK: 03</span>
+        <h2 style="font-family:var(--font-display);font-size:1.25rem;">Anillo Obsidiana Calibrado</h2>
+        <p style="color:var(--muted);">Plata ley 950 con bisel octogonal y certificado verificable.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="mono" style="color:var(--signal);font-size:0.95rem;">$ 680.000 COP</span>
+          <a href="#reserva" class="cta">Reservar</a>
+        </div>
+      </article>
+    </section>
+  </body>
+</html>

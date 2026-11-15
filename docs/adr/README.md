@@ -29,6 +29,7 @@ Estados posibles:
 | [0010](0010-checkout-pci-scripts.md) | Checkout hosted, PCI SAQ A y gestión de scripts | Propuesta | 2026-10-26 |
 | [0011](0011-email-transaccional.md) | Email transaccional multi-tenant | Propuesta | 2026-10-26 |
 | [0019](0019-selfservice-signup-comerciantes.md) | Signup self-service de comerciantes en el admin | Aceptada | 2026-11-11 |
+| [0020](0020-direccion-visual-nova.md) | Dirección visual Nova (Sistema Técnico Total) | Aceptada | 2026-11-15 |
 
 Los números 0012-0018 quedan reservados (F0-03 prevé ADR-0012 "Proveedores y región"); se salta a 0019 para el signup self-service.
 

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es-CO" data-theme="nova">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Growup Nova · Prototipo Principal (Sistema Técnico Total)</title>
+    <style>
+      @layer reset, tokens, base, components, utilities;
+
+      @layer reset {
+        *, *::before, *::after { box-sizing: border-box; }
+        body, h1, h2, h3, p, ul, ol, figure { margin: 0; }
+      }
+
+      @layer tokens {
+        :root {
+          color-scheme: dark light;
+          --surface: oklch(0.155 0.012 265);
+          --surface-2: oklch(0.205 0.015 265);
+          --surface-3: oklch(0.245 0.018 265);
+          --ink: oklch(0.975 0.004 265);
+          --muted: oklch(0.76 0.015 265);
+          --hairline: oklch(0.34 0.015 265);
+          --signal: oklch(0.88 0.19 128);
+          --signal-ink: oklch(0.155 0.012 265);
+          --signal-glow: oklch(0.88 0.19 128 / 0.24);
+          --font-display: "Unbounded", system-ui, -apple-system, sans-serif;
+          --font-body: "Geist", system-ui, -apple-system, sans-serif;
+          --font-label: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+          --clip-angle: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        }
+      }
+
+      @layer base {
+        body {
+          background-color: var(--surface);
+          background-image:
+            linear-gradient(to right, oklch(0.34 0.015 265 / 0.14) 1px, transparent 1px),
+            linear-gradient(to bottom, oklch(0.34 0.015 265 / 0.14) 1px, transparent 1px);
+          background-size: 48px 48px;
+          color: var(--ink);
+          font-family: var(--font-body);
+          font-size: 1rem;
+          line-height: 1.55;
+        }
+        a { color: inherit; text-decoration: none; }
+        :focus-visible {
+          outline: 2px solid var(--signal);
+          outline-offset: -3px;
+        }
+      }
+
+      @layer components {
+        .shell { max-width: 1360px; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 2.5rem); }
+        .topbar {
+          position: sticky; top: 0; z-index: 20;
+          border-bottom: 1px solid var(--hairline);
+          background: oklch(0.155 0.012 265 / 0.86);
+          backdrop-filter: blur(12px);
+        }
+        .topbar-inner {
+          display: flex; align-items: center; justify-content: space-between;
+          min-height: 64px; gap: 1rem;
+        }
+        .mono-tag {
+          font-family: var(--font-label);
+          font-size: 0.75rem;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+        .hero-grid {
+          display: grid;
+          grid-template-columns: repeat(12, minmax(0, 1fr));
+          gap: 1.5rem;
+          padding: clamp(3rem, 7vw, 6rem) 0;
+          border-bottom: 1px solid var(--hairline);
+        }
+        .hero-copy { grid-column: span 7; display: flex; flex-direction: column; gap: 1.5rem; }
+        .hero-panel {
+          grid-column: span 5;
+          border: 1px solid var(--hairline);
+          background: var(--surface-2);
+          padding: 1.5rem;
+          clip-path: var(--clip-angle);
+          display: flex; flex-direction: column; justify-content: space-between; gap: 1.25rem;
+        }
+        h1 {
+          font-family: var(--font-display);
+          font-size: clamp(2.25rem, 5vw, 4.25rem);
+          line-height: 0.96;
+          letter-spacing: -0.03em;
+          text-wrap: balance;
+        }
+        .btn-nova {
+          display: inline-flex; align-items: center; justify-content: center;
+          min-height: 44px; padding: 0.75rem 1.5rem;
+          background: var(--signal); color: var(--signal-ink);
+          font-family: var(--font-label); font-size: 0.8125rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          border: 1px solid var(--signal);
+          clip-path: var(--clip-angle);
+          box-shadow: 0 0 24px var(--signal-glow);
+          cursor: pointer;
+        }
+        .spec-grid {
+          display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+          border-top: 1px solid var(--hairline);
+          border-left: 1px solid var(--hairline);
+          margin: 3rem 0;
+        }
+        .spec-cell {
+          border-right: 1px solid var(--hairline);
+          border-bottom: 1px solid var(--hairline);
+          background: var(--surface-2);
+          padding: 1.5rem;
+        }
+        .btn-nova:active { transform: translateY(0) scale(0.985); }
+        a,button,summary,label,select { transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease; }
+        a:hover,button:not(:disabled):hover,summary:hover,select:hover { transform: translateY(-1px); }
+        a:active,button:not(:disabled):active,summary:active,select:active { transform: translateY(0) scale(0.985); }
+        .hero-panel,.spec-cell,.btn-nova { transition: transform 180ms ease, border-color 180ms ease; }
+        .spec-cell:hover { transform: translateY(-2px); border-color: var(--signal); }
+        .btn-nova:hover { transform: translateY(-1px); }
+        @media (prefers-reduced-motion: reduce) {
+          a,button,summary,.btn-nova,.hero-panel,.spec-cell { transition: none !important; transform: none !important; }
+        }
+        @media (max-width: 900px) {
+          .hero-copy, .hero-panel { grid-column: span 12; }
+          .spec-grid { grid-template-columns: 1fr; }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <span class="mono-tag"><span aria-hidden="true">[00] </span>GROWUP // NOVA.OS</span>
+        <nav aria-label="Principal" style="display:flex;gap:1.5rem;">
+          <a href="#catalogo" class="mono-tag">Catálogo</a>
+          <a href="#telemetria" class="mono-tag">Telemetría</a>
+          <a href="#especificaciones" class="mono-tag">Especificaciones</a>
+        </nav>
+        <a href="#accion" class="btn-nova">Iniciar despliegue</a>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="hero-grid" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="mono-tag"><span aria-hidden="true">SYS.2026 // </span>ARQUITECTURA DE COMERCIO MULTI-TENANT</p>
+          <h1 id="hero-title">Comercio de precisión con aislamiento en silicio y datos.</h1>
+          <p style="max-width:60ch;color:var(--muted);font-size:1.0625rem;">
+            Motor de tiendas renderizado en servidor con tokens tipados, inventario atómico sin sobreventa y verificación criptográfica por transacción.
+          </p>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+            <a id="accion" href="#catalogo" class="btn-nova">Explorar piezas activas</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" id="telemetria" aria-label="Placa de telemetría en vivo">
+          <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--hairline);padding-bottom:0.75rem;">
+            <span class="mono-tag">NODO: SA-EAST-1</span>
+            <span class="mono-tag" style="color:var(--signal);">● ONLINE</span>
+          </div>
+          <div>
+            <p class="mono-tag">PIEZA DESTACADA // SERIE 04</p>
+            <p style="font-family:var(--font-display);font-size:1.5rem;margin-top:0.25rem;">Chaqueta Técnica Valkyrie</p>
+            <p id="live-price" style="font-family:var(--font-label);font-size:1.25rem;color:var(--signal);margin-top:0.5rem;">$ 389.000 COP</p>
+          </div>
+          <fieldset style="border:1px solid var(--hairline);padding:0.75rem;">
+            <legend class="mono-tag">Configuración de lote (en vivo)</legend>
+            <div style="display:flex;gap:0.5rem;margin-top:0.5rem;">
+              <button type="button" class="btn-nova" onclick="document.getElementById('live-price').textContent='$ 389.000 COP · STOCK: 12'">Lote S/M</button>
+              <button type="button" class="btn-nova" style="background:var(--surface-3);color:var(--ink);box-shadow:none;" onclick="document.getElementById('live-price').textContent='$ 419.000 COP · STOCK: 05'">Lote L/XL Blindado</button>
+            </div>
+          </fieldset>
+        </aside>
+      </section>
+
+      <section id="especificaciones" class="spec-grid" aria-label="Métricas operativas">
+        <article class="spec-cell">
+          <p class="mono-tag"><span aria-hidden="true">[01] </span>AISLAMIENTO</p>
+          <h2 style="font-family:var(--font-display);font-size:1.35rem;margin:0.5rem 0;">PostgreSQL FORCE RLS</h2>
+          <p style="color:var(--muted);">Cada transacción fija contexto por tenant verificando host y firma JWKS.</p>
+        </article>
+        <article class="spec-cell">
+          <p class="mono-tag"><span aria-hidden="true">[02] </span>RENDIMIENTO</p>
+          <h2 style="font-family:var(--font-display);font-size:1.35rem;margin:0.5rem 0;">LCP &lt; 2.5s · CLS &lt; 0.1</h2>
+          <p style="color:var(--muted);">Tipografía Unbounded + Geist + Geist Mono autoalojada y variables en oklch().</p>
+        </article>
+        <article class="spec-cell">
+          <p class="mono-tag"><span aria-hidden="true">[03] </span>CUMPLIMIENTO</p>
+          <h2 style="font-family:var(--font-display);font-size:1.35rem;margin:0.5rem 0;">PCI-DSS v4.0.1 SAQ A</h2>
+          <p style="color:var(--muted);">Checkout limpio sin scripts de terceros, montos exactos en centavos COP.</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
