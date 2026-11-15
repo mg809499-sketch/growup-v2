@@ -38,10 +38,10 @@ begin
   values (rid, 'COP', 'es-CO'), (jid, 'COP', 'es-CO')
   on conflict (tenant_id) do nothing;
 
-  -- Temas por tenant
+  -- Temas por tenant (ThemeTokensV1: preset nova en claro, reversión inmediata a ropa/joyeria)
   insert into app.themes (tenant_id, tokens) values
-    (rid, '{"display":"Anton","signal":"#ff3b1d","surface":"#f4f3ee","ink":"#0d0d0d"}'::jsonb),
-    (jid, '{"display":"Playfair Display","signal":"#d4af37","surface":"#0b0b0c","ink":"#f5f4f0"}'::jsonb)
+    (rid, '{"schema_version":1,"preset":"nova","color_scheme":"light","font_display":"Unbounded","font_body":"Geist","font_mono":"Geist Mono","colors":{"surface":"#ffffff","surface_2":"#f4f6fb","ink":"#0d0d0d","signal":"#111111","muted":"#525866","hairline":"#e2e8f0"},"radius_px":16,"clip_angle_px":0,"motion":"technical"}'::jsonb),
+    (jid, '{"schema_version":1,"preset":"nova","color_scheme":"light","font_display":"Unbounded","font_body":"Geist","font_mono":"Geist Mono","colors":{"surface":"#ffffff","surface_2":"#f4f6fb","ink":"#0d0d0d","signal":"#111111","muted":"#525866","hairline":"#e2e8f0"},"radius_px":16,"clip_angle_px":0,"motion":"technical"}'::jsonb)
   on conflict (tenant_id) do update set tokens = excluded.tokens;
 
   -- Catálogo
