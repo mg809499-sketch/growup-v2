@@ -2370,6 +2370,8 @@ export interface components {
             layout: {
                 [key: string]: unknown;
             };
+            /** Host */
+            host?: string | null;
         };
         /** StorefrontSettings */
         StorefrontSettings: {

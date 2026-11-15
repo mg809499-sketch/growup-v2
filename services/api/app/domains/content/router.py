@@ -199,11 +199,13 @@ async def preview_page(
     tenant_id, page_id, version_id = PageService.verify_preview_token(token)
     version = await service.get_version(tenant_id, page_id, version_id)
     page = await service._repository.get_page(tenant_id, page_id)
+    host = await service.get_primary_host(tenant_id)
     return StorefrontPageResponse(
         slug=page.slug if page else "preview",
         title=page.title if page else "Vista previa",
         version=version.version,
         layout=version.layout,
+        host=host,
     )
 
 

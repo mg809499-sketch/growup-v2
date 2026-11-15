@@ -7627,6 +7627,17 @@
             "additionalProperties": true,
             "type": "object",
             "title": "Layout"
+          },
+          "host": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Host"
           }
         },
         "type": "object",

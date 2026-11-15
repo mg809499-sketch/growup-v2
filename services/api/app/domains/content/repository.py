@@ -39,6 +39,19 @@ class PostgresPageRepository:
             )
         return [_page(row) for row in rows], int(total or 0)
 
+    async def get_primary_host(self, tenant_id: UUID) -> str | None:
+        async with self._database.tenant_transaction(tenant_id) as connection:
+            row = await connection.fetchrow(
+                """
+                select host from app.domains
+                where tenant_id = $1
+                order by is_primary desc, created_at asc
+                limit 1
+                """,
+                tenant_id,
+            )
+        return row["host"] if row is not None else None
+
     async def get_page(self, tenant_id: UUID, page_id: UUID) -> Page | None:
         async with self._database.tenant_transaction(tenant_id) as connection:
             row = await connection.fetchrow(

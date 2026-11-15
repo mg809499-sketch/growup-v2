@@ -3,6 +3,8 @@ import { headers } from "next/headers";
 
 import type { components } from "@growup/contracts";
 
+import { getPreviewTenantHost } from "@/lib/preview-host";
+
 export type BootstrapResponse = components["schemas"]["BootstrapResponse"];
 export type ProductListResponse = components["schemas"]["ProductListResponse"];
 export type ProductSummaryResponse = components["schemas"]["ProductSummaryResponse"];
@@ -24,6 +26,10 @@ export class ApiError extends Error {
 }
 
 export async function getStorefrontHost(): Promise<string> {
+  const override = getPreviewTenantHost();
+  if (override) {
+    return override;
+  }
   const requestHeaders = await headers();
   return (
     requestHeaders.get("x-storefront-host") ??

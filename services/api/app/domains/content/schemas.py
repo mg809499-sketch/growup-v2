@@ -120,6 +120,10 @@ class StorefrontPageResponse(BaseModel):
     title: str
     version: int
     layout: dict[str, Any]
+    # Solo se rellena en la previsualización: host primario del tenant, para
+    # que el storefront resuelva el contexto del borrador. No se expone en
+    # la ruta pública (no hace falta y evita ruido en el contrato).
+    host: str | None = None
 
 
 class ThemeResponse(BaseModel):

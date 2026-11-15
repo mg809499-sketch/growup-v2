@@ -35,6 +35,7 @@ class FakePageRepository:
             created_at=datetime.now(UTC),
             updated_at=datetime.now(UTC),
         )
+        self.primary_host: str | None = f"{uuid4().hex[:8]}.growup.com"
 
     async def get_page(self, tenant_id: UUID, page_id: UUID) -> Page | None:
         return self.page if page_id == self.page.id else None
@@ -77,6 +78,9 @@ class FakePageRepository:
         self.published.append(
             {"page_id": page_id, "version_id": version_id, "actor_id": actor_id}
         )
+
+    async def get_primary_host(self, tenant_id: UUID) -> str | None:
+        return self.primary_host
 
 
 @pytest.mark.asyncio
@@ -140,6 +144,15 @@ def test_preview_token_rejects_tampering() -> None:
 def test_preview_token_rejects_wrong_shape() -> None:
     with pytest.raises(AppError):
         PageService.verify_preview_token("not-a-token")
+
+
+@pytest.mark.asyncio
+async def test_primary_host_delegate_tenant_domains() -> None:
+    repository = FakePageRepository()
+    service = PageService(repository)  # type: ignore[arg-type]
+    assert await service.get_primary_host(repository.version.tenant_id) == repository.primary_host
+    repository.primary_host = None
+    assert await service.get_primary_host(repository.version.tenant_id) is None
 
 def _layout() -> PageLayout:
     return PageLayout(

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { BlockRenderer } from "@/components/blocks";
 import { parseLayoutBlocks } from "@/lib/blocks";
+import { setPreviewHost } from "@/lib/preview-host";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -11,7 +12,15 @@ export const metadata: Metadata = {
 
 const API_URL = (process.env.GROWUP_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 
-async function loadPreview(token: string) {
+type PreviewPayload = {
+  slug: string;
+  title: string;
+  /** Host primario del tenant dueño del token; opcional en respuestas viejas. */
+  host?: string | null;
+  layout: unknown;
+};
+
+async function loadPreview(token: string): Promise<PreviewPayload | null> {
   const response = await fetch(
     `${API_URL}/v1/storefront/pages/preview?token=${encodeURIComponent(token)}`,
     { cache: "no-store", headers: { Accept: "application/json" } },
@@ -19,11 +28,7 @@ async function loadPreview(token: string) {
   if (!response.ok) {
     return null;
   }
-  return (await response.json()) as {
-    slug: string;
-    title: string;
-    layout: unknown;
-  };
+  return (await response.json()) as PreviewPayload;
 }
 
 export default async function PreviewPage({
@@ -53,6 +58,11 @@ export default async function PreviewPage({
       </main>
     );
   }
+
+  // Fijo el host del tenant dueño del token ANTES de renderizar los bloques:
+  // bootstrap ya no aplica aquí (layout bare), pero helpers como
+  // getStorefrontHost/listProducts lo leen para ProductGrid y compañía.
+  setPreviewHost(page.host ?? null);
 
   return (
     <main>

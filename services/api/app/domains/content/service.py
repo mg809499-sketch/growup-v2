@@ -31,6 +31,9 @@ class PageService:
             raise AppError("PAGE_NOT_FOUND", "Página no encontrada", 404)
         return page
 
+    async def get_primary_host(self, tenant_id: UUID) -> str | None:
+        return await self._repository.get_primary_host(tenant_id)
+
     async def create_page(self, tenant_id: UUID, *, slug: str, title: str) -> Page:
         existing = await self._repository.get_page_by_slug(tenant_id, slug)
         if existing is not None:
